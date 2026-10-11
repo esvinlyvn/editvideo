@@ -4,6 +4,8 @@ Repo dựng video ngắn dọc 1080×1920 bằng HyperFrames (HTML + GSAP → MP
 Mỗi post nằm trong `projects/post-N/`, gồm `voice.wav`, `script.txt`, `transcript.json`, `template.html`, `sfx.json` và `build.mjs`.
 Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/output.mp4`.
 
+Xem **`NOTES.md`** để biết phong cách series, cấu trúc repo, cách render, bộ font và màu đã dùng, và lịch sử post 5–10.
+
 **Mỗi post phải tốt hơn post trước.** Không lặp lại concept, bố cục hay màu của post cũ. Mỗi post cần một ý tưởng hình ảnh xuyên suốt riêng.
 
 ## 1. Ngôn ngữ: giọng người miền Nam
