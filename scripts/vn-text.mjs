@@ -17,7 +17,8 @@ hoàn thành|lập tức|chủ đầu tư|căn hộ|dự án|mở bán|thiết y
 nhớ đi nhớ lại|lời từ chối|trường hợp|người khác|mấy giờ|9 giờ|8 giờ|một chút|chút xíu|vấn đề|thực sự|tất nhiên|không phải|đi được|
 thử nghiệm|tài khoản|chuyển khoản|chuyển lộn|ngân hàng|lừa đảo|ngược đời|đòi nợ|con nợ|tiền lãi|ứng dụng|kiểm tra|giữ nguyên|chính thức|
 hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu|
-lời hứa|làm được|trả góp|thành công|lì xì|du lịch|lành mạnh|chạy bộ|trưng bày|cuối tuần|ba má|bạn cũ|thất bại|lớn lao|cơm nhà|để dành|giật mình|nghỉ học|đồ mới|thăm nhà|trôi qua`
+lời hứa|làm được|trả góp|thành công|lì xì|du lịch|lành mạnh|chạy bộ|trưng bày|cuối tuần|ba má|bạn cũ|thất bại|lớn lao|cơm nhà|để dành|giật mình|nghỉ học|đồ mới|thăm nhà|trôi qua|
+dòng họ|bà con dòng họ|một ngàn người|theo dõi|hợp gu|liên kết|sao chép|bình luận|người yêu|tập hợp|luật chơi|có mặt`
     .split("|")
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean),

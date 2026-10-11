@@ -125,9 +125,10 @@ node projects/post-11/build.mjs
 | 9 | Baloo 2 | Hồng phấn `#fff0f3` | Đỏ hồng `#e8335a` | |
 | 10 | Space Grotesk | Giấy kraft `#f4ede1` | Xanh ngọc `#0fa3a3` | |
 | 11 | Playfair Display (serif) | Đỏ son `#7a1317` → nâu đêm `#2a1112` → đỏ | Vàng kim `#f5c242` | Giấy lịch kem, số đỏ |
+| 12 | Bungee (chữ bảng hiệu) | Xanh đêm `#0f2a22` | Xanh chanh `#c8f03c` | Bạt sọc chanh/kem, dây đèn |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
-- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, be-vietnam-pro.
+- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, be-vietnam-pro.
 - Phụ đề: chữ trắng 44px, Be Vietnam Pro 600, nền tối bán trong suốt bo góc kèm đổ bóng, khung trái 108px phải 150px.
 
 ### Âm thanh
@@ -193,6 +194,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **9** | Xóa app ≠ hủy gói đăng ký | **App là người yêu cũ**: ảnh đôi bị xé, quyết định cấp dưỡng, "ứng dụng cũ" | Hướng dẫn hủy gói trên iPhone và Android từng bước; Sáu vẽ theo avatar; SFX có phiên bản theo cảnh | 98,0s · 68 |
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
 | **11** | Còn chưa tới 4 tháng là Tết: đừng để bữa khác | **Cuốn lịch xé (lịch bloc)**: mở đầu xé tới Mùng 1 Tết 6/2/2027, mỗi tờ ghi "còn N ngày"; cảnh kết dán note "thôi, để bữa khác." rồi xé tiếp | Nền đổi màu theo cảm xúc (đỏ → nâu đêm → đỏ); lịch hẹn bị dời xuống hàng "Bữa khác"; ghế trống ở bàn cơm; `FORCE`/`KEEP` chỉnh ngắt phụ đề tay | 97,8s · 79 |
+| **12** | Chợ flo: 5 bước để tăng flo (kịch bản cố ý viết "flo" thay "follow" → mọi chữ trên hình dùng "flo") | **Chợ đêm "CHỢ FLO"**: cổng chợ có dây đèn, dãy 5 sạp mái bạt sọc, camera lia ngang từng sạp theo từng bước | Vé vô chợ, thả tim, gửi liên kết bằng máy bay giấy, đăng lại kéo người vô, gõ bình luận "CÓ MẶT! 37 flo!"; bảng chỉ đường "HỔNG CÓ BÁN" người yêu; cảnh kết gọi lại cổng chợ | 61,1s · 57 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 
