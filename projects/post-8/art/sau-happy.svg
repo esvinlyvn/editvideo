@@ -1,0 +1,11 @@
+<svg width="500" height="560" viewBox="0 0 300 340" fill="none">
+  <path d="M60 340c4-70 40-110 90-110s86 40 90 110z" fill="#ff7a1a"/>
+  <path d="M128 232l22 26 22-26" fill="#fbf6ea"/>
+  <g class="hand"><path d="M236 250c10-30 22-60 30-86" stroke="#f1c6a0" stroke-width="26" stroke-linecap="round"/><circle cx="268" cy="150" r="22" fill="#f1c6a0"/></g>
+  <circle cx="150" cy="140" r="86" fill="#f1c6a0"/>
+  <path d="M66 128c0-56 40-84 86-84s84 26 84 80c-14-24-40-36-62-34-10-14-34-22-58-14-22 8-40 26-50 52z" fill="#1b1b1b"/>
+  <circle cx="120" cy="146" r="9" fill="#1b1b1b"/><circle cx="182" cy="146" r="9" fill="#1b1b1b"/>
+  <path d="M106 124l26-4M170 120l26 4" stroke="#1b1b1b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M118 182c18 20 48 20 66 0" stroke="#1b1b1b" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="98" cy="172" r="12" fill="#ff9a7a" opacity=".55"/><circle cx="204" cy="172" r="12" fill="#ff9a7a" opacity=".55"/>
+</svg>

@@ -22,6 +22,8 @@ Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/out
 - **Không để chữ lẻ cuối dòng hay đầu dòng:** "tháng?", "lời!", "nộp" đứng một mình là sai.
 - **Ưu tiên ngắt ở dấu câu, hoặc ngay trước từ nối** (và, là, mà, của, để, nhưng, khi, thì, với…). Không ngắt ngay sau từ nối ("là một bài để | người ta giải" là sai, phải là "là một bài toán | để người ta giải").
 - **Phụ đề:** dùng `scripts/vn-text.mjs` (`breakLines`) để tự chọn chỗ xuống dòng. Bổ sung từ ghép mới vào từ điển `COMPOUNDS` khi gặp.
+- **Dòng đã chia bằng tay phải khóa `white-space: nowrap`** (`.h .blk { white-space: nowrap }`) và chỉnh cỡ chữ cho vừa khung 864px. Nếu không, trình duyệt sẽ ngắt thêm lần nữa (post 8 từng bị "thử | nghiệm", "của | mình").
+- **Phụ đề không được có chữ lẻ:** 1–2 chữ cuối câu phải gộp vào cụm trước ("reo.", "cha!" đứng riêng là sai). Riêng câu cảm thán hay số thứ tự được đọc tách riêng ("Ủa?", "Một,") thì giữ nguyên.
 - **Sau khi render, xem lại snapshot** của mọi khung có chữ 2 dòng và đọc to từng dòng để kiểm tra có gây hiểu lầm không.
 
 ## 3. Chữ (typography)
@@ -36,6 +38,7 @@ Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/out
 
 - Mỗi ý trong voice cần một **đối tượng minh họa cụ thể** (đồ vật, giao diện, biểu đồ, giấy tờ, icon…), không chỉ là chữ. Tự hỏi: "câu này vẽ được thành cái gì?"
 - Ưu tiên ẩn dụ xuyên suốt cả video và gọi lại hình ảnh mở đầu ở cảnh kết.
+- Khi voice có người dẫn chuyện xưng tên (ví dụ "tao là Sáu"), vẽ **nhân vật dẫn chuyện** bằng SVG, có nhiều biểu cảm (xem `projects/post-8/art/`), và cho nhân vật phản ứng theo nội dung.
 - Bố cục phải đổi nhịp khoảng 3–5 giây một lần: thẻ, chia đôi, toàn màn, giao diện chat/điện thoại…
 - Nội dung minh họa tự bịa (ví dụ tin nhắn, việc cần làm) phải hợp ngữ cảnh, viết bằng giọng miền Nam, và **báo lại cho người dùng** khi giao video.
 

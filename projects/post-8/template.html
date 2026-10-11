@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Chuyển lộn</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "ứng dụng ngân hàng ban đêm" =====
+         2 font: Montserrat (tiêu đề, con số) · Be Vietnam Pro (phụ đề, giao diện, chữ phụ)
+         Nền xanh đêm, thẻ xanh xám; chữ kem; 1 màu nhấn: cam cảnh báo
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Montserrat", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #0d1321;
+        --card: #18213a;
+        --card2: #222c48;
+        --line: rgba(244, 241, 234, 0.1);
+        --text: #f4f1ea;
+        --muted: rgba(244, 241, 234, 0.62);
+        --acc: #ff7a1a;
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--text); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #glow { position: absolute; inset: 0; background: radial-gradient(70% 45% at 50% 30%, rgba(255,122,26,.10), transparent 70%); }
+      #grid { position: absolute; inset: 0; opacity: .5; background-image: radial-gradient(rgba(244,241,234,.08) 2px, transparent 2px); background-size: 54px 54px; }
+      #flash { position: absolute; inset: 0; background: var(--acc); opacity: 0; }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+      .lab { font-family: var(--body); font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .blk { display: block; }
+      /* dòng đã chia theo nghĩa thì KHÔNG cho trình duyệt ngắt thêm */
+      .h .blk, .ln .blk, #reply .q span, .stp .h .blk { white-space: nowrap; }
+      .card { background: var(--card); border: 2px solid var(--line); border-radius: 34px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+      .ico { display: inline-flex; align-items: center; justify-content: center; }
+      .xmark { position: absolute; inset: 0; pointer-events: none; }
+      .xmark i { position: absolute; left: -4%; right: -4%; top: 50%; height: 12px; margin-top: -6px; border-radius: 6px; background: var(--acc); transform-origin: 50% 50%; }
+
+      /* S1 điện thoại */
+      #sb { top: 200px; display: flex; justify-content: space-between; font-weight: 700; font-size: 30px; color: var(--muted); }
+      #noti { top: 290px; padding: 30px 34px; display: flex; gap: 24px; align-items: center; }
+      .bank { flex: 0 0 96px; height: 96px; border-radius: 26px; background: var(--acc); display: flex; align-items: center; justify-content: center; }
+      .n-t { font-weight: 600; font-size: 30px; color: var(--muted); }
+      .n-v { font-family: var(--disp); font-weight: 800; font-size: 66px; color: var(--acc); line-height: 1.1; }
+      .n-s { font-weight: 500; font-size: 30px; color: var(--muted); }
+      #food { top: 660px; display: flex; justify-content: center; align-items: center; gap: 46px; }
+      .fd { width: 270px; padding: 30px 0 26px; text-align: center; }
+      .fd .t { font-family: var(--disp); font-weight: 800; font-size: 46px; margin-top: 10px; }
+      #food .or { font-family: var(--disp); font-weight: 800; font-size: 52px; color: var(--muted); }
+      #call { position: absolute; inset: 0; background: linear-gradient(180deg, #121a2e 0%, #0d1321 100%); }
+      #call-top { top: 300px; text-align: center; }
+      .ava { width: 200px; height: 200px; border-radius: 50%; margin: 0 auto; background: var(--card2); display: flex; align-items: center; justify-content: center; }
+      .c-name { font-family: var(--disp); font-weight: 800; font-size: 64px; margin-top: 30px; }
+      .c-sub { font-weight: 600; font-size: 34px; color: var(--muted); margin-top: 8px; }
+      #ring { position: absolute; left: 50%; top: 300px; width: 200px; height: 200px; margin-left: -100px; border-radius: 50%; border: 6px solid var(--acc); }
+      #wave { top: 690px; display: flex; justify-content: center; align-items: center; gap: 10px; height: 90px; }
+      #wave i { display: block; width: 12px; height: 80px; border-radius: 6px; background: var(--acc); transform-origin: 50% 50%; }
+      .lines { position: absolute; left: 108px; right: 108px; top: 830px; display: flex; flex-direction: column; gap: 20px; }
+      .ln { align-self: flex-start; max-width: 780px; padding: 22px 30px; border-radius: 30px 30px 30px 10px; background: var(--card2); font-weight: 600; font-size: 42px; line-height: 1.3; }
+      #stk { align-self: flex-start; display: flex; gap: 20px; align-items: center; padding: 20px 28px; border-radius: 22px; border: 3px dashed var(--acc); font-family: var(--disp); font-weight: 700; font-size: 36px; }
+
+      /* S3 cảnh báo */
+      #s3-a { top: 300px; font-size: 76px; }
+      #heart-wrap { position: absolute; left: 340px; top: 560px; width: 400px; height: 520px; }
+      #s3-b { top: 1160px; font-size: 52px; }
+      #warn { position: absolute; left: -40px; right: -40px; top: 230px; height: 110px; transform: rotate(-4deg);
+        background: repeating-linear-gradient(-45deg, var(--acc) 0 40px, #0d1321 40px 80px); display: flex; align-items: center; justify-content: center; }
+      #warn span { background: var(--bg); padding: 8px 30px; font-family: var(--disp); font-weight: 800; font-size: 54px; letter-spacing: .12em; color: var(--acc); }
+
+      /* S4 Sáu */
+      #sau-wrap { position: absolute; left: 290px; top: 470px; width: 500px; height: 560px; }
+      #s4-t { top: 1080px; font-size: 92px; }
+      #s4-tag { position: absolute; left: 590px; top: 470px; padding: 12px 26px; border-radius: 18px; background: var(--acc); color: #111; font-family: var(--disp); font-weight: 800; font-size: 44px; transform: rotate(8deg); }
+
+      /* S5 dòng tiền ngược */
+      #s5-h { top: 260px; font-size: 70px; }
+      .flow { position: absolute; left: 108px; right: 108px; display: flex; align-items: center; justify-content: space-between; }
+      .who { width: 250px; text-align: center; }
+      .who .ava { width: 150px; height: 150px; }
+      .who .t { font-weight: 700; font-size: 36px; margin-top: 14px; }
+      .arr { flex: 1; position: relative; height: 10px; margin: 0 20px 50px; border-radius: 5px; background: var(--muted); transform-origin: 0 50%; }
+      .arr::after { content: ""; position: absolute; right: -6px; top: -15px; border-left: 30px solid var(--muted); border-top: 20px solid transparent; border-bottom: 20px solid transparent; }
+      .arr.acc { background: var(--acc); } .arr.acc::after { border-left-color: var(--acc); }
+      .arr.rev { transform-origin: 100% 50%; } .arr.rev::after { right: auto; left: -6px; border-left: 0; border-right: 30px solid var(--acc); }
+      .arr b { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); white-space: nowrap; font-family: var(--disp); font-weight: 800; font-size: 34px; }
+      .tag-l { position: absolute; left: 108px; font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+      #fl1 { top: 470px; } #fl2 { top: 830px; } #fl3 { top: 1190px; }
+
+      /* S6 đòi nợ */
+      #debt { position: absolute; left: 170px; right: 170px; top: 300px; padding: 46px 54px; border-radius: 18px; background: #fbf6ea; color: #1b1b1b; transform: rotate(-2deg); }
+      .d-h { font-family: var(--disp); font-weight: 800; font-size: 50px; text-align: center; letter-spacing: .04em; }
+      .d-r { display: flex; justify-content: space-between; margin-top: 26px; font-weight: 600; font-size: 36px; }
+      .d-r b { font-family: var(--disp); font-weight: 800; }
+      .d-sep { border-top: 3px dashed rgba(0,0,0,.25); margin-top: 26px; }
+      #ua { top: 860px; font-size: 150px; }
+      #sau2-wrap { position: absolute; left: 330px; top: 900px; width: 420px; height: 470px; }
+      #no-tag { position: absolute; left: 600px; top: 960px; padding: 12px 24px; border-radius: 14px; background: var(--acc); color: #111; font-family: var(--disp); font-weight: 800; font-size: 46px; transform: rotate(-10deg); }
+
+      /* S7 3 chuyện */
+      #s7-q { top: 330px; font-size: 80px; }
+      #s7-n { top: 900px; display: flex; justify-content: center; gap: 36px; }
+      .tile { width: 210px; height: 210px; border-radius: 40px; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 800; font-size: 120px; color: var(--acc); }
+      #s7-e { top: 700px; font-size: 64px; }
+
+      /* S8 3 bước */
+      #rail { top: 220px; display: flex; gap: 16px; justify-content: center; }
+      .pill { padding: 14px 28px; border-radius: 999px; background: var(--card); border: 2px solid var(--line); font-weight: 700; font-size: 30px; color: var(--muted); }
+      .stp { position: absolute; left: 108px; right: 108px; top: 360px; }
+      .stp .h { font-size: 66px; margin-top: 14px; }
+      .app { margin-top: 44px; padding: 34px 38px; }
+      .tx { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid var(--line); font-weight: 600; font-size: 34px; }
+      .tx b { font-family: var(--disp); font-weight: 800; font-size: 44px; }
+      .ok { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 999px; background: rgba(255,122,26,.16); color: var(--acc); font-weight: 700; font-size: 28px; }
+      .shot { position: relative; margin-top: 30px; padding: 28px 34px; border-radius: 24px; border: 3px dashed var(--muted); color: var(--muted); font-weight: 600; font-size: 34px; display: flex; gap: 20px; align-items: center; }
+      .bal { margin-top: 44px; padding: 44px 40px; display: flex; align-items: center; justify-content: space-between; }
+      .bal .v { font-family: var(--disp); font-weight: 800; font-size: 96px; }
+      .nos { display: flex; gap: 26px; margin-top: 30px; }
+      .no { position: relative; flex: 1; padding: 30px 20px; text-align: center; font-weight: 700; font-size: 36px; }
+      .hot { margin-top: 44px; padding: 36px 40px; display: flex; gap: 26px; align-items: center; }
+      .hot .t { font-family: var(--disp); font-weight: 800; font-size: 52px; }
+      .hot .s { font-weight: 600; font-size: 30px; color: var(--muted); margin-top: 6px; }
+      .route { margin-top: 34px; display: flex; align-items: center; gap: 18px; font-weight: 700; font-size: 34px; }
+      .route span { padding: 18px 26px; border-radius: 22px; background: var(--card2); }
+      .route i { font-style: normal; color: var(--acc); font-family: var(--disp); font-weight: 800; font-size: 44px; }
+
+      /* S9 câu trả lời mẫu */
+      #s9-l { top: 300px; }
+      #reply { top: 400px; padding: 50px 50px 56px; }
+      #reply .q { font-family: var(--disp); font-weight: 800; font-size: 50px; line-height: 1.25; }
+      #reply .q span { display: block; }
+      #s9-call { top: 1060px; display: flex; align-items: center; gap: 24px; padding: 24px 32px; }
+
+      /* S10 OTP & link */
+      #s10-h { top: 270px; font-size: 76px; }
+      #otp { top: 470px; padding: 40px; text-align: center; }
+      .boxes { display: flex; justify-content: center; gap: 18px; margin-top: 22px; }
+      .boxes i { display: flex; align-items: center; justify-content: center; width: 96px; height: 120px; border-radius: 20px; background: var(--card2); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 64px; }
+      #link { top: 960px; padding: 34px 40px; display: flex; gap: 22px; align-items: center; font-weight: 700; font-size: 40px; }
+      #link u { text-decoration-color: var(--acc); text-decoration-thickness: 4px; color: var(--muted); }
+
+      /* S11 kết */
+      #s11-a { top: 280px; font-size: 54px; }
+      #s11-b { top: 480px; font-size: 54px; }
+      .times { position: absolute; left: 108px; right: 108px; top: 860px; display: flex; gap: 30px; }
+      .tm { position: relative; flex: 1; padding: 40px 30px; text-align: center; }
+      .tm .k { font-weight: 700; font-size: 32px; color: var(--muted); }
+      .tm .v { font-family: var(--disp); font-weight: 800; font-size: 100px; margin-top: 6px; }
+      .tm .s { font-weight: 600; font-size: 30px; color: var(--muted); margin-top: 6px; }
+      #stamp2 { position: absolute; right: 120px; top: 1180px; padding: 14px 30px 20px; border: 8px solid var(--acc); border-radius: 22px; color: var(--acc);
+        font-family: var(--disp); font-weight: 800; font-size: 64px; transform: rotate(-10deg); background: rgba(13,19,33,.85); }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.66); text-shadow: 0 2px 6px rgba(0,0,0,.5); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post8" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="glow"></div><div id="grid"></div>
+
+      <!-- S1 · 5 củ bay vô + cuộc gọi -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="12.6" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe" id="sb"><span>21:47</span><span>4G · 82%</span></div>
+        <div class="safe card" id="noti">
+          <div class="bank"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linejoin="round"><path d="M3 9.5L12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></div>
+          <div><div class="n-t">Ngân hàng · Biến động số dư</div><div class="n-v" id="n-v">+0đ</div><div class="n-s">Nội dung: CK nham</div></div>
+        </div>
+        <div class="safe" id="food">
+          <div class="fd card" id="fd1"><svg width="110" height="90" viewBox="0 0 48 40" fill="none" stroke="#ff7a1a" stroke-width="2.6" stroke-linecap="round"><path d="M6 16h36v6a14 14 0 0 1-14 14h-8A14 14 0 0 1 6 22z"/><path d="M2 18h4M42 18h4M16 10c0-3 3-3 3-6M24 10c0-3 3-3 3-6M32 10c0-3 3-3 3-6"/></svg><div class="t">Lẩu</div></div>
+          <div class="or">hay</div>
+          <div class="fd card" id="fd2"><svg width="110" height="90" viewBox="0 0 48 40" fill="none" stroke="#ff7a1a" stroke-width="2.6" stroke-linecap="round"><path d="M6 18h36M8 18l4 18M40 18l-4 18M12 24h24M12 30h24"/><path d="M16 12c0-3 3-3 3-6M24 12c0-3 3-3 3-6M32 12c0-3 3-3 3-6"/></svg><div class="t">Nướng</div></div>
+        </div>
+        <div id="call">
+          <div id="ring"></div>
+          <div class="safe" id="call-top">
+            <div class="ava"><svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#f4f1ea" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg></div>
+            <div class="c-name">Số lạ</div>
+            <div class="c-sub" style="position:relative;height:48px"><span id="c-sub1" style="position:absolute;left:0;right:0">09x · xxx · 386 đang gọi…</span><span id="c-sub2" style="position:absolute;left:0;right:0">00:01 · đang nghe</span></div>
+          </div>
+          <div class="safe" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="lines">
+            <div class="ln" id="l1">Anh ơi!</div>
+            <div class="ln" id="l2"><span class="blk">Em chuyển lộn 5 củ</span><span class="blk">qua tài khoản anh.</span></div>
+            <div class="ln" id="l3"><span class="blk">Anh chuyển lại giùm em</span><span class="blk">qua số này nha,</span><span class="blk">em đang cần gấp lắm!</span></div>
+            <div id="stk"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff7a1a" stroke-width="2.2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>STK lạ: 0912 777 xxx</div>
+          </div>
+        </div>
+      </div></div>
+
+      <!-- S3 · Lòng tốt bị đem ra thử nghiệm -->
+      <div class="clip scene" id="s3" data-start="12.3" data-duration="6.15" data-track-index="1"><div class="in" id="s3-in">
+        <div id="warn"><span>Ê KHOAN!</span></div>
+        <div class="safe h c" id="s3-a">Nghe tội nghiệp quá ha!</div>
+        <div id="heart-wrap">
+          <svg id="flask" width="400" height="520" viewBox="0 0 100 130" fill="none">
+            <path d="M38 6h24M42 6v38L14 108a10 10 0 0 0 9 16h54a10 10 0 0 0 9-16L58 44V6" stroke="#f4f1ea" stroke-width="3" stroke-linejoin="round"/>
+            <path id="liquid" d="M24 96h52l8 14a6 6 0 0 1-5 9H21a6 6 0 0 1-5-9z" fill="rgba(255,122,26,.25)"/>
+          </svg>
+          <svg id="heart" style="position:absolute;left:120px;top:250px" width="160" height="150" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#ff7a1a"/></svg>
+        </div>
+        <div class="safe h c" id="s3-b"><span class="blk">Lòng tốt của mày</span><span class="blk a">đang bị đem ra thử nghiệm</span></div>
+      </div></div>
+
+      <!-- S4 · Sáu chào -->
+      <div class="clip scene" id="s4" data-start="18.3" data-duration="2.7" data-track-index="1"><div class="in" id="s4-in">
+        <div id="sau-wrap">{{SAU_HAPPY}}</div>
+        <div id="s4-tag">Sáu đây!</div>
+        <div class="safe h c" id="s4-t">Chào mấy mày!</div>
+      </div></div>
+
+      <!-- S5 · Chiêu lừa ngược đời -->
+      <div class="clip scene" id="s5" data-start="20.85" data-duration="10.1" data-track-index="1"><div class="in" id="s5-in">
+        <div class="safe h c" id="s5-h">Chiêu lừa <span class="a">ngược đời</span></div>
+        <div class="tag-l" style="top:420px" id="t1">Bình thường</div>
+        <div class="flow" id="fl1">
+          <div class="who"><div class="ava">{{ICON_YOU}}</div><div class="t">Mày</div></div>
+          <div class="arr" id="a1"><b>tiền</b></div>
+          <div class="who"><div class="ava">{{ICON_SCAM}}</div><div class="t">Tụi lừa đảo</div></div>
+        </div>
+        <div class="tag-l" style="top:780px;color:var(--acc)" id="t2">Kiểu này</div>
+        <div class="flow" id="fl2">
+          <div class="who"><div class="ava">{{ICON_YOU}}</div><div class="t">Mày</div></div>
+          <div class="arr acc rev" id="a2"><b class="a">5 củ</b></div>
+          <div class="who"><div class="ava">{{ICON_SCAM}}</div><div class="t">Tụi nó</div></div>
+        </div>
+        <div class="tag-l" style="top:1140px" id="t3">Rồi gọi hối trả qua</div>
+        <div class="flow" id="fl3">
+          <div class="who"><div class="ava">{{ICON_YOU}}</div><div class="t">Mày</div></div>
+          <div class="arr acc" id="a3"><b class="a">5 củ</b></div>
+          <div class="who"><div class="ava" style="border:4px dashed #ff7a1a">{{ICON_CARD}}</div><div class="t">Tài khoản khác</div></div>
+        </div>
+      </div></div>
+
+      <!-- S6 · Giả đòi nợ → thành con nợ -->
+      <div class="clip scene" id="s6" data-start="30.9" data-duration="6.95" data-track-index="1"><div class="in" id="s6-in">
+        <div id="debt">
+          <div class="d-h">GIẤY ĐÒI NỢ</div>
+          <div class="d-r"><span>Tiền gốc</span><b>5.000.000đ</b></div>
+          <div class="d-r"><span>Tiền lãi</span><b id="lai">+0đ</b></div>
+          <div class="d-sep"></div>
+          <div class="d-r"><span>Phải trả</span><b id="tong">5.000.000đ</b></div>
+        </div>
+        <div class="safe h c" id="ua">Ủa?</div>
+        <div id="sau2-wrap">{{SAU_SHOCK}}</div>
+        <div id="no-tag">CON NỢ</div>
+      </div></div>
+
+      <!-- S7 · Chuyển lộn thiệt thì sao? -->
+      <div class="clip scene" id="s7" data-start="37.75" data-duration="4.8" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe h c" id="s7-q"><span class="blk">Lỡ người ta</span><span class="blk a">chuyển lộn thiệt?</span></div>
+        <div class="safe h c" id="s7-e">Dễ lắm! Nhớ 3 chuyện</div>
+        <div class="safe" id="s7-n"><div class="tile card">1</div><div class="tile card">2</div><div class="tile card">3</div></div>
+      </div></div>
+
+      <!-- S8 · 3 bước -->
+      <div class="clip scene" id="s8" data-start="42.45" data-duration="15.5" data-track-index="1"><div class="in" id="s8-in">
+        <div class="safe" id="rail"><div class="pill" id="p1">1 · Kiểm tra</div><div class="pill" id="p2">2 · Giữ nguyên</div><div class="pill" id="p3">3 · Gọi ngân hàng</div></div>
+        <div class="stp" id="st1">
+          <div class="lab">Chuyện 1</div>
+          <div class="h"><span class="blk">Mở app ngân hàng</span><span class="blk">coi tiền vô thiệt chưa</span></div>
+          <div class="app card" id="st1-app">
+            <div class="tx"><span>Hôm nay · 21:46</span><b class="a">+5.000.000đ</b></div>
+            <div class="tx" style="border:0"><span>Trạng thái</span><span class="ok" id="st1-ok">✓ Đã vô tài khoản</span></div>
+          </div>
+          <div class="shot" id="st1-shot"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 18l3-3 2 2 3-3 2 2"/></svg>Hình chụp chuyển khoản<div class="xmark"><i id="st1-x" style="transform:rotate(-6deg)"></i></div></div>
+        </div>
+        <div class="stp" id="st2">
+          <div class="lab">Chuyện 2</div>
+          <div class="h"><span class="blk">Giữ nguyên</span><span class="blk">số tiền đó</span></div>
+          <div class="bal card" id="st2-bal"><div class="v">5.000.000đ</div><svg id="lock" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#ff7a1a" stroke-width="2.2"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+          <div class="nos">
+            <div class="no card" id="no1">Đừng xài<div class="xmark"><i id="nx1" style="transform:rotate(-14deg)"></i></div></div>
+            <div class="no card" id="no2">Đừng tự chuyển<div class="xmark"><i id="nx2" style="transform:rotate(-14deg)"></i></div></div>
+          </div>
+        </div>
+        <div class="stp" id="st3">
+          <div class="lab">Chuyện 3</div>
+          <div class="h"><span class="blk">Chủ động gọi</span><span class="blk">ngân hàng</span></div>
+          <div class="hot card" id="st3-hot"><div class="bank"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><div class="t">Tổng đài chính thức</div><div class="s">Số in sau thẻ / trên web ngân hàng</div></div></div>
+          <div class="route" id="st3-r"><span>Ngân hàng kiểm tra</span><i>→</i><span>Trả đúng người</span></div>
+        </div>
+      </div></div>
+
+      <!-- S9 · Câu trả lời mẫu -->
+      <div class="clip scene" id="s9" data-start="57.95" data-duration="4.95" data-track-index="1"><div class="in" id="s9-in">
+        <div class="safe lab c" id="s9-l">Ai gọi hối thì cứ nói</div>
+        <div class="safe card" id="reply"><div class="q">
+          <span id="r1">“Tui báo ngân hàng rồi,</span>
+          <span id="r2" class="a">bạn liên hệ ngân hàng</span>
+          <span id="r3" class="a">để được hỗ trợ nha!”</span>
+        </div></div>
+        <div class="safe card" id="s9-call"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#ff7a1a" stroke-width="2.2" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/><path d="M16 3l5 5M21 3l-5 5"/></svg><span style="font-weight:700;font-size:36px">Cúp máy, khỏi giải thích thêm</span></div>
+      </div></div>
+
+      <!-- S10 · OTP & link -->
+      <div class="clip scene" id="s10" data-start="62.85" data-duration="4.5" data-track-index="1"><div class="in" id="s10-in">
+        <div class="safe h c" id="s10-h">Và nhớ nha</div>
+        <div class="safe card" id="otp" style="position:absolute"><div class="lab">Mã OTP</div><div class="boxes"><i>4</i><i>8</i><i>2</i><i>9</i><i>1</i><i>6</i></div><div class="xmark"><i id="ox" style="transform:rotate(-10deg)"></i></div></div>
+        <div class="safe card" id="link"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#ff7a1a" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><u>nhan-lai-tien.xyz</u><div class="xmark"><i id="lx" style="transform:rotate(-6deg)"></i></div></div>
+      </div></div>
+
+      <!-- S11 · Kết -->
+      <div class="clip scene" id="s11" data-start="67.2" data-duration="{{S9_DUR}}" data-track-index="1"><div class="in" id="s11-in">
+        <div class="safe h c" id="s11-a"><span class="blk">Tiền không phải của mình</span><span class="blk">thì phải trả.</span></div>
+        <div class="safe h c" id="s11-b"><span class="blk">Nhưng trả sao cho đúng</span><span class="blk a">mới quan trọng!</span></div>
+        <div class="times">
+          <div class="tm card" id="tm1"><div class="k">Người ta</div><div class="v">Lần 1</div><div class="s">chuyển lộn</div></div>
+          <div class="tm card" id="tm2"><div class="k">Còn mày</div><div class="v a">Lần 2?</div><div class="s">đừng chuyển lộn tiếp</div></div>
+        </div>
+        <div id="stamp2">KHỎI!</div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      <div id="flash"></div>
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const xin = (sel, at) => tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.in" }, at);
+      const dot = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      const count = (sel, from, to, at, d, pre = "", suf = "đ") => {
+        const o = { v: from }, el = document.querySelector(sel);
+        tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate() { el.textContent = pre + dot(o.v) + suf; } }, at);
+      };
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.4, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const shake = (sel, at, n = 5, x = 12) => tl.fromTo(sel, { x: 0 }, { x, duration: 0.05, repeat: n, yoyo: true, ease: "none", immediateRender: false }, at);
+
+      // Chuyển cảnh: cảnh cũ thu nhỏ + mờ, cảnh mới phóng nhẹ vào (kiểu đổi màn hình điện thoại)
+      [[12.3, "#s1-in", "#s3-in"], [18.3, "#s3-in", "#s4-in"], [20.85, "#s4-in", "#s5-in"], [30.9, "#s5-in", "#s6-in"], [37.75, "#s6-in", "#s7-in"],
+       [42.45, "#s7-in", "#s8-in"], [57.95, "#s8-in", "#s9-in"], [62.85, "#s9-in", "#s10-in"], [67.2, "#s10-in", "#s11-in"]].forEach(([t, a, b]) => {
+        tl.to(a, { opacity: 0, scale: 0.92, duration: 0.3, ease: "power2.in" }, t);
+        tl.fromTo(b, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, t + 0.12);
+      });
+
+      // S1 · Thông báo +5 củ
+      tl.fromTo("#noti", { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)" }, 0.2);
+      count("#n-v", 0, 5000000, 0.7, 1.0, "+");
+      up("#sb", 0.1, 0.4, -10);
+      pop("#fd1", 3.1, 0.6); pop("#fd2", 3.9, 0.6); up("#food .or", 3.5, 0.3, 10);
+      tl.to("#fd1", { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, 4.4); tl.to("#fd2", { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1 }, 4.75);
+      // Cuộc gọi đến (điện thoại reo)
+      tl.fromTo("#call", { opacity: 0, y: 1920 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 5.1);
+      tl.fromTo("#ring", { scale: 1, opacity: 0.9 }, { scale: 1.7, opacity: 0, duration: 0.7, repeat: 1, ease: "power1.out" }, 5.3);
+      shake("#call-top .ava", 5.35, 9, 8);
+      tl.to("#c-sub1", { opacity: 0, duration: 0.1 }, 6.3);
+      tl.fromTo("#c-sub2", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 6.42);
+      // Sóng âm khi kẻ lừa nói (6.4 → 11.6)
+      document.querySelectorAll("#wave i").forEach((el, i) =>
+        tl.fromTo(el, { scaleY: 0.15 }, { scaleY: 0.35 + ((i * 37) % 60) / 100, duration: 0.22, repeat: 21, yoyo: true, ease: "sine.inOut" }, 6.4 + i * 0.03));
+      up("#l1", 6.42, 0.35, 20); up("#l2", 7.1, 0.35, 20); up("#l3", 9.2, 0.35, 20);
+      pop("#stk", 9.9, 0.7);
+
+      // S3 · Ê khoan! (chớp cam + băng cảnh báo + tim trong ống nghiệm)
+      up("#s3-a", 12.55);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.35, duration: 0.06, yoyo: true, repeat: 1 }, 14.1);
+      tl.fromTo("#warn", { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "back.out(1.6)" }, 14.12);
+      out("#s3-a", 14.1, 0.15);
+      tl.fromTo("#flask", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 15.2);
+      tl.fromTo("#heart", { opacity: 0, y: -380, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "bounce.out" }, 15.6);
+      tl.fromTo("#heart", { scale: 1 }, { scale: 1.12, duration: 0.3, repeat: 3, yoyo: true, ease: "sine.inOut", immediateRender: false }, 16.4);
+      up("#s3-b", 15.4);
+
+      // S4 · Sáu chào
+      tl.fromTo("#sau-wrap", { opacity: 0, y: 200, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, 18.45);
+      tl.fromTo("#sau-wrap .hand", { rotation: -10 }, { rotation: 18, duration: 0.18, repeat: 5, yoyo: true, ease: "sine.inOut", svgOrigin: "150 260" }, 18.7);
+      up("#s4-t", 18.6); stampIn("#s4-tag", 19.45, 8);
+
+      // S5 · Dòng tiền
+      up("#s5-h", 21.05);
+      up("#t1", 22.9, 0.3, 10); up("#fl1", 22.95, 0.45, 24); tl.fromTo("#a1", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 23.6);
+      tl.to(["#fl1", "#t1"], { opacity: 0.35, duration: 0.3 }, 25.2);
+      up("#t2", 25.3, 0.3, 10); up("#fl2", 25.32, 0.45, 24); tl.fromTo("#a2", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 26.0);
+      up("#t3", 28.6, 0.3, 10); up("#fl3", 28.67, 0.45, 24); tl.fromTo("#a3", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 29.3);
+      shake("#fl3 .who:last-child", 29.9, 5, 8);
+
+      // S6 · Giấy đòi nợ → Ủa? → Sáu sốc
+      tl.fromTo("#debt", { opacity: 0, y: 120, rotation: 4 }, { opacity: 1, y: 0, rotation: -2, duration: 0.55, ease: E }, 31.0);
+      count("#lai", 0, 1500000, 32.6, 1.1, "+");
+      count("#tong", 5000000, 6500000, 32.6, 1.1);
+      pop("#ua", 34.55, 0.5);
+      out("#ua", 35.15, 0.15);
+      tl.fromTo("#sau2-wrap", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 35.2);
+      stampIn("#no-tag", 36.3, -10);
+      shake("#sau2-wrap", 36.55, 5, 10);
+
+      // S7 · 3 chuyện
+      up("#s7-q", 37.95);
+      out("#s7-q", 40.05, 0.2);
+      pop("#s7-e", 40.2, 0.8);
+      tl.fromTo("#s7-n .tile", { opacity: 0, y: 60, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.15, ease: "back.out(2)" }, 40.9);
+
+      // S8 · 3 bước, rail sáng theo bước
+      const on = (p, at) => tl.to(p, { backgroundColor: "#ff7a1a", color: "#111111", duration: 0.25 }, at);
+      const off = (p, at) => tl.to(p, { backgroundColor: "#18213a", color: "rgba(244,241,234,0.62)", duration: 0.25 }, at);
+      up("#rail", 42.55, 0.35, -16);
+      on("#p1", 42.65); up("#st1", 42.7);
+      up("#st1-app", 43.4, 0.45, 30); pop("#st1-ok", 44.6, 0.6);
+      up("#st1-shot", 45.55, 0.35, 20); xin("#st1-x", 46.3);
+      tl.to("#st1", { opacity: 0, x: -80, duration: 0.3, ease: "power2.in" }, 47.4);
+      off("#p1", 47.65); on("#p2", 47.65);
+      tl.fromTo("#st2", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.4, ease: E }, 47.7);
+      up("#st2-bal", 48.4, 0.4, 24);
+      tl.fromTo("#lock", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "bounce.out" }, 48.9);
+      up("#no1", 49.6, 0.3, 20); xin("#nx1", 50.0);
+      up("#no2", 50.4, 0.3, 20); xin("#nx2", 51.3);
+      tl.to("#st2", { opacity: 0, x: -80, duration: 0.3, ease: "power2.in" }, 52.5);
+      off("#p2", 52.8); on("#p3", 52.8);
+      tl.fromTo("#st3", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.4, ease: E }, 52.85);
+      up("#st3-hot", 53.6, 0.4, 24);
+      shake("#st3-hot .bank", 54.1, 7, 6);
+      up("#st3-r", 55.4, 0.4, 20);
+      tl.fromTo("#st3-r span:last-child", { scale: 1 }, { scale: 1.08, duration: 0.25, yoyo: true, repeat: 1 }, 56.6);
+
+      // S9 · Câu trả lời mẫu
+      up("#s9-l", 58.25, 0.35, 14);
+      up("#reply", 59.0, 0.45, 30);
+      up("#r1", 59.7, 0.35, 16); up("#r2", 60.65, 0.35, 16); up("#r3", 61.3, 0.35, 16);
+      up("#s9-call", 62.1, 0.35, 20);
+
+      // S10 · OTP & link
+      up("#s10-h", 63.0);
+      up("#otp", 63.75, 0.4, 30); tl.fromTo("#otp .boxes i", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.15, stagger: 0.07 }, 63.9);
+      xin("#ox", 64.6);
+      up("#link", 65.3, 0.4, 30); xin("#lx", 65.9);
+
+      // S11 · Kết
+      up("#s11-a", 67.45); up("#s11-b", 69.4);
+      tl.to(["#s11-a", "#s11-b"], { opacity: 0.35, duration: 0.3 }, 71.5);
+      up("#tm1", 71.65, 0.45, 40); up("#tm2", 73.3, 0.45, 40);
+      stampIn("#stamp2", 75.3, -10);
+      shake("#tm2", 75.58, 5, 10);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post8"] = tl;
+    </script>
+  </body>
+</html>
