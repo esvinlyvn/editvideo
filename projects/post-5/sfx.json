@@ -1,0 +1,15 @@
+[
+  { "at": 1.35, "name": "pop", "vol": 0.7, "why": "\"rất nhỏ\" bật ra" },
+  { "at": 4.85, "name": "notify", "why": "tin nhắn đến" },
+  { "at": 7.55, "name": "tick", "vol": 0.6, "why": "đổi giờ: trưa" },
+  { "at": 11.5, "name": "oops", "vol": 0.7, "why": "\"Chết, chưa trả lời!\"" },
+  { "at": 15.45, "name": "whoosh-soft", "vol": 0.7, "why": "sang đêm, so sánh" },
+  { "at": 21.6, "name": "shimmer", "vol": 0.7, "why": "bình minh: có một cách" },
+  { "at": 26.4, "name": "scribble", "why": "gạch \"để lát nữa\"" },
+  { "at": 28.65, "name": "whoosh-soft", "vol": 0.6, "why": "vào 3 lựa chọn" },
+  { "at": 30.2, "name": "success", "vol": 0.6, "why": "làm luôn" },
+  { "at": 42.3, "name": "scribble", "why": "gạch \"hoàn thành mọi thứ\"" },
+  { "at": 46.75, "name": "whoosh-soft", "vol": 0.6, "why": "tối nay" },
+  { "at": 51.45, "name": "pop", "vol": 0.7, "why": "đặt lịch từng việc" },
+  { "at": 59.4, "name": "shimmer", "vol": 0.6, "why": "chấm nhỏ rời khỏi đầu" }
+]

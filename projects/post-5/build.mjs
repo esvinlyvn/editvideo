@@ -6,6 +6,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { sfxHtml } from "../../scripts/sfx-cues.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../..");
@@ -86,6 +87,7 @@ const html = fs
   .replace("{{FONTS}}", fonts)
   .replace("{{CAPTIONS}}", capHtml)
   .replaceAll("{{DURATION}}", String(DURATION))
+  .replace("{{SFX}}", fs.existsSync(path.join(HERE, "sfx.json")) ? sfxHtml(JSON.parse(fs.readFileSync(path.join(HERE, "sfx.json"), "utf8")), out) : "")
   .replace("{{VOICE_DUR}}", String(r2(VOICE_DUR)))
   .replace("{{S9_DUR}}", String(r2(DURATION - 55.2)));
 fs.writeFileSync(path.join(out, "index.html"), html);
