@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Việc nhỏ cứ lởn vởn trong đầu</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế =====
+         2 font: Nunito (chữ động, bo tròn – hợp lifestyle) · Be Vietnam Pro (phụ đề, chữ phụ)
+         1 màu chữ chính (ink / cream theo nền) + 1 màu nhấn (coral) cho từ khóa
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --display: "Nunito", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --ink: #1d1a16;
+        --cream: #f6f0e6;
+        --muted: rgba(29, 26, 22, 0.55);
+        --coral: #ff5a3c;
+        --card: #ffffff;
+      }
+      body { margin: 0; background: var(--cream); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      #sky { position: absolute; inset: 0; background: #f4eee4; }
+      #grain { position: absolute; inset: 0; opacity: 0.05;
+        background-image: radial-gradient(rgba(0,0,0,.6) 1px, transparent 1px); background-size: 6px 6px; }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .disp { font-family: var(--display); font-weight: 900; letter-spacing: -0.015em; line-height: 1.02; text-wrap: balance; }
+      .label { font-family: var(--body); font-weight: 600; font-size: 30px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--coral); }
+      .center { text-align: center; }
+      .coral { color: var(--coral); }
+      .blk { display: block; }
+      .card { background: var(--card); border-radius: 36px; box-shadow: 0 24px 60px rgba(29, 26, 22, 0.14); }
+
+      /* S1 hook */
+      #s1-top { top: 300px; }
+      #s1-l1 { font-size: 92px; }
+      #s1-l2 { font-size: 150px; margin-top: 6px; }
+      .head { position: absolute; left: 290px; top: 700px; width: 500px; height: 500px; border-radius: 50%; border: 8px solid var(--ink); box-sizing: border-box; }
+      .orbit { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; }
+      .dot { position: absolute; left: 50%; top: 0; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%; background: var(--coral); }
+      #s1-bot { top: 1250px; font-size: 64px; }
+
+      /* S2 một ngày */
+      #s2-chip { top: 300px; display: flex; justify-content: center; }
+      .chip { display: flex; align-items: center; gap: 20px; padding: 18px 34px 18px 22px; border-radius: 999px; background: var(--card);
+        box-shadow: 0 12px 30px rgba(29, 26, 22, 0.12); font-family: var(--display); font-weight: 800; font-size: 44px; }
+      .chip-t { position: relative; display: block; width: 300px; height: 56px; }
+      .chip-t span { position: absolute; left: 0; top: 0; white-space: nowrap; }
+      #s2-card { top: 520px; padding: 40px 44px; display: flex; gap: 32px; align-items: center; }
+      .avatar { flex: 0 0 120px; height: 120px; border-radius: 50%; background: #ffd9cf; display: flex; align-items: center; justify-content: center; }
+      .msg-name { font-family: var(--display); font-weight: 800; font-size: 44px; }
+      .msg-text { font-size: 36px; color: var(--muted); margin-top: 6px; }
+      .msg-meta { position: relative; height: 44px; margin-top: 14px; }
+      .msg-meta span { position: absolute; left: 0; top: 0; font-weight: 600; font-size: 30px; color: var(--coral); white-space: nowrap; }
+      .badge { position: absolute; right: -14px; top: -14px; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: #fff;
+        font-family: var(--display); font-weight: 900; font-size: 36px; display: flex; align-items: center; justify-content: center; }
+      #s2-think { top: 1010px; height: 340px; }
+      .think { position: absolute; left: 0; right: 0; top: 0; text-align: center; font-size: 96px; text-wrap: balance; }
+      .think small { display: block; font-family: var(--body); font-weight: 600; font-size: 36px; letter-spacing: 0.04em; margin-bottom: 18px; opacity: .7; }
+
+      /* S3 so sánh */
+      .night { color: var(--cream); }
+      #s3-head { top: 360px; font-size: 76px; }
+      .bar-row { position: absolute; left: 108px; right: 108px; }
+      .bar-lab { display: flex; justify-content: space-between; align-items: baseline; }
+      .bar-lab b { font-family: var(--display); font-weight: 800; font-size: 46px; }
+      .bar-lab em { font-style: normal; font-family: var(--display); font-weight: 900; font-size: 92px; }
+      .track { margin-top: 18px; height: 56px; border-radius: 28px; background: rgba(246, 240, 230, 0.14); overflow: hidden; }
+      .fill { display: block; height: 100%; border-radius: 28px; transform-origin: 0 50%; }
+      #s3-r1 { top: 640px; } #s3-r2 { top: 940px; }
+      #s3-r1 .fill { width: 4%; background: var(--coral); }
+      #s3-r2 .fill { width: 100%; background: var(--cream); }
+      #s3-foot { top: 1240px; font-size: 60px; }
+
+      /* S4 bước ngoặt */
+      .sun { position: absolute; left: 290px; top: 980px; width: 500px; height: 500px; border-radius: 50%; background: var(--coral); }
+      #s4-t { top: 430px; font-size: 120px; }
+
+      /* S5 thay vì */
+      #s5-a { top: 380px; }
+      .strike-wrap { position: relative; display: inline-block; white-space: nowrap; }
+      .strike { position: absolute; left: -12px; right: -12px; top: 52%; height: 14px; border-radius: 7px; background: var(--coral); transform-origin: 0 50%; }
+      #s5-old { font-size: 132px; color: var(--muted); }
+      #s5-b { top: 860px; }
+      #s5-new { font-size: 104px; }
+
+      /* S6 ba lựa chọn */
+      #s6-head { top: 250px; }
+      .opt { position: absolute; left: 108px; right: 108px; padding: 34px 40px; display: flex; gap: 34px; align-items: center; }
+      .ico { flex: 0 0 112px; height: 112px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+      .opt-c { font-weight: 600; font-size: 34px; color: var(--muted); }
+      .opt-a { font-family: var(--display); font-weight: 900; font-size: 64px; text-wrap: balance; line-height: 1.05; margin-top: 4px; }
+      #s6-o1 { top: 360px; } #s6-o2 { top: 640px; } #s6-o3 { top: 1080px; }
+      .remind { display: flex; align-items: center; gap: 16px; margin-top: 18px; padding: 14px 22px; border-radius: 18px; background: #fff1ec; }
+      .remind b { font-family: var(--display); font-weight: 900; font-size: 44px; color: var(--coral); }
+      .remind span { font-size: 32px; font-weight: 600; }
+
+      /* S7 nguyên tắc */
+      #s7-a { top: 340px; }
+      #s7-old { font-size: 62px; color: var(--muted); }
+      #s7-b { top: 780px; }
+      #s7-new { font-size: 104px; }
+
+      /* S8 hành động */
+      .phone { position: absolute; left: 230px; top: 330px; width: 620px; height: 1060px; border-radius: 64px; background: #0e1224; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+      .screen { position: absolute; inset: 18px; border-radius: 48px; background: var(--cream); overflow: hidden; padding: 60px 40px; box-sizing: border-box; color: var(--ink); }
+      .scr-h { font-family: var(--display); font-weight: 900; font-size: 64px; }
+      .scr-s { font-size: 28px; font-weight: 600; color: var(--muted); margin-top: 4px; }
+      .task { margin-top: 34px; padding: 28px 26px; border-radius: 26px; background: #fff; display: flex; gap: 22px; align-items: center; box-shadow: 0 8px 22px rgba(29,26,22,.08); }
+      .box { flex: 0 0 44px; height: 44px; border-radius: 12px; border: 4px solid rgba(29,26,22,.25); box-sizing: border-box; }
+      .task-t { flex: 1; font-weight: 600; font-size: 32px; line-height: 1.25; }
+      .when { flex: 0 0 auto; font-family: var(--display); font-weight: 900; font-size: 30px; color: #fff; background: var(--coral); padding: 8px 16px; border-radius: 12px; }
+
+      /* S9 kết */
+      #s9-top { top: 300px; }
+      #s9-l1 { font-size: 64px; }
+      #s9-l2 { font-size: 112px; margin-top: 8px; }
+      #s9-bot { top: 1250px; font-size: 60px; }
+
+      /* Phụ đề: nền tối bán trong suốt + đổ bóng, đọc rõ trên nền sáng lẫn tối */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(20, 18, 16, 0.78);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); text-wrap: balance; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post5" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="sky"></div>
+      <div id="grain"></div>
+
+      <!-- S1 · Hook -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="4.75" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe center" id="s1-top">
+          <div class="disp blk" id="s1-l1">Một việc</div>
+          <div class="disp blk coral" id="s1-l2">rất nhỏ</div>
+        </div>
+        <div class="head" id="s1-head"><div class="orbit" id="s1-orbit"><div class="dot"></div></div></div>
+        <div class="safe center disp" id="s1-bot">cứ lởn vởn cả ngày</div>
+      </div></div>
+
+      <!-- S2 · Một ngày -->
+      <div class="clip scene" id="s2" data-start="4.45" data-duration="11.35" data-track-index="1"><div class="in" id="s2-in">
+        <div class="safe" id="s2-chip"><div class="chip" id="s2-chipbox">
+          <svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="#1d1a16" stroke-width="5"/><g id="s2-hand"><line x1="28" y1="28" x2="28" y2="13" stroke="#ff5a3c" stroke-width="5" stroke-linecap="round"/></g><circle cx="28" cy="28" r="4" fill="#1d1a16"/></svg>
+          <div class="chip-t"><span id="t-sang">08:00 · Sáng</span><span id="t-trua">12:30 · Trưa</span><span id="t-chieu">15:00 · Chiều</span><span id="t-toi">23:00 · Tối</span></div>
+        </div></div>
+        <div class="safe card" id="s2-card">
+          <div class="avatar"><svg width="60" height="60" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#ff5a3c"/></svg></div>
+          <div style="flex:1">
+            <div class="msg-name">Tin nhắn mới</div>
+            <div class="msg-text">“Rảnh thì trả lời mình nhé!”</div>
+            <div class="msg-meta"><span id="m0">Vừa xong</span><span id="m1">Chưa trả lời · 4 giờ</span><span id="m2">Chưa trả lời · 7 giờ</span><span id="m3">Chưa trả lời · 15 giờ</span></div>
+          </div>
+          <div class="badge" id="s2-badge">1</div>
+        </div>
+        <div class="safe" id="s2-think">
+          <div class="think disp" id="k1"><small>Định là…</small>Lát nữa trả lời</div>
+          <div class="think disp" id="k2"><small>Đang ăn cơm…</small>Lại nhớ tới nó</div>
+          <div class="think disp coral" id="k3"><small style="color:var(--ink)">Tự nhiên nghĩ…</small>Chết, chưa trả lời!</div>
+          <div class="think disp" id="k4" style="color:var(--cream)"><small>Nằm trên giường…</small>Vẫn bứt rứt</div>
+        </div>
+      </div></div>
+
+      <!-- S3 · 2 phút vs cả ngày -->
+      <div class="clip scene night" id="s3" data-start="15.5" data-duration="6.3" data-track-index="1"><div class="in" id="s3-in">
+        <div class="safe center disp" id="s3-head">Trả lời tin nhắn đó</div>
+        <div class="bar-row" id="s3-r1"><div class="bar-lab"><b>Thời gian làm</b><em class="coral">2 phút</em></div><div class="track"><span class="fill" id="s3-f1"></span></div></div>
+        <div class="bar-row" id="s3-r2"><div class="bar-lab"><b>Thời gian nghĩ về nó</b><em>Cả ngày</em></div><div class="track"><span class="fill" id="s3-f2"></span></div></div>
+        <div class="safe center disp" id="s3-foot">Việc nhỏ, <span class="coral">gánh nặng lớn</span></div>
+      </div></div>
+
+      <!-- S4 · Bước ngoặt -->
+      <div class="clip scene" id="s4" data-start="21.5" data-duration="3.0" data-track-index="1"><div class="in" id="s4-in">
+        <div class="sun" id="s4-sun"></div>
+        <div class="safe center disp" id="s4-t"><span class="blk" id="s4-a">Có một cách</span><span class="blk coral" id="s4-b">rất đơn giản</span></div>
+      </div></div>
+
+      <!-- S5 · Thay vì -->
+      <div class="clip scene" id="s5" data-start="24.2" data-duration="4.6" data-track-index="1"><div class="in" id="s5-in">
+        <div class="safe center" id="s5-a">
+          <div class="label" id="s5-la">Thay vì tự nhủ</div>
+          <div class="disp" style="margin-top:28px"><span class="strike-wrap" id="s5-old">“Để lát nữa”<span class="strike" id="s5-strike"></span></span></div>
+        </div>
+        <div class="safe center" id="s5-b">
+          <div class="label" id="s5-lb">Hãy</div>
+          <div class="disp" id="s5-new" style="margin-top:20px">Quyết định <span class="coral">rõ ràng</span></div>
+        </div>
+      </div></div>
+
+      <!-- S6 · Ba lựa chọn -->
+      <div class="clip scene" id="s6" data-start="28.7" data-duration="11.4" data-track-index="1"><div class="in" id="s6-in">
+        <div class="safe center label" id="s6-head">3 lựa chọn rõ ràng</div>
+        <div class="opt card" id="s6-o1">
+          <div class="ico" style="background:#e5f6ea"><svg width="60" height="60" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1f9d55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="opt-c">Nếu làm được ngay</div><div class="opt-a">Làm luôn</div></div>
+        </div>
+        <div class="opt card" id="s6-o2">
+          <div class="ico" style="background:#fff1ec"><svg width="60" height="60" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5" fill="none" stroke="#ff5a3c" stroke-width="2.6"/><path d="M12 9.5V13l2.5 2" fill="none" stroke="#ff5a3c" stroke-width="2.6" stroke-linecap="round"/><path d="M5 4.5L3 6.5M19 4.5l2 2" stroke="#ff5a3c" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+          <div style="flex:1"><div class="opt-c">Nếu chưa tiện</div><div class="opt-a">Đặt lời nhắc cụ thể</div>
+            <div class="remind" id="s6-rem"><b>20:00</b><span>Trả lời tin nhắn</span></div></div>
+        </div>
+        <div class="opt card" id="s6-o3">
+          <div class="ico" style="background:#f0eeea"><svg width="60" height="60" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" stroke="#6b645c" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div><div class="opt-c">Nếu không cần làm</div><div class="opt-a">Chủ động bỏ qua</div></div>
+        </div>
+      </div></div>
+
+      <!-- S7 · Nguyên tắc -->
+      <div class="clip scene" id="s7" data-start="40.0" data-duration="6.9" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe center" id="s7-a">
+          <div class="label" id="s7-la">Không phải</div>
+          <div class="disp" style="margin-top:26px"><span class="strike-wrap" id="s7-old">Hoàn thành mọi thứ ngay<span class="strike" id="s7-strike"></span></span></div>
+        </div>
+        <div class="safe center" id="s7-b">
+          <div class="label" id="s7-lb">Mà là</div>
+          <div class="disp" id="s7-new" style="margin-top:22px">Đừng bắt mình <span class="coral blk">nhớ đi nhớ lại</span></div>
+        </div>
+      </div></div>
+
+      <!-- S8 · Hành động tối nay -->
+      <div class="clip scene" id="s8" data-start="46.8" data-duration="8.55" data-track-index="1"><div class="in" id="s8-in">
+        <div class="phone" id="s8-phone"><div class="screen">
+          <div class="scr-h">Tối nay</div>
+          <div class="scr-s">3 việc mình đang tự nhắc</div>
+          <div class="task" id="s8-t1"><div class="box"></div><div class="task-t">Trả lời tin nhắn</div><div class="when" id="s8-w1">20:00</div></div>
+          <div class="task" id="s8-t2"><div class="box"></div><div class="task-t">Gửi file cho sếp</div><div class="when" id="s8-w2">9:00 mai</div></div>
+          <div class="task" id="s8-t3"><div class="box"></div><div class="task-t">Đặt lịch khám răng</div><div class="when" id="s8-w3">Thứ 7</div></div>
+        </div></div>
+      </div></div>
+
+      <!-- S9 · Kết -->
+      <div class="clip scene" id="s9" data-start="55.2" data-duration="{{S9_DUR}}" data-track-index="1"><div class="in" id="s9-in">
+        <div class="safe center" id="s9-top">
+          <div class="disp blk" id="s9-l1">Chỉ cần quyết định</div>
+          <div class="disp blk coral" id="s9-l2">khi nào</div>
+        </div>
+        <div class="head" id="s9-head"><div class="orbit" id="s9-orbit"><div class="dot" id="s9-dot"></div></div></div>
+        <div class="safe center disp" id="s9-bot">Đầu óc nhẹ đi một chút</div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.55, y = 40) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const out = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const swap = (a, b, at) => { if (a) out(a, at - 0.05, 0.2); up(b, at, 0.45, 26); };
+
+      // Màu nền theo "một ngày": sáng → trưa → chiều → tối → bình minh → tối nay → sáng nhẹ
+      const sky = (c, at, d = 1.2) => tl.to("#sky", { backgroundColor: c, duration: d, ease: "power1.inOut" }, at);
+      sky("#f6efe2", 4.4, 0.6); sky("#f8ddb4", 7.4); sky("#f2a679", 9.9); sky("#151b34", 13.0, 1.0);
+      sky("#f4eee4", 21.6, 1.4); sky("#151b34", 46.6, 0.9); sky("#f6efe2", 54.9, 1.4);
+
+      // Chuyển cảnh: cảnh sau hiện đè, cảnh trước mờ ra
+      [["#s1-in", 4.45], ["#s2-in", 15.5], ["#s3-in", 21.5], ["#s4-in", 24.2], ["#s5-in", 28.7], ["#s6-in", 40.0], ["#s7-in", 46.8], ["#s8-in", 55.2]]
+        .forEach(([s, at]) => tl.to(s, { opacity: 0, scale: 0.97, duration: 0.3, ease: "power2.in" }, at));
+      ["#s2-in", "#s3-in", "#s4-in", "#s5-in", "#s6-in", "#s7-in", "#s8-in", "#s9-in"].forEach((s, i) =>
+        tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, [4.45, 15.5, 21.5, 24.2, 28.7, 40.0, 46.8, 55.2][i] + 0.05));
+
+      // S1 · Hook: "một việc rất nhỏ" → chấm nhỏ lởn vởn trong đầu
+      up("#s1-l1", 0.95, 0.5);
+      tl.fromTo("#s1-l2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" }, 1.35);
+      tl.fromTo("#s1-head", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 1.9);
+      tl.fromTo("#s1-orbit", { rotation: 0 }, { rotation: 900, duration: 4.4, ease: "none" }, 0.05);
+      tl.fromTo("#s1-orbit .dot", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 2.1);
+      up("#s1-bot", 2.55, 0.5);
+
+      // S2 · Một ngày: giờ, tin nhắn, suy nghĩ
+      up("#s2-chipbox", 4.6, 0.5, -30); up("#t-sang", 4.6, 0.4, 20);
+      tl.fromTo("#s2-card", { opacity: 0, y: -80, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 4.85);
+      tl.fromTo("#s2-badge", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 5.3);
+      up("#m0", 5.0, 0.3, 10);
+      up("#k1", 6.04);
+      [["#t-sang", "#t-trua", 7.55, 150, "#m0", "#m1", "#k1", "#k2"], ["#t-trua", "#t-chieu", 10.07, 240, "#m1", "#m2", "#k2", null],
+       ["#t-chieu", "#t-toi", 13.29, 690, "#m2", "#m3", "#k3", "#k4"]].forEach(([a, b, at, deg, ma, mb, ka, kb]) => {
+        swap(a, b, at); swap(ma, mb, at + 0.15); out(ka, at - 0.05, 0.2); if (kb) up(kb, at + 0.1);
+        tl.to("#s2-hand", { rotation: deg, svgOrigin: "28 28", duration: 0.6, ease: "power2.inOut" }, at);
+      });
+      tl.fromTo("#k3", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power4.out" }, 11.54);
+      tl.fromTo("#k3", { x: -14 }, { x: 0, duration: 0.5, ease: "elastic.out(1.2, 0.25)", immediateRender: false }, 11.6);
+      tl.fromTo("#s2-badge", { scale: 1.35 }, { scale: 1, duration: 0.4, ease: "back.out(3)", immediateRender: false }, 11.6);
+      tl.to("#k4", { x: 4, duration: 0.06, repeat: 13, yoyo: true, ease: "none" }, 14.0);
+
+      // S3 · 2 phút vs cả ngày
+      up("#s3-head", 15.75);
+      up("#s3-r1", 16.9, 0.5, 20); tl.fromTo("#s3-f1", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: E }, 17.5);
+      up("#s3-r2", 19.0, 0.5, 20); tl.fromTo("#s3-f2", { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: "power2.inOut" }, 19.3);
+      up("#s3-foot", 20.2);
+
+      // S4 · Bình minh: có một cách
+      tl.fromTo("#s4-sun", { y: 420 }, { y: 0, duration: 2.4, ease: "power2.out" }, 21.5);
+      up("#s4-a", 21.9); up("#s4-b", 22.5);
+
+      // S5 · Thay vì "để lát nữa" → quyết định rõ ràng
+      up("#s5-la", 24.55, 0.4, 16); up("#s5-old", 25.4);
+      tl.fromTo("#s5-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 26.4);
+      up("#s5-lb", 27.25, 0.4, 16); up("#s5-new", 27.4);
+
+      // S6 · Ba lựa chọn, thẻ đang nói sáng, thẻ trước mờ
+      up("#s6-head", 28.9, 0.4, 16);
+      up("#s6-o1", 28.97, 0.55, 50);
+      tl.fromTo("#s6-o1 .opt-a", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 30.2);
+      up("#s6-o2", 31.47, 0.55, 50); tl.to("#s6-o1", { opacity: 0.4, duration: 0.3 }, 31.47);
+      tl.fromTo("#s6-o2 .opt-a", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 32.55);
+      tl.fromTo("#s6-rem", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 34.3);
+      up("#s6-o3", 37.51, 0.55, 50); tl.to("#s6-o2", { opacity: 0.4, duration: 0.3 }, 37.51);
+      tl.fromTo("#s6-o3 .opt-a", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 38.7);
+      tl.to(["#s6-o1", "#s6-o2"], { opacity: 1, duration: 0.4 }, 39.4);
+
+      // S7 · Nguyên tắc
+      up("#s7-la", 40.3, 0.4, 16); up("#s7-old", 40.6);
+      tl.fromTo("#s7-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 42.3);
+      up("#s7-lb", 42.8, 0.4, 16); up("#s7-new", 43.0);
+
+      // S8 · Tối nay: 3 việc → đặt lịch
+      tl.fromTo("#s8-phone", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, 47.0);
+      up("#s8-t1", 48.9, 0.45, 30); up("#s8-t2", 49.4, 0.45, 30); up("#s8-t3", 49.9, 0.45, 30);
+      ["#s8-w1", "#s8-w2", "#s8-w3"].forEach((w, i) =>
+        tl.fromTo(w, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(3)" }, 51.45 + i * 0.3));
+      tl.to("#s8-phone", { scale: 0.92, y: -30, duration: 1.4, ease: "power2.inOut" }, 53.1);
+
+      // S9 · Kết: chấm nhỏ rời khỏi đầu
+      up("#s9-l1", 55.5); tl.fromTo("#s9-l2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2)" }, 57.4);
+      tl.fromTo("#s9-head", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 55.6);
+      tl.fromTo("#s9-orbit", { rotation: 0 }, { rotation: 300, duration: 4, ease: "none" }, 55.3);
+      tl.to("#s9-dot", { y: -520, x: 260, scale: 0.4, opacity: 0, duration: 1.6, ease: "power2.in" }, 59.4);
+      up("#s9-bot", 60.6);
+
+      // Phụ đề: hiện nhẹ
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post5"] = tl;
+    </script>
+  </body>
+</html>
