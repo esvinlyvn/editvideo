@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Chi phí mỗi lần dùng</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế (họ hàng với post 5, riêng cho chủ đề tiền) =====
+         2 font: Nunito (chữ động, con số) · Be Vietnam Pro (phụ đề, nhãn, chữ phụ)
+         Nền sáng ấm, thẻ trắng bo tròn; 1 màu nhấn: xanh "tiết kiệm" — dùng cho vạch gạch chân & con số tốt
+         Nền chuyển tông theo mạch: hồng nhạt (bẫy giảm giá) → bạc hà (cách tính) → kem (kết)
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --display: "Nunito", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --ink: #1d1a16;
+        --muted: rgba(29, 26, 22, 0.56);
+        --green: #0f8a57;
+        --card: #ffffff;
+      }
+      body { margin: 0; background: #f6f1e8; font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      #sky { position: absolute; inset: 0; background: #f8e7e0; }
+      #grain { position: absolute; inset: 0; opacity: 0.05;
+        background-image: radial-gradient(rgba(0,0,0,.6) 1px, transparent 1px); background-size: 6px 6px; }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .disp { font-family: var(--display); font-weight: 900; letter-spacing: -0.015em; line-height: 1.06; text-wrap: balance; }
+      .num { font-family: var(--display); font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+      .label { font-family: var(--body); font-weight: 600; font-size: 32px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); }
+      .c { text-align: center; }
+      .g { color: var(--green); }
+      .blk { display: block; }
+      .card { background: var(--card); border-radius: 36px; box-shadow: 0 24px 60px rgba(29, 26, 22, 0.12); }
+      /* vạch gạch chân xanh quét dưới từ khóa */
+      .ul { position: relative; display: inline-block; white-space: nowrap; }
+      .ul > i { position: absolute; left: -4px; right: -4px; bottom: -4px; height: 16px; border-radius: 8px; background: var(--green); opacity: .85; transform-origin: 0 50%; z-index: -1; }
+      .ul { isolation: isolate; }
+      /* nhãn giá treo: nền tối bo tròn, lỗ xỏ dây */
+      .tag { position: absolute; display: flex; align-items: center; justify-content: center; gap: 18px; background: var(--ink); color: #fff;
+        font-family: var(--display); font-weight: 900; border-radius: 22px; box-shadow: 0 16px 36px rgba(29,26,22,.25); padding: 0 34px !important; }
+      .strike { position: relative; display: inline-block; white-space: nowrap; color: var(--muted); }
+      .strike > i { position: absolute; left: -10px; right: -10px; top: 54%; height: 12px; border-radius: 6px; background: var(--ink); transform-origin: 0 50%; }
+
+      /* S1 */
+      #s1-h { top: 300px; font-size: 100px; }
+      .stat { position: absolute; left: 108px; right: 108px; padding: 34px 44px; display: flex; justify-content: space-between; align-items: center; }
+      .stat .k { font-weight: 600; font-size: 38px; color: var(--muted); }
+      .stat .num { font-size: 96px; }
+      #s1-t { top: 780px; } #s1-s { top: 1060px; }
+
+      /* S2 hóa đơn */
+      #s2-cong { top: 240px; font-size: 84px; }
+      #s2-rc { position: absolute; left: 140px; right: 140px; top: 420px; padding: 46px 52px 48px; }
+      .rc-h { font-weight: 600; font-size: 30px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+      .rc-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 30px; font-size: 38px; font-weight: 500; }
+      .rc-row b { font-family: var(--display); font-weight: 900; font-size: 54px; }
+      .rc-line { height: 3px; background: rgba(29,26,22,.1); border-radius: 2px; margin: 34px 0 10px; }
+      .rc-tot { display: flex; justify-content: space-between; align-items: baseline; }
+      .rc-tot span { font-weight: 600; font-size: 38px; }
+      .rc-tot b { font-family: var(--display); font-weight: 900; font-size: 92px; }
+      #s2-tag { right: 96px; top: 340px; height: 112px; padding: 0 34px 0 26px; font-size: 62px; transform: rotate(-8deg); }
+
+      /* S3 */
+      .calc { position: absolute; left: 340px; top: 360px; width: 400px; height: 400px; border-radius: 50%; background: var(--card);
+        box-shadow: 0 24px 60px rgba(29,26,22,.12); display: flex; align-items: center; justify-content: center; }
+      .calc span { font-family: var(--display); font-weight: 900; font-size: 260px; color: var(--green); line-height: 1; margin-top: -24px; }
+      #s3-h { top: 900px; font-size: 96px; }
+
+      /* S4 hai đôi giày */
+      #s4-lab { top: 230px; }
+      .shoe { position: absolute; left: 108px; right: 108px; padding: 36px 44px; }
+      #s4-a { top: 310px; } #s4-b { top: 830px; }
+      .sh-top { display: flex; justify-content: space-between; align-items: center; }
+      .sh-name { display: flex; align-items: center; gap: 18px; font-family: var(--display); font-weight: 900; font-size: 48px; }
+      .sh-price { font-size: 60px; }
+      .dots { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; align-items: center; }
+      .dots i { display: block; width: 20px; height: 20px; border-radius: 50%; background: var(--green); }
+      #s4-a .dots i { width: 46px; height: 46px; background: rgba(29,26,22,.8); }
+      .dots span { margin-left: 18px; font-weight: 600; font-size: 34px; color: var(--muted); }
+      .sh-res { display: flex; justify-content: flex-end; align-items: baseline; gap: 14px; margin-top: 22px; }
+      .sh-res .num { font-size: 96px; }
+      .sh-res small { font-weight: 600; font-size: 34px; color: var(--muted); }
+      #s4-bgrid { width: 476px; }
+
+      /* S5 */
+      #s5-a { top: 360px; font-size: 108px; }
+      #s5-neq { display: block; font-size: 160px; margin: 6px 0; }
+      #s5-b { top: 1000px; font-size: 76px; }
+
+      /* S6 */
+      #s6-l { top: 430px; }
+      #s6-h { top: 520px; font-size: 132px; }
+      #s6-n { top: 880px; display: flex; justify-content: center; gap: 40px; }
+      .n { width: 170px; height: 170px; border-radius: 50%; background: var(--card); box-shadow: 0 16px 40px rgba(29,26,22,.12);
+        display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 900; font-size: 92px; color: var(--green); }
+
+      /* S7 ba bước */
+      #s7-rail { top: 230px; display: flex; gap: 16px; justify-content: center; }
+      .pill { padding: 14px 28px; border-radius: 999px; background: rgba(255,255,255,.6); font-weight: 600; font-size: 30px; color: var(--muted); }
+      .stp { position: absolute; left: 108px; right: 108px; top: 400px; }
+      .stp .disp { font-size: 80px; margin-top: 16px; }
+      #st1-box { margin-top: 70px; padding: 44px 52px; display: flex; justify-content: space-between; align-items: baseline; }
+      #st1-box .num { font-size: 160px; color: var(--green); }
+      #st1-box small { font-weight: 600; font-size: 40px; color: var(--muted); }
+      .eq { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+      .tok { padding: 26px 44px; border-radius: 28px; font-family: var(--display); font-weight: 900; font-size: 60px; text-align: center; }
+      .tok small { display: block; font-family: var(--body); font-weight: 500; font-size: 30px; margin-top: 8px; color: var(--muted); }
+      .op { font-family: var(--display); font-weight: 900; font-size: 92px; color: var(--green); line-height: 1; }
+      #st2-c { background: var(--green); color: #fff; box-shadow: 0 18px 40px rgba(15,138,87,.3); }
+      #st3-card { margin-top: 80px; padding: 60px 52px 54px; position: relative; }
+      #st3-tag { right: 40px; top: -56px; height: 104px; padding: 0 30px 0 24px; font-size: 56px; transform: rotate(8deg); }
+      #st3-q1 { font-weight: 600; font-size: 40px; color: var(--muted); }
+      #st3-q2 { font-family: var(--display); font-weight: 900; font-size: 92px; margin-top: 16px; line-height: 1.06; }
+
+      /* S8 */
+      .ln { position: absolute; left: 108px; right: 108px; }
+      #s8-1 { top: 320px; } #s8-2 { top: 690px; } #s8-3 { top: 1050px; }
+      .ln .label { margin-bottom: 14px; }
+      .ln .disp { font-size: 92px; }
+
+      /* S9 */
+      #s9-l { top: 300px; }
+      #s9-tag { left: 50%; top: 420px; height: 200px; margin-left: -230px; width: 460px; font-size: 120px; transform: rotate(-6deg); }
+      #s9-ne { top: 720px; font-size: 84px; }
+      #s9-fin { top: 1030px; }
+      #s9-fin .disp { font-size: 100px; margin-top: 18px; }
+
+      /* Phụ đề — giống post 5 */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(20, 18, 16, 0.78);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); text-wrap: balance; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post6b" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="sky"></div>
+      <div id="grain"></div>
+
+      <!-- S1 · Hook -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="7.9" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe disp c" id="s1-h"><span class="blk" id="s1-h1">Một kiểu mua sắm</span><span class="ul" id="s1-ul">rất buồn cười<i></i></span></div>
+        <div class="stat card" id="s1-t"><div class="k">Thời gian săn sale</div><div class="num" id="s1-tv">0 giờ</div></div>
+        <div class="stat card" id="s1-s"><div class="k">Tiết kiệm được</div><div class="num g" id="s1-sv">+0</div></div>
+      </div></div>
+
+      <!-- S2 · Hóa đơn -->
+      <div class="clip scene" id="s2" data-start="7.6" data-duration="9.2" data-track-index="1"><div class="in" id="s2-in">
+        <div class="safe disp c" id="s2-cong">Chúc mừng!</div>
+        <div class="card" id="s2-rc">
+          <div class="rc-h">Hóa đơn săn sale</div>
+          <div class="rc-row" id="r1"><span>Món đang giảm</span><b>300.000</b></div>
+          <div class="rc-row" id="r2"><span>Tiết kiệm được</span><b class="g">+100.000</b></div>
+          <div class="rc-row" id="r3"><span>Tiêu thêm</span><b>−300.000</b></div>
+          <div class="rc-line" id="r-sep"></div>
+          <div class="rc-tot" id="r4"><span>Thực tế</span><b class="ul" id="r4-ul">−200.000<i></i></b></div>
+        </div>
+        <div class="tag" id="s2-tag">−50%</div>
+      </div></div>
+
+      <!-- S3 · Phép chia -->
+      <div class="clip scene" id="s3" data-start="16.5" data-duration="4.15" data-track-index="1"><div class="in" id="s3-in">
+        <div class="calc" id="s3-calc"><span>÷</span></div>
+        <div class="safe disp c" id="s3-h">Một cách tính tiền <span class="ul" id="s3-ul">thú vị hơn<i></i></span></div>
+      </div></div>
+
+      <!-- S4 · Hai đôi giày -->
+      <div class="clip scene" id="s4" data-start="20.35" data-duration="18.35" data-track-index="1"><div class="in" id="s4-in">
+        <div class="safe label c" id="s4-lab">Giả sử có 2 đôi giày</div>
+        <div class="shoe card" id="s4-a">
+          <div class="sh-top"><div class="sh-name"><svg width="64" height="40" viewBox="0 0 64 40"><path d="M4 30c0-8 2-18 8-20l10 8c6 4 16 6 26 7 8 1 12 3 12 7v4H4z" fill="#1d1a16"/></svg>Đôi 1</div><div class="num sh-price">300.000</div></div>
+          <div class="dots" id="s4-ad"><i></i><i></i><i></i><i></i><i></i><span id="s4-an">5 lần rồi bỏ xó</span></div>
+          <div class="sh-res" id="s4-ar"><div class="num" id="s4-av">0</div><small>đ / lần</small></div>
+        </div>
+        <div class="shoe card" id="s4-b">
+          <div class="sh-top"><div class="sh-name"><svg width="64" height="40" viewBox="0 0 64 40"><path d="M4 30c0-8 2-18 8-20l10 8c6 4 16 6 26 7 8 1 12 3 12 7v4H4z" fill="#0f8a57"/></svg>Đôi 2</div><div class="num sh-price">900.000</div></div>
+          <div class="dots" id="s4-bd"><div class="dots" id="s4-bgrid" style="margin-top:0">{{DOTS150}}</div><span id="s4-bn">150 lần</span></div>
+          <div class="sh-res" id="s4-br"><div class="num g" id="s4-bv">0</div><small>đ / lần</small></div>
+        </div>
+      </div></div>
+
+      <!-- S5 · Đắt ≠ tốt -->
+      <div class="clip scene" id="s5" data-start="38.4" data-duration="7.45" data-track-index="1"><div class="in" id="s5-in">
+        <div class="safe disp c" id="s5-a"><span class="blk" id="s5-a1">Đắt hơn</span><span class="g" id="s5-neq">≠</span><span class="blk" id="s5-a2">Tốt hơn</span></div>
+        <div class="safe disp c" id="s5-b"><span class="label blk" style="margin-bottom:20px">Câu hỏi thật sự</span>Mày dùng nó <span class="ul" id="s5-ul">bao nhiêu lần?<i></i></span></div>
+      </div></div>
+
+      <!-- S6 · 3 bước -->
+      <div class="clip scene" id="s6" data-start="45.55" data-duration="5.6" data-track-index="1"><div class="in" id="s6-in">
+        <div class="safe label c" id="s6-l">Trước khi mua món không thiết yếu</div>
+        <div class="safe disp c" id="s6-h">Thử <span class="ul" id="s6-ul">3 bước<i></i></span></div>
+        <div class="safe" id="s6-n"><div class="n">1</div><div class="n">2</div><div class="n">3</div></div>
+      </div></div>
+
+      <!-- S7 · Ba bước chi tiết -->
+      <div class="clip scene" id="s7" data-start="50.85" data-duration="19.0" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe" id="s7-rail"><div class="pill" id="p1">1 · Ước tính</div><div class="pill" id="p2">2 · Chia</div><div class="pill" id="p3">3 · Tự hỏi</div></div>
+        <div class="stp" id="st1">
+          <div class="label">Bước 1</div>
+          <div class="disp">Ước tính số lần thực sự dùng</div>
+          <div class="card" id="st1-box"><div class="num" id="st1-v">0</div><small>lần / năm</small></div>
+        </div>
+        <div class="stp" id="st2">
+          <div class="label">Bước 2</div>
+          <div class="disp">Chia tổng tiền cho số lần</div>
+          <div class="eq">
+            <div class="tok card" id="st2-a">Tổng tiền<small id="st2-as">giá + phụ kiện + chi phí dùng</small></div>
+            <div class="op" id="st2-op">÷</div>
+            <div class="tok card" id="st2-b">Số lần dùng</div>
+            <div class="op" id="st2-eq">=</div>
+            <div class="tok" id="st2-c">Chi phí mỗi lần</div>
+          </div>
+        </div>
+        <div class="stp" id="st3">
+          <div class="label">Bước 3</div>
+          <div class="disp">Tự hỏi</div>
+          <div class="card" id="st3-card">
+            <div id="st3-q1">Nếu mai hết giảm giá…</div>
+            <div id="st3-q2">Còn muốn mua không?</div>
+            <div class="tag" id="st3-tag">−50%</div>
+          </div>
+        </div>
+      </div></div>
+
+      <!-- S8 · Thứ mày thật sự mua -->
+      <div class="clip scene" id="s8" data-start="69.55" data-duration="9.85" data-track-index="1"><div class="in" id="s8-in">
+        <div class="ln" id="s8-1"><div class="label">Nếu câu trả lời là</div><div class="disp" style="font-size:150px">Không</div></div>
+        <div class="ln" id="s8-2"><div class="label">Thứ mày muốn mua không phải</div><div class="disp"><span class="strike" id="s8-st">sản phẩm<i></i></span></div></div>
+        <div class="ln" id="s8-3"><div class="label">Mà là</div><div class="disp">cảm giác <span class="ul" id="s8-ul">săn được món hời<i></i></span></div></div>
+      </div></div>
+
+      <!-- S9 · Kết -->
+      <div class="clip scene" id="s9" data-start="79.1" data-duration="{{S9_DUR}}" data-track-index="1"><div class="in" id="s9-in">
+        <div class="safe label c" id="s9-l">Nhớ một điều</div>
+        <div class="tag" id="s9-tag">−50%</div>
+        <div class="safe disp c" id="s9-ne">≠ tiết kiệm 50%</div>
+        <div class="safe c" id="s9-fin"><div class="label">Cách tiết kiệm tốt nhất</div><div class="disp"><span class="ul g" id="s9-ul">Không mua<i></i></span> ngay từ đầu</div></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.55, y = 40) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.6) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, at);
+      const ul = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, at);
+      const dot = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      const count = (sel, to, at, d = 0.9, fmt = dot) => {
+        const o = { v: 0 }, el = document.querySelector(sel);
+        tl.to(o, { v: to, duration: d, ease: "power2.out", onUpdate() { el.textContent = fmt(o.v); } }, at);
+      };
+
+      // Nền chuyển tông: hồng nhạt (bẫy) → bạc hà (cách tính) → kem (kết)
+      const sky = (c, at, d = 1.4) => tl.to("#sky", { backgroundColor: c, duration: d, ease: "power1.inOut" }, at);
+      sky("#e3f1e8", 16.3); sky("#f6f1e8", 69.3);
+
+      // Chuyển cảnh mềm như post 5: cảnh cũ mờ + thu nhẹ, cảnh mới hiện đè
+      const T = [7.6, 16.5, 20.35, 38.4, 45.55, 50.85, 69.55, 79.1];
+      ["#s1-in", "#s2-in", "#s3-in", "#s4-in", "#s5-in", "#s6-in", "#s7-in", "#s8-in"].forEach((s, i) =>
+        tl.to(s, { opacity: 0, scale: 0.97, duration: 0.3, ease: "power2.in" }, T[i]));
+      ["#s2-in", "#s3-in", "#s4-in", "#s5-in", "#s6-in", "#s7-in", "#s8-in", "#s9-in"].forEach((s, i) =>
+        tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, T[i] + 0.05));
+
+      // S1 · Hook
+      up("#s1-h1", 0.3); up("#s1-ul", 0.95); ul("#s1-ul", 1.4);
+      up("#s1-t", 3.3); count("#s1-tv", 2, 3.6, 1.3, (v) => Math.floor(v) + " giờ");
+      up("#s1-s", 5.7); count("#s1-sv", 100000, 6.0, 0.9, (v) => "+" + dot(v));
+
+      // S2 · Hóa đơn
+      tl.fromTo("#s2-rc", { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 7.85);
+      up("#r1", 8.4, 0.4, 16);
+      tl.fromTo("#s2-tag", { opacity: 0, scale: 1.8, rotation: -24 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.4, ease: "back.out(1.6)" }, 10.2);
+      pop("#s2-cong", 11.9, 0.7);
+      up("#r2", 12.8, 0.4, 16); up("#r3", 14.85, 0.4, 16);
+      up("#r-sep", 15.4, 0.3, 0); up("#r4", 15.55, 0.45, 16); ul("#r4-ul", 15.9);
+
+      // S3 · Phép chia
+      tl.fromTo("#s3-calc", { opacity: 0, scale: 0.5, rotation: -40 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 16.9);
+      up("#s3-h", 17.6); ul("#s3-ul", 18.9);
+
+      // S4 · Hai đôi giày
+      up("#s4-lab", 20.7, 0.4, 14);
+      up("#s4-a", 22.9, 0.55, 50);
+      tl.fromTo("#s4-ad i", { scale: 0 }, { scale: 1, duration: 0.3, stagger: 0.22, ease: "back.out(3)" }, 25.5);
+      up("#s4-an", 26.9, 0.3, 10);
+      up("#s4-ar", 29.2, 0.3, 10); count("#s4-av", 60000, 29.3, 0.9);
+      tl.to("#s4-a", { opacity: 0.4, duration: 0.3 }, 31.5);
+      up("#s4-b", 31.5, 0.55, 50);
+      tl.fromTo("#s4-bgrid i", { scale: 0 }, { scale: 1, duration: 0.12, stagger: 0.008, ease: "none" }, 34.05);
+      up("#s4-bn", 35.3, 0.3, 10);
+      up("#s4-br", 36.3, 0.3, 10); count("#s4-bv", 6000, 36.4, 0.9);
+      tl.to("#s4-a", { opacity: 1, duration: 0.3 }, 37.6);
+
+      // S5 · Đắt ≠ tốt
+      up("#s5-a1", 39.9); pop("#s5-neq", 40.6, 0.3); up("#s5-a2", 41.0);
+      up("#s5-b", 43.2); ul("#s5-ul", 44.1);
+
+      // S6 · 3 bước
+      up("#s6-l", 46.0, 0.4, 14); up("#s6-h", 49.2); ul("#s6-ul", 49.6);
+      tl.fromTo("#s6-n .n", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, stagger: 0.15, ease: "back.out(2.2)" }, 49.7);
+
+      // S7 · Ba bước
+      const on = (p, at) => tl.to(p, { backgroundColor: "#0f8a57", color: "#ffffff", duration: 0.3 }, at);
+      const off = (p, at) => tl.to(p, { backgroundColor: "rgba(255,255,255,0.6)", color: "rgba(29,26,22,0.56)", duration: 0.3 }, at);
+      up("#s7-rail", 51.0, 0.4, -20);
+      on("#p1", 51.3); up("#st1", 51.35); up("#st1-box", 52.3, 0.45, 24); count("#st1-v", 24, 53.6, 1.2);
+      tl.to("#st1", { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, 55.9);
+      off("#p1", 56.2); on("#p2", 56.2);
+      tl.fromTo("#st2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 56.25);
+      pop("#st2-a", 57.3, 0.85); up("#st2-as", 59.2, 0.3, 10);
+      pop("#st2-op", 61.3, 0.3); pop("#st2-b", 61.6, 0.85); pop("#st2-eq", 62.0, 0.3); pop("#st2-c", 62.3, 0.75);
+      tl.to("#st2", { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, 63.3);
+      off("#p2", 63.6); on("#p3", 63.6);
+      tl.fromTo("#st3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 63.65);
+      up("#st3-card", 64.5, 0.5, 30); up("#st3-q1", 65.8, 0.35, 10);
+      tl.to("#st3-tag", { y: 420, rotation: 50, opacity: 0, duration: 0.9, ease: "power2.in" }, 66.2);
+      up("#st3-q2", 67.9);
+
+      // S8
+      up("#s8-1", 69.95); up("#s8-2", 71.9);
+      tl.fromTo("#s8-st > i", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 73.9);
+      up("#s8-3", 75.6); ul("#s8-ul", 76.8);
+
+      // S9
+      up("#s9-l", 79.5, 0.4, 14);
+      tl.fromTo("#s9-tag", { opacity: 0, scale: 1.8, rotation: -24 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.4, ease: "back.out(1.6)" }, 81.3);
+      up("#s9-ne", 84.5);
+      up("#s9-fin", 87.8); ul("#s9-ul", 90.1);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post6b"] = tl;
+    </script>
+  </body>
+</html>
