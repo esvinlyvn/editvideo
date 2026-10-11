@@ -36,7 +36,7 @@ export function sfxHtml(cues, outDir, { gainDb = 0, minGap = 1.2, scenes = [] } 
   const sorted = assignVariants([...cues].sort((a, b) => a.at - b.at), scenes);
   sorted.forEach((c, i) => {
     if (!catalog[c.name]) throw new Error(`SFX không có trong thư viện: ${c.name}`);
-    if (i && c.at - sorted[i - 1].at < minGap) throw new Error(`SFX quá dày ở ${c.at}s (cách ${sorted[i - 1].name} < ${minGap}s)`);
+    if (i && c.at - sorted[i - 1].at < minGap - 1e-6) throw new Error(`SFX quá dày ở ${c.at}s (cách ${sorted[i - 1].name} < ${minGap}s)`);
   });
   for (const n of new Set(sorted.map((c) => c.name))) {
     const src = path.join(ROOT, "sfx", catalog[n].file);

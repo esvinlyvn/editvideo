@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/esvinlyvn/editvideo#readme",
   "devDependencies": {
+    "@fontsource/baloo-2": "^5.3.0",
     "@fontsource/be-vietnam-pro": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/lexend": "^5.3.0",

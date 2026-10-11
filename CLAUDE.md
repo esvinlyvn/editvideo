@@ -39,6 +39,8 @@ Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/out
 - Mỗi ý trong voice cần một **đối tượng minh họa cụ thể** (đồ vật, giao diện, biểu đồ, giấy tờ, icon…), không chỉ là chữ. Tự hỏi: "câu này vẽ được thành cái gì?"
 - Ưu tiên ẩn dụ xuyên suốt cả video và gọi lại hình ảnh mở đầu ở cảnh kết.
 - Khi voice có người dẫn chuyện xưng tên (ví dụ "tao là Sáu"), vẽ **nhân vật dẫn chuyện** bằng SVG, có nhiều biểu cảm (xem `projects/post-8/art/`), và cho nhân vật phản ứng theo nội dung.
+- **Hướng dẫn thao tác trên điện thoại:** dựng giao diện mô phỏng thật (xem `projects/post-9`). Mỗi lần bấm có điểm chạm gợn sóng đặt trúng dòng cần bấm (tính tọa độ theo bố cục dòng), màn hình trượt sang theo đúng lời đọc.
+  - Animation chỉ hiện tạm (điểm chạm, sóng…) phải dùng `immediateRender: false`, nếu không chúng sẽ hiện sẵn từ đầu.
 - Bố cục phải đổi nhịp khoảng 3–5 giây một lần: thẻ, chia đôi, toàn màn, giao diện chat/điện thoại…
 - Nội dung minh họa tự bịa (ví dụ tin nhắn, việc cần làm) phải hợp ngữ cảnh, viết bằng giọng miền Nam, và **báo lại cho người dùng** khi giao video.
 
