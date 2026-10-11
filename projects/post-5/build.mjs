@@ -87,7 +87,7 @@ const html = fs
   .replace("{{FONTS}}", fonts)
   .replace("{{CAPTIONS}}", capHtml)
   .replaceAll("{{DURATION}}", String(DURATION))
-  .replace("{{SFX}}", fs.existsSync(path.join(HERE, "sfx.json")) ? sfxHtml(JSON.parse(fs.readFileSync(path.join(HERE, "sfx.json"), "utf8")), out) : "")
+  .replace("{{SFX}}", fs.existsSync(path.join(HERE, "sfx.json")) ? ((j) => (Array.isArray(j) ? sfxHtml(j, out) : sfxHtml(j.cues, out, j)))(JSON.parse(fs.readFileSync(path.join(HERE, "sfx.json"), "utf8"))) : "")
   .replace("{{VOICE_DUR}}", String(r2(VOICE_DUR)))
   .replace("{{S9_DUR}}", String(r2(DURATION - 55.2)));
 fs.writeFileSync(path.join(out, "index.html"), html);

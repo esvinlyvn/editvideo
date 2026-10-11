@@ -1,95 +1,55 @@
-[
- {
-  "at": 3.6,
-  "name": "tick",
-  "vol": 0.6,
-  "why": "đồng hồ săn sale chạy"
- },
- {
-  "at": 6.0,
-  "name": "coin",
-  "vol": 0.7,
-  "why": "+100.000 tiết kiệm"
- },
- {
-  "at": 7.85,
-  "name": "receipt",
-  "vol": 0.7,
-  "why": "hóa đơn in ra"
- },
- {
-  "at": 10.2,
-  "name": "stamp",
-  "why": "nhãn −50% đập xuống"
- },
- {
-  "at": 15.55,
-  "name": "lose",
-  "vol": 0.6,
-  "why": "thực tế −200.000"
- },
- {
-  "at": 20.3,
-  "name": "whoosh-soft",
-  "vol": 0.6,
-  "why": "vào 2 đôi giày"
- },
- {
-  "at": 36.4,
-  "name": "success",
-  "vol": 0.6,
-  "why": "6.000đ/lần"
- },
- {
-  "at": 38.35,
-  "name": "whoosh-soft",
-  "vol": 0.6,
-  "why": "đắt ≠ tốt"
- },
- {
-  "at": 40.6,
-  "name": "pop",
-  "vol": 0.7,
-  "why": "dấu ≠"
- },
- {
-  "at": 50.8,
-  "name": "whoosh-soft",
-  "vol": 0.6,
-  "why": "vào 3 bước"
- },
- {
-  "at": 62.3,
-  "name": "ding-idea",
-  "vol": 0.7,
-  "why": "= chi phí / lần"
- },
- {
-  "at": 69.5,
-  "name": "whoosh-soft",
-  "vol": 0.6,
-  "why": "câu trả lời là không"
- },
- {
-  "at": 73.9,
-  "name": "scribble",
-  "why": "gạch \"sản phẩm\""
- },
- {
-  "at": 79.05,
-  "name": "whoosh-soft",
-  "vol": 0.6,
-  "why": "nhớ một điều"
- },
- {
-  "at": 81.3,
-  "name": "stamp",
-  "why": "nhãn −50%"
- },
- {
-  "at": 90.1,
-  "name": "shimmer",
-  "vol": 0.6,
-  "why": "không mua ngay từ đầu"
- }
-]
+{
+  "gainDb": 6,
+  "minGap": 0.6,
+  "cues": [
+    { "at": 0.25, "name": "hit", "vol": 0.7, "why": "mở hook" },
+    { "at": 1.4, "name": "swipe", "vol": 0.6, "why": "gạch chân \"rất buồn cười\"" },
+    { "at": 3.3, "name": "pop", "vol": 0.6, "why": "thẻ thời gian" },
+    { "at": 3.95, "name": "tick", "vol": 0.6, "why": "đồng hồ chạy" },
+    { "at": 6.0, "name": "coin", "vol": 0.85, "why": "+100.000" },
+    { "at": 7.55, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 8.35, "name": "receipt", "vol": 0.6, "why": "hóa đơn in" },
+    { "at": 10.2, "name": "stamp", "vol": 1.0, "why": "nhãn −50% đập" },
+    { "at": 11.9, "name": "like", "vol": 0.7, "why": "\"Chúc mừng!\" (mỉa)" },
+    { "at": 12.8, "name": "coin", "vol": 0.6, "why": "+100.000" },
+    { "at": 14.85, "name": "click", "vol": 0.6, "why": "−300.000" },
+    { "at": 15.55, "name": "lose", "vol": 0.8, "why": "thực tế −200.000" },
+    { "at": 16.9, "name": "pop", "vol": 0.8, "why": "dấu ÷" },
+    { "at": 18.9, "name": "swipe", "vol": 0.6, "why": "gạch chân \"thú vị hơn\"" },
+    { "at": 20.35, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 22.9, "name": "pop", "vol": 0.6, "why": "thẻ đôi 1" },
+    { "at": 25.5, "name": "scroll", "vol": 0.6, "why": "5 chấm" },
+    { "at": 29.3, "name": "cash", "vol": 0.7, "why": "60.000đ/lần" },
+    { "at": 31.5, "name": "whoosh-fast", "vol": 0.6, "why": "thẻ đôi 2" },
+    { "at": 34.05, "name": "scroll", "vol": 0.75, "why": "150 chấm" },
+    { "at": 36.4, "name": "success", "vol": 0.85, "why": "6.000đ/lần" },
+    { "at": 38.4, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 40.6, "name": "punch", "vol": 0.7, "why": "dấu ≠" },
+    { "at": 44.1, "name": "swipe", "vol": 0.6, "why": "gạch chân \"bao nhiêu lần\"" },
+    { "at": 45.55, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 49.2, "name": "snap", "vol": 0.7, "why": "\"Thử 3 bước\"" },
+    { "at": 49.85, "name": "pop", "vol": 0.6, "why": "1 2 3 bật ra" },
+    { "at": 50.85, "name": "whoosh-fast", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 51.45, "name": "toggle", "vol": 0.6, "why": "bước 1 sáng" },
+    { "at": 52.3, "name": "pop", "vol": 0.6, "why": "ô số lần" },
+    { "at": 53.6, "name": "type", "vol": 0.7, "why": "đếm 24" },
+    { "at": 56.2, "name": "toggle", "vol": 0.6, "why": "bước 2 sáng" },
+    { "at": 57.3, "name": "pop", "vol": 0.6, "why": "Tổng tiền" },
+    { "at": 61.3, "name": "click", "vol": 0.6, "why": "dấu ÷" },
+    { "at": 62.3, "name": "ding-idea", "vol": 0.9, "why": "= Chi phí mỗi lần" },
+    { "at": 63.6, "name": "toggle", "vol": 0.6, "why": "bước 3 sáng" },
+    { "at": 64.5, "name": "pop", "vol": 0.6, "why": "thẻ câu hỏi" },
+    { "at": 66.2, "name": "whoosh-fast", "vol": 0.6, "why": "nhãn rơi" },
+    { "at": 69.45, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 70.1, "name": "door-slam", "vol": 0.6, "why": "\"Không\"" },
+    { "at": 71.9, "name": "pop", "vol": 0.5, "why": "dòng 2" },
+    { "at": 73.9, "name": "scribble", "vol": 0.9, "why": "gạch \"sản phẩm\"" },
+    { "at": 75.6, "name": "pop", "vol": 0.5, "why": "dòng 3" },
+    { "at": 76.8, "name": "shimmer", "vol": 0.8, "why": "\"săn được món hời\"" },
+    { "at": 79.1, "name": "whoosh-soft", "vol": 0.7, "why": "chuyển cảnh" },
+    { "at": 81.3, "name": "stamp", "vol": 1.0, "why": "nhãn −50%" },
+    { "at": 84.5, "name": "record-scratch", "vol": 0.6, "why": "≠ tiết kiệm 50%" },
+    { "at": 88.45, "name": "riser", "vol": 0.6, "why": "dồn vào câu chốt" },
+    { "at": 90.1, "name": "success", "vol": 0.9, "why": "\"Không mua\"" }
+  ]
+}
