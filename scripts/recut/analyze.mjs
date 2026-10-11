@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 // Bước 1: Gemini xem clip thô (1 lần gọi) → work/<slug>/plan.json
 // gồm lời thoại theo cụm có mốc thời gian, đoạn nào giữ/bỏ, hook, keyword, text pop, CTA.
-//   GEMINI_API_KEY=... node scripts/recut/analyze.mjs raw/clip.mp4 [--target 60]
+//   GEMINI_API_KEY=... node scripts/recut/analyze.mjs raw/clip.mp4 [--target 60] [--context "tên riêng, dự án…"]
 import fs from "node:fs";
 import path from "node:path";
 
 const src = process.argv[2];
 const target = Number(process.argv[process.argv.indexOf("--target") + 1]) || 60;
+const ctxArg = process.argv.indexOf("--context");
+const CONTEXT = ctxArg > 0 ? process.argv[ctxArg + 1] : "";
 const KEY = process.env.GEMINI_API_KEY;
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 if (!src || !fs.existsSync(src) || !KEY) {
@@ -49,7 +51,7 @@ async function upload(file) {
 }
 
 const PROMPT = `Bạn là editor video ngắn (TikTok/Reels) hàng đầu Việt Nam. Clip đính kèm là footage THÔ, một người nói trước máy, chia sẻ góc nhìn.
-Nhiệm vụ: lên kế hoạch dựng lại thành video ~${target} giây (được phép 45–90s) có tính lan truyền cao, CHỈ dùng tiếng gốc.
+${CONTEXT ? `Bối cảnh / tên riêng ĐÚNG (dùng để chép lời chính xác, không nghe nhầm): ${CONTEXT}\n` : ""}Nhiệm vụ: lên kế hoạch dựng lại thành video ~${target} giây (được phép 45–90s) có tính lan truyền cao, CHỈ dùng tiếng gốc.
 
 Trả về JSON:
 - "topic": chủ đề 1 câu.
@@ -59,9 +61,11 @@ Trả về JSON:
   "keep": true/false. Bỏ: nói vấp, lặp ý, câu thừa, ậm ừ, chào hỏi dài dòng, ý lan man. Giữ: ý giá trị, số liệu, nhận định mạnh, câu chốt.
   Tổng thời lượng các cụm keep ≈ ${target}s. Các cụm keep phải ghép lại vẫn thành câu trọn ý, mạch lạc: nếu giữ câu "yếu tố thứ hai/tiếp theo" thì phải giữ cả yếu tố trước đó; ưu tiên giữ số liệu mạnh (giá tăng, %, khoảng cách, số lượng).
 - "hookIndex": index cụm keep gây tò mò/mạnh nhất để đưa LÊN ĐẦU video làm hook (hoặc -1 nếu câu mở đầu đã đủ mạnh).
-- "hookTitle": tiêu đề hook hiện 3 giây đầu, ≤ 7 từ, gây tò mò, IN HOA được.
-- "keywords": từ khóa cần tô màu trong phụ đề: [{"index": index cụm, "phrase": cụm từ xuất hiện NGUYÊN VĂN trong text cụm đó}] — 1 từ khóa mỗi 1–2 cụm keep, chọn số liệu, tên, tính từ mạnh.
-- "pops": 5–9 text lớn bật lên màn hình nhấn ý chính: [{"index": index cụm keep, "text": ≤ 4 từ, "sub": dòng phụ ≤ 6 từ hoặc ""}] — rải đều, không 2 pop liền cụm.
+- "hookLabel": nhãn nhỏ 2–3 từ phía trên hook (vd "Góc nhìn đầu tư").
+- "hookTitle": câu hook hiện 3 giây đầu, ≤ 9 từ, gây tò mò, viết thường có hoa đầu câu/tên riêng.
+- "callouts": 5–8 thẻ thông tin nhấn ý chính, mỗi thẻ hiện ≥ 3.5 giây nên rải đều, không 2 thẻ ở 2 cụm liền nhau:
+  [{"index": index cụm keep, "label": nhãn 1–3 từ (vd "Quy mô"), "value": số liệu/từ khóa ngắn ≤ 3 từ (vd "922 căn"), "sub": mô tả ≤ 7 từ}]
+  Thẻ đầu tiên nên giới thiệu dự án/chủ thể chính của video.
 - "cta": câu kêu gọi cuối video ≤ 8 từ (theo dõi / bình luận / nhắn tin tư vấn…) phù hợp nội dung.
 Chỉ trả JSON hợp lệ.`;
 
@@ -78,22 +82,19 @@ const schema = {
       },
     },
     hookIndex: { type: "INTEGER" },
+    hookLabel: { type: "STRING" },
     hookTitle: { type: "STRING" },
-    keywords: {
-      type: "ARRAY",
-      items: { type: "OBJECT", properties: { index: { type: "INTEGER" }, phrase: { type: "STRING" } }, required: ["index", "phrase"] },
-    },
-    pops: {
+    callouts: {
       type: "ARRAY",
       items: {
         type: "OBJECT",
-        properties: { index: { type: "INTEGER" }, text: { type: "STRING" }, sub: { type: "STRING" } },
-        required: ["index", "text"],
+        properties: { index: { type: "INTEGER" }, label: { type: "STRING" }, value: { type: "STRING" }, sub: { type: "STRING" } },
+        required: ["index", "label", "value", "sub"],
       },
     },
     cta: { type: "STRING" },
   },
-  required: ["topic", "segments", "hookIndex", "hookTitle", "keywords", "pops", "cta"],
+  required: ["topic", "segments", "hookIndex", "hookLabel", "hookTitle", "callouts", "cta"],
 };
 
 console.log(`↑ Upload ${src} lên Gemini…`);
