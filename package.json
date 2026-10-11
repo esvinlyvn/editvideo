@@ -1,0 +1,25 @@
+{
+  "name": "editvideo",
+  "version": "1.0.0",
+  "description": "Pipeline tự động: thông tin căn hộ + ảnh → video listing dọc 1080x1920 bằng HyperFrames",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "video": "node scripts/render.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esvinlyvn/editvideo.git"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/esvinlyvn/editvideo/issues"
+  },
+  "homepage": "https://github.com/esvinlyvn/editvideo#readme",
+  "devDependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "gsap": "^3.13.0",
+    "hyperframes": "^0.8.146"
+  },
+  "private": true,
+  "type": "module"
+}
