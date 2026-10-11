@@ -1,62 +1,356 @@
 {
-  "gainDb": 6,
-  "minGap": 0.6,
-  "cues": [
-    { "at": 0.2, "name": "notify", "vol": 0.8, "why": "biến động số dư" },
-    { "at": 0.9, "name": "cash", "vol": 0.8, "why": "+5.000.000đ đếm lên" },
-    { "at": 3.1, "name": "pop", "vol": 0.6, "why": "lẩu" },
-    { "at": 3.9, "name": "pop", "vol": 0.6, "why": "nướng" },
-    { "at": 5.15, "name": "phone-vibrate", "vol": 0.8, "why": "điện thoại reo" },
-    { "at": 6.42, "name": "click", "vol": 0.6, "why": "bắt máy" },
-    { "at": 7.1, "name": "pop", "vol": 0.5, "why": "câu 2" },
-    { "at": 9.2, "name": "pop", "vol": 0.5, "why": "câu 3" },
-    { "at": 9.9, "name": "type", "vol": 0.6, "why": "STK lạ" },
-    { "at": 12.3, "name": "whoosh-soft", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 14.1, "name": "record-scratch", "vol": 0.75, "why": "ê khoan!" },
-    { "at": 15.2, "name": "whoosh-fast", "vol": 0.5, "why": "ống nghiệm" },
-    { "at": 15.95, "name": "pop", "vol": 0.7, "why": "tim rơi vô ống" },
-    { "at": 16.6, "name": "heartbeat", "vol": 0.6, "why": "tim đập" },
-    { "at": 18.3, "name": "whoosh-soft", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 19.45, "name": "stamp", "vol": 0.7, "why": "Sáu đây!" },
-    { "at": 20.85, "name": "whoosh-fast", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 21.6, "name": "suspense", "vol": 0.5, "why": "chiêu lừa ngược đời" },
-    { "at": 23.6, "name": "swipe", "vol": 0.6, "why": "tiền đi" },
-    { "at": 25.3, "name": "snap", "vol": 0.7, "why": "kiểu này" },
-    { "at": 26.0, "name": "coin", "vol": 0.7, "why": "tụi nó chuyển tiền tới" },
-    { "at": 28.67, "name": "phone-vibrate", "vol": 0.5, "why": "gọi hối" },
-    { "at": 29.9, "name": "lose", "vol": 0.5, "why": "tài khoản lạ" },
-    { "at": 31.0, "name": "whoosh-soft", "vol": 0.6, "why": "giấy đòi nợ" },
-    { "at": 32.6, "name": "tick", "vol": 0.6, "why": "tiền lãi chạy" },
-    { "at": 34.55, "name": "oops", "vol": 0.7, "why": "Ủa?" },
-    { "at": 35.2, "name": "pop", "vol": 0.6, "why": "Sáu sốc" },
-    { "at": 36.3, "name": "stamp", "vol": 0.9, "why": "CON NỢ" },
-    { "at": 37.75, "name": "whoosh-soft", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 40.2, "name": "ding-idea", "vol": 0.8, "why": "dễ lắm!" },
-    { "at": 40.9, "name": "pop", "vol": 0.6, "why": "1 2 3" },
-    { "at": 42.65, "name": "toggle", "vol": 0.6, "why": "chuyện 1" },
-    { "at": 43.4, "name": "click", "vol": 0.5, "why": "mở app" },
-    { "at": 44.6, "name": "success", "vol": 0.8, "why": "đã vô tài khoản" },
-    { "at": 46.3, "name": "scribble", "vol": 0.8, "why": "gạch hình chụp" },
-    { "at": 47.65, "name": "toggle", "vol": 0.6, "why": "chuyện 2" },
-    { "at": 48.9, "name": "door-slam", "vol": 0.5, "why": "khóa tiền" },
-    { "at": 50.0, "name": "scribble", "vol": 0.7, "why": "đừng xài" },
-    { "at": 51.3, "name": "scribble", "vol": 0.7, "why": "đừng tự chuyển" },
-    { "at": 52.8, "name": "toggle", "vol": 0.6, "why": "chuyện 3" },
-    { "at": 54.1, "name": "phone-vibrate", "vol": 0.5, "why": "gọi tổng đài" },
-    { "at": 55.4, "name": "swipe", "vol": 0.6, "why": "ngân hàng kiểm tra" },
-    { "at": 56.6, "name": "success", "vol": 0.8, "why": "trả đúng người" },
-    { "at": 57.95, "name": "whoosh-soft", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 59.7, "name": "send", "vol": 0.6, "why": "câu trả lời" },
-    { "at": 62.1, "name": "click", "vol": 0.6, "why": "cúp máy" },
-    { "at": 62.85, "name": "whoosh-fast", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 63.9, "name": "type", "vol": 0.6, "why": "mã OTP" },
-    { "at": 64.6, "name": "punch", "vol": 0.7, "why": "gạch OTP" },
-    { "at": 65.9, "name": "scribble", "vol": 0.8, "why": "gạch link" },
-    { "at": 67.2, "name": "whoosh-soft", "vol": 0.6, "why": "chuyển cảnh" },
-    { "at": 68.4, "name": "coin", "vol": 0.6, "why": "trả tiền" },
-    { "at": 69.4, "name": "ding-idea", "vol": 0.7, "why": "trả cho đúng" },
-    { "at": 71.65, "name": "pop", "vol": 0.6, "why": "lần 1" },
-    { "at": 73.3, "name": "riser", "vol": 0.6, "why": "lần 2?" },
-    { "at": 75.3, "name": "stamp", "vol": 1.0, "why": "KHỎI!" }
-  ]
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  12.3,
+  18.3,
+  20.85,
+  30.9,
+  37.75,
+  42.45,
+  47.65,
+  52.8,
+  57.95,
+  62.85,
+  67.2
+ ],
+ "cues": [
+  {
+   "at": 0.2,
+   "name": "notify",
+   "vol": 0.8,
+   "why": "biến động số dư"
+  },
+  {
+   "at": 0.9,
+   "name": "cash",
+   "vol": 0.8,
+   "why": "+5.000.000đ đếm lên"
+  },
+  {
+   "at": 3.1,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "lẩu"
+  },
+  {
+   "at": 3.9,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "nướng"
+  },
+  {
+   "at": 5.15,
+   "name": "phone-vibrate",
+   "vol": 0.8,
+   "why": "điện thoại reo"
+  },
+  {
+   "at": 6.42,
+   "name": "click",
+   "vol": 0.6,
+   "why": "bắt máy"
+  },
+  {
+   "at": 7.1,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "câu 2"
+  },
+  {
+   "at": 9.2,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "câu 3"
+  },
+  {
+   "at": 9.9,
+   "name": "type",
+   "vol": 0.6,
+   "why": "STK lạ"
+  },
+  {
+   "at": 12.3,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 14.1,
+   "name": "record-scratch",
+   "vol": 0.75,
+   "why": "ê khoan!"
+  },
+  {
+   "at": 15.2,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "ống nghiệm"
+  },
+  {
+   "at": 15.95,
+   "name": "pop",
+   "vol": 0.7,
+   "why": "tim rơi vô ống"
+  },
+  {
+   "at": 16.6,
+   "name": "heartbeat",
+   "vol": 0.6,
+   "why": "tim đập"
+  },
+  {
+   "at": 18.3,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 19.45,
+   "name": "stamp",
+   "vol": 0.7,
+   "why": "Sáu đây!"
+  },
+  {
+   "at": 20.85,
+   "name": "whoosh-fast",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 21.6,
+   "name": "suspense",
+   "vol": 0.5,
+   "why": "chiêu lừa ngược đời"
+  },
+  {
+   "at": 23.6,
+   "name": "swipe",
+   "vol": 0.6,
+   "why": "tiền đi"
+  },
+  {
+   "at": 25.3,
+   "name": "snap",
+   "vol": 0.7,
+   "why": "kiểu này"
+  },
+  {
+   "at": 26.0,
+   "name": "coin",
+   "vol": 0.7,
+   "why": "tụi nó chuyển tiền tới"
+  },
+  {
+   "at": 28.67,
+   "name": "phone-vibrate",
+   "vol": 0.5,
+   "why": "gọi hối"
+  },
+  {
+   "at": 29.9,
+   "name": "lose",
+   "vol": 0.5,
+   "why": "tài khoản lạ"
+  },
+  {
+   "at": 31.0,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "giấy đòi nợ"
+  },
+  {
+   "at": 32.6,
+   "name": "tick",
+   "vol": 0.6,
+   "why": "tiền lãi chạy"
+  },
+  {
+   "at": 34.55,
+   "name": "oops",
+   "vol": 0.7,
+   "why": "Ủa?"
+  },
+  {
+   "at": 35.2,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "Sáu sốc"
+  },
+  {
+   "at": 36.3,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "CON NỢ"
+  },
+  {
+   "at": 37.75,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 40.2,
+   "name": "ding-idea",
+   "vol": 0.8,
+   "why": "dễ lắm!"
+  },
+  {
+   "at": 40.9,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "1 2 3"
+  },
+  {
+   "at": 42.65,
+   "name": "toggle",
+   "vol": 0.6,
+   "why": "chuyện 1"
+  },
+  {
+   "at": 43.4,
+   "name": "click",
+   "vol": 0.5,
+   "why": "mở app"
+  },
+  {
+   "at": 44.6,
+   "name": "success",
+   "vol": 0.8,
+   "why": "đã vô tài khoản"
+  },
+  {
+   "at": 46.3,
+   "name": "scribble",
+   "vol": 0.8,
+   "why": "gạch hình chụp"
+  },
+  {
+   "at": 47.65,
+   "name": "toggle",
+   "vol": 0.6,
+   "why": "chuyện 2"
+  },
+  {
+   "at": 48.9,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "khóa tiền"
+  },
+  {
+   "at": 50.0,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "đừng xài"
+  },
+  {
+   "at": 51.3,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "đừng tự chuyển"
+  },
+  {
+   "at": 52.8,
+   "name": "toggle",
+   "vol": 0.6,
+   "why": "chuyện 3"
+  },
+  {
+   "at": 54.1,
+   "name": "phone-vibrate",
+   "vol": 0.5,
+   "why": "gọi tổng đài"
+  },
+  {
+   "at": 55.4,
+   "name": "swipe",
+   "vol": 0.6,
+   "why": "ngân hàng kiểm tra"
+  },
+  {
+   "at": 56.6,
+   "name": "success",
+   "vol": 0.8,
+   "why": "trả đúng người"
+  },
+  {
+   "at": 57.95,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 59.7,
+   "name": "send",
+   "vol": 0.6,
+   "why": "câu trả lời"
+  },
+  {
+   "at": 62.1,
+   "name": "click",
+   "vol": 0.6,
+   "why": "cúp máy"
+  },
+  {
+   "at": 62.85,
+   "name": "whoosh-fast",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 63.9,
+   "name": "type",
+   "vol": 0.6,
+   "why": "mã OTP"
+  },
+  {
+   "at": 64.6,
+   "name": "punch",
+   "vol": 0.7,
+   "why": "gạch OTP"
+  },
+  {
+   "at": 65.9,
+   "name": "scribble",
+   "vol": 0.8,
+   "why": "gạch link"
+  },
+  {
+   "at": 67.2,
+   "name": "whoosh-soft",
+   "vol": 0.6,
+   "why": "chuyển cảnh"
+  },
+  {
+   "at": 68.4,
+   "name": "coin",
+   "vol": 0.6,
+   "why": "trả tiền"
+  },
+  {
+   "at": 69.4,
+   "name": "ding-idea",
+   "vol": 0.7,
+   "why": "trả cho đúng"
+  },
+  {
+   "at": 71.65,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "lần 1"
+  },
+  {
+   "at": 73.3,
+   "name": "riser",
+   "vol": 0.6,
+   "why": "lần 2?"
+  },
+  {
+   "at": 75.3,
+   "name": "stamp",
+   "vol": 1.0,
+   "why": "KHỎI!"
+  }
+ ]
 }

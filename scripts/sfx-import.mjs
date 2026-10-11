@@ -72,7 +72,10 @@ const dur = (f) => +execFileSync("ffprobe", ["-v", "error", "-show_entries", "fo
 const catalog = fs.existsSync(path.join(OUT, "catalog.json")) ? JSON.parse(fs.readFileSync(path.join(OUT, "catalog.json"))) : {};
 for (const file of fs.readdirSync(src).filter((f) => /\.(mp3|wav|m4a|ogg|aac|flac)$/i.test(f)).sort()) {
   const name = path.basename(file, path.extname(file)).toLowerCase();
-  const [cls, use] = META[name] ?? ["accent", ""];
+  // "pop-2" = phiên bản 2 của "pop" (file không đánh số = phiên bản 1)
+  const base = name.replace(/-(\d+)$/, "");
+  const variant = name === base ? 1 : Number(name.match(/-(\d+)$/)[1]);
+  const [cls, use] = META[base] ?? ["accent", ""];
   const C = CLASS[cls];
   const tmp = path.join(OUT, `.${name}.tmp.wav`);
   const trim = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.01";
@@ -88,7 +91,7 @@ for (const file of fs.readdirSync(src).filter((f) => /\.(mp3|wav|m4a|ogg|aac|fla
     path.join(OUT, `${name}.wav`)]);
   fs.rmSync(tmp);
   const after = vol(path.join(OUT, `${name}.wav`));
-  catalog[name] = { file: `${name}.wav`, class: cls, use, duration: Math.round(d * 100) / 100, mean: after.mean, peak: after.max };
+  catalog[name] = { file: `${name}.wav`, base, variant, class: cls, use, duration: Math.round(d * 100) / 100, mean: after.mean, peak: after.max };
   console.log(`${name.padEnd(15)} ${cls.padEnd(10)} ${d.toFixed(2)}s  mean ${after.mean}  peak ${after.max}`);
 }
 fs.writeFileSync(path.join(OUT, "catalog.json"), JSON.stringify(catalog, null, 2) + "\n");
