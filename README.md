@@ -67,3 +67,23 @@ npm run video -- listings/the-riverside-2pn
 - Mới làm phần **đóng gói** (ảnh + chữ + hiệu ứng). Chưa cắt dựng footage quay thô.
 - Chưa có nhạc nền và hiệu ứng âm thanh mặc định.
 - Màu sắc và font (Be Vietnam Pro) đặt trong `scripts/build.mjs` (biến CSS `--ink`, `--paper`, `--gold`).
+
+---
+
+# Dựng lại video từ clip thô (`scripts/recut/`)
+
+```bash
+export GEMINI_API_KEY=...
+node scripts/recut/analyze.mjs raw/<clip>.mp4 --target 60 --context "Tên dự án, chủ đầu tư, tên riêng…"
+# (tùy chọn) sửa work/<clip>/plan.json: đoạn giữ/bỏ, hook, thẻ thông tin, CTA
+node scripts/recut/build.mjs work/<clip> --speed 1.1
+```
+
+1. **Phân tích (1 lần gọi Gemini):** chép lời theo cụm có mốc thời gian, chọn đoạn giữ/bỏ, hook, các thẻ thông tin (đánh số theo mạch nội dung), CTA.
+2. **Cắt ghép (FFmpeg):** điểm cắt bám vào chỗ ngừng nói, bỏ khoảng lặng bên trong câu, tăng tốc, lọc ồn RNNoise, cân âm lượng -14 LUFS, chỉnh màu nhẹ.
+3. **Lớp phủ (HyperFrames)** theo tiêu chuẩn chữ trong video:
+   - 2 font: Montserrat cho tiêu đề và con số, Be Vietnam Pro cho phụ đề và nội dung. 1 màu chính (trắng) và 1 màu nhấn (champagne).
+   - Vùng an toàn cách mỗi cạnh ≥10%; phụ đề tránh thêm cột nút bên phải của TikTok.
+   - Phụ đề 5–7 từ, tối đa 2 dòng, nền tối bán trong suốt có đổ bóng. Hiện sớm 0,15 giây, tắt khi câu nói kết thúc. Thời điểm hiện chữ phân bổ theo khoảng có tiếng nói thật. Không ngắt giữa tên riêng; ưu tiên ngắt trước từ nối.
+   - Thẻ thông tin hiện 3,6–5,5 giây, không chồng nhau. Hook 3,2 giây. CTA 3,4 giây.
+4. **SFX:** chỉ dùng file thật đặt trong `sfx/` (`hit.wav`, `whoosh.wav`, `chime.wav`), mix nhỏ dưới giọng nói.

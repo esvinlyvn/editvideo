@@ -64,6 +64,13 @@ const CTA_DUR = 3.4;
 const TOTAL = r2(ACT + CTA_DUR);
 
 // ---------- 3. FFmpeg: a-roll ----------
+// Mô hình lọc ồn RNNoise (tách giọng khỏi tiếng ồn đám đông), tải 1 lần.
+const RNN = path.join(ROOT, "work/_models/sh.rnnn");
+if (!fs.existsSync(RNN)) {
+  fs.mkdirSync(path.dirname(RNN), { recursive: true });
+  const r = await fetch("https://raw.githubusercontent.com/GregorR/rnnoise-models/master/somnolent-hogwash-2018-09-01/sh.rnnn");
+  fs.writeFileSync(RNN, Buffer.from(await r.arrayBuffer()));
+}
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(path.join(out, "assets/fonts"), { recursive: true });
 fs.mkdirSync(path.join(out, "assets/vendor"), { recursive: true });
@@ -75,12 +82,12 @@ pieces.forEach((p, k) => {
 });
 fc.push(`${pieces.map((_, k) => `[v${k}][a${k}]`).join("")}concat=n=${pieces.length}:v=1:a=1[vc][ac]`);
 fc.push(
-  `[vc]setpts=PTS/${SPEED},fps=30,scale=1080:1920:flags=lanczos,unsharp=5:5:0.6,eq=contrast=1.05:saturation=1.12,` +
+  `[vc]setpts=PTS/${SPEED},fps=30,scale=1080:1920:flags=lanczos,unsharp=5:5:0.6,eq=contrast=1.06:saturation=1.08:gamma=0.98,colorbalance=rm=0.025:gm=0.005:bm=-0.025,vignette=angle=PI/7,` +
     `tpad=stop_mode=clone:stop_duration=${CTA_DUR}[vo]`,
 );
 // Âm thanh: lọc ồn môi trường, làm rõ giọng, nén, chuẩn -14 LUFS (chuẩn mạng xã hội)
 fc.push(
-  `[ac]atempo=${SPEED},highpass=f=90,afftdn=nr=14:nf=-30:tn=1,equalizer=f=250:t=q:w=1:g=-2,equalizer=f=3500:t=q:w=1.2:g=3,` +
+  `[ac]atempo=${SPEED},highpass=f=90,arnndn=m='${RNN}':mix=0.85,equalizer=f=250:t=q:w=1:g=-2,equalizer=f=3500:t=q:w=1.2:g=3,` +
     `acompressor=threshold=-22dB:ratio=3:attack=5:release=120:makeup=2,loudnorm=I=-14:TP=-1.5:LRA=9,apad=pad_dur=${CTA_DUR}[ao]`,
 );
 const aroll = path.join(out, "assets/aroll.mp4");
@@ -88,7 +95,36 @@ console.log(`✂ ${pieces.length} mảnh · ${ACT.toFixed(1)}s (tốc độ ${SP
 sh("ffmpeg", ["-loglevel", "error", "-y", "-i", plan.source, "-filter_complex", fc.join(";"), "-map", "[vo]", "-map", "[ao]",
   "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-t", String(TOTAL), aroll]);
 
-// ---------- 4. Phụ đề: câu ngắn ≤ 9 từ, ngắt ở dấu câu, chia theo mảnh speech ----------
+// ---------- 4. Phụ đề ----------
+// Chuẩn: 5–7 từ/cụm (tối đa 2 dòng), hiện sớm 0.15s, tắt khi câu nói kết thúc.
+// Thời điểm từng chữ: phân bổ theo thời gian CÓ TIẾNG NÓI thật (năng lượng audio sau lọc ồn),
+// không chia đều — chữ không chạy trước/sau khi người nói ngừng.
+const LEAD = 0.15;
+function voicedClock(p) {
+  const raw = execFileSync("ffmpeg", ["-loglevel", "error", "-ss", String(p.a), "-to", String(p.b), "-i", plan.source, "-vn",
+    "-af", `highpass=f=90,arnndn=m='${RNN}'`, "-ac", "1", "-ar", "8000", "-f", "s16le", "-"], { maxBuffer: 1 << 26 });
+  const N = 160; // 20ms
+  const rms = [];
+  for (let i = 0; i + N * 2 <= raw.length; i += N * 2) {
+    let e = 0;
+    for (let j = 0; j < N; j++) e += raw.readInt16LE(i + j * 2) ** 2;
+    rms.push(Math.sqrt(e / N));
+  }
+  const sorted = [...rms].sort((x, y) => x - y);
+  const thr = sorted[Math.floor(sorted.length * 0.9)] * 0.18;
+  const voiced = rms.map((v) => v > thr);
+  const cum = [0];
+  voiced.forEach((v, i) => cum.push(cum[i] + (v ? 1 : 0)));
+  const total = cum.at(-1) || 1;
+  // frac (0..1 lượng tiếng nói) → thời gian trên video thành phẩm
+  return (frac) => {
+    const target = frac * total;
+    let i = cum.findIndex((c) => c >= target);
+    if (i < 0) i = cum.length - 1;
+    return p.out + (i * 0.02) / SPEED;
+  };
+}
+const BREAK_BEFORE = new Set("và là mà của thì với để nhưng những các từ ở có đến cho khi trong bởi hay hoặc nên vì rất chỉ đã sẽ".split(" "));
 const captions = [];
 for (const s of order) {
   const ps = pieces.filter((p) => p.seg === s);
@@ -106,18 +142,27 @@ for (const s of order) {
       g.push(w);
       const next = chunk[j + 1];
       const inName = next && /^\p{Lu}/u.test(w) && /^\p{Lu}/u.test(next); // không ngắt giữa tên riêng
-      if ((/[,.!?:;]$/.test(w) && g.length >= 4) || (g.length >= 9 && !inName) || g.length >= 12) groups.push(g), (g = []);
+      // Ưu tiên ngắt trước từ nối (không cắt đôi từ ghép như "chi tiết")
+      const beforeLink = next && g.length >= 4 && BREAK_BEFORE.has(next.toLowerCase());
+      if ((/[,.!?:;]$/.test(w) && g.length >= 4) || beforeLink || (g.length >= 7 && !inName && !BREAK_BEFORE.has(w.toLowerCase())) || g.length >= 9)
+        groups.push(g), (g = []);
     });
     if (g.length) groups.length && g.length < 3 ? groups[groups.length - 1].push(...g) : groups.push(g);
-    let acc = p.out + 0.04;
-    const span = p.len - 0.04;
+    const at = voicedClock(p);
+    let k = 0;
     groups.forEach((gr) => {
-      const d = (gr.length / chunk.length) * span;
-      captions.push({ start: r2(acc), dur: r2(d), text: gr.join(" ") });
-      acc += d;
+      const t0 = at(k / chunk.length);
+      const t1 = at((k + gr.length) / chunk.length);
+      k += gr.length;
+      captions.push({ start: r2(Math.max(p.out, t0 - LEAD)), end: r2(Math.min(p.out + p.len, t1 + 0.12)), text: gr.join(" ") });
     });
   });
 }
+captions.forEach((c, i) => {
+  const nx = captions[i + 1];
+  if (nx && c.end > nx.start) c.end = nx.start;
+  c.dur = r2(Math.max(0.3, c.end - c.start));
+});
 
 // ---------- 5. Hook, thẻ thông tin (callout), CTA, zoom, SFX ----------
 const HOOK_DUR = 3.2;
@@ -158,6 +203,14 @@ for (const w of [500, 600, 800]) {
     (_, f) => (fs.copyFileSync(path.join(fontPkg, "files", f), path.join(out, "assets/fonts", f)), `url(assets/fonts/${f}) format('woff2')`),
   );
 }
+// Font tiêu đề/con số: Montserrat (đậm, hiện đại); font nội dung/phụ đề: Be Vietnam Pro.
+const mPkg = path.join(ROOT, "node_modules/@fontsource/montserrat");
+for (const w of [700, 800]) {
+  fontCss += fs.readFileSync(path.join(mPkg, `${w}.css`), "utf8").replace(
+    /url\(\.\/files\/([^)]+\.woff2)\) format\('woff2'\),\s*url\([^)]+\) format\('woff'\)/g,
+    (_, f) => (fs.copyFileSync(path.join(mPkg, "files", f), path.join(out, "assets/fonts", f)), `url(assets/fonts/${f}) format('woff2')`),
+  );
+}
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 const capHtml = captions
@@ -188,7 +241,8 @@ const html = `<!doctype html>
     <script src="assets/vendor/gsap.min.js"></script>
     <style>
 ${fontCss}
-      :root { --accent: #e6c27a; --glass: rgba(14, 16, 20, 0.66); --line: rgba(255, 255, 255, 0.14); }
+      /* Vùng an toàn: ≥10% mỗi cạnh (108px ngang, 192px dọc); phụ đề tránh thêm cột nút bên phải TikTok */
+      :root { --display: "Montserrat", "Be Vietnam Pro", sans-serif; --accent: #e6c27a; --glass: rgba(14, 16, 20, 0.66); --line: rgba(255, 255, 255, 0.14); }
       body { margin: 0; background: #000; font-family: "Be Vietnam Pro", sans-serif; color: #fff; }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
       #cam { position: absolute; inset: 0; transform-origin: 50% 32%; }
@@ -197,39 +251,40 @@ ${fontCss}
         background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.18) 60%, rgba(0,0,0,0) 100%); }
 
       /* Phụ đề: gọn, dễ đọc, không giành sự chú ý */
-      .cap { position: absolute; left: 90px; right: 90px; top: 1350px; display: flex; justify-content: center; }
-      .cap-in { margin: 0; max-width: 860px; text-align: center; font-weight: 600; font-size: 44px; line-height: 1.4;
-        padding: 10px 24px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.58);
+      .cap { position: absolute; left: 108px; right: 150px; top: 1380px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-weight: 600; font-size: 46px; line-height: 1.38;
+        padding: 10px 24px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.55);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
         -webkit-box-decoration-break: clone; box-decoration-break: clone; text-wrap: balance; }
 
       /* Thẻ thông tin */
-      .co { position: absolute; left: 64px; top: 168px; }
-      .co-card { position: relative; display: block; max-width: 720px; padding: 26px 36px 30px 44px; border-radius: 22px;
+      .co { position: absolute; left: 108px; top: 212px; }
+      .co-card { position: relative; display: block; max-width: 760px; padding: 26px 36px 30px 44px; border-radius: 22px;
         background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px) saturate(140%);
         box-shadow: 0 18px 50px rgba(0,0,0,.35); overflow: hidden; }
       .co-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--accent); transform-origin: 50% 0; }
       .co-label { font-weight: 600; font-size: 26px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
-      .co-value { font-weight: 800; font-size: 104px; line-height: 1.02; letter-spacing: -0.025em; margin-top: 10px; }
-      .co-value.long { font-size: 70px; line-height: 1.08; }
+      .co-value { font-family: var(--display); font-weight: 800; font-size: 100px; line-height: 1.02; letter-spacing: -0.025em; margin-top: 10px; }
+      .co-value.long { font-size: 64px; line-height: 1.08; }
       .co-sub { text-wrap: balance; font-weight: 500; font-size: 32px; line-height: 1.35; margin-top: 14px; color: rgba(255,255,255,.82); }
 
       /* Hook */
-      #hook { position: absolute; left: 64px; right: 64px; top: 168px; }
-      #hook-in { display: block; max-width: 900px; padding: 28px 36px 34px 44px; border-radius: 22px; position: relative; overflow: hidden;
+      #hook { position: absolute; left: 108px; right: 108px; top: 212px; }
+      #hook-in { display: block; max-width: 864px; padding: 28px 36px 34px 44px; border-radius: 22px; position: relative; overflow: hidden;
         background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px) saturate(140%); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
       #hook-label { display: inline-block; font-weight: 600; font-size: 28px; letter-spacing: .2em; text-transform: uppercase;
         color: #111; background: var(--accent); padding: 8px 18px; border-radius: 8px; }
-      #hook-title { font-weight: 800; font-size: 82px; line-height: 1.1; letter-spacing: -0.02em; margin-top: 22px;
+      #hook-title { font-family: var(--display); font-weight: 800; font-size: 64px; line-height: 1.1; letter-spacing: -0.02em; margin-top: 22px;
         text-wrap: balance; }
       #hook-rule { display: block; width: 180px; height: 8px; margin-top: 26px; background: var(--accent); border-radius: 4px; transform-origin: 0 50%; }
 
       /* CTA */
       #cta { position: absolute; inset: 0; }
       #cta-bg { position: absolute; inset: 0; background: rgba(0,0,0,.55); }
-      #cta-card { position: absolute; left: 80px; right: 80px; top: 720px; display: block; padding: 46px 48px 50px; border-radius: 28px;
+      #cta-card { position: absolute; left: 108px; right: 108px; top: 720px; display: block; padding: 46px 48px 50px; border-radius: 28px;
         background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(18px); text-align: center; }
       #cta-label { font-weight: 600; font-size: 28px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
-      #cta-t { font-weight: 800; font-size: 64px; line-height: 1.15; margin-top: 18px; text-wrap: balance; }
+      #cta-t { font-family: var(--display); font-weight: 800; font-size: 58px; line-height: 1.15; margin-top: 18px; text-wrap: balance; }
       #cta-s { font-weight: 500; font-size: 34px; margin-top: 22px; color: rgba(255,255,255,.8); }
     </style>
   </head>

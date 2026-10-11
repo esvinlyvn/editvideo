@@ -65,7 +65,7 @@ Trả về JSON:
 - "hookTitle": câu hook hiện 3 giây đầu, ≤ 9 từ, gây tò mò, viết thường có hoa đầu câu/tên riêng.
 - "callouts": 5–8 thẻ thông tin nhấn ý chính, mỗi thẻ hiện ≥ 3.5 giây nên rải đều, không 2 thẻ ở 2 cụm liền nhau:
   [{"index": index cụm keep, "label": nhãn 1–3 từ (vd "Quy mô"), "value": số liệu/từ khóa ngắn ≤ 3 từ (vd "922 căn"), "sub": mô tả ≤ 7 từ}]
-  Thẻ đầu tiên nên giới thiệu dự án/chủ thể chính của video.
+  Thẻ đầu tiên nên giới thiệu dự án/chủ thể chính của video. Nếu người nói liệt kê các yếu tố/lý do, đánh số nhãn theo mạch: "Yếu tố 1 · Chủ đầu tư", "Yếu tố 2 · Vị trí"…
 - "cta": câu kêu gọi cuối video ≤ 8 từ (theo dõi / bình luận / nhắn tin tư vấn…) phù hợp nội dung.
 Chỉ trả JSON hợp lệ.`;
 
