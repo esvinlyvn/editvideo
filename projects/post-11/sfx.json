@@ -1,0 +1,427 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  6.45,
+  11.15,
+  15.95,
+  18.6,
+  25.1,
+  33.35,
+  42.1,
+  48.4,
+  52.65,
+  58.15,
+  60.45,
+  63.4,
+  66.55,
+  70.3,
+  75.2,
+  84.15,
+  89.2
+ ],
+ "cues": [
+  {
+   "at": 0.4,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "lịch nảy: Ê mấy mày"
+  },
+  {
+   "at": 1.6,
+   "name": "page-turn",
+   "vol": 0.6,
+   "why": "xé tờ lịch",
+   "group": "rip"
+  },
+  {
+   "at": 2.85,
+   "name": "shimmer",
+   "vol": 0.7,
+   "why": "tờ 6/2 Tết, hoa mai nở"
+  },
+  {
+   "at": 4,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "dải tháng"
+  },
+  {
+   "at": 6.6,
+   "name": "record-scratch",
+   "vol": 0.85,
+   "why": "Ủa khoan…"
+  },
+  {
+   "at": 7.25,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "Tết nữa hả?"
+  },
+  {
+   "at": 8.85,
+   "name": "paper-rustle",
+   "vol": 0.6,
+   "why": "sổ trả góp"
+  },
+  {
+   "at": 9.55,
+   "name": "coin",
+   "vol": 0.55,
+   "why": "đã trả 1/12"
+  },
+  {
+   "at": 10.55,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "CÒN NỢ"
+  },
+  {
+   "at": 11.15,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 11.8,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé tờ lịch",
+   "group": "rip"
+  },
+  {
+   "at": 14,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "nút follow"
+  },
+  {
+   "at": 14.85,
+   "name": "like",
+   "vol": 0.7,
+   "why": "bấm follow"
+  },
+  {
+   "at": 15.95,
+   "name": "whoosh-soft",
+   "vol": 0.55,
+   "why": "cảnh treo xuống"
+  },
+  {
+   "at": 16.6,
+   "name": "riser",
+   "vol": 0.5,
+   "why": "kim đồng hồ quay"
+  },
+  {
+   "at": 18.6,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 19.2,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "Tết 2020"
+  },
+  {
+   "at": 23.3,
+   "name": "chart-up",
+   "vol": 0.6,
+   "why": "đếm 1→7 năm"
+  },
+  {
+   "at": 24.5,
+   "name": "stamp",
+   "vol": 0.85,
+   "why": "tròn 7 năm"
+  },
+  {
+   "at": 25.1,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 27.95,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "nghỉ học"
+  },
+  {
+   "at": 30.05,
+   "name": "coin",
+   "vol": 0.65,
+   "why": "lì xì"
+  },
+  {
+   "at": 32.8,
+   "name": "gasp",
+   "vol": 0.8,
+   "why": "giật mình"
+  },
+  {
+   "at": 33.4,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 36.9,
+   "name": "pop",
+   "vol": 0.65,
+   "why": "? tiền để dành"
+  },
+  {
+   "at": 37.6,
+   "name": "crickets",
+   "vol": 0.4,
+   "why": "heo đất rỗng, bướm bay ra"
+  },
+  {
+   "at": 38.2,
+   "name": "pop",
+   "vol": 0.65,
+   "why": "? du lịch"
+  },
+  {
+   "at": 41,
+   "name": "pop",
+   "vol": 0.65,
+   "why": "? sống lành mạnh"
+  },
+  {
+   "at": 42.1,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 42.75,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "giày trượt vô"
+  },
+  {
+   "at": 44.15,
+   "name": "click",
+   "vol": 0.55,
+   "why": "chạy bữa 1"
+  },
+  {
+   "at": 45.7,
+   "name": "door-slam",
+   "vol": 0.6,
+   "why": "tủ kính chụp xuống"
+  },
+  {
+   "at": 46.75,
+   "name": "shimmer",
+   "vol": 0.7,
+   "why": "giày trưng bày"
+  },
+  {
+   "at": 48.4,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 51.9,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "về nhà"
+  },
+  {
+   "at": 52.65,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 53.85,
+   "name": "scroll",
+   "vol": 0.45,
+   "why": "12 tháng trôi"
+  },
+  {
+   "at": 56.6,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "về nhà lần 1"
+  },
+  {
+   "at": 58.15,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 59.35,
+   "name": "swipe",
+   "vol": 0.5,
+   "why": "dời hẹn"
+  },
+  {
+   "at": 60.45,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 62.55,
+   "name": "stamp",
+   "vol": 0.55,
+   "why": "giấy note dán lên ghế"
+  },
+  {
+   "at": 63.4,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 64.2,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "xé tờ lịch",
+   "group": "rip"
+  },
+  {
+   "at": 65.4,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "xé tờ lịch",
+   "group": "rip"
+  },
+  {
+   "at": 66.55,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "cảnh treo xuống"
+  },
+  {
+   "at": 67.7,
+   "name": "stamp",
+   "vol": 0.8,
+   "why": "+1 tuổi"
+  },
+  {
+   "at": 69.55,
+   "name": "stamp",
+   "vol": 0.8,
+   "why": "ba má +1 tuổi"
+  },
+  {
+   "at": 70.3,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 73.5,
+   "name": "riser",
+   "vol": 0.5,
+   "why": "con dấu lơ lửng"
+  },
+  {
+   "at": 74.55,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "THẤT BẠI"
+  },
+  {
+   "at": 75.15,
+   "name": "scribble",
+   "vol": 0.8,
+   "why": "gạch con dấu"
+  },
+  {
+   "at": 75.85,
+   "name": "ding-idea",
+   "vol": 0.7,
+   "why": "vẫn còn kịp"
+  },
+  {
+   "at": 78.95,
+   "name": "success-2",
+   "vol": 0.6,
+   "why": "tick 1"
+  },
+  {
+   "at": 80.95,
+   "name": "success-2",
+   "vol": 0.6,
+   "why": "tick 2"
+  },
+  {
+   "at": 83.05,
+   "name": "success-2",
+   "vol": 0.65,
+   "why": "tick 3"
+  },
+  {
+   "at": 84.15,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "cảnh treo xuống"
+  },
+  {
+   "at": 87.05,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "món muốn mua"
+  },
+  {
+   "at": 88.3,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "gạch món"
+  },
+  {
+   "at": 89.2,
+   "name": "page-turn",
+   "vol": 0.7,
+   "why": "xé trang (chuyển cảnh)",
+   "group": "tear"
+  },
+  {
+   "at": 90.6,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "ấm áp bên ba má"
+  },
+  {
+   "at": 93.7,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "Thôi, để bữa khác."
+  },
+  {
+   "at": 94.45,
+   "name": "page-turn",
+   "vol": 0.85,
+   "why": "xé tờ lịch",
+   "group": "rip"
+  },
+  {
+   "at": 95.6,
+   "name": "hit",
+   "vol": 0.7,
+   "why": "chốt: không có ngày bữa khác"
+  }
+ ]
+}

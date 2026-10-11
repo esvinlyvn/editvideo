@@ -16,7 +16,8 @@ tiết kiệm|giảm giá|sử dụng|mua sắm|săn sale|món hời|hiệp đ�
 hoàn thành|lập tức|chủ đầu tư|căn hộ|dự án|mở bán|thiết yếu|phụ kiện|sản phẩm|cảm giác|chi phí|số lần|bao nhiêu|hôm nay|ngày mai|bản thân|
 nhớ đi nhớ lại|lời từ chối|trường hợp|người khác|mấy giờ|9 giờ|8 giờ|một chút|chút xíu|vấn đề|thực sự|tất nhiên|không phải|đi được|
 thử nghiệm|tài khoản|chuyển khoản|chuyển lộn|ngân hàng|lừa đảo|ngược đời|đòi nợ|con nợ|tiền lãi|ứng dụng|kiểm tra|giữ nguyên|chính thức|
-hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu`
+hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu|
+lời hứa|làm được|đầu năm|cuối tuần|thăm nhà|bạn cũ|ba má|lì xì|lớn lao|thất bại|trưng bày|chạy bộ|du lịch|lành mạnh|để dành|giật mình|thành công`
     .split("|")
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean),
@@ -37,7 +38,7 @@ function breakCost(words, i) {
     }
   }
   if (isCap(prev) && isCap(next) && i > 1) return Infinity; // tên riêng
-  if (NUMBER.has(bare(prev)) || /^\d/.test(prev) && !/[,.!?]$/.test(prev)) return Infinity; // số đếm + danh từ
+  if (NUMBER.has(bare(prev)) || (/^\d/.test(prev) && !/^\d{4}$/.test(prev) && !/[,.!?]$/.test(prev))) return Infinity; // số đếm + danh từ (năm 4 chữ số như "2027" thì không tính)
   if (/[,.!?:;…]["”']?$/.test(prev)) return 0; // sau dấu câu: đẹp nhất
   if (PRONOUN.has(bare(prev))) return 30; // đại từ treo cuối dòng: xấu
   if (PRONOUN.has(bare(next))) return 3; // ngắt trước chủ ngữ: tốt

@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Tết nữa hả</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "lịch bloc ngày Tết" =====
+         2 font: Playfair Display (chữ lớn, số trên tờ lịch) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền giấy trắng ngà, chữ nâu mực; 1 màu nhấn: đỏ cờ (như số ngày Chủ nhật / ngày Tết trên lịch)
+         Ẩn dụ xuyên suốt: tờ lịch bị xé. Chuyển cảnh = xé một trang (rơi xuống), cảnh mới treo vô = thả từ trên xuống
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Playfair Display", serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #fbf4e8;
+        --bg2: #f4e7d6;
+        --ink: #2b1612;
+        --muted: rgba(43, 22, 18, 0.58);
+        --red: #d42a1f;
+        --gold: #f2b01e;
+        --card: #ffffff;
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .ov { position: absolute; inset: 0; background: var(--bg); box-shadow: 0 30px 70px rgba(43, 22, 18, 0.45); }
+      .ov.dusk { background: var(--bg2); }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 900; letter-spacing: -0.01em; line-height: 1.08; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .r { color: var(--red); }
+      .lab { font-family: var(--body); font-weight: 800; font-size: 30px; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+      .card { position: absolute; background: var(--card); border: 4px solid var(--ink); border-radius: 28px; box-shadow: 0 12px 0 rgba(43,22,18,.14); box-sizing: border-box; }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -6px; right: -6px; top: 50%; height: 8px; margin-top: -4px; border-radius: 4px; background: var(--red); transform-origin: 0 50%; }
+      .stamp { position: absolute; padding: 10px 26px 14px; border: 9px solid var(--red); border-radius: 18px; color: var(--red); font-family: var(--body); font-weight: 800; letter-spacing: .06em; white-space: nowrap; background: rgba(255,255,255,.75); }
+      .tt { position: absolute; left: 108px; right: 108px; top: 196px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 74px; line-height: 1.1; letter-spacing: -0.01em; }
+      .tt .blk { white-space: nowrap; }
+
+      /* ===== Lịch bloc (thế giới) ===== */
+      #cal { position: absolute; left: 220px; top: 430px; width: 640px; height: 760px; }
+      #cal .top { position: absolute; left: -24px; right: -24px; top: 0; height: 96px; background: var(--red); border-radius: 22px 22px 8px 8px; z-index: 120; display: flex; align-items: center; justify-content: center; gap: 18px;
+        color: #ffe2a6; font-weight: 800; font-size: 30px; letter-spacing: .26em; box-shadow: 0 10px 0 rgba(43,22,18,.18); }
+      #cal .ring { position: absolute; top: -30px; width: 24px; height: 66px; border-radius: 12px; background: #3d2b25; border: 5px solid #a38f84; box-sizing: border-box; z-index: 121; }
+      #cal .thick { position: absolute; left: 6px; right: 6px; top: 90px; bottom: -14px; border: 3px solid var(--ink); border-top: 0; border-radius: 0 0 20px 20px; background: #efe5d6;
+        box-shadow: 0 14px 0 rgba(43,22,18,.12); }
+      #cal .pgs { position: absolute; left: 0; right: 0; top: 84px; bottom: 0; }
+      .pg { position: absolute; inset: 0; background: #fff; border: 3px solid var(--ink); border-top: 0; border-radius: 0 0 20px 20px; text-align: center; overflow: hidden; box-sizing: border-box;
+        background-image: linear-gradient(#fff, #fff 96%, #f3ece2); }
+      .pg .m { margin-top: 40px; font-weight: 800; font-size: 34px; letter-spacing: .16em; }
+      .pg .n { font-family: var(--disp); font-weight: 900; font-size: 380px; line-height: 1; margin-top: 4px; }
+      .pg .wd { font-weight: 800; font-size: 48px; letter-spacing: .12em; }
+      .pg .lu { position: absolute; left: 44px; right: 44px; bottom: 38px; border-top: 3px dashed rgba(43,22,18,.22); padding-top: 18px; display: flex; justify-content: space-between; font-weight: 700; font-size: 30px; }
+      .pg.red .n, .pg.red .wd { color: var(--red); }
+      #mai1, #mai2 { position: absolute; }
+      #strip { position: absolute; left: 108px; right: 108px; top: 1250px; display: flex; gap: 16px; justify-content: center; }
+      .mo { width: 148px; height: 118px; border: 4px solid var(--ink); border-radius: 20px; background: #fff; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+      .mo b { font-weight: 800; font-size: 34px; position: relative; }
+      .mo i { position: absolute; inset: 0; background: rgba(212,42,31,.16); transform-origin: 0 50%; }
+      .mo.tet { background: var(--red); color: #fff; border-color: var(--red); }
+      #sau-name { top: 1240px; font-size: 96px; }
+      #follow { position: absolute; left: 50%; top: 1372px; width: 400px; margin-left: -200px; height: 100px; border-radius: 50px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center;
+        font-family: var(--body); font-weight: 800; font-size: 46px; }
+      #follow span { position: absolute; white-space: nowrap; }
+      .sau-w { position: absolute; left: 105px; top: 110px; width: 430px; height: 430px; }
+      #note { position: absolute; left: 640px; top: 1110px; width: 300px; padding: 22px 24px 26px; background: #ffe58a; box-shadow: 0 10px 18px rgba(43,22,18,.25); transform: rotate(6deg); z-index: 130;
+        font-weight: 700; font-size: 38px; line-height: 1.2; text-align: center; }
+      #note::before { content: ""; position: absolute; left: 50%; top: -14px; width: 26px; height: 26px; margin-left: -13px; border-radius: 50%; background: var(--red); box-shadow: 0 3px 0 rgba(0,0,0,.25); }
+      .todo { display: flex; align-items: center; gap: 22px; padding: 0 40px; height: 178px; border-bottom: 3px dashed rgba(43,22,18,.18); text-align: left; }
+      .todo:last-child { border-bottom: 0; }
+      .todo .bx { width: 66px; height: 66px; flex: none; border: 5px solid var(--ink); border-radius: 14px; position: relative; box-sizing: border-box; }
+      .todo .bx svg { position: absolute; left: -6px; top: -20px; }
+      .todo .tx { font-weight: 700; font-size: 40px; line-height: 1.18; flex: 1; }
+      .todo .ic { flex: none; }
+      #bubble { position: absolute; left: 260px; top: 1250px; padding: 26px 44px 30px; background: var(--ink); color: #fff; border-radius: 44px 44px 44px 12px; font-family: var(--disp); font-weight: 900; font-size: 64px; white-space: nowrap; }
+      #endline { top: 1262px; font-size: 54px; }
+
+      /* O1 · Ủa khoan + sổ trả góp */
+      #o1-a { top: 470px; font-size: 128px; }
+      #o1-b { top: 640px; font-size: 128px; }
+      #o1-ic { position: absolute; left: 400px; top: 900px; }
+      #o1-h { top: 260px; font-size: 76px; }
+      #slip { left: 108px; right: 108px; top: 560px; padding: 44px 50px 50px; }
+      .row { display: flex; justify-content: space-between; align-items: baseline; padding: 22px 0; border-bottom: 3px dashed rgba(43,22,18,.18); font-size: 40px; }
+      .row span { color: var(--muted); font-weight: 600; }
+      .row b { font-weight: 800; }
+      .bar { margin-top: 30px; height: 40px; border-radius: 20px; border: 4px solid var(--ink); overflow: hidden; background: #f6efe5; }
+      .bar i { display: block; height: 100%; background: var(--red); transform-origin: 0 50%; }
+      #no { right: 70px; top: 760px; font-size: 64px; transform: rotate(-10deg); }
+
+      /* O2 · đồng hồ */
+      #o2-h { top: 230px; font-size: 76px; }
+      #clock { position: absolute; left: 260px; top: 560px; }
+      .fly { position: absolute; width: 120px; height: 140px; background: #fff; border: 4px solid var(--ink); border-top: 22px solid var(--red); border-radius: 8px; font-family: var(--disp); font-weight: 900; font-size: 70px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+
+      /* O3 · 2020 → 2027 */
+      #o3-a { top: 250px; font-size: 120px; }
+      #o3-b { top: 250px; font-size: 120px; }
+      #ruler { position: absolute; left: 150px; width: 780px; top: 860px; height: 10px; background: var(--ink); border-radius: 5px; transform-origin: 0 50%; }
+      #fill { position: absolute; left: 150px; width: 780px; top: 852px; height: 26px; background: var(--red); border-radius: 13px; transform-origin: 0 50%; }
+      .tick { position: absolute; top: 838px; width: 8px; height: 54px; margin-left: -4px; border-radius: 4px; background: var(--ink); }
+      .yr { position: absolute; top: 912px; width: 120px; margin-left: -60px; text-align: center; font-weight: 800; font-size: 30px; }
+      .pin { position: absolute; top: 640px; width: 150px; height: 150px; margin-left: -75px; background: #fff; border: 4px solid var(--ink); border-top: 26px solid var(--red); border-radius: 12px; box-sizing: border-box; text-align: center; }
+      .pin b { display: block; font-family: var(--disp); font-weight: 900; font-size: 46px; margin-top: 10px; }
+      .pin span { font-weight: 800; font-size: 26px; letter-spacing: .1em; color: var(--red); }
+      .pin::after { content: ""; position: absolute; left: 50%; bottom: -54px; width: 4px; height: 50px; margin-left: -2px; background: var(--ink); }
+      #brk { position: absolute; left: 150px; width: 223px; top: 540px; height: 50px; border: 5px dashed var(--muted); border-bottom: 0; border-radius: 16px 16px 0 0; }
+      #brk-t { position: absolute; left: 108px; width: 600px; top: 470px; font-weight: 700; font-size: 36px; color: var(--muted); white-space: nowrap; }
+      #yrs { position: absolute; left: 108px; right: 108px; top: 1040px; text-align: center; }
+      #yrs .num { font-family: var(--disp); font-weight: 900; font-size: 300px; line-height: 1; color: var(--red); }
+      #yrs .u { font-family: var(--disp); font-weight: 900; font-size: 96px; margin-left: 16px; }
+      #ring7 { position: absolute; left: 290px; top: 1030px; width: 500px; height: 330px; border: 8px solid var(--red); border-radius: 50%; }
+
+      /* O4 · hồi nhỏ / giờ lớn */
+      #kid { left: 108px; right: 108px; top: 220px; height: 600px; padding: 40px 44px; }
+      #adult { left: 108px; right: 108px; top: 860px; height: 560px; padding: 40px 44px; background: var(--ink); color: #fff; border-color: var(--ink); }
+      .ph { font-family: var(--disp); font-weight: 900; font-size: 62px; margin-top: 12px; white-space: nowrap; }
+      .chips { display: flex; justify-content: space-between; margin-top: 44px; }
+      .chip { width: 236px; display: flex; flex-direction: column; align-items: center; gap: 14px; font-weight: 800; font-size: 36px; }
+      .chip .ib { width: 200px; height: 200px; border-radius: 34px; background: var(--bg); border: 4px solid var(--ink); display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+      #adult .lab { color: var(--gold); }
+      #alarm { position: absolute; left: 70px; top: 200px; }
+      #gm { position: absolute; left: 380px; top: 280px; font-family: var(--disp); font-weight: 900; font-size: 104px; color: var(--gold); white-space: nowrap; }
+      .shk { position: absolute; width: 14px; height: 50px; border-radius: 7px; background: var(--gold); }
+
+      /* O5 / O12 · năm nay làm được gì */
+      #o5-h, #o12-h { top: 230px; font-size: 72px; }
+      .chk { left: 108px; right: 108px; top: 520px; padding: 36px 44px 20px; }
+      .ci { display: flex; align-items: center; gap: 28px; height: 180px; border-bottom: 3px dashed rgba(43,22,18,.18); }
+      .ci:last-child { border-bottom: 0; }
+      .ci .ic { width: 120px; height: 120px; border-radius: 28px; background: var(--bg); display: flex; align-items: center; justify-content: center; flex: none; }
+      .ci .tx { flex: 1; font-weight: 800; font-size: 46px; white-space: nowrap; }
+      .ci .q { width: 96px; height: 96px; border: 5px solid var(--ink); border-radius: 20px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; flex: none; position: relative; }
+      .ci .q b { font-family: var(--disp); font-weight: 900; font-size: 76px; color: var(--red); line-height: 1; }
+      #moth { position: absolute; left: 230px; top: 690px; }
+      #fail { left: 250px; top: 760px; font-size: 92px; color: var(--ink); border-color: var(--ink); transform: rotate(-12deg); }
+      #fail-x { position: absolute; left: 214px; top: 834px; width: 650px; height: 16px; border-radius: 8px; background: var(--red); transform: rotate(-12deg); transform-origin: 0 50%; }
+
+      /* O6 · giày */
+      #o6-a, #o6-b, #o6-c { top: 230px; font-size: 76px; }
+      #shoe { position: absolute; left: 230px; top: 560px; }
+      #new { left: 640px; top: 520px; font-size: 40px; transform: rotate(12deg); padding: 6px 18px 10px; border-width: 6px; }
+      #trk { position: absolute; left: 108px; right: 108px; top: 1010px; display: flex; justify-content: center; gap: 14px; }
+      .d { width: 104px; height: 128px; border: 4px solid var(--ink); border-radius: 18px; background: #fff; box-sizing: border-box; text-align: center; font-weight: 800; font-size: 28px; padding-top: 10px; position: relative; }
+      .d svg { position: absolute; left: 22px; top: 50px; }
+      #case { position: absolute; left: 190px; top: 470px; width: 700px; height: 520px; border: 6px solid var(--ink); border-radius: 18px; background: linear-gradient(120deg, rgba(255,255,255,.55), rgba(255,255,255,.12) 40%, rgba(255,255,255,.4) 60%, rgba(255,255,255,.1)); box-sizing: border-box; }
+      #case::after { content: ""; position: absolute; left: -40px; right: -40px; bottom: -60px; height: 54px; background: var(--ink); border-radius: 10px; }
+      #glare { position: absolute; left: 60px; top: 30px; width: 40px; height: 300px; background: rgba(255,255,255,.7); transform: skewX(-18deg); border-radius: 20px; }
+      #plaque { left: 230px; right: 230px; top: 1100px; padding: 22px 26px 26px; text-align: center; background: #f7e3b0; }
+      #plaque .k { font-family: var(--disp); font-weight: 900; font-size: 50px; }
+      #plaque .s { font-weight: 600; font-size: 30px; color: var(--muted); margin-top: 4px; }
+      #beam { position: absolute; left: 290px; top: 420px; width: 500px; height: 630px; background: linear-gradient(rgba(242,176,30,.5), rgba(242,176,30,0)); clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%); }
+
+      /* O7 · nghĩ kỹ */
+      #o7-a { top: 300px; font-size: 104px; }
+      #o7-b { top: 230px; font-size: 64px; }
+      .duo { position: absolute; top: 640px; width: 380px; text-align: center; }
+      .duo .ib { width: 300px; height: 300px; margin: 0 auto; border-radius: 50%; border: 5px solid var(--ink); background: #fff; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+      .duo b { display: block; font-weight: 800; font-size: 44px; margin-top: 24px; }
+      #duo1 { left: 108px; } #duo2 { right: 108px; }
+
+      /* O8 · 12 tháng */
+      #o8-a, #o8-b { top: 230px; font-size: 76px; }
+      #months { left: 108px; right: 108px; top: 500px; padding: 38px 42px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      .mc { height: 150px; border: 4px solid var(--ink); border-radius: 18px; position: relative; overflow: hidden; background: #fff; }
+      .mc b { position: absolute; left: 16px; top: 10px; font-weight: 800; font-size: 30px; z-index: 2; }
+      .mc i { position: absolute; inset: 0; background: rgba(43,22,18,.14); transform-origin: 0 50%; }
+      .mc svg { position: absolute; left: 50%; top: 50%; margin: -38px 0 0 -40px; z-index: 3; }
+      #visit { left: 108px; right: 108px; top: 1180px; text-align: center; font-weight: 800; font-size: 50px; }
+      #visit b { color: var(--red); font-family: var(--disp); font-size: 80px; }
+
+      /* O9 · hẹn bạn cũ */
+      #o9-h { top: 230px; font-size: 76px; }
+      #wk { left: 108px; right: 108px; top: 520px; height: 520px; padding: 34px 30px; }
+      #wk .cols { display: flex; gap: 14px; margin-top: 24px; height: 360px; }
+      #wk .col { flex: 1; border: 4px solid rgba(43,22,18,.25); border-radius: 18px; text-align: center; font-weight: 800; font-size: 28px; padding-top: 16px; box-sizing: border-box; color: var(--muted); line-height: 1.2; }
+      #ev { position: absolute; left: 30px; top: 230px; width: 186px; height: 180px; border-radius: 18px; background: var(--red); color: #fff; box-sizing: border-box; padding: 14px 10px; text-align: center; font-weight: 800; font-size: 30px; line-height: 1.2; }
+      #moved { left: 108px; right: 108px; top: 1110px; text-align: center; font-weight: 800; font-size: 50px; }
+      #moved b { color: var(--red); }
+
+      /* O10 · cơm với ba má */
+      #o10-h { top: 230px; font-size: 76px; }
+      #dinner { position: absolute; left: 90px; top: 470px; }
+      #sticky { position: absolute; left: 690px; top: 760px; width: 250px; padding: 20px 18px 24px; background: #ffe58a; box-shadow: 0 10px 18px rgba(43,22,18,.25); font-weight: 700; font-size: 36px; line-height: 1.2; text-align: center; transform: rotate(8deg); }
+
+      /* O11 · thêm một tuổi */
+      #o11-h { top: 230px; font-size: 76px; }
+      .age { left: 108px; right: 108px; height: 380px; display: flex; align-items: center; padding: 0 50px; gap: 30px; }
+      #age1 { top: 470px; } #age2 { top: 900px; }
+      .age .who { font-weight: 800; font-size: 44px; flex: 1; }
+      .age .pl { font-family: var(--disp); font-weight: 900; font-size: 140px; color: var(--red); white-space: nowrap; }
+      .age .pl small { font-size: 54px; color: var(--ink); margin-left: 8px; }
+
+      /* O13 · chưa mua được */
+      #o13-h { top: 220px; font-size: 68px; }
+      #cart { position: absolute; left: 300px; top: 640px; }
+      .tag { position: absolute; padding: 16px 28px; border: 4px solid var(--ink); border-radius: 40px; background: #fff; font-weight: 800; font-size: 40px; white-space: nowrap; }
+      #tg1 { left: 120px; top: 560px; } #tg2 { right: 120px; top: 600px; } #tg3 { left: 380px; top: 1130px; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; z-index: 300; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(43, 22, 18, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post11" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <symbol id="i-mai" viewBox="-12 -12 24 24"><g fill="#f2b01e"><circle cx="0" cy="-6" r="5"/><circle cx="5.7" cy="-1.9" r="5"/><circle cx="3.5" cy="4.9" r="5"/><circle cx="-3.5" cy="4.9" r="5"/><circle cx="-5.7" cy="-1.9" r="5"/></g><circle r="3.2" fill="#d42a1f"/></symbol>
+          <symbol id="i-check" viewBox="0 0 24 24"><path d="M3 13l6 6L22 4" fill="none" stroke="#d42a1f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="i-bowl" viewBox="0 0 24 24" fill="none" stroke="#2b1612" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 8 0 0 1-18 0z" fill="#fff"/><path d="M5 12c1-3 4-4 7-4s6 1 7 4" fill="#fff"/><path d="M14 3l6 6M17 2l5 5" stroke="#d42a1f"/><path d="M9 21h6"/></symbol>
+          <symbol id="i-cups" viewBox="0 0 24 24" fill="none" stroke="#2b1612" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h8v6a4 4 0 0 1-8 0z" fill="#fff"/><path d="M13 9h8v6a4 4 0 0 1-8 0z" fill="#d42a1f"/><path d="M5 6c0-1.5 1-1.5 1-3M17 6c0-1.5 1-1.5 1-3"/></symbol>
+          <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="#f2b01e" stroke="#2b1612" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+          <symbol id="i-pig" viewBox="0 0 24 24" fill="none" stroke="#2b1612" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-4 4-6 8-6s8 2 8 6c0 2-1 3.5-2.5 4.5V19h-3v-1.5h-5V19h-3v-2.5C5 15.5 4 14 4 12z" fill="#f6b8b0"/><path d="M10 6.2V5h4v1.2" stroke-width="2"/><circle cx="16" cy="10.5" r=".8" fill="#2b1612"/><path d="M20 11h2"/></symbol>
+          <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15.5l-8-4.5V5a1.5 1.5 0 0 0-3 0v6l-8 4.5V17l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-4.5l8 2.5z" fill="#2b1612"/></symbol>
+          <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#d42a1f" stroke="#2b1612" stroke-width="1.4"/></symbol>
+          <symbol id="i-house" viewBox="0 0 24 24"><path d="M3 11L12 3l9 8v10H3z" fill="#d42a1f" stroke="#2b1612" stroke-width="1.6" stroke-linejoin="round"/><rect x="10" y="14" width="4" height="7" fill="#fff" stroke="#2b1612" stroke-width="1.4"/></symbol>
+          <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="#2b1612" stroke-width="1.6" stroke-linejoin="round"><path d="M7 3h10v6a5 5 0 0 1-10 0z" fill="#f2b01e"/><path d="M7 5H3c0 4 2 5 4 5M17 5h4c0 4-2 5-4 5M12 14v4M8 21h8l-1-3H9z"/></symbol>
+          <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="#2b1612" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="6" width="14" height="16" rx="3" fill="#7a9cc6"/><path d="M9 6V4a3 3 0 0 1 6 0v2"/><rect x="8" y="12" width="8" height="5" rx="1" fill="#fff"/></symbol>
+          <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3l-6 3 2 5 3-1v11h10V10l3 1 2-5-6-3c-1 2-2.5 3-4 3S9 5 8 3z" fill="#d42a1f" stroke="#2b1612" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v9" stroke="#f2b01e" stroke-width="1.5" stroke-dasharray="1.5 2"/></symbol>
+          <symbol id="i-env" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" fill="#d42a1f" stroke="#2b1612" stroke-width="1.5"/><path d="M5 7l7 4 7-4" fill="none" stroke="#2b1612" stroke-width="1.4"/><circle cx="12" cy="15" r="3" fill="#f2b01e"/></symbol>
+          <!-- người: ba (tóc bạc, kính), má (tóc bạc búi), mình -->
+          <symbol id="p-ba" viewBox="-70 -80 140 200"><path d="M-62 120c0-62 26-84 62-84s62 22 62 84z" fill="#2b1612"/><circle cy="-8" r="38" fill="#f0c49e"/><path d="M-39-14c-4-36 18-50 39-50s43 14 39 50c-6-20-20-26-39-26s-33 6-39 26z" fill="#c9c1b8"/><circle cx="-14" cy="-6" r="10" fill="none" stroke="#2b1612" stroke-width="3"/><circle cx="14" cy="-6" r="10" fill="none" stroke="#2b1612" stroke-width="3"/><path d="M-4-6h8" stroke="#2b1612" stroke-width="3"/><path d="M-10 14c6 5 14 5 20 0" fill="none" stroke="#2b1612" stroke-width="3" stroke-linecap="round"/></symbol>
+          <symbol id="p-ma" viewBox="-70 -80 140 200"><path d="M-62 120c0-62 26-84 62-84s62 22 62 84z" fill="#d42a1f"/><circle cy="-8" r="38" fill="#f0c49e"/><circle cy="-52" r="16" fill="#c9c1b8"/><path d="M-40-4c-6-38 18-50 40-50s46 12 40 50c-4-22-20-30-40-30s-36 8-40 30z" fill="#c9c1b8"/><circle cx="-13" cy="-4" r="3.5" fill="#2b1612"/><circle cx="13" cy="-4" r="3.5" fill="#2b1612"/><path d="M-10 14c6 5 14 5 20 0" fill="none" stroke="#2b1612" stroke-width="3" stroke-linecap="round"/></symbol>
+          <symbol id="p-me" viewBox="-70 -80 140 200"><path d="M-62 120c0-62 26-84 62-84s62 22 62 84z" fill="#f2b01e"/><circle cy="-8" r="38" fill="#f0c49e"/><path d="M-40-10c-4-40 20-52 42-50 22 0 42 14 38 46-8-14-16-18-26-18 0 6-6 10-12 10 2-4 2-8 0-10-12 4-28 6-42 22z" fill="#1a1210"/><circle cx="-13" cy="-2" r="3.5" fill="#2b1612"/><circle cx="13" cy="-2" r="3.5" fill="#2b1612"/><path d="M-10 16c6 5 14 5 20 0" fill="none" stroke="#2b1612" stroke-width="3" stroke-linecap="round"/></symbol>
+        </defs>
+      </svg>
+
+      <!-- ===== THẾ GIỚI: lịch bloc treo tường (luôn ở dưới; các cảnh phủ lên rồi bị xé ra) ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1" style="z-index:0"><div class="in" id="w-in">
+        <div class="tt" id="tt1"><span class="blk">Tết năm sau</span><span class="blk r">rơi vào ngày…</span></div>
+        <div class="tt" id="tt2"><span class="blk">Còn chưa đầy</span><span class="blk r">4 tháng nữa!</span></div>
+        <div class="tt" id="tt3"><span class="blk">Cuối tuần này…</span><span class="blk r">qua cuối tuần khác</span></div>
+        <div class="tt" id="tt4"><span class="blk">Vẫn còn kịp nè!</span></div>
+        <div class="tt" id="tt5"><span class="blk">Những lúc mình</span><span class="blk r">có thể ở bên ai đó</span></div>
+        <div id="cal">
+          <div class="thick"></div>
+          <div class="top"><svg width="34" height="34"><use href="#i-mai"/></svg>VẠN SỰ NHƯ Ý<svg width="34" height="34"><use href="#i-mai"/></svg></div>
+          <div class="ring" style="left:130px"></div><div class="ring" style="right:130px"></div>
+          <div class="pgs">
+          {{FLIPS}}
+          <div class="pg red" id="pg-tet" style="z-index:79"><div class="m">THÁNG 2 · 2027</div><div class="n">6</div><div class="wd">THỨ BẢY</div>
+            <div class="lu"><span class="r">MÙNG 1 TẾT</span><span>ĐINH MÙI</span></div>
+            <svg id="mai1" width="96" height="96" style="left:40px;top:120px"><use href="#i-mai"/></svg><svg id="mai2" width="70" height="70" style="right:50px;top:300px"><use href="#i-mai"/></svg></div>
+          <div class="pg" id="pg-sau" style="z-index:78"><div class="m">XIN CHÀO MẤY MÀY</div><div class="sau-w" id="sau1">{{SAU}}</div><div class="sau-w" id="sau2">{{SAU_LAUGH}}</div></div>
+          {{SUNDAYS}}
+          <div class="pg" id="pg-todo" style="z-index:50"><div class="m r" style="margin-bottom:20px">CUỐI TUẦN NÀY</div>
+            <div class="todo" id="td1"><div class="bx"><svg width="80" height="80" class="ck"><use href="#i-check"/></svg></div><div class="tx">Về ăn cơm nhà</div><svg class="ic" width="92" height="92"><use href="#i-bowl"/></svg></div>
+            <div class="todo" id="td2"><div class="bx"><svg width="80" height="80" class="ck"><use href="#i-check"/></svg></div><div class="tx">Gặp lại bạn cũ</div><svg class="ic" width="92" height="92"><use href="#i-cups"/></svg></div>
+            <div class="todo" id="td3"><div class="bx"><svg width="80" height="80" class="ck"><use href="#i-check"/></svg></div><div class="tx"><span class="blk nw">Chuyện nhỏ</span><span class="blk nw">cứ hẹn hoài</span></div><svg class="ic" width="92" height="92"><use href="#i-star"/></svg></div>
+          </div>
+          <div class="pg" id="pg-today" style="z-index:40"><div class="m r">HÔM NAY</div>
+            <svg width="560" height="520" viewBox="0 0 560 520" style="margin-top:10px">
+              <rect id="glow" x="20" y="10" width="520" height="470" rx="40" fill="#f2b01e" opacity="0"/>
+              <use href="#p-ba" x="40" y="60" width="160" height="230"/>
+              <use href="#p-ma" x="200" y="40" width="160" height="230"/>
+              <g id="me"><use href="#p-me" x="360" y="70" width="160" height="230"/></g>
+              <rect id="me-ghost" x="380" y="90" width="120" height="190" rx="60" fill="none" stroke="#2b1612" stroke-width="5" stroke-dasharray="14 12" opacity="0"/>
+              <path d="M10 300h540v34H10z" fill="#8a4b2a"/><path d="M40 334l-14 150M520 334l14 150" stroke="#8a4b2a" stroke-width="16" stroke-linecap="round"/>
+              <g transform="translate(70 230) scale(3)"><use href="#i-bowl" width="24" height="24"/></g>
+              <g transform="translate(230 230) scale(3)"><use href="#i-bowl" width="24" height="24"/></g>
+              <g transform="translate(390 230) scale(3)"><use href="#i-bowl" width="24" height="24"/></g>
+            </svg>
+          </div>
+          <div class="pg" id="pg-other" style="z-index:30"><div class="m">THÁNG ?? · NĂM ??</div>
+            <div class="n" style="font-size:150px;line-height:1.05;margin-top:70px"><span class="blk nw">Bữa</span><span class="blk nw r">khác</span></div>
+            <div class="wd" style="font-size:36px;margin-top:40px;color:var(--muted)">KHÔNG CÓ TRÊN LỊCH</div></div>
+          </div>
+        </div>
+        <div id="strip"><div class="mo"><i></i><b>TH10</b></div><div class="mo"><i></i><b>TH11</b></div><div class="mo"><i></i><b>TH12</b></div><div class="mo"><i></i><b>TH1</b></div><div class="mo tet"><svg width="40" height="40"><use href="#i-mai"/></svg><b>TẾT</b></div></div>
+        <div class="safe h c" id="sau-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="fw1">+ Follow</span><span id="fw2">✓ Đã follow</span></div>
+        <div id="note">Cơm với ba má</div>
+        <div id="bubble">“Thôi, để bữa khác.”</div>
+        <div class="safe h c" id="endline"><span class="blk">Lịch hổng có ngày nào</span><span class="blk">tên là <span class="r">“bữa khác”</span> đâu.</span></div>
+      </div></div>
+
+      <!-- O1 · Ủa khoan… Tết nữa hả? + sổ trả góp lời hứa -->
+      <div class="clip scene" id="o1" data-start="6.45" data-duration="5.25" data-track-index="2" style="z-index:30"><div class="ov" id="o1-in">
+        <div class="safe h c" id="o1-a"><span class="blk">Ủa khoan…</span></div>
+        <div class="safe h c r" id="o1-b"><span class="blk">Tết nữa hả?</span></div>
+        <svg id="o1-ic" width="280" height="300" viewBox="0 0 140 150"><rect x="15" y="22" width="110" height="120" rx="10" fill="#fff" stroke="#2b1612" stroke-width="5"/><rect x="10" y="12" width="120" height="30" rx="8" fill="#d42a1f"/><text x="70" y="112" text-anchor="middle" font-family="Playfair Display" font-weight="900" font-size="64" fill="#d42a1f">6</text><path d="M128 50c6 8 6 14 0 18-6-4-6-10 0-18z" fill="#7fc4e8"/><path d="M8 70c5 7 5 12 0 15-5-3-5-8 0-15z" fill="#7fc4e8"/></svg>
+        <div class="safe h c" id="o1-h"><span class="blk">Lời hứa đầu năm</span><span class="blk r">vẫn đang trả góp</span></div>
+        <div class="card" id="slip">
+          <div class="lab">Sổ trả góp</div>
+          <div class="row" id="rw1"><span>Khoản vay</span><b>3 lời hứa đầu năm</b></div>
+          <div class="row" id="rw2"><span>Đã trả</span><b>1 / 12 kỳ</b></div>
+          <div class="bar"><i id="pay" style="width:8%"></i></div>
+          <div class="row" id="rw3" style="border-bottom:0"><span>Hạn chót</span><b class="r">Tết 2027</b></div>
+          <div class="stamp" id="no">CÒN NỢ</div>
+        </div>
+      </div></div>
+
+      <!-- O2 · thời gian chạy nhanh -->
+      <div class="clip scene" id="o2" data-start="15.95" data-duration="3.2" data-track-index="2" style="z-index:29"><div class="ov" id="o2-in">
+        <div class="safe h c" id="o2-h"><span class="blk">Thời gian dạo này</span><span class="blk r">chạy hơi bị nhanh</span></div>
+        <svg id="clock" width="560" height="560" viewBox="0 0 280 280">
+          <circle cx="140" cy="140" r="124" fill="#fff" stroke="#2b1612" stroke-width="12"/>
+          <g stroke="#d42a1f" stroke-width="8" stroke-linecap="round"><path d="M140 30v18M140 232v18M30 140h18M232 140h18"/></g>
+          <g stroke="#2b1612" stroke-width="4" stroke-linecap="round" opacity=".5"><path d="M195 45l-6 10M235 85l-10 6M235 195l-10-6M195 235l-6-10M85 235l6-10M45 195l10-6M45 85l10 6M85 45l6 10"/></g>
+          <path id="hh" d="M140 140V84" stroke="#2b1612" stroke-width="12" stroke-linecap="round"/>
+          <path id="mh" d="M140 140V48" stroke="#d42a1f" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="140" cy="140" r="12" fill="#2b1612"/>
+        </svg>
+        <div class="fly" id="fy1" style="left:150px;top:1150px">7</div>
+        <div class="fly" id="fy2" style="left:480px;top:1180px">14</div>
+        <div class="fly" id="fy3" style="left:800px;top:1140px">21</div>
+      </div></div>
+
+      <!-- O3 · Tết 2020 → Tết 2027 -->
+      <div class="clip scene" id="o3" data-start="18.6" data-duration="7.05" data-track-index="3" style="z-index:28"><div class="ov" id="o3-in">
+        <div class="safe h c" id="o3-a"><span class="blk">Tết 2020</span></div>
+        <div class="safe h c" id="o3-b"><span class="blk">2020 <span class="r">→</span> 2027</span></div>
+        <div id="ruler"></div><div id="fill"></div>
+        <div class="tick" style="left:150px"></div><div class="tick" style="left:261px"></div><div class="tick" style="left:373px"></div><div class="tick" style="left:484px"></div>
+        <div class="tick" style="left:596px"></div><div class="tick" style="left:707px"></div><div class="tick" style="left:819px"></div><div class="tick" style="left:930px"></div>
+        <div class="yr" style="left:150px">2020</div><div class="yr" style="left:261px">2021</div><div class="yr" style="left:373px">2022</div><div class="yr" style="left:484px">2023</div>
+        <div class="yr" style="left:596px">2024</div><div class="yr" style="left:707px">2025</div><div class="yr" style="left:819px">2026</div><div class="yr" style="left:930px">2027</div>
+        <div class="pin" id="pin1" style="left:150px"><b>2020</b><span>TẾT</span></div>
+        <div class="pin" id="pin2" style="left:930px"><b>2027</b><span>TẾT</span></div>
+        <div id="brk"></div><div id="brk-t">Cảm giác: mới xíu à</div>
+        <div id="yrs"><span class="num" id="yn">1</span><span class="u">năm</span></div>
+        <div id="ring7"></div>
+      </div></div>
+
+      <!-- O4 · hồi nhỏ mong Tết / giờ lớn giật mình -->
+      <div class="clip scene" id="o4" data-start="25.1" data-duration="8.8" data-track-index="2" style="z-index:27"><div class="ov" id="o4-in">
+        <div class="card" id="kid">
+          <div class="lab">Hồi nhỏ</div>
+          <div class="ph">Mong mau tới Tết</div>
+          <div class="chips">
+            <div class="chip" id="ch1"><div class="ib"><svg width="130" height="130"><use href="#i-bag"/></svg></div>Nghỉ học</div>
+            <div class="chip" id="ch2"><div class="ib"><svg width="130" height="130"><use href="#i-shirt"/></svg></div>Đồ mới</div>
+            <div class="chip" id="ch3"><div class="ib"><svg width="130" height="130"><use href="#i-env"/></svg></div>Lì xì</div>
+          </div>
+        </div>
+        <div class="card" id="adult">
+          <div class="lab">Giờ lớn</div>
+          <div class="ph">Nghe tới Tết là…</div>
+          <svg id="alarm" width="260" height="260" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="13" r="7.5" fill="#d42a1f"/><path d="M12 9v4l2.5 2M5 4.5L3 6.5M19 4.5l2 2M7 20l-1.5 2M17 20l1.5 2"/></svg>
+          <div id="gm">giật mình!</div>
+          <div class="shk" id="sk1" style="left:56px;top:190px;transform:rotate(-30deg)"></div><div class="shk" id="sk2" style="left:300px;top:190px;transform:rotate(30deg)"></div>
+        </div>
+      </div></div>
+
+      <!-- O5 · năm nay làm được gì? -->
+      <div class="clip scene" id="o5" data-start="33.35" data-duration="9.3" data-track-index="3" style="z-index:26"><div class="ov" id="o5-in">
+        <div class="safe h c" id="o5-h"><span class="blk" id="o5-a">Ủa, năm nay tao</span><span class="blk r" id="o5-b">đã làm được gì chưa?</span></div>
+        <div class="card chk" id="chk">
+          <div class="lab">Năm nay</div>
+          <div class="ci" id="ci1"><div class="ic"><svg width="96" height="96"><use href="#i-pig"/></svg></div><div class="tx">Tiền để dành</div><div class="q"><b id="q1">?</b></div></div>
+          <div class="ci" id="ci2"><div class="ic"><svg width="86" height="86"><use href="#i-plane"/></svg></div><div class="tx">Đi du lịch</div><div class="q"><b id="q2">?</b></div></div>
+          <div class="ci" id="ci3"><div class="ic"><svg width="86" height="86"><use href="#i-heart"/></svg></div><div class="tx">Sống lành mạnh</div><div class="q"><b id="q3">?</b></div></div>
+        </div>
+        <svg id="moth" width="90" height="70" viewBox="0 0 36 28"><path d="M18 14C12 2 2 4 3 12c1 6 9 6 15 2zM18 14c6-12 16-10 15-2-1 6-9 6-15 2z" fill="#b8ab9c" stroke="#2b1612" stroke-width="1.4"/><path d="M18 8v14" stroke="#2b1612" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </div></div>
+
+      <!-- O6 · giày chạy bộ → giày trưng bày -->
+      <div class="clip scene" id="o6" data-start="42.1" data-duration="6.85" data-track-index="2" style="z-index:25"><div class="ov" id="o6-in">
+        <div class="safe h c" id="o6-a"><span class="blk">Mới mua</span><span class="blk r">giày chạy bộ</span></div>
+        <div class="safe h c" id="o6-b"><span class="blk">Chạy được</span><span class="blk r">ba bữa…</span></div>
+        <div class="safe h c" id="o6-c"><span class="blk">Giờ thành</span><span class="blk r">giày trưng bày!</span></div>
+        <div id="beam"></div>
+        <svg id="shoe" width="620" height="360" viewBox="0 0 310 180">
+          <path d="M20 128c0-30 10-62 28-80l26 10c10 18 30 28 54 30l56 6c50 6 96 20 104 52v12H20z" fill="#d42a1f" stroke="#2b1612" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M14 140h280c6 0 8 22-4 24H24c-14 0-18-24-10-24z" fill="#fff" stroke="#2b1612" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M84 70l18 22M100 62l18 24M118 58l16 26" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+          <path d="M150 112c40 0 80 6 116 22" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+          <path d="M48 48c-8-6-6-16 4-18l22 8" fill="#2b1612"/>
+        </svg>
+        <div class="stamp" id="new">MỚI</div>
+        <div id="trk">
+          <div class="d">T2<svg width="60" height="60" id="dk1"><use href="#i-check"/></svg></div><div class="d">T3<svg width="60" height="60" id="dk2"><use href="#i-check"/></svg></div><div class="d">T4<svg width="60" height="60" id="dk3"><use href="#i-check"/></svg></div>
+          <div class="d" style="opacity:.45">T5</div><div class="d" style="opacity:.45">T6</div><div class="d" style="opacity:.45">T7</div><div class="d" style="opacity:.45">CN</div>
+        </div>
+        <div id="case"><div id="glare"></div></div>
+        <div class="card" id="plaque"><div class="k">Giày trưng bày</div><div class="s">Hiện vật năm 2026 · đã chạy 3 bữa</div></div>
+      </div></div>
+
+      <!-- O7 · nhưng mà nghĩ kỹ -->
+      <div class="clip scene" id="o7" data-start="48.4" data-duration="4.8" data-track-index="3" style="z-index:24"><div class="ov dusk" id="o7-in">
+        <div class="safe h c" id="o7-a"><span class="blk">Nhưng mà</span><span class="blk r">nghĩ kỹ…</span></div>
+        <div class="safe h c" id="o7-b"><span class="blk">Đâu phải ai cũng sợ Tết</span><span class="blk r">vì chưa thành công</span></div>
+        <div class="duo" id="duo1"><div class="ib"><svg width="200" height="200"><use href="#i-trophy"/></svg></div><b>Thành công</b></div>
+        <div class="duo" id="duo2"><div class="ib"><svg width="190" height="190"><use href="#i-house"/></svg></div><b>Về nhà</b></div>
+      </div></div>
+
+      <!-- O8 · một năm trôi qua, về nhà mấy lần -->
+      <div class="clip scene" id="o8" data-start="52.65" data-duration="6.05" data-track-index="2" style="z-index:23"><div class="ov dusk" id="o8-in">
+        <div class="safe h c" id="o8-a"><span class="blk">Một năm nữa</span><span class="blk r">trôi qua</span></div>
+        <div class="safe h c" id="o8-b"><span class="blk">Về thăm nhà</span><span class="blk r">được mấy lần?</span></div>
+        <div class="card" id="months">
+          <div class="mc"><i></i><b>TH1</b><svg id="hm1" width="80" height="80"><use href="#i-house"/></svg></div><div class="mc"><i></i><b>TH2</b></div><div class="mc"><i></i><b>TH3</b></div><div class="mc"><i></i><b>TH4</b></div>
+          <div class="mc"><i></i><b>TH5</b></div><div class="mc"><i></i><b>TH6</b></div><div class="mc"><i></i><b>TH7</b></div><div class="mc"><i></i><b>TH8</b></div>
+          <div class="mc"><i></i><b>TH9</b><svg id="hm2" width="80" height="80"><use href="#i-house"/></svg></div><div class="mc"><i></i><b>TH10</b></div><div class="mc"><i></i><b>TH11</b></div><div class="mc"><i></i><b>TH12</b></div>
+        </div>
+        <div class="safe" id="visit">Về thăm nhà: <b>2 lần</b></div>
+      </div></div>
+
+      <!-- O9 · hẹn bạn cũ dời hoài -->
+      <div class="clip scene" id="o9" data-start="58.15" data-duration="2.85" data-track-index="3" style="z-index:22"><div class="ov dusk" id="o9-in">
+        <div class="safe h c" id="o9-h"><span class="blk">Hẹn bạn cũ</span><span class="blk r">dời hoài</span></div>
+        <div class="card" id="wk">
+          <div class="lab">Lịch hẹn</div>
+          <div class="cols"><div class="col">Tuần<br>này</div><div class="col">Tuần<br>sau</div><div class="col">Tuần<br>sau nữa</div><div class="col">Tuần<br>sau nữa…</div></div>
+          <div id="ev"><svg width="70" height="70"><use href="#i-cups"/></svg><br>Cà phê<br>bạn cũ</div>
+        </div>
+        <div class="safe" id="moved">Đã dời: <b id="mv">0</b> lần</div>
+      </div></div>
+
+      <!-- O10 · bữa cơm với ba má -->
+      <div class="clip scene" id="o10" data-start="60.45" data-duration="3.5" data-track-index="2" style="z-index:21"><div class="ov dusk" id="o10-in">
+        <div class="safe h c" id="o10-h"><span class="blk">Bữa cơm</span><span class="blk r">với ba má</span></div>
+        <svg id="dinner" width="900" height="700" viewBox="0 0 900 700">
+          <use href="#p-ba" x="80" y="40" width="240" height="340"/>
+          <use href="#p-ma" x="320" y="20" width="240" height="340"/>
+          <path d="M610 330V120a30 30 0 0 1 30-30h120a30 30 0 0 1 30 30v210" fill="none" stroke="#8a4b2a" stroke-width="16" stroke-dasharray="1 0"/>
+          <path d="M40 380h820v46H40z" fill="#8a4b2a"/><path d="M90 426l-20 230M810 426l20 230" stroke="#8a4b2a" stroke-width="22" stroke-linecap="round"/>
+          <g transform="translate(130 290) scale(5)"><use href="#i-bowl" width="24" height="24"/></g>
+          <g transform="translate(370 290) scale(5)"><use href="#i-bowl" width="24" height="24"/></g>
+          <g transform="translate(640 290) scale(5)" opacity=".55"><use href="#i-bowl" width="24" height="24"/></g>
+          <g id="steam" stroke="#b8ab9c" stroke-width="6" fill="none" stroke-linecap="round"><path d="M180 280c-10-20 10-30 0-50M420 280c-10-20 10-30 0-50"/></g>
+        </svg>
+        <div id="sticky">Cuối tuần nha ba má!</div>
+      </div></div>
+
+      <!-- O11 · thêm một tuổi -->
+      <div class="clip scene" id="o11" data-start="66.55" data-duration="4.3" data-track-index="3" style="z-index:20"><div class="ov dusk" id="o11-in">
+        <div class="safe h c" id="o11-h"><span class="blk">Tết nào cũng</span><span class="blk r">thêm một tuổi</span></div>
+        <div class="card age" id="age1"><svg width="210" height="300"><use href="#p-me"/></svg><div class="who">Mình</div><div class="pl" id="pl1">+1<small>tuổi</small></div></div>
+        <div class="card age" id="age2"><svg width="300" height="300" viewBox="0 0 300 300"><use href="#p-ba" x="-20" y="0" width="210" height="300"/><use href="#p-ma" x="110" y="0" width="210" height="300"/></svg><div class="who">Ba má</div><div class="pl" id="pl2">+1<small>tuổi</small></div></div>
+      </div></div>
+
+      <!-- O12 · đừng vội coi là năm thất bại (gọi lại bảng "Năm nay") -->
+      <div class="clip scene" id="o12" data-start="70.3" data-duration="5.45" data-track-index="2" style="z-index:19"><div class="ov dusk" id="o12-in">
+        <div class="safe h c" id="o12-h"><span class="blk">Chưa làm được</span><span class="blk r">chuyện gì lớn lao?</span></div>
+        <div class="card chk" id="chk2">
+          <div class="lab">Năm nay</div>
+          <div class="ci"><div class="ic"><svg width="96" height="96"><use href="#i-pig"/></svg></div><div class="tx">Tiền để dành</div><div class="q"><b>?</b></div></div>
+          <div class="ci"><div class="ic"><svg width="86" height="86"><use href="#i-plane"/></svg></div><div class="tx">Đi du lịch</div><div class="q"><b>?</b></div></div>
+          <div class="ci"><div class="ic"><svg width="86" height="86"><use href="#i-heart"/></svg></div><div class="tx">Sống lành mạnh</div><div class="q"><b>?</b></div></div>
+        </div>
+        <div class="stamp" id="fail">THẤT BẠI</div>
+        <div id="fail-x"></div>
+      </div></div>
+
+      <!-- O13 · không phải những gì chưa mua được -->
+      <div class="clip scene" id="o13" data-start="84.15" data-duration="5.6" data-track-index="3" style="z-index:18"><div class="ov" id="o13-in">
+        <div class="safe h c" id="o13-h"><span class="blk">Thứ khiến mình</span><span class="blk r" id="o13-b">tiếc nhất sau một năm…</span></div>
+        <svg id="cart" width="480" height="420" viewBox="0 0 24 21" fill="none" stroke="#2b1612" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 2h3l2.5 11h12l2.5-8H6" fill="#fff"/><path d="M6.5 13h12" /><circle cx="8.5" cy="17.5" r="1.6" fill="#d42a1f"/><circle cx="17" cy="17.5" r="1.6" fill="#d42a1f"/></svg>
+        <div class="tag" id="tg1"><span class="strike">Điện thoại mới<i></i></span></div>
+        <div class="tag" id="tg2"><span class="strike">Xe mới<i></i></span></div>
+        <div class="tag" id="tg3"><span class="strike">Túi hiệu<i></i></span></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const strike = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.18); up(sel, at, 0.4, 24); };
+      const shake = (sel, at, n = 7, a = 4) => tl.fromTo(sel, { rotation: -a }, { rotation: a, duration: 0.06, repeat: n, yoyo: true, ease: "none", immediateRender: false }, at);
+      // Chuyển cảnh chữ ký: XÉ trang (gốc trên-trái giữ lại, trang rách ra rồi rơi xuống)
+      const tear = (sel, at, d = 0.55) => {
+        tl.to(sel, { rotation: 3, duration: 0.12, ease: "power1.out", transformOrigin: "0% 0%" }, at);
+        tl.to(sel, { y: 2300, x: 140, rotation: 24, duration: d - 0.12, ease: "power2.in" }, at + 0.12);
+      };
+      // Cảnh mới "treo" lên: thả từ trên xuống
+      const drop = (sel, at) => tl.fromTo(sel, { y: -1960, rotation: -1.5 }, { y: 0, rotation: 0, duration: 0.55, ease: "power3.out", transformOrigin: "0% 0%" }, at);
+      // Xé 1 tờ lịch bloc
+      const rip = (sel, at, d = 0.5) => {
+        tl.to(sel, { rotation: 6, duration: d * 0.25, ease: "power1.out", transformOrigin: "0% 0%" }, at);
+        tl.to(sel, { y: 1500, x: 180, rotation: 40, opacity: 0, duration: d * 0.75, ease: "power2.in" }, at + d * 0.25);
+      };
+      const count = (sel, from, to, at, d) => { const o = { v: from }; tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "none", onUpdate: () => (document.querySelector(sel).textContent = Math.round(o.v)) }, at); };
+      gsap.set(["#fw2", "#sau2", "#tt1", "#tt2", "#tt3", "#tt4", "#tt5", "#strip", "#sau-name", "#follow", "#note", "#bubble", "#endline", "#td1", "#td2", "#td3", ".ck", "#me-ghost"], { opacity: 0 });
+
+      // ===== S1 · Lịch bloc lật tới Tết 6/2 (0–6.5) =====
+      tl.fromTo("#cal", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 0);
+      up("#tt1", 0.25, 0.45, 24);
+      tl.fromTo("#cal", { scale: 1 }, { scale: 1.04, duration: 0.14, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, 0.4);
+      for (let i = 0; i < 11; i++) rip(`#f${i}`, 1.6 + i * 0.1, 0.42);
+      tl.fromTo(["#mai1", "#mai2"], { scale: 0, rotation: -90, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", stagger: 0.12 }, 2.75);
+      tl.fromTo("#pg-tet .n", { scale: 0.85 }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 2.65);
+      title("#tt2", 3.85, "#tt1");
+      tl.to("#cal", { scale: 0.86, y: -20, duration: 0.5, ease: "power2.inOut", transformOrigin: "50% 0%" }, 3.85);
+      tl.set("#strip", { opacity: 1 }, 4.0);
+      tl.fromTo("#strip .mo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.16 }, 4.0);
+      tl.fromTo("#strip .mo i", { scaleX: 0 }, { scaleX: 1, duration: 0.25, stagger: 0.18, ease: "none" }, 4.9);
+      tl.to("#strip .tet", { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1 }, 5.6);
+
+      // ===== O1 · Ủa khoan… Tết nữa hả? → sổ trả góp lời hứa =====
+      drop("#o1-in", 6.45);
+      pop("#o1-a", 6.63, 0.6); pop("#o1-b", 7.19, 0.6);
+      pop("#o1-ic", 7.35, 0.5); shake("#o1-ic", 7.7, 9, 6);
+      out(["#o1-a", "#o1-b", "#o1-ic"], 8.5, 0.2);
+      up("#o1-h", 8.65, 0.4, 24);
+      up("#slip", 8.85, 0.45, 50);
+      tl.fromTo(["#rw1", "#rw2", "#rw3"], { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.35 }, 9.1);
+      tl.fromTo("#pay", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 9.55);
+      stampIn("#no", 10.55, -10);
+      tear("#o1-in", 11.15);
+
+      // ===== Sáu Suy Nghĩ: tờ "6" xé ra → Sáu (11.2–16) =====
+      tl.set(["#tt2", "#strip"], { opacity: 0 }, 11.1);
+      tl.set("#cal", { scale: 1, y: 0 }, 11.1);
+      rip("#pg-tet", 11.75, 0.5);
+      up("#sau-name", 12.25, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 13.0); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 13.0);
+      tl.fromTo("#sau2", { y: 0 }, { y: -10, duration: 0.1, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 13.05);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 13.75); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 13.75);
+      pop("#follow", 14.0, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 14.75);
+      swapTxt("#fw1", "#fw2", 14.85); tl.to("#follow", { backgroundColor: "#2b1612", duration: 0.2 }, 14.85);
+
+      // ===== O2 · thời gian chạy nhanh =====
+      drop("#o2-in", 15.95);
+      tl.set(["#sau-name", "#follow", "#pg-sau"], { opacity: 0 }, 16.6);
+      up("#o2-h", 16.3, 0.4, 24);
+      tl.fromTo("#mh", { rotation: 0 }, { rotation: 1800, duration: 2.4, ease: "power1.in", svgOrigin: "140 140" }, 16.3);
+      tl.fromTo("#hh", { rotation: 0 }, { rotation: 150, duration: 2.4, ease: "power1.in", svgOrigin: "140 140" }, 16.3);
+      ["#fy1", "#fy2", "#fy3"].forEach((s, i) => tl.fromTo(s, { opacity: 0, y: 80, rotation: 0 }, { opacity: 1, y: -1250, x: (i - 1) * 120, rotation: (i - 1) * 40 + 20, duration: 1.5, ease: "power1.in" }, 16.8 + i * 0.35));
+      tear("#o2-in", 18.6);
+
+      // ===== O3 · Tết 2020 → 2027 =====
+      pop("#o3-a", 19.15, 0.7);
+      tl.fromTo("#ruler", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 19.3);
+      tl.fromTo("#o3-in .tick, #o3-in .yr", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.04 }, 19.4);
+      tl.fromTo("#pin1", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 19.35);
+      tl.fromTo("#brk", { opacity: 0, scaleX: 0, transformOrigin: "0% 50%" }, { opacity: 1, scaleX: 1, duration: 0.4 }, 20.4);
+      up("#brk-t", 20.6, 0.35, 14);
+      out(["#brk", "#brk-t"], 22.25);
+      swapTxt("#o3-a", "#o3-b", 22.9);
+      tl.fromTo("#pin2", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 23.0);
+      tl.fromTo("#fill", { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: "none" }, 23.3);
+      up("#yrs", 23.3, 0.3, 20);
+      count("#yn", 1, 7, 23.3, 1.4);
+      tl.fromTo("#ring7", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 24.5);
+      tear("#o3-in", 25.1);
+
+      // ===== O4 · hồi nhỏ / giờ lớn =====
+      tl.set("#adult", { opacity: 0 }, 25.1);
+      up("#kid", 25.75, 0.45, 40);
+      ["#ch1", "#ch2", "#ch3"].forEach((s, i) => pop(s, [27.95, 29.15, 30.05][i], 0.5));
+      up("#adult", 31.5, 0.45, 40);
+      tl.to("#kid", { opacity: 0.45, duration: 0.4 }, 31.5);
+      pop("#gm", 32.85, 0.4);
+      shake("#alarm", 32.6, 11, 10);
+      tl.fromTo(["#sk1", "#sk2"], { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.15 }, 32.6);
+      shake("#adult", 32.9, 5, 1.2);
+      tear("#o4-in", 33.35);
+
+      // ===== O5 · năm nay làm được gì? =====
+      up("#o5-a", 33.95, 0.35, 20); up("#o5-b", 34.5, 0.4, 20);
+      up("#chk", 36.1, 0.4, 40);
+      tl.set(["#ci1", "#ci2", "#ci3", "#q1", "#q2", "#q3", "#moth"], { opacity: 0 }, 33.35);
+      up("#ci1", 36.45, 0.3, 20); stampIn("#q1", 36.9, 0);
+      shake("#ci1 .ic", 36.95, 5, 6);
+      tl.fromTo("#moth", { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: 140, y: -170, duration: 1.0, ease: "sine.out" }, 37.05);
+      tl.to("#moth", { opacity: 0, duration: 0.3 }, 38.0);
+      up("#ci2", 37.6, 0.3, 20); stampIn("#q2", 38.2, 0);
+      up("#ci3", 38.9, 0.3, 20); stampIn("#q3", 41.0, 0);
+      tl.to("#chk", { y: -10, duration: 0.2 }, 40.6);
+      tear("#o5-in", 42.1);
+
+      // ===== O6 · giày chạy bộ → giày trưng bày =====
+      tl.set(["#o6-b", "#o6-c", "#case", "#plaque", "#beam", "#dk1", "#dk2", "#dk3"], { opacity: 0 }, 42.1);
+      up("#o6-a", 42.7, 0.4, 24);
+      tl.fromTo("#shoe", { opacity: 0, x: -300 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 42.75);
+      stampIn("#new", 43.3, 12);
+      up("#trk", 43.6, 0.35, 30);
+      title("#o6-b", 44.0, "#o6-a");
+      ["#dk1", "#dk2", "#dk3"].forEach((s, i) => pop(s, 44.15 + i * 0.3, 0.3));
+      out(["#trk", "#new"], 45.2, 0.25);
+      tl.fromTo("#case", { opacity: 0, y: -700 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.in" }, 45.3);
+      tl.fromTo("#shoe", { y: 0 }, { y: 10, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, 45.75);
+      title("#o6-c", 46.7, "#o6-b");
+      tl.fromTo("#beam", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 46.75);
+      up("#plaque", 47.0, 0.4, 30);
+      tear("#o6-in", 48.4);
+
+      // ===== O7 · nhưng mà nghĩ kỹ =====
+      tl.set(["#o7-b", "#duo1", "#duo2"], { opacity: 0 }, 48.4);
+      up("#o7-a", 49.0, 0.5, 24);
+      out("#o7-a", 50.55);
+      up("#o7-b", 50.7, 0.4, 24);
+      pop("#duo1", 51.0, 0.6);
+      tl.to("#duo1", { opacity: 0.3, scale: 0.9, duration: 0.4 }, 52.0);
+      pop("#duo2", 51.9, 0.6);
+      tear("#o7-in", 52.65);
+
+      // ===== O8 · 12 tháng trôi qua, về nhà 2 lần =====
+      tl.set(["#o8-b", "#hm1", "#hm2", "#visit"], { opacity: 0 }, 52.65);
+      up("#o8-a", 53.2, 0.4, 24);
+      up("#months", 53.3, 0.4, 40);
+      tl.fromTo("#months .mc i", { scaleX: 0 }, { scaleX: 1, duration: 0.18, stagger: 0.17, ease: "none" }, 53.8);
+      title("#o8-b", 56.1, "#o8-a");
+      pop("#hm1", 56.6, 0.3); pop("#hm2", 57.1, 0.3);
+      up("#visit", 57.4, 0.35, 20);
+      tear("#o8-in", 58.15);
+
+      // ===== O9 · hẹn bạn cũ dời hoài =====
+      up("#o9-h", 58.6, 0.35, 24);
+      pop("#ev", 58.75, 0.6);
+      [59.3, 59.75, 60.15].forEach((t, i) => { tl.to("#ev", { x: 204 * (i + 1), duration: 0.28, ease: "power2.inOut" }, t); tl.set("#mv", { textContent: String(i + 1) }, t + 0.25); });
+      tear("#o9-in", 60.45);
+
+      // ===== O10 · bữa cơm với ba má =====
+      tl.set("#sticky", { opacity: 0 }, 60.45);
+      up("#o10-h", 60.95, 0.4, 24);
+      tl.fromTo("#steam", { opacity: 0.3, y: 0 }, { opacity: 1, y: -10, duration: 0.5, yoyo: true, repeat: 4, ease: "sine.inOut", immediateRender: false }, 61.1);
+      tl.fromTo("#sticky", { opacity: 0, scale: 1.6, rotation: -10 }, { opacity: 1, scale: 1, rotation: 8, duration: 0.3, ease: "power4.in" }, 62.55);
+      tear("#o10-in", 63.4);
+
+      // ===== Lịch: cuối tuần này qua cuối tuần khác (tờ Chủ nhật bị xé, mẩu giấy "cơm với ba má" cứ dời qua tờ sau) =====
+      tl.set("#note", { opacity: 1 }, 63.4);
+      up("#tt3", 63.9, 0.4, 24);
+      for (let i = 0; i < 8; i++) {
+        const t = 64.05 + i * 0.2;
+        rip(`#su${i}`, t, 0.42);
+        tl.fromTo("#note", { y: 0 }, { y: -18, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, t + 0.02);
+      }
+
+      // ===== O11 · thêm một tuổi =====
+      drop("#o11-in", 66.55);
+      tl.set(["#tt3", "#note", "#su8"], { opacity: 0 }, 67.2);
+      up("#o11-h", 66.85, 0.4, 24);
+      up("#age1", 67.0, 0.4, 40); stampIn("#pl1", 67.7, 0);
+      up("#age2", 68.85, 0.4, 40); stampIn("#pl2", 69.55, 0);
+      tear("#o11-in", 70.3);
+
+      // ===== O12 · đừng vội coi là năm thất bại =====
+      tl.set(["#fail", "#fail-x"], { opacity: 0 }, 70.3);
+      up("#o12-h", 70.85, 0.4, 24);
+      up("#chk2", 71.0, 0.4, 40);
+      tl.fromTo("#fail", { opacity: 0, scale: 2.4, rotation: -32 }, { opacity: 0.55, scale: 1.5, rotation: -16, duration: 0.7, ease: "sine.out" }, 73.6);
+      tl.to("#fail", { opacity: 1, scale: 1, rotation: -12, duration: 0.25, ease: "power4.in" }, 74.4);
+      tl.fromTo("#fail-x", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.inOut" }, 75.05);
+      tear("#o12-in", 75.3);
+
+      // ===== Lịch: vẫn còn kịp → cuối tuần này làm 3 chuyện nhỏ =====
+      up("#tt4", 75.75, 0.4, 24);
+      tl.set("#cal", { scale: 0.86, y: -20, transformOrigin: "50% 0%" }, 75.2);
+      tl.set("#strip", { opacity: 1 }, 75.8);
+      tl.fromTo("#strip .mo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.12 }, 75.85);
+      tl.fromTo("#strip .mo i", { scaleX: 0 }, { scaleX: 0.25, duration: 0.2, ease: "none" }, 76.4);
+      tl.to("#strip", { opacity: 0, duration: 0.25 }, 77.45);
+      tl.to("#cal", { scale: 1, y: 0, duration: 0.45, ease: "power2.inOut" }, 77.45);
+      [["#td1", 77.75, 78.95], ["#td2", 79.85, 80.95], ["#td3", 81.8, 83.05]].forEach(([s, a, b]) => {
+        up(s, a, 0.35, 20);
+        tl.fromTo(s + " .ck", { opacity: 0, scale: 0.3, transformOrigin: "30% 70%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, b);
+      });
+
+      // ===== O13 · không phải những gì chưa mua được =====
+      drop("#o13-in", 84.15);
+      tl.set(["#tt4", "#pg-todo"], { opacity: 0 }, 84.8);
+      tl.set(["#tg1", "#tg2", "#tg3"], { opacity: 0 }, 84.15);
+      up("#o13-h .blk:first-child", 84.4, 0.4, 20); tl.set("#o13-b", { opacity: 0 }, 84.15); up("#o13-b", 85.2, 0.4, 20);
+      tl.fromTo("#cart", { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 85.4);
+      pop("#tg1", 87.05, 0.5); pop("#tg2", 87.35, 0.5); pop("#tg3", 87.65, 0.5);
+      strike("#tg1 .strike", 88.1); strike("#tg2 .strike", 88.3); strike("#tg3 .strike", 88.5);
+      tl.to(["#tg1", "#tg2", "#tg3", "#cart"], { opacity: 0.4, duration: 0.3 }, 88.8);
+      tear("#o13-in", 89.2);
+
+      // ===== Kết · tờ "Hôm nay": ở bên ba má… → "thôi, để bữa khác" → xé → tờ "Bữa khác" =====
+      up("#tt5", 89.75, 0.45, 24);
+      tl.to("#glow", { opacity: 0.35, duration: 0.8 }, 90.6);
+      tl.to("#glow", { opacity: 0, duration: 0.5 }, 92.4);
+      tl.to("#me", { opacity: 0, duration: 0.6 }, 92.5);
+      tl.to("#me-ghost", { opacity: 0.6, duration: 0.5 }, 92.7);
+      tl.fromTo("#bubble", { opacity: 0, scale: 0.6, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 93.7);
+      rip("#pg-today", 94.45, 0.6);
+      out("#bubble", 95.2, 0.3);
+      out("#tt5", 95.2, 0.3);
+      tl.fromTo("#pg-other .n", { scale: 0.9 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 94.7);
+      up("#endline", 95.6, 0.6, 24);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post11"] = tl;
+    </script>
+  </body>
+</html>
