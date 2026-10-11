@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lời từ chối không phải bài toán</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "khung chat" =====
+         2 font: Lexend (tiêu đề, chữ lớn) · Be Vietnam Pro (bong bóng chat, phụ đề, chữ phụ)
+         Nền tím nhạt; A = bong bóng trắng (trái) · B = bong bóng xanh (phải); 1 màu nhấn: xanh dương
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Lexend", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #eceaf7;
+        --ink: #17162b;
+        --muted: rgba(23, 22, 43, 0.55);
+        --blue: #3557ff;
+        --white: #ffffff;
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #dots { position: absolute; inset: 0; opacity: .5;
+        background-image: radial-gradient(rgba(53,87,255,.18) 2px, transparent 2px); background-size: 48px 48px; }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; text-wrap: balance; }
+      .lab { font-family: var(--body); font-weight: 700; font-size: 32px; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
+      .c { text-align: center; }
+      .b { color: var(--blue); }
+      .blk { display: block; }
+      .card { background: var(--white); border-radius: 34px; box-shadow: 0 22px 56px rgba(23,22,43,.12); }
+
+      /* Bong bóng chat */
+      .row { position: absolute; left: 108px; right: 108px; display: flex; align-items: flex-end; gap: 18px; }
+      .row.me { justify-content: flex-end; }
+      .av { flex: 0 0 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-family: var(--disp); font-weight: 800; font-size: 34px; color: #fff; background: #8c89a8; }
+      .me .av { background: var(--blue); }
+      .bub { max-width: 640px; padding: 24px 34px 26px; border-radius: 40px; font-family: var(--body); font-weight: 600; font-size: 48px; line-height: 1.28;
+        background: var(--white); box-shadow: 0 10px 26px rgba(23,22,43,.08); border-bottom-left-radius: 12px; }
+      .me .bub { background: var(--blue); color: #fff; border-bottom-left-radius: 40px; border-bottom-right-radius: 12px; }
+      .typing { display: flex; gap: 10px; align-items: center; padding: 30px 34px; }
+      .typing i { display: block; width: 16px; height: 16px; border-radius: 50%; background: #b1aec8; }
+      #chat-head { top: 200px; display: flex; align-items: center; gap: 22px; }
+      #chat-head .t { font-family: var(--disp); font-weight: 800; font-size: 44px; }
+      #chat-head .s { font-weight: 600; font-size: 30px; color: var(--muted); }
+
+      /* S2 hiệp định */
+      #s2-t { top: 250px; font-size: 76px; }
+      #s2-doc { position: absolute; left: 190px; right: 190px; top: 640px; padding: 50px 56px 56px; background: #fffdf6; border-radius: 18px;
+        box-shadow: 0 30px 70px rgba(23,22,43,.18); }
+      .doc-h { font-family: var(--disp); font-weight: 800; font-size: 46px; text-align: center; letter-spacing: .06em; }
+      .doc-s { font-weight: 600; font-size: 30px; text-align: center; color: var(--muted); margin-top: 6px; }
+      .doc-l { height: 10px; border-radius: 5px; background: rgba(23,22,43,.08); margin-top: 26px; }
+      .doc-sign { display: flex; justify-content: space-between; margin-top: 44px; font-weight: 700; font-size: 28px; color: var(--muted); }
+      .doc-sign span { border-top: 3px solid rgba(23,22,43,.25); padding-top: 10px; width: 210px; text-align: center; }
+      .seal { position: absolute; right: 50px; bottom: 120px; width: 170px; height: 170px; border-radius: 50%; border: 8px solid var(--blue); color: var(--blue);
+        display: flex; align-items: center; justify-content: center; text-align: center; font-family: var(--disp); font-weight: 800; font-size: 26px; line-height: 1.1; transform: rotate(-14deg); }
+
+      /* S3 lý do → cách giải */
+      #s3-q { top: 640px; font-size: 96px; }
+      #s3-h { top: 250px; font-size: 64px; }
+      .pair { position: absolute; left: 108px; right: 108px; display: flex; align-items: center; justify-content: space-between; }
+      .chip { padding: 26px 34px; border-radius: 30px; font-weight: 700; font-size: 44px; }
+      .chip.r { background: var(--blue); color: #fff; }
+      .chip.s { background: var(--white); box-shadow: 0 12px 30px rgba(23,22,43,.1); display: flex; align-items: center; gap: 14px; }
+      .arrow { flex: 1; height: 6px; margin: 0 22px; background: rgba(23,22,43,.2); border-radius: 3px; position: relative; transform-origin: 0 50%; }
+      .arrow::after { content: ""; position: absolute; right: -4px; top: -11px; border-left: 22px solid rgba(23,22,43,.35); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+      #pr1 { top: 600px; } #pr2 { top: 850px; } #pr3 { top: 1100px; }
+
+      /* S4 bài toán */
+      #s4-lab { top: 250px; }
+      .sheet { position: absolute; left: 150px; right: 150px; top: 340px; padding: 56px 60px; border-radius: 26px; background: var(--white);
+        background-image: linear-gradient(rgba(53,87,255,.12) 2px, transparent 2px); background-size: 100% 74px; background-position: 0 40px;
+        box-shadow: 0 26px 64px rgba(23,22,43,.14); }
+      .sheet .k { font-family: var(--disp); font-weight: 800; font-size: 40px; color: var(--blue); }
+      .sheet .q { font-family: var(--disp); font-weight: 800; font-size: 66px; line-height: 1.15; margin-top: 18px; }
+      .sol { display: flex; align-items: center; gap: 16px; margin-top: 26px; font-weight: 700; font-size: 42px; }
+      .sol b { color: var(--blue); }
+      #s4-foot { top: 1180px; font-size: 64px; }
+
+      /* S5/S6 đổi cách nói */
+      .tag2 { position: absolute; left: 108px; font-weight: 700; font-size: 32px; letter-spacing: .14em; text-transform: uppercase; }
+      .strike { position: absolute; left: -12px; right: -12px; top: 50%; height: 8px; border-radius: 4px; background: var(--ink); transform-origin: 0 50%; }
+      .bub.wrap { position: relative; }
+      .thread { position: absolute; left: 108px; right: 108px; display: flex; flex-direction: column; gap: 22px; }
+      .thread .row { position: relative; left: auto; right: auto; }
+      .stack { display: grid; } .stack > * { grid-area: 1 / 1; }
+      .thread .bub { max-width: 780px; font-size: 44px; }
+      #s6-stamp { position: absolute; left: 50%; top: 820px; width: 520px; margin-left: -260px; padding: 18px 0 26px; border: 12px solid var(--blue); border-radius: 30px;
+        color: var(--blue); text-align: center; font-family: var(--disp); font-weight: 800; font-size: 180px; letter-spacing: .04em; transform: rotate(-8deg); background: rgba(236,234,247,.9); }
+
+      /* S7 lý do bịa */
+      #s7-h { top: 250px; font-size: 72px; }
+      .ex { position: absolute; left: 160px; right: 160px; padding: 30px 40px; display: flex; align-items: center; gap: 28px; }
+      .ex .n { font-family: var(--disp); font-weight: 800; font-size: 84px; color: var(--blue); width: 84px; text-align: center; }
+      .ex .t { font-weight: 700; font-size: 44px; line-height: 1.2; }
+      #ex1 { top: 520px; transform: rotate(-3deg); } #ex2 { top: 760px; transform: rotate(2deg); } #ex3 { top: 1000px; transform: rotate(-1.5deg); }
+      .xline { position: absolute; left: 140px; right: 140px; height: 16px; border-radius: 8px; background: var(--ink); transform-origin: 0 50%; }
+      #x1 { top: 1060px; transform: rotate(-33deg); } #x2 { top: 1060px; transform: rotate(33deg); transform-origin: 100% 50%; }
+
+      /* S8 đơn xin phép */
+      #s8-a { top: 250px; }
+      #s8-ok { top: 330px; padding: 30px 40px; display: flex; gap: 22px; align-items: center; }
+      #s8-ok .t { font-weight: 700; font-size: 42px; line-height: 1.25; }
+      #s8-form { position: absolute; left: 150px; right: 150px; top: 660px; padding: 46px 54px; border-radius: 22px; background: #fffdf6; box-shadow: 0 26px 64px rgba(23,22,43,.14); }
+      .f-h { font-family: var(--disp); font-weight: 800; font-size: 44px; text-align: center; }
+      .f-row { margin-top: 30px; font-weight: 600; font-size: 34px; color: var(--muted); display: flex; gap: 14px; align-items: flex-end; }
+      .f-row span { flex: 1; border-bottom: 3px dotted rgba(23,22,43,.35); height: 36px; }
+      .f-box { display: flex; gap: 16px; align-items: center; margin-top: 26px; font-weight: 600; font-size: 32px; color: var(--muted); }
+      .f-box i { width: 34px; height: 34px; border: 3px solid rgba(23,22,43,.35); border-radius: 8px; }
+      #s8-no { position: absolute; left: 50%; top: 860px; width: 600px; margin-left: -300px; padding: 16px 0 22px; border: 10px solid var(--blue); border-radius: 24px; color: var(--blue);
+        text-align: center; font-family: var(--disp); font-weight: 800; font-size: 76px; transform: rotate(10deg); background: rgba(255,253,246,.85); }
+
+      /* S9 kết */
+      #s9-l { top: 300px; }
+      .flip { position: absolute; left: 150px; right: 150px; top: 460px; height: 640px; perspective: 2400px; }
+      .face { position: absolute; inset: 0; border-radius: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; backface-visibility: hidden; padding: 0 56px; text-align: center; }
+      #f-front { background: var(--white); box-shadow: 0 26px 64px rgba(23,22,43,.14);
+        background-image: linear-gradient(rgba(53,87,255,.12) 2px, transparent 2px); background-size: 100% 74px; }
+      #f-front .q { font-family: var(--disp); font-weight: 800; font-size: 240px; color: rgba(23,22,43,.85); line-height: 1; }
+      #f-front .k { font-family: var(--disp); font-weight: 800; font-size: 60px; margin-top: 10px; }
+      #f-back { background: var(--blue); color: #fff; box-shadow: 0 30px 70px rgba(53,87,255,.35); transform: rotateY(180deg); }
+      #f-back .k { font-family: var(--disp); font-weight: 800; font-size: 108px; line-height: 1.05; }
+      #f-back .s { font-weight: 600; font-size: 40px; margin-top: 24px; opacity: .85; }
+      #flip-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(23, 22, 43, 0.82); text-wrap: balance; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post7" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="dots"></div>
+
+      <!-- S1 · Hội thoại -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="14.4" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe" id="chat-head"><div class="av" style="background:#8c89a8">A</div><div><div class="t">Thằng bạn nhậu</div><div class="s" id="hd-s">đang hoạt động</div></div></div>
+        <div id="chat">
+          <div class="row" id="m0" style="top:340px"><div class="av">A</div><div class="bub">Tối nay đi nhậu không?</div></div>
+          <div class="row me" id="m1" style="top:476px"><div class="bub">Tao mệt.</div></div>
+          <div class="row" id="t2" style="top:612px"><div class="av">A</div><div class="bub typing"><i></i><i></i><i></i></div></div>
+          <div class="row" id="m2" style="top:612px"><div class="av">A</div><div class="bub">Mệt thì ngồi tí thôi.</div></div>
+          <div class="row me" id="m3" style="top:748px"><div class="bub">Tao hết tiền.</div></div>
+          <div class="row" id="t4" style="top:884px"><div class="av">A</div><div class="bub typing"><i></i><i></i><i></i></div></div>
+          <div class="row" id="m4" style="top:884px"><div class="av">A</div><div class="bub">Tao bao!</div></div>
+          <div class="row me" id="m5" style="top:1020px"><div class="bub">Mai tao phải dậy sớm.</div></div>
+          <div class="row" id="t6" style="top:1156px"><div class="av">A</div><div class="bub typing"><i></i><i></i><i></i></div></div>
+          <div class="row" id="m6" style="top:1156px"><div class="av">A</div><div class="bub">Vậy 9 giờ về!</div></div>
+        </div>
+        <!-- "Đù má": hiệp định hòa bình -->
+        <div class="safe h c" id="s2-t"><span class="blk" id="s2-t1">Từ chối một bữa nhậu</span><span class="blk b" id="s2-t2">= đàm phán hòa bình</span></div>
+        <div id="s2-doc">
+          <div class="doc-h">HIỆP ĐỊNH</div>
+          <div class="doc-s">về việc tối nay có đi nhậu hay không</div>
+          <div class="doc-l"></div><div class="doc-l" style="width:86%"></div><div class="doc-l" style="width:92%"></div><div class="doc-l" style="width:70%"></div>
+          <div class="doc-sign"><span>Bên rủ</span><span>Bên từ chối</span></div>
+          <div class="seal" id="s2-seal">ĐÃ<br />THƯƠNG<br />LƯỢNG</div>
+        </div>
+      </div></div>
+
+      <!-- S3 · Lý do → cách giải -->
+      <div class="clip scene" id="s3" data-start="14.1" data-duration="17.1" data-track-index="1"><div class="in" id="s3-in">
+        <div class="safe h c" id="s3-q">Mày để ý <span class="b">một chuyện</span> không?</div>
+        <div class="safe h c" id="s3-h"><span class="blk" id="s3-h1">Mỗi lý do mày đưa ra</span><span class="blk b" id="s3-h2">là một bài để người ta giải</span></div>
+        <div class="pair" id="pr1"><div class="chip r">Mệt</div><div class="arrow"></div><div class="chip s" id="pr1-s">Ngồi chơi thôi</div></div>
+        <div class="pair" id="pr2"><div class="chip r">Hết tiền</div><div class="arrow"></div><div class="chip s" id="pr2-s">Tao bao</div></div>
+        <div class="pair" id="pr3"><div class="chip r">Bận</div><div class="arrow"></div><div class="chip s" id="pr3-s">Mấy giờ xong?</div></div>
+      </div></div>
+
+      <!-- S4 · Bài toán -->
+      <div class="clip scene" id="s4" data-start="30.9" data-duration="5.9" data-track-index="1"><div class="in" id="s4-in">
+        <div class="safe lab c" id="s4-lab">Vô tình</div>
+        <div class="sheet" id="s4-sheet">
+          <div class="k">Bài toán</div>
+          <div class="q">Làm sao để nó đi nhậu?</div>
+          <div class="sol" id="sol1">✓ <b>Mệt</b> → ngồi tí thôi</div>
+          <div class="sol" id="sol2">✓ <b>Hết tiền</b> → tao bao</div>
+          <div class="sol" id="sol3">✓ <b>Bận</b> → 9 giờ về</div>
+        </div>
+        <div class="safe h c" id="s4-foot">Lần sau, <span class="b">đổi cách nói</span></div>
+      </div></div>
+
+      <!-- S5 · Thay vì / Hãy nói -->
+      <div class="clip scene" id="s5" data-start="36.5" data-duration="11.0" data-track-index="1"><div class="in" id="s5-in">
+        <div class="tag2" id="s5-l1" style="top:300px;color:var(--muted)">Thay vì</div>
+        <div class="thread" style="top:380px"><div class="row me" id="s5-old"><div class="bub wrap" style="background:#c9c6dc;color:var(--ink)">Tao mệt quá, chắc không đi được.<i class="strike" id="s5-strike"></i></div></div></div>
+        <div class="tag2" id="s5-l2" style="top:660px;color:var(--blue)">Hãy nói</div>
+        <div class="thread" style="top:740px">
+          <div class="row me" id="s5-n1"><div class="bub">Cảm ơn mày đã rủ,</div></div>
+          <div class="row me" id="s5-n2"><div class="bub">nhưng tối nay tao không đi.</div></div>
+          <div class="row me" id="s5-n3"><div class="bub">Hẹn bữa khác nhé.</div></div>
+        </div>
+      </div></div>
+
+      <!-- S6 · Năn nỉ → HẾT -->
+      <div class="clip scene" id="s6" data-start="47.2" data-duration="7.0" data-track-index="1"><div class="in" id="s6-in">
+        <div class="tag2" id="s6-l" style="top:300px;color:var(--muted)">Nếu nó tiếp tục năn nỉ</div>
+        <div class="thread" style="top:390px">
+          <div class="row"><div class="av">A</div><div class="stack"><div class="bub typing" id="s6-t"><i></i><i></i><i></i></div><div class="bub" id="s6-a">Đi điii, vui lắm mà!</div></div></div>
+          <div class="row me" id="s6-b1"><div class="bub">Ừ, tao biết vui mà.</div></div>
+          <div class="row me" id="s6-b2"><div class="bub">Nhưng nay tao không tham gia đâu.</div></div>
+        </div>
+        <div id="s6-stamp">HẾT.</div>
+      </div></div>
+
+      <!-- S7 · Không cần bịa -->
+      <div class="clip scene" id="s7" data-start="53.9" data-duration="5.65" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe h c" id="s7-h">Không cần <span class="b">bịa thêm</span></div>
+        <div class="ex card" id="ex1"><div class="n">3</div><div class="t">cuộc họp</div></div>
+        <div class="ex card" id="ex2"><div class="n">2</div><div class="t">đám giỗ</div></div>
+        <div class="ex card" id="ex3"><div class="n">1</div><div class="t">người bà con từ nước ngoài mới về</div></div>
+        <i class="xline" id="x1"></i><i class="xline" id="x2"></i>
+      </div></div>
+
+      <!-- S8 · Đơn xin phép từ chối -->
+      <div class="clip scene" id="s8" data-start="59.25" data-duration="10.05" data-track-index="1"><div class="in" id="s8-in">
+        <div class="safe lab c" id="s8-a">Tất nhiên</div>
+        <div class="safe card" id="s8-ok"><svg width="64" height="64" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e7ecff"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#3557ff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="t">Có lúc nên giải thích rõ ràng</div></div>
+        <div id="s8-form">
+          <div class="f-h">ĐƠN XIN PHÉP TỪ CHỐI</div>
+          <div class="f-row">Lý do:<span></span></div>
+          <div class="f-row">Bằng chứng:<span></span></div>
+          <div class="f-box"><i></i>Đủ chính đáng</div>
+        </div>
+        <div id="s8-no">KHÔNG CẦN NỘP</div>
+      </div></div>
+
+      <!-- S9 · Kết: bài toán → quyết định -->
+      <div class="clip scene" id="s9" data-start="69.0" data-duration="{{S9_DUR}}" data-track-index="1"><div class="in" id="s9-in">
+        <div class="safe lab c" id="s9-l">Nhớ nha</div>
+        <div class="flip"><div id="flip-in">
+          <div class="face" id="f-front"><div class="q">?</div><div class="k">Một bài toán để giải</div></div>
+          <div class="face" id="f-back"><div class="k">Một quyết định.</div><div class="s">Không cần ai giải hộ.</div></div>
+        </div></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      // Tin nhắn bật lên từ phía người gửi
+      const msg = (sel, at, me) => tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.85, transformOrigin: me ? "100% 100%" : "0% 100%" },
+        { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: "back.out(2.2)" }, at);
+      const typing = (sel, from, to) => {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.12 }, from);
+        tl.fromTo(sel + " i", { y: 0 }, { y: -10, duration: 0.14, stagger: 0.07, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, from + 0.05);
+        tl.to(sel, { opacity: 0, duration: 0.06 }, to - 0.06);
+      };
+
+      // Chuyển cảnh: mờ + trượt nhẹ sang trái (cảnh cũ), cảnh mới vào từ phải
+      [[14.1, "#s1-in", "#s3-in"], [30.9, "#s3-in", "#s4-in"], [36.5, "#s4-in", "#s5-in"], [47.2, "#s5-in", "#s6-in"], [53.9, "#s6-in", "#s7-in"],
+       [59.25, "#s7-in", "#s8-in"], [69.0, "#s8-in", "#s9-in"]].forEach(([t, a, b]) => {
+        tl.to(a, { opacity: 0, x: -120, duration: 0.32, ease: "power2.in" }, t);
+        tl.fromTo(b, { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.42, ease: E }, t + 0.12);
+      });
+
+      // S1 · Hội thoại (khớp từng câu voice)
+      msg("#m0", 0.02, false);
+      msg("#m1", 1.38, true);
+      typing("#t2", 1.82, 2.12); msg("#m2", 2.1, false);
+      msg("#m3", 3.64, true);
+      typing("#t4", 4.45, 4.87); msg("#m4", 4.85, false);
+      msg("#m5", 6.2, true);
+      typing("#t6", 7.4, 7.69); msg("#m6", 7.67, false);
+      // "Đù má" — khung chat rung, lùi ra sau, hiệp định xuất hiện
+      tl.fromTo("#chat", { x: 0 }, { x: 16, duration: 0.05, repeat: 7, yoyo: true, ease: "none", immediateRender: false }, 8.95);
+      tl.to(["#chat", "#chat-head"], { opacity: 0.12, scale: 0.94, filter: "blur(6px)", duration: 0.5, ease: "power2.inOut" }, 9.35);
+      up("#s2-t1", 9.5); up("#s2-t2", 10.9);
+      tl.fromTo("#s2-doc", { opacity: 0, y: 120, rotation: 4 }, { opacity: 1, y: 0, rotation: -2, duration: 0.6, ease: E }, 10.6);
+      tl.fromTo("#s2-seal", { opacity: 0, scale: 2.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 12.0);
+
+      // S3 · Lý do → cách giải
+      pop("#s3-q", 14.25, 0.85);
+      out("#s3-q", 16.55);
+      up("#s3-h1", 16.85); up("#s3-h2", 19.95);
+      [["#pr1", 22.69, 23.67], ["#pr2", 25.39, 26.65], ["#pr3", 28.16, 29.11]].forEach(([p, a, b]) => {
+        up(p + " .chip.r", a, 0.4, 20);
+        tl.fromTo(p + " .arrow", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, a + 0.3);
+        pop(p + " .chip.s", b, 0.6);
+      });
+
+      // S4 · Bài toán
+      up("#s4-lab", 31.3, 0.4, 14);
+      tl.fromTo("#s4-sheet", { opacity: 0, y: 80, rotation: -3 }, { opacity: 1, y: 0, rotation: -1, duration: 0.6, ease: E }, 32.05);
+      ["#sol1", "#sol2", "#sol3"].forEach((s, i) => tl.fromTo(s, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 33.55 + i * 0.3));
+      up("#s4-foot", 34.65);
+
+      // S5 · Thay vì / Hãy nói
+      up("#s5-l1", 37.06, 0.35, 14); msg("#s5-old", 37.8, true);
+      tl.fromTo("#s5-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 41.75);
+      tl.to("#s5-old", { opacity: 0.45, duration: 0.3 }, 42.2);
+      up("#s5-l2", 42.3, 0.35, 14);
+      msg("#s5-n1", 43.42, true); msg("#s5-n2", 44.6, true); msg("#s5-n3", 46.15, true);
+
+      // S6 · Năn nỉ → HẾT
+      up("#s6-l", 47.6, 0.35, 14);
+      typing("#s6-t", 47.95, 48.55); msg("#s6-a", 48.5, false);
+      msg("#s6-b1", 49.72, true); msg("#s6-b2", 51.55, true);
+      tl.fromTo("#s6-stamp", { opacity: 0, scale: 2.6, rotation: -24 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.28, ease: "power4.in" }, 53.3);
+      tl.fromTo(["#s6-a", "#s6-b1", "#s6-b2"], { x: 0 }, { x: 10, duration: 0.05, repeat: 3, yoyo: true, ease: "none", immediateRender: false }, 53.58);
+
+      // S7 · Không cần bịa thêm
+      up("#s7-h", 54.5);
+      tl.fromTo("#ex1", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, 55.3);
+      tl.fromTo("#ex2", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, 56.0);
+      tl.fromTo("#ex3", { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, 56.75);
+      tl.fromTo("#x1", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.in" }, 58.05);
+      tl.fromTo("#x2", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.in" }, 58.3);
+
+      // S8 · Đơn xin phép từ chối
+      up("#s8-a", 59.55, 0.35, 14); up("#s8-ok", 60.1, 0.45, 24);
+      tl.fromTo("#s8-form", { opacity: 0, y: 90 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, 62.4);
+      tl.to("#s8-ok", { opacity: 0.4, duration: 0.3 }, 62.4);
+      tl.fromTo("#s8-no", { opacity: 0, scale: 2.3, rotation: 30 }, { opacity: 1, scale: 1, rotation: 10, duration: 0.3, ease: "power4.in" }, 66.6);
+
+      // S9 · Bài toán → Quyết định (lật thẻ)
+      up("#s9-l", 69.25, 0.35, 14);
+      tl.fromTo(".flip", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.55, ease: E }, 70.25);
+      tl.fromTo("#flip-in", { rotationY: 0 }, { rotationY: 180, duration: 0.8, ease: "power3.inOut" }, 75.05);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post7"] = tl;
+    </script>
+  </body>
+</html>
