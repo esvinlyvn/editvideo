@@ -27,9 +27,16 @@ const T_STATS = 5;
 const T_NEARBY = L.nearby?.length ? 4.5 : 0;
 const T_CTA = 5;
 
+// Giọng đọc (nếu đã chạy scripts/voice.mjs): cảnh tự giãn cho vừa câu đọc.
+const VO_LEAD = 0.4; // giọng bắt đầu sau khi cảnh vào
+const VO_TAIL = 0.35; // khoảng nghỉ trước khi chuyển cảnh
+const voPath = path.join(listingDir, "voice/manifest.json");
+const VO = fs.existsSync(voPath) ? JSON.parse(fs.readFileSync(voPath, "utf8")) : {};
+
 const scenes = [];
 let cursor = 0;
-const push = (id, dur) => {
+const push = (id, base) => {
+  const dur = VO[id] ? Math.max(base, Math.ceil((VO_LEAD + VO[id].duration + VO_TAIL) * 10) / 10) : base;
   scenes.push({ id, start: cursor, dur });
   cursor += dur;
 };
@@ -75,6 +82,9 @@ const copyMedia = (rel) => {
 const hero = copyMedia(L.hero);
 const gallery = L.gallery.map((g) => ({ ...g, src: copyMedia(g.src) }));
 const music = L.music ? copyMedia(L.music) : null;
+const voices = scenes
+  .filter((s) => VO[s.id])
+  .map((s) => ({ id: s.id, src: copyMedia(VO[s.id].file), start: Math.round((s.start + VO_LEAD) * 100) / 100, dur: VO[s.id].duration }));
 
 // ---------- HTML ----------
 const esc = (s) =>
@@ -469,9 +479,14 @@ ${
 ${
   music
     ? `
-      <audio id="music" src="${esc(music)}" data-start="0" data-duration="${TOTAL}" data-track-index="9" data-volume="0.45"></audio>`
+      <audio id="music" src="${esc(music)}" data-start="0" data-duration="${TOTAL}" data-track-index="9" data-volume="${voices.length ? 0.18 : 0.45}"></audio>`
     : ""
-}
+}${voices
+  .map(
+    (v) => `
+      <audio id="vo-${v.id}" src="${esc(v.src)}" data-start="${v.start}" data-duration="${v.dur}" data-track-index="8" data-volume="1"></audio>`,
+  )
+  .join("")}
     </div>
     <script>
       const TOTAL = ${TOTAL};
