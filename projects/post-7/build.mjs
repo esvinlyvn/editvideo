@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sfxHtml } from "../../scripts/sfx-cues.mjs";
+import { breakLines, canBreak } from "../../scripts/vn-text.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../..");
@@ -35,6 +36,7 @@ for (const c of T.chunks.filter((c) => !NO_CAP.has(c.i))) {
     const left = words.length - j - 1;
     if (!next) return;
     // không để rớt 1–2 chữ lẻ sang dòng sau (tối đa 9 từ khi cần)
+    if (!canBreak(words, j + 1) && g.length < 11) return; // không tách từ ghép / số đếm / tên riêng giữa 2 phụ đề
     if ((/[,.!?:;]$/.test(w) && g.length >= 3 && left >= 2) || (LINK.has(next.toLowerCase()) && g.length >= 4 && left >= 3) || (g.length >= MAX && left >= 3) || g.length >= 9)
       groups.push(g), (g = []);
   });
@@ -63,7 +65,7 @@ caps.forEach((c, i) => {
 });
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const capHtml = caps
-  .map((c, i) => `<div class="clip cap" id="cap-${i}" data-start="${c.s}" data-duration="${r2(c.e - c.s)}" data-track-index="2"><p class="cap-in">${esc(c.words.join(" "))}</p></div>`)
+  .map((c, i) => `<div class="clip cap" id="cap-${i}" data-start="${c.s}" data-duration="${r2(c.e - c.s)}" data-track-index="2"><p class="cap-in">${breakLines(c.words.join(" "), 26).map(esc).join("<br>")}</p></div>`)
   .join("\n      ");
 
 // ---------- Font (chỉ woff2, giữ unicode-range) ----------

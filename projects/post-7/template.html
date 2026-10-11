@@ -66,7 +66,7 @@
       #s3-h { top: 250px; font-size: 64px; }
       .pair { position: absolute; left: 108px; right: 108px; display: flex; align-items: center; justify-content: space-between; }
       .chip { padding: 26px 34px; border-radius: 30px; font-weight: 700; font-size: 44px; }
-      .chip.r { background: var(--blue); color: #fff; }
+      .chip.r { background: var(--blue); color: #fff; display: flex; align-items: center; gap: 14px; }
       .chip.s { background: var(--white); box-shadow: 0 12px 30px rgba(23,22,43,.1); display: flex; align-items: center; gap: 14px; }
       .arrow { flex: 1; height: 6px; margin: 0 22px; background: rgba(23,22,43,.2); border-radius: 3px; position: relative; transform-origin: 0 50%; }
       .arrow::after { content: ""; position: absolute; right: -4px; top: -11px; border-left: 22px solid rgba(23,22,43,.35); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
@@ -98,7 +98,7 @@
       #s7-h { top: 250px; font-size: 72px; }
       .ex { position: absolute; left: 160px; right: 160px; padding: 30px 40px; display: flex; align-items: center; gap: 28px; }
       .ex .n { font-family: var(--disp); font-weight: 800; font-size: 84px; color: var(--blue); width: 84px; text-align: center; }
-      .ex .t { font-weight: 700; font-size: 44px; line-height: 1.2; }
+      .ex .t { font-weight: 700; font-size: 42px; line-height: 1.2; } .ex svg { flex: 0 0 60px; }
       #ex1 { top: 520px; transform: rotate(-3deg); } #ex2 { top: 760px; transform: rotate(2deg); } #ex3 { top: 1000px; transform: rotate(-1.5deg); }
       .xline { position: absolute; left: 140px; right: 140px; height: 16px; border-radius: 8px; background: var(--ink); transform-origin: 0 50%; }
       #x1 { top: 1060px; transform: rotate(-33deg); } #x2 { top: 1060px; transform: rotate(33deg); transform-origin: 100% 50%; }
@@ -113,7 +113,7 @@
       .f-row span { flex: 1; border-bottom: 3px dotted rgba(23,22,43,.35); height: 36px; }
       .f-box { display: flex; gap: 16px; align-items: center; margin-top: 26px; font-weight: 600; font-size: 32px; color: var(--muted); }
       .f-box i { width: 34px; height: 34px; border: 3px solid rgba(23,22,43,.35); border-radius: 8px; }
-      #s8-no { position: absolute; left: 50%; top: 860px; width: 600px; margin-left: -300px; padding: 16px 0 22px; border: 10px solid var(--blue); border-radius: 24px; color: var(--blue);
+      #s8-no { position: absolute; left: 50%; top: 880px; width: 520px; margin-left: -260px; padding: 16px 0 22px; border: 10px solid var(--blue); border-radius: 24px; color: var(--blue);
         text-align: center; font-family: var(--disp); font-weight: 800; font-size: 76px; transform: rotate(10deg); background: rgba(255,253,246,.85); }
 
       /* S9 kết */
@@ -141,7 +141,7 @@
 
       <!-- S1 · Hội thoại -->
       <div class="clip scene" id="s1" data-start="0" data-duration="14.4" data-track-index="1"><div class="in" id="s1-in">
-        <div class="safe" id="chat-head"><div class="av" style="background:#8c89a8">A</div><div><div class="t">Thằng bạn nhậu</div><div class="s" id="hd-s">đang hoạt động</div></div></div>
+        <div class="safe" id="chat-head"><div class="av" style="background:#8c89a8">A</div><div style="flex:1"><div class="t">Thằng bạn nhậu</div><div class="s" id="hd-s">đang hoạt động</div></div><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2" stroke-linejoin="round"><path d="M5 7h11v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M16 10h2.5a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H16"/><path d="M5 7c0-2 1.5-3 3-3 .8-1 2.2-1.4 3.4-.8C12.6 2.4 14.8 2.8 16 4.6c.6 1 .5 2.4 0 2.4"/><path d="M9 11v6M12 11v6"/></svg></div>
         <div id="chat">
           <div class="row" id="m0" style="top:340px"><div class="av">A</div><div class="bub">Tối nay đi nhậu không?</div></div>
           <div class="row me" id="m1" style="top:476px"><div class="bub">Tao mệt.</div></div>
@@ -158,7 +158,7 @@
         <div class="safe h c" id="s2-t"><span class="blk" id="s2-t1">Từ chối một bữa nhậu</span><span class="blk b" id="s2-t2">= đàm phán hòa bình</span></div>
         <div id="s2-doc">
           <div class="doc-h">HIỆP ĐỊNH</div>
-          <div class="doc-s">về việc tối nay có đi nhậu hay không</div>
+          <div class="doc-s">về việc tối nay đi nhậu hay không</div>
           <div class="doc-l"></div><div class="doc-l" style="width:86%"></div><div class="doc-l" style="width:92%"></div><div class="doc-l" style="width:70%"></div>
           <div class="doc-sign"><span>Bên rủ</span><span>Bên từ chối</span></div>
           <div class="seal" id="s2-seal">ĐÃ<br />THƯƠNG<br />LƯỢNG</div>
@@ -168,10 +168,10 @@
       <!-- S3 · Lý do → cách giải -->
       <div class="clip scene" id="s3" data-start="14.1" data-duration="17.1" data-track-index="1"><div class="in" id="s3-in">
         <div class="safe h c" id="s3-q">Mày để ý <span class="b">một chuyện</span> không?</div>
-        <div class="safe h c" id="s3-h"><span class="blk" id="s3-h1">Mỗi lý do mày đưa ra</span><span class="blk b" id="s3-h2">là một bài để người ta giải</span></div>
-        <div class="pair" id="pr1"><div class="chip r">Mệt</div><div class="arrow"></div><div class="chip s" id="pr1-s">Ngồi chơi thôi</div></div>
-        <div class="pair" id="pr2"><div class="chip r">Hết tiền</div><div class="arrow"></div><div class="chip s" id="pr2-s">Tao bao</div></div>
-        <div class="pair" id="pr3"><div class="chip r">Bận</div><div class="arrow"></div><div class="chip s" id="pr3-s">Mấy giờ xong?</div></div>
+        <div class="safe h c" id="s3-h"><span class="blk" id="s3-h1">Mỗi lý do mày đưa ra</span><span class="blk b" id="s3-h2"><span class="blk">là một bài toán</span><span class="blk">để người ta giải</span></span></div>
+        <div class="pair" id="pr1"><div class="chip r"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2.5" y="7" width="16" height="10" rx="2.5"/><path d="M21 10.5v3"/><path d="M5.5 10v4" stroke-width="3"/></svg>Mệt</div><div class="arrow"></div><div class="chip s" id="pr1-s"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v9h10V3M5 12h14M7 12v9M17 12v9"/></svg>Ngồi chơi thôi</div></div>
+        <div class="pair" id="pr2"><div class="chip r"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 7.5h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7.5l11-3.5 1.5 3.5"/><circle cx="16" cy="13.5" r="1.3" fill="currentColor"/></svg>Hết tiền</div><div class="arrow"></div><div class="chip s" id="pr2-s"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2.2" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.8"/></svg>Tao bao</div></div>
+        <div class="pair" id="pr3"><div class="chip r"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Bận</div><div class="arrow"></div><div class="chip s" id="pr3-s"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mấy giờ xong?</div></div>
       </div></div>
 
       <!-- S4 · Bài toán -->
@@ -179,7 +179,7 @@
         <div class="safe lab c" id="s4-lab">Vô tình</div>
         <div class="sheet" id="s4-sheet">
           <div class="k">Bài toán</div>
-          <div class="q">Làm sao để nó đi nhậu?</div>
+          <div class="q"><span class="blk">Làm sao để nó</span><span class="blk">đi nhậu?</span></div>
           <div class="sol" id="sol1">✓ <b>Mệt</b> → ngồi tí thôi</div>
           <div class="sol" id="sol2">✓ <b>Hết tiền</b> → tao bao</div>
           <div class="sol" id="sol3">✓ <b>Bận</b> → 9 giờ về</div>
@@ -213,9 +213,9 @@
       <!-- S7 · Không cần bịa -->
       <div class="clip scene" id="s7" data-start="53.9" data-duration="5.65" data-track-index="1"><div class="in" id="s7-in">
         <div class="safe h c" id="s7-h">Không cần <span class="b">bịa thêm</span></div>
-        <div class="ex card" id="ex1"><div class="n">3</div><div class="t">cuộc họp</div></div>
-        <div class="ex card" id="ex2"><div class="n">2</div><div class="t">đám giỗ</div></div>
-        <div class="ex card" id="ex3"><div class="n">1</div><div class="t">người bà con từ nước ngoài mới về</div></div>
+        <div class="ex card" id="ex1"><div class="n">3</div><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div class="t">cuộc họp</div></div>
+        <div class="ex card" id="ex2"><div class="n">2</div><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2" stroke-linecap="round"><path d="M8 8v10M12 6v12M16 8v10"/><path d="M5 18h14l-1.5 3h-11z"/><path d="M12 4c.8-.8.8-1.6 0-2.4M8 6c.6-.6.6-1.2 0-1.8M16 6c.6-.6.6-1.2 0-1.8"/></svg><div class="t">đám giỗ</div></div>
+        <div class="ex card" id="ex3"><div class="n">1</div><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3557ff" stroke-width="2" stroke-linejoin="round"><path d="M2.5 13.5l19-8-5.5 15-3.5-6.5z"/><path d="M12.5 14l9-8.5"/></svg><div class="t"><span class="blk">người bà con</span><span class="blk">từ nước ngoài mới về</span></div></div>
         <i class="xline" id="x1"></i><i class="xline" id="x2"></i>
       </div></div>
 
@@ -229,7 +229,7 @@
           <div class="f-row">Bằng chứng:<span></span></div>
           <div class="f-box"><i></i>Đủ chính đáng</div>
         </div>
-        <div id="s8-no">KHÔNG CẦN NỘP</div>
+        <div id="s8-no">KHỎI NỘP</div>
       </div></div>
 
       <!-- S9 · Kết: bài toán → quyết định -->
@@ -237,7 +237,7 @@
         <div class="safe lab c" id="s9-l">Nhớ nha</div>
         <div class="flip"><div id="flip-in">
           <div class="face" id="f-front"><div class="q">?</div><div class="k">Một bài toán để giải</div></div>
-          <div class="face" id="f-back"><div class="k">Một quyết định.</div><div class="s">Không cần ai giải hộ.</div></div>
+          <div class="face" id="f-back"><div class="k"><span class="blk">Một</span><span class="blk">quyết định.</span></div><div class="s">Khỏi cần ai giải giùm.</div></div>
         </div></div>
       </div></div>
 
