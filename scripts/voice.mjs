@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-// Tạo giọng đọc tiếng Việt cho từng cảnh bằng Gemini TTS.
+// Tạo giọng đọc tiếng Việt bằng Gemini TTS: MỘT lần gọi cho cả kịch bản
+// (giữ nguyên chất giọng), rồi cắt theo khoảng lặng giữa các đoạn để khớp từng cảnh.
 //   GEMINI_API_KEY=... node scripts/voice.mjs listings/<slug>
-// Kết quả: listings/<slug>/voice/<scene>.wav + manifest.json (build.mjs tự dùng).
-// Có cache: câu nào không đổi thì không gọi API lại.
+// Kết quả: listings/<slug>/voice/full.wav, <scene>.wav, manifest.json (build.mjs tự dùng).
+// Có cache: kịch bản không đổi thì không gọi API lại.
 import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
@@ -35,12 +36,25 @@ const auto = {
   ...(L.nearby?.length ? { nearby: L.nearby.map((n) => `${n.minutes} phút tới ${n.place}`).join(", ") + "." } : {}),
   cta: `Giá chỉ ${L.price}. Liên hệ ${L.agent.name}, ${L.agent.phone}.`,
 };
-const lines = Object.fromEntries(Object.entries(auto).map(([id, t]) => [id, speakable(L.voiceover?.[id] ?? t)]));
+const ids = Object.keys(auto);
+const lines = ids.map((id) => speakable(L.voiceover?.[id] ?? auto[id]));
+// Xuống dòng đôi giữa các cảnh để TTS ngắt nghỉ rõ, dễ cắt.
+const script = lines.join("\n\n");
 
 const outDir = path.join(listingDir, "voice");
 fs.mkdirSync(outDir, { recursive: true });
 const manifestPath = path.join(outDir, "manifest.json");
+const fullWav = path.join(outDir, "full.wav");
+const hash = crypto.createHash("sha1").update(JSON.stringify([script, cfg])).digest("hex").slice(0, 12);
 const old = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, "utf8")) : {};
+if (old._hash === hash && fs.existsSync(fullWav)) {
+  console.log("= Kịch bản không đổi, dùng lại giọng đã tạo (không gọi API).");
+  process.exit(0);
+}
+
+const ffmpeg = (args) => execFileSync("ffmpeg", ["-hide_banner", ...args], { stdio: ["ignore", "pipe", "pipe"] });
+const probe = (f) =>
+  Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]).toString().trim());
 
 async function tts(text) {
   const body = {
@@ -57,11 +71,14 @@ async function tts(text) {
       body: JSON.stringify(body),
     });
     const json = await res.json();
-    if ((res.status === 429 || res.status >= 500) && attempt < 6) {
-      // Giới hạn theo phút: chờ đúng thời gian Gemini gợi ý (retryDelay), mặc định 20s.
+    if ((res.status === 429 || res.status >= 500) && attempt < 3) {
       const hint = JSON.stringify(json).match(/"retryDelay":\s*"(\d+)/)?.[1];
-      const wait = (Number(hint) || 20 * (attempt + 1)) + 1;
-      console.log(`… Gemini giới hạn tốc độ, chờ ${wait}s`);
+      const wait = (Number(hint) || 20) + 1;
+      if (wait > 120) {
+        const quota = (json.error?.details ?? []).flatMap((d) => d.violations ?? []).map((v) => `${v.quotaId}=${v.quotaValue}`);
+        throw new Error(`Hết hạn mức Gemini (phải chờ ${Math.round(wait / 60)} phút). ${quota.join(", ") || json.error?.message?.slice(0, 300)}`);
+      }
+      console.log(`… Gemini giới hạn tốc độ (${res.status}), chờ ${wait}s rồi thử lại`);
       await new Promise((r) => setTimeout(r, wait * 1000));
       continue;
     }
@@ -71,27 +88,50 @@ async function tts(text) {
   }
 }
 
-const manifest = {};
-for (const [id, text] of Object.entries(lines)) {
-  const hash = crypto.createHash("sha1").update(JSON.stringify([text, cfg])).digest("hex").slice(0, 12);
-  const file = `${id}.wav`;
-  const dest = path.join(outDir, file);
-  if (old[id]?.hash === hash && fs.existsSync(dest)) {
-    manifest[id] = old[id];
-    console.log(`= ${id} (cache)`);
-    continue;
-  }
-  const { mimeType, data } = await tts(text);
-  const raw = path.join(outDir, `${id}.raw`);
-  fs.writeFileSync(raw, Buffer.from(data, "base64"));
-  // Gemini trả WAV hoặc PCM 16-bit 24kHz mono; chuẩn hóa + tăng tốc độ đọc.
-  const input = /wav/i.test(mimeType) ? ["-i", raw] : ["-f", "s16le", "-ar", "24000", "-ac", "1", "-i", raw];
-  execFileSync("ffmpeg", ["-loglevel", "error", "-y", ...input, "-af", `atempo=${cfg.speed},silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse`, "-ar", "44100", dest]);
-  fs.rmSync(raw);
-  const duration = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", dest]).toString().trim());
-  manifest[id] = { file: `voice/${file}`, duration: Math.round(duration * 100) / 100, hash, text };
-  console.log(`✔ ${id} ${manifest[id].duration}s · ${text}`);
-  fs.writeFileSync(manifestPath, JSON.stringify({ ...old, ...manifest }, null, 2) + "\n");
+console.log(`Gọi Gemini TTS 1 lần · ${cfg.model} · giọng ${cfg.voice} · ${script.length} ký tự`);
+const { mimeType, data } = await tts(script);
+const raw = path.join(outDir, "full.raw");
+fs.writeFileSync(raw, Buffer.from(data, "base64"));
+const input = /wav/i.test(mimeType) ? ["-i", raw] : ["-f", "s16le", "-ar", "24000", "-ac", "1", "-i", raw];
+// Tăng tốc độ đọc + cắt khoảng lặng đầu/cuối.
+const trim = "silenceremove=start_periods=1:start_threshold=-45dB";
+ffmpeg(["-loglevel", "error", "-y", ...input, "-af", `atempo=${cfg.speed},${trim},areverse,${trim},areverse`, "-ar", "44100", fullWav]);
+fs.rmSync(raw);
+const total = probe(fullWav);
+
+// Tìm khoảng lặng; lấy (số cảnh - 1) khoảng dài nhất làm điểm cắt.
+const log = execFileSync("bash", ["-c", 'ffmpeg -hide_banner -i "$0" -af silencedetect=noise=-40dB:d=0.15 -f null - 2>&1', fullWav]).toString();
+const silences = [...log.matchAll(/silence_start: ([\d.]+)[\s\S]*?silence_end: ([\d.]+)/g)].map((m) => ({
+  start: Number(m[1]),
+  end: Number(m[2]),
+}));
+const need = ids.length - 1;
+let cuts;
+if (silences.length >= need) {
+  cuts = [...silences]
+    .sort((a, b) => b.end - b.start - (a.end - a.start))
+    .slice(0, need)
+    .sort((a, b) => a.start - b.start);
+} else {
+  console.warn("⚠ Không đủ khoảng lặng để cắt, chia theo độ dài chữ.");
+  const sum = lines.reduce((a, l) => a + l.length, 0);
+  let acc = 0;
+  cuts = lines.slice(0, -1).map((l) => {
+    acc += (l.length / sum) * total;
+    return { start: acc, end: acc };
+  });
 }
+
+// Cắt từng đoạn: từ cuối khoảng lặng trước đến đầu khoảng lặng sau.
+const manifest = { _hash: hash, _full: "voice/full.wav" };
+ids.forEach((id, i) => {
+  const a = i === 0 ? 0 : cuts[i - 1].end;
+  const b = i === ids.length - 1 ? total : cuts[i].start;
+  const file = path.join(outDir, `${id}.wav`);
+  ffmpeg(["-loglevel", "error", "-y", "-i", fullWav, "-ss", a.toFixed(3), "-to", b.toFixed(3), file]);
+  const duration = Math.round(probe(file) * 100) / 100;
+  manifest[id] = { file: `voice/${id}.wav`, duration, text: lines[i] };
+  console.log(`✔ ${id.padEnd(8)} ${duration.toFixed(2)}s · ${lines[i]}`);
+});
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
-console.log(`→ ${path.relative(process.cwd(), manifestPath)}`);
+console.log(`→ ${path.relative(process.cwd(), manifestPath)} · tổng ${total.toFixed(1)}s`);

@@ -39,6 +39,20 @@ npm run build -- listings/the-riverside-2pn
 cd build/the-riverside-2pn && npx hyperframes preview
 ```
 
+## Giọng đọc tiếng Việt (Gemini TTS)
+
+```bash
+export GEMINI_API_KEY=...            # không ghi key vào file trong repo
+node scripts/voice.mjs listings/the-riverside-2pn
+npm run video -- listings/the-riverside-2pn
+```
+
+- **Một lần gọi API cho cả kịch bản**, nên giọng đồng nhất. Sau đó script tự cắt theo khoảng lặng giữa các đoạn để khớp từng cảnh.
+- Mỗi cảnh tự kéo dài cho vừa câu đọc.
+- Lời đọc nằm ở `voiceover` trong `listing.json`. Nên viết số và SĐT bằng chữ để đọc chuẩn; nếu bỏ trống, script tự ghép lời từ dữ liệu.
+- Cấu hình nằm ở `voice` trong `listing.json`: `model`, `voice` (mặc định Kore), `speed` (mặc định 1.1).
+- Kịch bản không đổi thì không gọi lại API (có cache).
+
 ## Thêm một căn mới
 
 1. Tạo thư mục `listings/<slug>/` gồm `listing.json` và thư mục `photos/`.
@@ -51,5 +65,5 @@ cd build/the-riverside-2pn && npx hyperframes preview
 ## Giới hạn hiện tại
 
 - Mới làm phần **đóng gói** (ảnh + chữ + hiệu ứng). Chưa cắt dựng footage quay thô.
-- Chưa có giọng đọc (TTS) và nhạc nền mặc định.
+- Chưa có nhạc nền và hiệu ứng âm thanh mặc định.
 - Màu sắc và font (Be Vietnam Pro) đặt trong `scripts/build.mjs` (biến CSS `--ink`, `--paper`, `--gold`).
