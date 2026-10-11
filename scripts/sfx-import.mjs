@@ -18,6 +18,7 @@ const CLASS = {
   impact: { mean: -28, peak: -6, max: 2.0 },
   accent: { mean: -30, peak: -8, max: 3.0 },
   ambience: { mean: -36, peak: -14, max: 4.0 },
+  bed: { mean: -40, peak: -24, max: 15.0 }, // âm nền dài (quán đông người…), đặt rất nhỏ dưới voice
 };
 // Tên → nhóm + nhãn gợi ý dùng
 const META = {
@@ -58,6 +59,19 @@ const META = {
   "bass-drop": ["impact", "lộ kết quả bất ngờ"],
   "door-slam": ["impact", "chốt, đóng lại"],
   crickets: ["ambience", "im lặng ngượng ngùng"],
+  "whoosh-heavy": ["transition", "chuyển chương lớn, có bass"],
+  "zoom-in": ["transition", "phóng vào chi tiết"],
+  "page-turn": ["transition", "lật trang, sang ý mới"],
+  cymbal: ["impact", "chốt câu cuối, ta-da"],
+  boing: ["accent", "bất ngờ kiểu hài"],
+  "wrong-buzzer": ["accent", "sai, bị loại"],
+  alert: ["accent", "cảnh báo"],
+  "paper-rustle": ["accent", "giấy tờ, hợp đồng"],
+  "phone-ring": ["accent", "chuông điện thoại reo"],
+  "hang-up": ["ui", "cúp máy"],
+  lock: ["ui", "khóa, bảo vệ"],
+  unlock: ["ui", "mở khóa, được rồi"],
+  "crowd-chatter": ["bed", "nền quán đông người"],
   heartbeat: ["ambience", "hồi hộp, lo lắng"],
   "tick-tock": ["ambience", "áp lực thời gian"],
   suspense: ["ambience", "bí ẩn, 'nhưng mà…'"],
@@ -81,13 +95,16 @@ for (const file of fs.readdirSync(src).filter((f) => /\.(mp3|wav|m4a|ogg|aac|fla
   const trim = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.01";
   // 1) cắt lặng đầu/cuối + cắt độ dài + fade-out
   execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", path.join(src, file), "-af",
-    `${trim},areverse,${trim},areverse,atrim=0:${C.max},afade=t=out:st=${Math.max(0, C.max - 0.25)}:d=0.25`, "-ar", "48000", "-ac", "2", tmp]);
+    `highpass=f=40,${trim},areverse,${trim},areverse,atrim=0:${C.max},afade=t=out:st=${Math.max(0, C.max - 0.25)}:d=0.25`, "-ar", "48000", "-ac", "2", tmp]);
   const d = dur(tmp);
   const fadeAt = Math.max(0, d - Math.min(0.12, d * 0.3));
   // 2) đưa về mức chuẩn: tăng/giảm tới mean mục tiêu nhưng không để đỉnh vượt ngưỡng
   const v = vol(tmp);
-  const gain = Math.min(C.mean - v.mean, C.peak - v.max);
-  execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", tmp, "-af", `volume=${gain.toFixed(1)}dB,afade=t=out:st=${fadeAt.toFixed(3)}:d=${(d - fadeAt).toFixed(3)}`,
+  // Tăng/giảm tới mức trung bình mục tiêu; âm quá nhọn thì cho vượt tối đa 6 dB rồi để limiter chặn đỉnh
+  // → các phiên bản cùng tên (pop, pop-2…) nghe đều nhau thay vì bản to bản nhỏ.
+  const gain = Math.min(C.mean - v.mean, C.peak - v.max + 6);
+  const lim = Math.pow(10, C.peak / 20).toFixed(4);
+  execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", tmp, "-af", `volume=${gain.toFixed(1)}dB,alimiter=limit=${lim}:attack=1:release=30:level=false,afade=t=out:st=${fadeAt.toFixed(3)}:d=${(d - fadeAt).toFixed(3)}`,
     path.join(OUT, `${name}.wav`)]);
   fs.rmSync(tmp);
   const after = vol(path.join(OUT, `${name}.wav`));

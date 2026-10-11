@@ -44,7 +44,9 @@ Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/out
 
 ## 5. SFX
 
-- Thư viện chung nằm ở `sfx/` (đã chuẩn hóa, xem `sfx/catalog.json`). Thêm âm mới bằng `node scripts/sfx-import.mjs <thư mục>`.
+- Thư viện chung nằm ở `sfx/`: 53 âm gốc, 90 file kể cả các phiên bản. Đã chuẩn hóa; xem `sfx/catalog.json` để biết nhóm, công dụng và mức âm lượng.
+- Thêm âm mới: đổi tên file theo đúng tên trong thư viện (`pop-3.mp3`…) rồi chạy `node scripts/sfx-import.mjs <thư mục>`. Các phiên bản cùng tên được kéo về cùng mức (chênh ≤ khoảng 2,5 dB).
+- `crowd-chatter` là âm nền dài 15 giây, đặt rất nhỏ (vol 0,3–0,5) dưới voice để tạo không khí.
 - Mỗi post có `sfx.json` dạng `{ "gainDb": 6, "minGap": 0.6, "cues": [...] }`. Mức người dùng đã duyệt: +6 dB, khoảng 1 điểm mỗi 1,7–2 giây.
 - Mỗi loại chuyển động có họ âm riêng, khớp đúng khung hình. Âm nhỏ (0,5–0,6) cho thao tác giao diện, âm lớn (0,85–1,0) cho khoảnh khắc chốt.
 - **Phiên bản SFX:** file `pop-2.mp3`, `pop-3.mp3` là phiên bản của `pop`. Trong `sfx.json` chỉ ghi tên gốc (`"pop"`) và khai báo `"scenes": [mốc bắt đầu từng cảnh]`.
