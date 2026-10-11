@@ -124,9 +124,10 @@ node projects/post-11/build.mjs
 | 8 | Montserrat | Xanh đêm `#0d1321` | Cam cảnh báo `#ff7a1a` | |
 | 9 | Baloo 2 | Hồng phấn `#fff0f3` | Đỏ hồng `#e8335a` | |
 | 10 | Space Grotesk | Giấy kraft `#f4ede1` | Xanh ngọc `#0fa3a3` | |
+| 11 | Playfair Display (serif) | Đỏ son `#7a1317` → nâu đêm `#2a1112` → đỏ | Vàng kim `#f5c242` | Giấy lịch kem, số đỏ |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
-- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, be-vietnam-pro.
+- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, be-vietnam-pro.
 - Phụ đề: chữ trắng 44px, Be Vietnam Pro 600, nền tối bán trong suốt bo góc kèm đổ bóng, khung trái 108px phải 150px.
 
 ### Âm thanh
@@ -191,6 +192,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **8** | Lừa đảo "chuyển lộn tiền" | **Ứng dụng ngân hàng ban đêm**: thông báo số dư, cuộc gọi đến, dòng tiền lật ngược, giấy đòi nợ | Lần đầu có nhân vật Sáu (2 biểu cảm); quy tắc giọng miền Nam và xuống dòng ghi vào `CLAUDE.md` | 77,6s · 56 |
 | **9** | Xóa app ≠ hủy gói đăng ký | **App là người yêu cũ**: ảnh đôi bị xé, quyết định cấp dưỡng, "ứng dụng cũ" | Hướng dẫn hủy gói trên iPhone và Android từng bước; Sáu vẽ theo avatar; SFX có phiên bản theo cảnh | 98,0s · 68 |
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
+| **11** | Còn chưa tới 4 tháng là Tết: đừng để bữa khác | **Cuốn lịch xé (lịch bloc)**: mở đầu xé tới Mùng 1 Tết 6/2/2027, mỗi tờ ghi "còn N ngày"; cảnh kết dán note "thôi, để bữa khác." rồi xé tiếp | Nền đổi màu theo cảm xúc (đỏ → nâu đêm → đỏ); lịch hẹn bị dời xuống hàng "Bữa khác"; ghế trống ở bàn cơm; `FORCE`/`KEEP` chỉnh ngắt phụ đề tay | 97,8s · 79 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

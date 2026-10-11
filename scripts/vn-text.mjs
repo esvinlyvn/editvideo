@@ -16,7 +16,8 @@ tiết kiệm|giảm giá|sử dụng|mua sắm|săn sale|món hời|hiệp đ�
 hoàn thành|lập tức|chủ đầu tư|căn hộ|dự án|mở bán|thiết yếu|phụ kiện|sản phẩm|cảm giác|chi phí|số lần|bao nhiêu|hôm nay|ngày mai|bản thân|
 nhớ đi nhớ lại|lời từ chối|trường hợp|người khác|mấy giờ|9 giờ|8 giờ|một chút|chút xíu|vấn đề|thực sự|tất nhiên|không phải|đi được|
 thử nghiệm|tài khoản|chuyển khoản|chuyển lộn|ngân hàng|lừa đảo|ngược đời|đòi nợ|con nợ|tiền lãi|ứng dụng|kiểm tra|giữ nguyên|chính thức|
-hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu`
+hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu|
+lời hứa|làm được|trả góp|thành công|lì xì|du lịch|lành mạnh|chạy bộ|trưng bày|cuối tuần|ba má|bạn cũ|thất bại|lớn lao|cơm nhà|để dành|giật mình|nghỉ học|đồ mới|thăm nhà|trôi qua`
     .split("|")
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean),
