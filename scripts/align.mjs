@@ -25,6 +25,8 @@ for (const [s, e] of sil) {
   t = e;
 }
 if (T > t + 0.05) chunks.push([t, T]);
+// Bỏ cụm siêu ngắn (< 0.12s): thường là tiếng thở, đuôi tiếng cười, click — không phải lời nói
+for (let i = chunks.length - 1; i >= 0; i--) if (chunks[i][1] - chunks[i][0] < 0.12) chunks.splice(i, 1);
 
 // ---- 2. Chữ kịch bản ----
 const words = []; // { w, sp, strong (ranh giới mạnh sau chữ), weak }

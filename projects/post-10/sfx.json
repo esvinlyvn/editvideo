@@ -1,0 +1,332 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  7.3,
+  13.9,
+  17.35,
+  21.55,
+  31.0,
+  38.8,
+  45.2,
+  51.0,
+  56.9,
+  61.7,
+  66.1
+ ],
+ "cues": [
+  {
+   "at": 0.25,
+   "name": "suspense",
+   "vol": 0.45,
+   "why": "đèn soi căn nhà"
+  },
+  {
+   "at": 0.9,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "đèn lướt"
+  },
+  {
+   "at": 2.3,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "đèn lướt"
+  },
+  {
+   "at": 4.0,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "gạch điện thoại"
+  },
+  {
+   "at": 4.75,
+   "name": "riser",
+   "vol": 0.5,
+   "why": "Là…"
+  },
+  {
+   "at": 5.85,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "THỦ PHẠM"
+  },
+  {
+   "at": 7.3,
+   "name": "zoom-in",
+   "vol": 0.5,
+   "why": "zoom phòng ngủ"
+  },
+  {
+   "at": 8.15,
+   "name": "pop",
+   "vol": 0.7,
+   "why": "nhớ cục sạc"
+  },
+  {
+   "at": 10.25,
+   "name": "page-turn",
+   "vol": 0.6,
+   "why": "qua cửa"
+  },
+  {
+   "at": 11.45,
+   "name": "record-scratch",
+   "vol": 0.6,
+   "why": "Ủa?"
+  },
+  {
+   "at": 12.3,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "làm gì ta?"
+  },
+  {
+   "at": 14.2,
+   "name": "stamp",
+   "vol": 0.6,
+   "why": "thẻ nhân viên mới"
+  },
+  {
+   "at": 15.2,
+   "name": "crickets",
+   "vol": 0.6,
+   "why": "không ai giao việc"
+  },
+  {
+   "at": 17.5,
+   "name": "whoosh-heavy",
+   "vol": 0.5,
+   "why": "Sáu xuất hiện"
+  },
+  {
+   "at": 19.35,
+   "name": "boing",
+   "vol": 0.4,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 20.65,
+   "name": "like",
+   "vol": 0.8,
+   "why": "đã follow"
+  },
+  {
+   "at": 22.2,
+   "name": "door-open",
+   "vol": 0.6,
+   "why": "khung cửa"
+  },
+  {
+   "at": 23.75,
+   "name": "ding-idea",
+   "vol": 0.7,
+   "why": "hiệu ứng ngưỡng cửa"
+  },
+  {
+   "at": 25.6,
+   "name": "paper-rustle",
+   "vol": 0.5,
+   "why": "bảng thí nghiệm"
+  },
+  {
+   "at": 27.4,
+   "name": "tick",
+   "vol": 0.5,
+   "why": "thanh 1"
+  },
+  {
+   "at": 28.6,
+   "name": "lose",
+   "vol": 0.45,
+   "why": "thanh 2 ngắn hơn"
+  },
+  {
+   "at": 31.4,
+   "name": "shimmer",
+   "vol": 0.6,
+   "why": "đũa phép"
+  },
+  {
+   "at": 32.2,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "gạch phép xóa não"
+  },
+  {
+   "at": 33.4,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "bộ não"
+  },
+  {
+   "at": 35.0,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "quá tải"
+  },
+  {
+   "at": 36.6,
+   "name": "alert",
+   "vol": 0.4,
+   "why": "dễ bị ảnh hưởng"
+  },
+  {
+   "at": 39.4,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "bộ não"
+  },
+  {
+   "at": 40.15,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "cục sạc"
+  },
+  {
+   "at": 42.15,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "tiền điện"
+  },
+  {
+   "at": 43.1,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "công việc"
+  },
+  {
+   "at": 43.9,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "ăn gì"
+  },
+  {
+   "at": 45.4,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "bảng clapper"
+  },
+  {
+   "at": 46.65,
+   "name": "snap",
+   "vol": 0.9,
+   "why": "clap! đổi cảnh"
+  },
+  {
+   "at": 47.6,
+   "name": "swipe",
+   "vol": 0.5,
+   "why": "cuộn phim"
+  },
+  {
+   "at": 48.95,
+   "name": "whoosh-fast",
+   "vol": 0.6,
+   "why": "cây kéo"
+  },
+  {
+   "at": 49.6,
+   "name": "punch",
+   "vol": 0.7,
+   "why": "cắt vai chính"
+  },
+  {
+   "at": 51.1,
+   "name": "ding-idea",
+   "vol": 0.6,
+   "why": "muốn đỡ quên?"
+  },
+  {
+   "at": 53.1,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "mẹo 1"
+  },
+  {
+   "at": 55.5,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "nhân vật"
+  },
+  {
+   "at": 56.3,
+   "name": "send",
+   "vol": 0.7,
+   "why": "tự nhắc"
+  },
+  {
+   "at": 57.6,
+   "name": "swipe",
+   "vol": 0.5,
+   "why": "vẽ đường đi"
+  },
+  {
+   "at": 59.2,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "app 1"
+  },
+  {
+   "at": 60.2,
+   "name": "scribble",
+   "vol": 0.7,
+   "why": "gạch app"
+  },
+  {
+   "at": 61.75,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "mẹo 3"
+  },
+  {
+   "at": 62.6,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "nút tua"
+  },
+  {
+   "at": 63.2,
+   "name": "riser-long",
+   "vol": 0.4,
+   "why": "tua lại"
+  },
+  {
+   "at": 65.0,
+   "name": "success",
+   "vol": 0.8,
+   "why": "nhớ ra cục sạc"
+  },
+  {
+   "at": 66.2,
+   "name": "zoom-in",
+   "vol": 0.5,
+   "why": "vô bếp"
+  },
+  {
+   "at": 67.9,
+   "name": "tick-tock",
+   "vol": 0.5,
+   "why": "đứng nghĩ hồi lâu"
+  },
+  {
+   "at": 69.5,
+   "name": "boing",
+   "vol": 0.7,
+   "why": "gói mì!"
+  },
+  {
+   "at": 71.95,
+   "name": "stamp",
+   "vol": 0.7,
+   "why": "VÔ TỘI"
+  },
+  {
+   "at": 74.0,
+   "name": "stamp",
+   "vol": 1.0,
+   "why": "ĐÓI"
+  }
+ ]
+}

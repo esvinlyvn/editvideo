@@ -1,0 +1,299 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 2.78,
+   "speaker": "B",
+   "text": "Trong nhà mày có một thứ chuyên làm mày mất trí nhớ đó!"
+  },
+  {
+   "i": 1,
+   "start": 3.516,
+   "end": 4.329,
+   "speaker": "B",
+   "text": "Không phải điện thoại đâu."
+  },
+  {
+   "i": 2,
+   "start": 4.667,
+   "end": 5.168,
+   "speaker": "B",
+   "text": "Là..."
+  },
+  {
+   "i": 3,
+   "start": 5.705,
+   "end": 6.373,
+   "speaker": "B",
+   "text": "cái cửa phòng!"
+  },
+  {
+   "i": 4,
+   "start": 7.346,
+   "end": 7.733,
+   "speaker": "B",
+   "text": "Đang nằm,"
+  },
+  {
+   "i": 5,
+   "start": 8.096,
+   "end": 9.362,
+   "speaker": "B",
+   "text": "tự nhiên nhớ phải đi lấy cục sạc."
+  },
+  {
+   "i": 6,
+   "start": 9.836,
+   "end": 10.853,
+   "speaker": "B",
+   "text": "Vừa bước ra khỏi phòng..."
+  },
+  {
+   "i": 7,
+   "start": 11.468,
+   "end": 11.663,
+   "speaker": "B",
+   "text": "“Ủa?"
+  },
+  {
+   "i": 8,
+   "start": 12.306,
+   "end": 13.254,
+   "speaker": "B",
+   "text": "Tao ra đây làm gì ta?”"
+  },
+  {
+   "i": 9,
+   "start": 14.162,
+   "end": 16.664,
+   "speaker": "B",
+   "text": "Đứng giữa nhà như nhân viên mới vô công ty, không ai giao việc!"
+  },
+  {
+   "speaker": "B",
+   "start": 17.56,
+   "end": 18.08,
+   "text": "Chào mấy mày,",
+   "i": 10
+  },
+  {
+   "speaker": "B",
+   "start": 18.25,
+   "end": 19.3,
+   "text": "tao là Sáu suy nghĩ đây!",
+   "i": 11
+  },
+  {
+   "speaker": "B",
+   "start": 20.06,
+   "end": 20.84,
+   "text": "Nhớ follow tao nha!",
+   "i": 12
+  },
+  {
+   "speaker": "B",
+   "start": 21.91,
+   "end": 23.53,
+   "text": "Thiệt ra, hiện tượng này có tên đàng hoàng luôn:",
+   "i": 13
+  },
+  {
+   "i": 14,
+   "start": 23.792,
+   "end": 25.021,
+   "speaker": "B",
+   "text": "hiệu ứng ngưỡng cửa."
+  },
+  {
+   "i": 15,
+   "start": 25.597,
+   "end": 27.092,
+   "speaker": "B",
+   "text": "Người ta từng làm thí nghiệm và phát hiện,"
+  },
+  {
+   "i": 16,
+   "start": 27.403,
+   "end": 30.561,
+   "speaker": "B",
+   "text": "việc bước qua cửa có thể khiến mình khó nhớ lại chuyện vừa làm hơn."
+  },
+  {
+   "i": 17,
+   "start": 31.137,
+   "end": 32.706,
+   "speaker": "B",
+   "text": "Nhưng không phải cái cửa có phép xóa não đâu nha!"
+  },
+  {
+   "i": 18,
+   "start": 33.404,
+   "end": 36.279,
+   "speaker": "B",
+   "text": "Nghiên cứu sau này còn cho thấy, lúc đầu óc đang ôm nhiều chuyện,"
+  },
+  {
+   "i": 19,
+   "start": 36.565,
+   "end": 37.749,
+   "speaker": "B",
+   "text": "mình mới dễ bị ảnh hưởng hơn."
+  },
+  {
+   "i": 20,
+   "start": 38.914,
+   "end": 39.637,
+   "speaker": "B",
+   "text": "Hiểu đơn giản vầy nè."
+  },
+  {
+   "i": 21,
+   "start": 40.125,
+   "end": 41.86,
+   "speaker": "B",
+   "text": "Não mày đang nghĩ chuyện lấy cục sạc,"
+  },
+  {
+   "i": 22,
+   "start": 42.155,
+   "end": 42.881,
+   "speaker": "B",
+   "text": "rồi tiền điện,"
+  },
+  {
+   "i": 23,
+   "start": 43.114,
+   "end": 43.591,
+   "speaker": "B",
+   "text": "rồi công việc,"
+  },
+  {
+   "i": 24,
+   "start": 43.925,
+   "end": 44.667,
+   "speaker": "B",
+   "text": "rồi tối nay ăn gì..."
+  },
+  {
+   "i": 25,
+   "start": 45.261,
+   "end": 46.405,
+   "speaker": "B",
+   "text": "Bước qua phòng khác một cái,"
+  },
+  {
+   "i": 26,
+   "start": 46.699,
+   "end": 47.253,
+   "speaker": "B",
+   "text": "não đổi cảnh!"
+  },
+  {
+   "i": 27,
+   "start": 47.686,
+   "end": 48.856,
+   "speaker": "B",
+   "text": "Cục sạc đang đóng vai chính,"
+  },
+  {
+   "i": 28,
+   "start": 49.043,
+   "end": 50.144,
+   "speaker": "B",
+   "text": "tự nhiên bị cắt khỏi bộ phim luôn!"
+  },
+  {
+   "i": 29,
+   "start": 51.089,
+   "end": 52.207,
+   "speaker": "B",
+   "text": "Vậy muốn đỡ quên thì sao?"
+  },
+  {
+   "i": 30,
+   "start": 53.116,
+   "end": 53.66,
+   "speaker": "B",
+   "text": "Trước khi đi,"
+  },
+  {
+   "i": 31,
+   "start": 53.928,
+   "end": 55.285,
+   "speaker": "B",
+   "text": "tự nhắc rõ mình định làm gì."
+  },
+  {
+   "i": 32,
+   "start": 55.555,
+   "end": 55.887,
+   "speaker": "B",
+   "text": "Ví dụ:"
+  },
+  {
+   "i": 33,
+   "start": 56.378,
+   "end": 57.05,
+   "speaker": "B",
+   "text": "“Tao đi lấy cục sạc!”"
+  },
+  {
+   "i": 34,
+   "start": 57.422,
+   "end": 60.753,
+   "speaker": "B",
+   "text": "Rồi đi thẳng tới đó, đừng giữa đường tiện tay mở thêm ba cái ứng dụng."
+  },
+  {
+   "i": 35,
+   "start": 61.77,
+   "end": 62.685,
+   "speaker": "B",
+   "text": "Nếu vẫn quên,"
+  },
+  {
+   "i": 36,
+   "start": 63.142,
+   "end": 65.632,
+   "speaker": "B",
+   "text": "thử nhớ lại mình đang làm gì trước lúc đứng dậy."
+  },
+  {
+   "i": 37,
+   "start": 66.225,
+   "end": 68.873,
+   "speaker": "B",
+   "text": "Chứ nhiều khi đi vô bếp lấy ly nước, đứng suy nghĩ hồi lâu..."
+  },
+  {
+   "i": 38,
+   "start": 69.367,
+   "end": 70.36,
+   "speaker": "B",
+   "text": "Cuối cùng đi ra với gói mì!"
+  },
+  {
+   "i": 39,
+   "start": 71.264,
+   "end": 73.07,
+   "speaker": "B",
+   "text": "Mà thôi, cái đó chắc không phải lỗi tại cái cửa."
+  },
+  {
+   "i": 40,
+   "start": 73.731,
+   "end": 74.41,
+   "speaker": "B",
+   "text": "Tại mày đói"
+  },
+  {
+   "i": 41,
+   "start": 74.734,
+   "end": 75.086,
+   "speaker": "B",
+   "text": "thôi!"
+  }
+ ]
+}

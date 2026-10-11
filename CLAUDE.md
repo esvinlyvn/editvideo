@@ -41,6 +41,8 @@ Build: `node projects/post-N/build.mjs`. Kết quả nằm ở `build/post-N/out
 - Khi voice có người dẫn chuyện xưng tên (ví dụ "tao là Sáu"), vẽ **nhân vật dẫn chuyện** bằng SVG, có nhiều biểu cảm (xem `projects/post-8/art/`), và cho nhân vật phản ứng theo nội dung.
 - **Hướng dẫn thao tác trên điện thoại:** dựng giao diện mô phỏng thật (xem `projects/post-9`). Mỗi lần bấm có điểm chạm gợn sóng đặt trúng dòng cần bấm (tính tọa độ theo bố cục dòng), màn hình trượt sang theo đúng lời đọc.
   - Animation chỉ hiện tạm (điểm chạm, sóng…) phải dùng `immediateRender: false`, nếu không chúng sẽ hiện sẵn từ đầu.
+- **"Thế giới" xuyên suốt có camera** (xem `projects/post-10/art/plan.svg`): một bối cảnh SVG duy nhất (mặt bằng nhà, bản đồ…), camera zoom/lia bằng cách tween `attr.viewBox`, nhân vật di chuyển bằng `x/y` trên SVG. Đặt thế giới trong khung bo góc (`overflow: hidden`) để vùng cắt trông có chủ ý. Lớp phủ (đèn soi…) chỉ phủ trong khung, không phủ tiêu đề.
+- `align.mjs` tự bỏ cụm tiếng < 0,12 giây. Chỗ có tiếng cười hay tiếng động (`[laughs]`) thì kiểm tra năng lượng audio và sửa tay vài cụm trong `transcript.json` nếu cần.
 - Bố cục phải đổi nhịp khoảng 3–5 giây một lần: thẻ, chia đôi, toàn màn, giao diện chat/điện thoại…
 - Nội dung minh họa tự bịa (ví dụ tin nhắn, việc cần làm) phải hợp ngữ cảnh, viết bằng giọng miền Nam, và **báo lại cho người dùng** khi giao video.
 
