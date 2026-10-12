@@ -1,0 +1,334 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  5.0,
+  13.45,
+  16.7,
+  20.95,
+  26.8,
+  31.9,
+  38.35,
+  48.85,
+  51.6,
+  57.4,
+  62.4,
+  67.85,
+  75.6
+ ],
+ "cues": [
+  {
+   "at": 0.05,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "biển tiêu đề"
+  },
+  {
+   "at": 1.6,
+   "name": "tick",
+   "vol": 0.45,
+   "why": "bước"
+  },
+  {
+   "at": 2.3,
+   "name": "tick",
+   "vol": 0.45,
+   "why": "bước"
+  },
+  {
+   "at": 3.0,
+   "name": "tick",
+   "vol": 0.45,
+   "why": "bước"
+  },
+  {
+   "at": 3.6,
+   "name": "success",
+   "vol": 0.6,
+   "why": "không sao"
+  },
+  {
+   "at": 5.0,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "lia sang thang cuốn"
+  },
+  {
+   "at": 8.0,
+   "name": "toggle",
+   "vol": 0.5,
+   "why": "bước lên thang"
+  },
+  {
+   "at": 9.2,
+   "name": "boing",
+   "vol": 0.6,
+   "why": "chao đảo"
+  },
+  {
+   "at": 10.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "CHÂN"
+  },
+  {
+   "at": 11.2,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "NÃO"
+  },
+  {
+   "at": 11.85,
+   "name": "wrong-buzzer",
+   "vol": 0.5,
+   "why": "chưa thống nhất"
+  },
+  {
+   "at": 13.45,
+   "name": "record-scratch",
+   "vol": 0.7,
+   "why": "Ủa?"
+  },
+  {
+   "at": 14.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "tốc độ 0"
+  },
+  {
+   "at": 16.75,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "Sáu"
+  },
+  {
+   "at": 18.4,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 19.85,
+   "name": "like",
+   "vol": 0.65,
+   "why": "follow"
+  },
+  {
+   "at": 21.25,
+   "name": "stamp",
+   "vol": 0.85,
+   "why": "CÓ THIỆT"
+  },
+  {
+   "at": 22.6,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "biển tên"
+  },
+  {
+   "at": 24.4,
+   "name": "ding-idea",
+   "vol": 0.65,
+   "why": "thang cuốn hư"
+  },
+  {
+   "at": 26.85,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "thí nghiệm"
+  },
+  {
+   "at": 27.6,
+   "name": "scroll",
+   "vol": 0.45,
+   "why": "sàn chạy"
+  },
+  {
+   "at": 28.3,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "bị cuốn"
+  },
+  {
+   "at": 29.7,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "bị cuốn"
+  },
+  {
+   "at": 31.9,
+   "name": "toggle",
+   "vol": 0.55,
+   "why": "sàn dừng"
+  },
+  {
+   "at": 32.5,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "biết sàn đứng im"
+  },
+  {
+   "at": 35.35,
+   "name": "oops",
+   "vol": 0.6,
+   "why": "chúi"
+  },
+  {
+   "at": 35.95,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "bước kiểu cũ"
+  },
+  {
+   "at": 38.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "não"
+  },
+  {
+   "at": 40.7,
+   "name": "punch",
+   "vol": 0.5,
+   "why": "cãi nhau"
+  },
+  {
+   "at": 42.55,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "bên hiểu"
+  },
+  {
+   "at": 45.45,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "bên bước chân"
+  },
+  {
+   "at": 48.9,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "quay lại thang"
+  },
+  {
+   "at": 49.6,
+   "name": "whoosh-fast",
+   "vol": 0.55,
+   "why": "chúi tới"
+  },
+  {
+   "at": 50.2,
+   "name": "punch",
+   "vol": 0.6,
+   "why": "chúi"
+  },
+  {
+   "at": 51.65,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "không tưởng tượng"
+  },
+  {
+   "at": 52.6,
+   "name": "scribble",
+   "vol": 0.6,
+   "why": "gạch"
+  },
+  {
+   "at": 53.7,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "chương trình"
+  },
+  {
+   "at": 54.3,
+   "name": "chart-up",
+   "vol": 0.55,
+   "why": "đã lưu"
+  },
+  {
+   "at": 57.75,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "biết chắc"
+  },
+  {
+   "at": 59.85,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "vẫn chao"
+  },
+  {
+   "at": 60.45,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "chao"
+  },
+  {
+   "at": 62.45,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "đầu"
+  },
+  {
+   "at": 63.05,
+   "name": "ding-idea",
+   "vol": 0.55,
+   "why": "hiểu rồi"
+  },
+  {
+   "at": 64.95,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "cơ thể"
+  },
+  {
+   "at": 65.6,
+   "name": "tick-tock",
+   "vol": 0.45,
+   "why": "bắt kịp"
+  },
+  {
+   "at": 67.9,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "thứ Hai"
+  },
+  {
+   "at": 70.0,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "tối chủ nhật"
+  },
+  {
+   "at": 72.35,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "sáng thứ Hai"
+  },
+  {
+   "at": 72.95,
+   "name": "alarm",
+   "vol": 0.5,
+   "why": "báo thức"
+  },
+  {
+   "at": 75.65,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "kết"
+  },
+  {
+   "at": 77.0,
+   "name": "boing",
+   "vol": 0.5,
+   "why": "chao nhẹ"
+  },
+  {
+   "at": 78.0,
+   "name": "cymbal",
+   "vol": 0.7,
+   "why": "chốt"
+  }
+ ]
+}

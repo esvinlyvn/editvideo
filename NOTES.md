@@ -127,9 +127,11 @@ node projects/post-11/build.mjs
 | 11 | Playfair Display (serif) | Đỏ son `#7a1317` → nâu đêm `#2a1112` → đỏ | Vàng kim `#f5c242` | Giấy lịch kem, số đỏ |
 | 12 | Bungee (chữ bảng hiệu) | Xanh đêm `#0f2a22` | Xanh chanh `#c8f03c` | Bạt sọc chanh/kem, dây đèn |
 | 13 | Pangolin (viết tay) | Tường tím than `#241d33` (cố định) | Vàng đèn `#ffc65c` | Trời trong cửa sổ đổi theo giờ; đầu video đen trắng |
+| 14 | Paytone One | Giấy thi có dòng kẻ xanh + lề đỏ `#fbf8ef` | Mực đỏ chấm bài `#e0352b` (chữ chính mực xanh `#23339a`) | |
+| 15 | Barlow Condensed (biển chỉ dẫn) | Bê tông sáng `#e9e7e2` | Vàng biển báo `#ffcf00` (chữ chính đen) | Tiêu đề là các tấm biển đen |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
-- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, be-vietnam-pro.
+- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, be-vietnam-pro.
 - Phụ đề: chữ trắng 44px, Be Vietnam Pro 600, nền tối bán trong suốt bo góc kèm đổ bóng, khung trái 108px phải 150px.
 
 ### Âm thanh
@@ -197,6 +199,8 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **11** | Còn chưa tới 4 tháng là Tết: đừng để bữa khác | **Cuốn lịch xé (lịch bloc)**: mở đầu xé tới Mùng 1 Tết 6/2/2027, mỗi tờ ghi "còn N ngày"; cảnh kết dán note "thôi, để bữa khác." rồi xé tiếp | Nền đổi màu theo cảm xúc (đỏ → nâu đêm → đỏ); lịch hẹn bị dời xuống hàng "Bữa khác"; ghế trống ở bàn cơm; `FORCE`/`KEEP` chỉnh ngắt phụ đề tay | 97,8s · 79 |
 | **12** | Chợ flo: 5 bước để tăng flo (kịch bản cố ý viết "flo" thay "follow" → mọi chữ trên hình dùng "flo") | **Chợ đêm "CHỢ FLO"**: cổng chợ có dây đèn, dãy 5 sạp mái bạt sọc, camera lia ngang từng sạp theo từng bước | Vé vô chợ, thả tim, gửi liên kết bằng máy bay giấy, đăng lại kéo người vô, gõ bình luận "CÓ MẶT! 37 flo!"; bảng chỉ đường "HỔNG CÓ BÁN" người yêu; cảnh kết gọi lại cổng chợ | 61,1s · 57 |
 | **13** | Một ngày bình thường cũng đáng vui | **Ô cửa sổ nhìn ra phố**: trời đổi sáng/chiều/tối/bão, camera zoom vào ô cửa "Nhà mình"; đầu video cả ô cửa đen trắng (chán phèo), tới "Nhưng mày thử nghĩ coi" màu quay lại | Đồ trên bậu cửa (đồng hồ, chén cơm, gối, đèn); tin nhắn của Má; bão + kính nứt + tấm polaroid "một ngày bình thường"; kết bằng đèn ấm. SFX nhẹ hơn cho hợp giọng lắng | 57,8s · 42 |
+| **14** | "Ăn gì cũng được" là một bài kiểm tra (hội thoại A/B) | **Giấy kiểm tra**: lời thoại thành bong bóng, gợi ý món thành phiếu trắc nghiệm bị gạch bút đỏ; đề không phát, đáp án niêm phong; câu 2 trắc nghiệm, khoanh đáp án, chấm 10, giấy báo trúng tuyển trợ lý giám đốc | Nét bút đỏ tự vẽ (`pathLength=1` + `strokeDashoffset`); tắt phụ đề ở mọi đoạn thoại | 55,2s · 42 |
+| **15** | Hiệu ứng thang cuốn hư | **Biển chỉ dẫn ga tàu**: mặt cắt ga (cầu thang thường + thang cuốn TẠM NGƯNG), người hình biển báo đi, chao, chúi; thí nghiệm sàn chạy; não hai bộ phận cãi nhau; tối Chủ nhật vs sáng thứ Hai | Chân người đung đưa quanh hông (`transformOrigin: 50% 0%`); `FORCE` tự gộp chữ dư nếu đếm thiếu | 80,7s · 52 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

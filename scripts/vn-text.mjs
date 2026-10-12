@@ -18,7 +18,8 @@ nhớ đi nhớ lại|lời từ chối|trường hợp|người khác|mấy gi�
 thử nghiệm|tài khoản|chuyển khoản|chuyển lộn|ngân hàng|lừa đảo|ngược đời|đòi nợ|con nợ|tiền lãi|ứng dụng|kiểm tra|giữ nguyên|chính thức|
 hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu|
 lời hứa|làm được|trả góp|thành công|lì xì|du lịch|lành mạnh|chạy bộ|trưng bày|cuối tuần|ba má|bạn cũ|thất bại|lớn lao|cơm nhà|để dành|giật mình|nghỉ học|đồ mới|thăm nhà|trôi qua|
-dòng họ|bà con dòng họ|một ngàn người|theo dõi|hợp gu|liên kết|sao chép|bình luận|người yêu|tập hợp|luật chơi|có mặt|tin dữ|chán phèo|y chang|kẹt xe|hoành tráng|thăng chức|trúng số|biến cố|bình yên|bình thường|đặc biệt`
+dòng họ|bà con dòng họ|một ngàn người|theo dõi|hợp gu|liên kết|sao chép|bình luận|người yêu|tập hợp|luật chơi|có mặt|tin dữ|chán phèo|y chang|kẹt xe|hoành tráng|thăng chức|trúng số|biến cố|bình yên|bình thường|đặc biệt|
+thí nghiệm|mô phỏng|nhà khoa học|thang cuốn|cầu thang|chao đảo|thống nhất|chuyển động|vận động|tưởng tượng|phức tạp|ngủ nướng|bắt kịp|thời gian|cơ thể|quyết đoán|giám đốc|trợ lý|chiến thuật|kiểm tra|đáp án|cơm tấm|bún bò|cái người`
     .split("|")
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean),
