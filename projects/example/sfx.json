@@ -1,0 +1,14 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [0, 2.45, 5.0],
+ "cues": [
+  { "at": 0.6, "name": "pop", "vol": 0.55, "why": "khối bật ra" },
+  { "at": 1.2, "name": "whoosh-soft", "vol": 0.5, "why": "khối xoay" },
+  { "at": 2.8, "name": "pop", "vol": 0.5, "why": "thẻ 1" },
+  { "at": 3.4, "name": "pop", "vol": 0.5, "why": "thẻ 2" },
+  { "at": 4.0, "name": "pop", "vol": 0.5, "why": "thẻ 3" },
+  { "at": 5.4, "name": "pop", "vol": 0.55, "why": "khối bật ra" },
+  { "at": 6.4, "name": "click", "vol": 0.6, "why": "điểm chạm" }
+ ]
+}

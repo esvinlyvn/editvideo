@@ -1,10 +1,9 @@
 {
   "name": "editvideo",
   "version": "1.0.0",
-  "description": "Pipeline tự động: thông tin căn hộ + ảnh → video listing dọc 1080x1920 bằng HyperFrames",
+  "description": "Bộ công cụ dựng video dọc 1080x1920 từ voice bằng HyperFrames: khớp lời, phụ đề tiếng Việt, SFX",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "video": "node scripts/render.mjs"
+    "example": "node projects/example/build.mjs"
   },
   "repository": {
     "type": "git",

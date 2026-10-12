@@ -1,0 +1,44 @@
+{
+  "_hash": "2c2a22f77e2c",
+  "_full": "voice/full.wav",
+  "hero": {
+    "file": "voice/hero.wav",
+    "duration": 4.23,
+    "text": "Căn hộ hai phòng ngủ view sông, ngay tại The Riverside Residence, Thủ Thiêm."
+  },
+  "photo-0": {
+    "file": "voice/photo-0.wav",
+    "duration": 2.14,
+    "text": "Phòng khách rộng, đón nắng sớm mỗi ngày."
+  },
+  "photo-1": {
+    "file": "voice/photo-1.wav",
+    "duration": 1.99,
+    "text": "Bếp mở, thiết bị nhập khẩu cao cấp."
+  },
+  "photo-2": {
+    "file": "voice/photo-2.wav",
+    "duration": 2.14,
+    "text": "Phòng ngủ master yên tĩnh, riêng tư."
+  },
+  "photo-3": {
+    "file": "voice/photo-3.wav",
+    "duration": 1.69,
+    "text": "Và ban công nhìn thẳng ra sông Sài Gòn."
+  },
+  "stats": {
+    "file": "voice/stats.wav",
+    "duration": 4.34,
+    "text": "Bảy mươi tám mét vuông, hai phòng ngủ, hai phòng tắm, tầng mười tám, hướng Đông Nam."
+  },
+  "nearby": {
+    "file": "voice/nearby.wav",
+    "duration": 3.01,
+    "text": "Chỉ năm phút qua Quận Một, gần trường quốc tế và trung tâm thương mại."
+  },
+  "cta": {
+    "file": "voice/cta.wav",
+    "duration": 6.27,
+    "text": "Giá chỉ năm phẩy hai tỷ, sổ hồng lâu dài. Gọi ngay không chín không chín, một hai ba, bốn năm sáu."
+  }
+}

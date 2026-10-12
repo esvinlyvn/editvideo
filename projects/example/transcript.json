@@ -1,0 +1,26 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.3,
+   "end": 2.1,
+   "speaker": "B",
+   "text": "Đây là project mẫu của bộ công cụ."
+  },
+  {
+   "i": 1,
+   "start": 2.6,
+   "end": 4.8,
+   "speaker": "B",
+   "text": "Mỗi câu trong kịch bản sẽ thành phụ đề."
+  },
+  {
+   "i": 2,
+   "start": 5.3,
+   "end": 7.3,
+   "speaker": "B",
+   "text": "Sửa template rồi build để ra video."
+  }
+ ]
+}

@@ -1,89 +1,18 @@
-# editvideo: video listing bất động sản tự động
+# editvideo toolkit
 
-Pipeline thử nghiệm với [HyperFrames](https://github.com/heygen-com/hyperframes):
-**thông tin căn hộ (JSON) + ảnh → video dọc 1080×1920 (TikTok / Reels / Shorts)**, không cần dựng tay.
+Bộ công cụ dựng video dọc 1080×1920 từ một file giọng đọc, bằng [HyperFrames](https://github.com/heygen-com/hyperframes) (HTML + GSAP → MP4).
 
-## Cấu trúc video (~30–35s, tự tính theo số ảnh)
+- Khớp lời thoại vào voice, chạy offline (`scripts/align.mjs`).
+- Phụ đề tiếng Việt ngắt dòng theo nghĩa (`scripts/vn-text.mjs`).
+- Thư viện SFX đã chuẩn hóa (`sfx/`), có công cụ nhập âm mới (`scripts/sfx-import.mjs`) và gắn SFX theo cảnh (`scripts/sfx-cues.mjs`).
 
-| Cảnh | Nội dung |
-| --- | --- |
-| Hero | Ảnh chính + thương hiệu, nhãn, tiêu đề, dự án, vị trí |
-| Gallery | Mỗi ảnh 3,5s, zoom chậm (Ken Burns) + chú thích + số thứ tự |
-| Thông số | Diện tích / PN / WC / tầng: số đếm chạy + hướng nhà |
-| Kết nối | Bao nhiêu phút tới các tiện ích (bỏ qua nếu không có `nearby`) |
-| CTA | Giá, ghi chú, tên và SĐT môi giới, thương hiệu |
-
-Các cảnh chuyển bằng crossfade, có thanh tiến trình chạy trên cùng.
-
-## Cài đặt
+## Chạy thử
 
 Cần Node.js 22+ và FFmpeg.
 
 ```bash
 npm install
+npm run example            # build + render projects/example → build/example/output.mp4
 ```
 
-## Tạo video
-
-```bash
-npm run video -- listings/the-riverside-2pn   # 1 căn
-npm run video -- --all                        # tất cả căn trong listings/
-```
-
-Kết quả: `build/<slug>/output.mp4`. Lệnh sẽ tự build, chạy `hyperframes check` rồi render.
-
-Muốn xem trước hoặc chỉnh trực quan trong Studio:
-
-```bash
-npm run build -- listings/the-riverside-2pn
-cd build/the-riverside-2pn && npx hyperframes preview
-```
-
-## Giọng đọc tiếng Việt (Gemini TTS)
-
-```bash
-export GEMINI_API_KEY=...            # không ghi key vào file trong repo
-node scripts/voice.mjs listings/the-riverside-2pn
-npm run video -- listings/the-riverside-2pn
-```
-
-- **Một lần gọi API cho cả kịch bản**, nên giọng đồng nhất. Sau đó script tự cắt theo khoảng lặng giữa các đoạn để khớp từng cảnh.
-- Mỗi cảnh tự kéo dài cho vừa câu đọc.
-- Lời đọc nằm ở `voiceover` trong `listing.json`. Nên viết số và SĐT bằng chữ để đọc chuẩn; nếu bỏ trống, script tự ghép lời từ dữ liệu.
-- Cấu hình nằm ở `voice` trong `listing.json`: `model`, `voice` (mặc định Kore), `speed` (mặc định 1.1).
-- Kịch bản không đổi thì không gọi lại API (có cache).
-
-## Thêm một căn mới
-
-1. Tạo thư mục `listings/<slug>/` gồm `listing.json` và thư mục `photos/`.
-2. Copy `listings/the-riverside-2pn/listing.json` rồi sửa nội dung.
-3. Ảnh nên dùng **ảnh dọc**, hoặc ảnh ngang có chủ thể ở giữa, vì video tự crop về khổ 9:16.
-4. Có thể thêm nhạc nền (tùy chọn): `"music": "audio/nhac.mp3"` (đường dẫn tương đối trong thư mục listing).
-
-Ảnh trong listing mẫu là **ảnh minh họa** tạo bằng `scripts/make-placeholders.sh`. Hãy thay bằng ảnh thật của dự án.
-
-## Giới hạn hiện tại
-
-- Mới làm phần **đóng gói** (ảnh + chữ + hiệu ứng). Chưa cắt dựng footage quay thô.
-- Chưa có nhạc nền và hiệu ứng âm thanh mặc định.
-- Màu sắc và font (Be Vietnam Pro) đặt trong `scripts/build.mjs` (biến CSS `--ink`, `--paper`, `--gold`).
-
----
-
-# Dựng lại video từ clip thô (`scripts/recut/`)
-
-```bash
-export GEMINI_API_KEY=...
-node scripts/recut/analyze.mjs raw/<clip>.mp4 --target 60 --context "Tên dự án, chủ đầu tư, tên riêng…"
-# (tùy chọn) sửa work/<clip>/plan.json: đoạn giữ/bỏ, hook, thẻ thông tin, CTA
-node scripts/recut/build.mjs work/<clip> --speed 1.1
-```
-
-1. **Phân tích (1 lần gọi Gemini):** chép lời theo cụm có mốc thời gian, chọn đoạn giữ/bỏ, hook, các thẻ thông tin (đánh số theo mạch nội dung), CTA.
-2. **Cắt ghép (FFmpeg):** điểm cắt bám vào chỗ ngừng nói, bỏ khoảng lặng bên trong câu, tăng tốc, lọc ồn RNNoise, cân âm lượng -14 LUFS, chỉnh màu nhẹ.
-3. **Lớp phủ (HyperFrames)** theo tiêu chuẩn chữ trong video:
-   - 2 font: Montserrat cho tiêu đề và con số, Be Vietnam Pro cho phụ đề và nội dung. 1 màu chính (trắng) và 1 màu nhấn (champagne).
-   - Vùng an toàn cách mỗi cạnh ≥10%; phụ đề tránh thêm cột nút bên phải của TikTok.
-   - Phụ đề 5–7 từ, tối đa 2 dòng, nền tối bán trong suốt có đổ bóng. Hiện sớm 0,15 giây, tắt khi câu nói kết thúc. Thời điểm hiện chữ phân bổ theo khoảng có tiếng nói thật. Không ngắt giữa tên riêng; ưu tiên ngắt trước từ nối.
-   - Thẻ thông tin hiện 3,6–5,5 giây, không chồng nhau. Hook 3,2 giây. CTA 3,4 giây.
-4. **SFX:** chỉ dùng file thật đặt trong `sfx/` (`hit.wav`, `whoosh.wav`, `chime.wav`), mix nhỏ dưới giọng nói.
+Chi tiết xem [`TOOLKIT.md`](TOOLKIT.md).

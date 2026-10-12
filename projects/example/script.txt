@@ -1,0 +1,3 @@
+Đây là project mẫu của bộ công cụ.
+Mỗi câu trong kịch bản sẽ thành phụ đề.
+Sửa template rồi build để ra video.
