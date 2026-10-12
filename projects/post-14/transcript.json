@@ -1,0 +1,257 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 0.461,
+   "speaker": "B",
+   "text": "Ê,"
+  },
+  {
+   "i": 1,
+   "start": 1.196,
+   "end": 1.879,
+   "speaker": "B",
+   "text": "tối nay đi ăn không?"
+  },
+  {
+   "i": 2,
+   "start": 2.35,
+   "end": 2.71,
+   "speaker": "A",
+   "text": "Đi!"
+  },
+  {
+   "i": 3,
+   "start": 2.956,
+   "end": 3.625,
+   "speaker": "B",
+   "text": "Ăn gì?"
+  },
+  {
+   "i": 4,
+   "start": 4.002,
+   "end": 4.802,
+   "speaker": "A",
+   "text": "Gì cũng được!"
+  },
+  {
+   "i": 5,
+   "start": 5.399,
+   "end": 5.891,
+   "speaker": "B",
+   "text": "Cơm tấm?"
+  },
+  {
+   "i": 6,
+   "start": 6.677,
+   "end": 7.869,
+   "speaker": "A",
+   "text": "Trưa mới ăn."
+  },
+  {
+   "i": 7,
+   "start": 8.261,
+   "end": 8.813,
+   "speaker": "B",
+   "text": "Bún bò?"
+  },
+  {
+   "i": 8,
+   "start": 9.537,
+   "end": 10.153,
+   "speaker": "A",
+   "text": "Nóng quá!"
+  },
+  {
+   "i": 9,
+   "start": 10.754,
+   "end": 11.406,
+   "speaker": "B",
+   "text": "Sushi?"
+  },
+  {
+   "i": 10,
+   "start": 11.888,
+   "end": 12.213,
+   "speaker": "A",
+   "text": "Mắc!"
+  },
+  {
+   "i": 11,
+   "start": 12.98,
+   "end": 13.473,
+   "speaker": "B",
+   "text": "Lẩu?"
+  },
+  {
+   "i": 12,
+   "start": 13.768,
+   "end": 14.986,
+   "speaker": "A",
+   "text": "Hai đứa ăn sao hết?"
+  },
+  {
+   "i": 13,
+   "start": 15.367,
+   "end": 15.739,
+   "speaker": "B",
+   "text": "Thôi!"
+  },
+  {
+   "i": 14,
+   "start": 16.033,
+   "end": 16.555,
+   "speaker": "B",
+   "text": "Vậy về!"
+  },
+  {
+   "i": 15,
+   "start": 16.982,
+   "end": 18.12,
+   "speaker": "A",
+   "text": "Ủa? Đi ăn mà?"
+  },
+  {
+   "i": 16,
+   "start": 18.355,
+   "end": 21.784,
+   "speaker": "B",
+   "text": "Chào mấy mày, tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 17,
+   "start": 22.374,
+   "end": 23.352,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 18,
+   "start": 23.953,
+   "end": 25.387,
+   "speaker": "B",
+   "text": "Tao mới nhận ra một chuyện."
+  },
+  {
+   "i": 19,
+   "start": 25.863,
+   "end": 27.335,
+   "speaker": "B",
+   "text": "Câu “ăn gì cũng được” thiệt ra không phải câu trả lời."
+  },
+  {
+   "i": 20,
+   "start": 27.839,
+   "end": 28.886,
+   "speaker": "B",
+   "text": "Nó là một bài kiểm tra."
+  },
+  {
+   "i": 21,
+   "start": 29.422,
+   "end": 31.551,
+   "speaker": "B",
+   "text": "Mày phải đoán đúng món người ta đang nghĩ trong đầu!"
+  },
+  {
+   "i": 22,
+   "start": 32.143,
+   "end": 33.327,
+   "speaker": "B",
+   "text": "Mà đề thi thì không phát,"
+  },
+  {
+   "i": 23,
+   "start": 33.74,
+   "end": 34.985,
+   "speaker": "B",
+   "text": "đáp án cũng không cho coi!"
+  },
+  {
+   "i": 24,
+   "start": 35.564,
+   "end": 36.096,
+   "speaker": "B",
+   "text": "Nên lần sau,"
+  },
+  {
+   "i": 25,
+   "start": 36.436,
+   "end": 37.186,
+   "speaker": "B",
+   "text": "tao đổi chiến thuật."
+  },
+  {
+   "i": 26,
+   "start": 37.746,
+   "end": 39.169,
+   "speaker": "B",
+   "text": "Giữa cơm tấm với bún bò,"
+  },
+  {
+   "i": 27,
+   "start": 39.705,
+   "end": 40.193,
+   "speaker": "B",
+   "text": "mày chọn món nào?"
+  },
+  {
+   "i": 28,
+   "start": 41.239,
+   "end": 42.274,
+   "speaker": "A",
+   "text": "Có món thứ ba không?"
+  },
+  {
+   "i": 29,
+   "start": 42.682,
+   "end": 43.251,
+   "speaker": "B",
+   "text": "Có!"
+  },
+  {
+   "i": 30,
+   "start": 43.508,
+   "end": 44.263,
+   "speaker": "B",
+   "text": "Cơm nhà mày!"
+  },
+  {
+   "i": 31,
+   "start": 44.912,
+   "end": 45.78,
+   "speaker": "A",
+   "text": "Thôi cơm tấm đi!"
+  },
+  {
+   "i": 31.5,
+   "start": 46.4,
+   "end": 47.02,
+   "speaker": "B",
+   "text": "Đó!"
+  },
+  {
+   "i": 32,
+   "start": 47.2,
+   "end": 48.868,
+   "speaker": "B",
+   "text": "Tự nhiên người ta quyết đoán hẳn!"
+  },
+  {
+   "i": 33,
+   "start": 49.26,
+   "end": 50.055,
+   "speaker": "B",
+   "text": "Tưởng đi ăn tối,"
+  },
+  {
+   "i": 34,
+   "start": 50.384,
+   "end": 52.723,
+   "speaker": "B",
+   "text": "ai dè phải thi tuyển vị trí trợ lý giám đốc!"
+  }
+ ]
+}
