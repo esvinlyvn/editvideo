@@ -127,6 +127,7 @@ node projects/post-11/build.mjs
 | 11 | Playfair Display | Trắng ngà `#fbf4e8` (nửa sau `#f4e7d6`) | Đỏ cờ `#d42a1f` | Font serif đầu tiên |
 | 12–14 | Bungee · Pangolin · Paytone One | (làm ở branch `claude/hyperframes-video-editing-56w91n`) | | Xem NOTES bên đó |
 | 16 | Grandstander | Xanh rêu `#2f4b38`, chữ kem | Hồng ruy băng `#f7a3c0` | |
+| 17 | Oswald (chữ biển báo) | Navy sàn hầm `#14213d`, chữ kem | Vàng mù tạt `#f2b134` | Bãi xe toàn màn hình, không khung |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, grandstander, oswald, vt323, be-vietnam-pro.
@@ -171,6 +172,7 @@ node projects/post-11/build.mjs
 | Thẻ lật mặt 3D (bài toán → quyết định) | 7 | |
 | Bảng clapper, cuộn phim, cây kéo | 10 | |
 | Giấy gói quà sọc quét chéo (`wipe`), hộp quà bật nắp (`openLid`), thẻ quà lật thành phiếu | 16 | |
+| Bãi xe sinh bằng code (`build.mjs` → `{{GARAGE}}`), camera viewBox toàn màn hình; cửa cuốn (`shutter`); khung ngắm điện thoại + bản đồ lưu vị trí | 17 | |
 | Lịch bloc xé từng tờ (`rip`), cảnh phủ bị xé rơi (`tear`) / treo xuống (`drop`) | 11 | Cảnh sau nằm dưới cảnh trước: `z-index` giảm dần theo thời gian |
 
 ---
@@ -198,6 +200,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
 | **11** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
 | **16** | 20/10: tặng quà hay giao thêm việc | **Quầy gói quà**: thẻ quà "Tặng em ♥" lật thành "Phiếu giao việc", Sáu nhảy ra từ hộp quà, hộp "ĐỒ XÀI CHUNG" gắn thẻ tên một người, cân "mắc tiền" vs "được để ý"; kết bằng hộp quà chưa mở + đơn hàng "1 ly sinh tố bơ · Người làm: Má" | Chuyển cảnh giấy gói quà quét chéo | 68,4s · 40 |
+| **17** | Mẹo nhớ chỗ đậu xe: chụp số tầng/dãy/cột, lưu vị trí trên bản đồ | **Bãi xe tầng hầm B2** nhìn từ trên xuống: camera lùi ra thấy bãi mênh mông, mọi xe đen viền vàng, "bản đồ kho báu" toàn dấu X, Sáu trên biển "khu đậu xe riêng", khung ngắm chụp cột B2·C17, bản đồ lưu vị trí đậu xe, định vị nhảy lung tung trong hầm; kết bằng vé phim tặng kèm "tour khám phá hệ thống tầng hầm" | Chuyển cảnh cửa cuốn; route vẽ bằng stroke-dashoffset | 75,7s · 43 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

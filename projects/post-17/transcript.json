@@ -1,0 +1,306 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.331,
+   "speaker": "B",
+   "text": "Đi trung tâm thương mại,"
+  },
+  {
+   "i": 1,
+   "start": 1.769,
+   "end": 3.436,
+   "speaker": "B",
+   "text": "gửi xe xong đi chơi ba tiếng."
+  },
+  {
+   "i": 2,
+   "start": 3.883,
+   "end": 4.56,
+   "speaker": "B",
+   "text": "Tới lúc về,"
+  },
+  {
+   "i": 3,
+   "start": 4.767,
+   "end": 6.398,
+   "speaker": "B",
+   "text": "đứng giữa bãi xe mênh mông..."
+  },
+  {
+   "i": 4,
+   "start": 6.776,
+   "end": 7.053,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 5,
+   "start": 7.459,
+   "end": 7.915,
+   "speaker": "B",
+   "text": "Xe tao đâu?"
+  },
+  {
+   "i": 6,
+   "start": 8.684,
+   "end": 11.005,
+   "speaker": "B",
+   "text": "Nhớ mang máng hồi nãy đậu kế một chiếc xe màu đen."
+  },
+  {
+   "i": 7,
+   "start": 11.579,
+   "end": 12.362,
+   "speaker": "B",
+   "text": "Mà giờ nhìn quanh,"
+  },
+  {
+   "i": 8,
+   "start": 12.77,
+   "end": 14.324,
+   "speaker": "B",
+   "text": "nguyên cái tầng toàn xe màu đen!"
+  },
+  {
+   "i": 9,
+   "start": 14.841,
+   "end": 15.512,
+   "speaker": "B",
+   "text": "Trời ơi,"
+  },
+  {
+   "i": 10,
+   "start": 15.86,
+   "end": 18.439,
+   "speaker": "B",
+   "text": "manh mối kiểu này thua cả chương trình truy tìm kho báu!"
+  },
+  {
+   "i": 11,
+   "start": 19.354,
+   "end": 19.899,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 12,
+   "start": 20.417,
+   "end": 21.532,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 13,
+   "start": 21.906,
+   "end": 22.741,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 14,
+   "start": 23.438,
+   "end": 26.548,
+   "speaker": "B",
+   "text": "Tao chỉ mày một mẹo nhỏ, lần sau khỏi đi lòng vòng tìm xe."
+  },
+  {
+   "i": 15,
+   "start": 27.532,
+   "end": 28.58,
+   "speaker": "B",
+   "text": "Trước khi rời khỏi chỗ đậu,"
+  },
+  {
+   "i": 16,
+   "start": 29.092,
+   "end": 29.675,
+   "speaker": "B",
+   "text": "lấy điện thoại"
+  },
+  {
+   "i": 17,
+   "start": 29.936,
+   "end": 31.61,
+   "speaker": "B",
+   "text": "chụp một tấm hình thấy rõ số tầng,"
+  },
+  {
+   "i": 18,
+   "start": 31.887,
+   "end": 32.395,
+   "speaker": "B",
+   "text": "dãy xe"
+  },
+  {
+   "i": 19,
+   "start": 32.69,
+   "end": 33.741,
+   "speaker": "B",
+   "text": "hoặc mã cột gần đó."
+  },
+  {
+   "i": 20,
+   "start": 34.5,
+   "end": 34.833,
+   "speaker": "B",
+   "text": "Ví dụ"
+  },
+  {
+   "i": 21,
+   "start": 35.198,
+   "end": 35.712,
+   "speaker": "B",
+   "text": "B2,"
+  },
+  {
+   "i": 22,
+   "start": 35.956,
+   "end": 36.425,
+   "speaker": "B",
+   "text": "dãy C,"
+  },
+  {
+   "i": 23,
+   "start": 36.694,
+   "end": 37.296,
+   "speaker": "B",
+   "text": "cột số 17."
+  },
+  {
+   "i": 24,
+   "start": 37.943,
+   "end": 38.982,
+   "speaker": "B",
+   "text": "Chụp xong rồi hãy đi chơi."
+  },
+  {
+   "i": 25,
+   "start": 39.827,
+   "end": 41.077,
+   "speaker": "B",
+   "text": "Còn nếu gửi xe ngoài trời,"
+  },
+  {
+   "i": 26,
+   "start": 41.258,
+   "end": 42.602,
+   "speaker": "B",
+   "text": "mày có thể mở Google Maps,"
+  },
+  {
+   "i": 27,
+   "start": 42.976,
+   "end": 44.7,
+   "speaker": "B",
+   "text": "bấm vô chấm xanh chỉ vị trí của mình"
+  },
+  {
+   "i": 28,
+   "start": 44.97,
+   "end": 45.475,
+   "speaker": "B",
+   "text": "rồi chọn"
+  },
+  {
+   "i": 29,
+   "start": 45.764,
+   "end": 46.845,
+   "speaker": "B",
+   "text": "lưu vị trí đậu xe."
+  },
+  {
+   "i": 30,
+   "start": 47.697,
+   "end": 48.247,
+   "speaker": "B",
+   "text": "Lúc quay lại,"
+  },
+  {
+   "i": 31,
+   "start": 48.434,
+   "end": 49.829,
+   "speaker": "B",
+   "text": "mở bản đồ tìm điểm đã lưu."
+  },
+  {
+   "i": 32,
+   "start": 50.66,
+   "end": 51.456,
+   "speaker": "B",
+   "text": "Nhưng nhớ nha!"
+  },
+  {
+   "i": 33,
+   "start": 52.007,
+   "end": 52.842,
+   "speaker": "B",
+   "text": "Trong bãi xe tầng hầm,"
+  },
+  {
+   "i": 34,
+   "start": 53.076,
+   "end": 54.491,
+   "speaker": "B",
+   "text": "định vị có thể không chính xác,"
+  },
+  {
+   "i": 35,
+   "start": 54.966,
+   "end": 56.649,
+   "speaker": "B",
+   "text": "cũng không chỉ được mày đang ở tầng nào."
+  },
+  {
+   "i": 36,
+   "start": 57.386,
+   "end": 58.959,
+   "speaker": "B",
+   "text": "Nên cái hình chụp số tầng, số cột"
+  },
+  {
+   "i": 37,
+   "start": 59.282,
+   "end": 59.738,
+   "speaker": "B",
+   "text": "mới quan trọng."
+  },
+  {
+   "i": 38,
+   "start": 60.714,
+   "end": 61.889,
+   "speaker": "B",
+   "text": "Hai thao tác nhỏ xíu,"
+  },
+  {
+   "i": 39,
+   "start": 62.194,
+   "end": 63.935,
+   "speaker": "B",
+   "text": "có thể giúp mày khỏi mất cả buổi tìm xe."
+  },
+  {
+   "i": 40,
+   "start": 64.77,
+   "end": 66.155,
+   "speaker": "B",
+   "text": "Chứ đi coi phim hai tiếng,"
+  },
+  {
+   "i": 41,
+   "start": 66.416,
+   "end": 68.285,
+   "speaker": "B",
+   "text": "xong xuống bãi xe đi tìm xe thêm một tiếng..."
+  },
+  {
+   "i": 42,
+   "start": 68.903,
+   "end": 73.126,
+   "speaker": "B",
+   "text": "Thì tính ra mày mua một vé coi phim, được tặng kèm tour khám phá hệ thống tầng hầm luôn đó cha!"
+  }
+ ]
+}

@@ -1,0 +1,289 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  3.75,
+  8.6,
+  14.7,
+  19.1,
+  23.25,
+  27.3,
+  34.25,
+  39.6,
+  50.35,
+  57.15,
+  60.45,
+  64.55
+ ],
+ "cues": [
+  {
+   "at": 0.35,
+   "name": "receipt",
+   "vol": 0.6,
+   "why": "máy in vé gửi xe"
+  },
+  {
+   "at": 2.3,
+   "name": "stamp",
+   "vol": 0.8,
+   "why": "+3 tiếng"
+  },
+  {
+   "at": 4.75,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "camera lùi ra, bãi xe mênh mông"
+  },
+  {
+   "at": 6.75,
+   "name": "record-scratch",
+   "vol": 0.8,
+   "why": "Ủa?"
+  },
+  {
+   "at": 7.45,
+   "name": "boing",
+   "vol": 0.6,
+   "why": "dấu hỏi"
+  },
+  {
+   "at": 8.7,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "bong bóng ký ức"
+  },
+  {
+   "at": 12.8,
+   "name": "oops",
+   "vol": 0.7,
+   "why": "toàn xe đen"
+  },
+  {
+   "at": 14.68,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 17.4,
+   "name": "sad-trombone",
+   "vol": 0.45,
+   "why": "thua cả truy tìm kho báu"
+  },
+  {
+   "at": 19.08,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 19.7,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "biển Sáu"
+  },
+  {
+   "at": 22.55,
+   "name": "like",
+   "vol": 0.7,
+   "why": "bấm follow"
+  },
+  {
+   "at": 23.23,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 23.85,
+   "name": "whoosh-fast",
+   "vol": 0.45,
+   "why": "đường đi lòng vòng"
+  },
+  {
+   "at": 27.28,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 30.35,
+   "name": "click",
+   "vol": 0.85,
+   "why": "bấm chụp"
+  },
+  {
+   "at": 31.2,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "số tầng"
+  },
+  {
+   "at": 32.75,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "mã cột"
+  },
+  {
+   "at": 34.23,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 35.15,
+   "name": "punch",
+   "vol": 0.7,
+   "why": "biển B2"
+  },
+  {
+   "at": 35.9,
+   "name": "punch",
+   "vol": 0.7,
+   "why": "biển C"
+  },
+  {
+   "at": 36.65,
+   "name": "punch",
+   "vol": 0.75,
+   "why": "biển 17"
+  },
+  {
+   "at": 37.9,
+   "name": "success-2",
+   "vol": 0.6,
+   "why": "đã lưu ảnh"
+  },
+  {
+   "at": 39.58,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 43,
+   "name": "click",
+   "vol": 0.6,
+   "why": "bấm chấm xanh"
+  },
+  {
+   "at": 45.75,
+   "name": "click",
+   "vol": 0.6,
+   "why": "bấm lưu vị trí"
+  },
+  {
+   "at": 46.4,
+   "name": "pop",
+   "vol": 0.7,
+   "why": "ghim P"
+  },
+  {
+   "at": 50.33,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 50.95,
+   "name": "alert",
+   "vol": 0.5,
+   "why": "cảnh báo tầng hầm"
+  },
+  {
+   "at": 53.25,
+   "name": "boing",
+   "vol": 0.55,
+   "why": "chấm định vị nhảy lung tung"
+  },
+  {
+   "at": 54.95,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "B1 B2 B3?"
+  },
+  {
+   "at": 57.13,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 57.75,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "tấm hình"
+  },
+  {
+   "at": 59.25,
+   "name": "ding-idea",
+   "vol": 0.8,
+   "why": "quan trọng"
+  },
+  {
+   "at": 60.43,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 61.35,
+   "name": "success-2",
+   "vol": 0.55,
+   "why": "2 dấu tick"
+  },
+  {
+   "at": 62.25,
+   "name": "whoosh-fast",
+   "vol": 0.45,
+   "why": "đi thẳng tới xe"
+  },
+  {
+   "at": 63.6,
+   "name": "success-3",
+   "vol": 0.85,
+   "why": "tìm thấy"
+  },
+  {
+   "at": 64.53,
+   "name": "door-slam",
+   "vol": 0.5,
+   "why": "cửa cuốn đóng",
+   "group": "shutter"
+  },
+  {
+   "at": 66.45,
+   "name": "paper-rustle",
+   "vol": 0.6,
+   "why": "cuống vé tặng kèm"
+  },
+  {
+   "at": 67.5,
+   "name": "chart-up",
+   "vol": 0.5,
+   "why": "thanh thời gian"
+  },
+  {
+   "at": 71.3,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "MIỄN PHÍ"
+  },
+  {
+   "at": 73.25,
+   "name": "cymbal",
+   "vol": 0.7,
+   "why": "chốt"
+  }
+ ]
+}

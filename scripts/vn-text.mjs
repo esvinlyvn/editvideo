@@ -17,7 +17,8 @@ hoàn thành|lập tức|chủ đầu tư|căn hộ|dự án|mở bán|thiết y
 nhớ đi nhớ lại|lời từ chối|trường hợp|người khác|mấy giờ|9 giờ|8 giờ|một chút|chút xíu|vấn đề|thực sự|tất nhiên|không phải|đi được|
 thử nghiệm|tài khoản|chuyển khoản|chuyển lộn|ngân hàng|lừa đảo|ngược đời|đòi nợ|con nợ|tiền lãi|ứng dụng|kiểm tra|giữ nguyên|chính thức|
 hướng dẫn|liên hệ|hỗ trợ|đường link|quan trọng|tội nghiệp|lòng tốt|giả bộ|gọi hối|lần thứ hai|mã otp|ăn lẩu|ăn nướng|sao cho|đúng người|số tiền|thiết yếu|
-lời hứa|làm được|đầu năm|cuối tuần|thăm nhà|bạn cũ|ba má|lì xì|lớn lao|thất bại|trưng bày|chạy bộ|du lịch|lành mạnh|để dành|giật mình|thành công`
+lời hứa|làm được|đầu năm|cuối tuần|thăm nhà|bạn cũ|ba má|lì xì|lớn lao|thất bại|trưng bày|chạy bộ|du lịch|lành mạnh|để dành|giật mình|thành công|
+chương trình|khám phá|hệ thống|cả buổi|tầng hầm|vé coi phim|coi phim|tìm xe|mã cột|số tầng|số cột|đậu xe|bãi xe|vị trí|định vị|thao tác|trung tâm thương mại|màu đen|mang máng|lòng vòng|kho báu|truy tìm|đang ở|gia dụng|xúc động|hộp quà|đơn hàng|sinh tố|hút bụi|lau nhà|nghỉ ngơi|để ý|mắc tiền`
     .split("|")
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean),

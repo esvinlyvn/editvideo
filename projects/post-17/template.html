@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Xe tao đâu</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "bãi xe tầng hầm B2" =====
+         2 font: Oswald (chữ lớn, biển báo) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền navy như sàn hầm, chữ kem; 1 màu nhấn: vàng mù tạt (vạch sơn, biển báo, xe của "tao")
+         Thế giới xuyên suốt: bãi xe nhìn từ trên xuống, camera lia/zoom bằng viewBox (toàn màn hình, không khung)
+         Chuyển cảnh = cửa cuốn bãi xe kéo xuống rồi kéo lên
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Oswald", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #14213d;
+        --panel: #1d2c50;
+        --cream: #f4efe1;
+        --mus: #f2b134;
+        --muted: rgba(244, 239, 225, 0.6);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .ov { position: absolute; inset: 0; background: var(--bg); }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.08; text-transform: uppercase; letter-spacing: .01em; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .m { color: var(--mus); }
+      .lab { font-family: var(--body); font-weight: 800; font-size: 28px; letter-spacing: .2em; text-transform: uppercase; color: var(--mus); }
+      .card { position: absolute; background: var(--panel); border: 4px solid var(--mus); border-radius: 26px; box-sizing: border-box; box-shadow: 0 18px 40px rgba(0,0,0,.4); }
+      .sign { position: absolute; background: var(--mus); color: var(--bg); border-radius: 22px; font-family: var(--disp); font-weight: 700; text-align: center; box-sizing: border-box; border: 6px solid var(--bg); box-shadow: 0 0 0 6px var(--mus); }
+      .stamp { position: absolute; padding: 6px 24px 10px; border: 7px solid var(--mus); border-radius: 14px; color: var(--mus); font-family: var(--disp); font-weight: 700; white-space: nowrap; background: rgba(20,33,61,.85); text-transform: uppercase; }
+      .tap { position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 8px solid var(--cream); box-sizing: border-box; opacity: 0; }
+
+      /* Thế giới */
+      #world { position: absolute; inset: 0; }
+      #world svg { display: block; width: 1080px; height: 1920px; }
+      #dim { position: absolute; inset: 0; background: rgba(12, 20, 38, .72); opacity: 0; }
+      .tt { position: absolute; left: 108px; right: 108px; top: 230px; text-align: center; font-family: var(--disp); font-weight: 700; font-size: 92px; line-height: 1.06; text-transform: uppercase; text-shadow: 0 6px 24px rgba(0,0,0,.6); }
+      .tt .blk { white-space: nowrap; }
+
+      /* Cửa cuốn (chuyển cảnh) */
+      #shutter { position: absolute; left: 0; top: 0; width: 1080px; height: 1960px; z-index: 250;
+        background: repeating-linear-gradient(#56627e 0 34px, #46516b 34px 40px, #3b455c 40px 46px); box-shadow: 0 20px 40px rgba(0,0,0,.6); }
+      #shutter::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: repeating-linear-gradient(-45deg, var(--mus) 0 30px, #14213d 30px 60px); }
+      #shutter .lv { position: absolute; left: 50%; top: 840px; width: 260px; height: 200px; margin-left: -130px; }
+      #shutter .lv b { font-size: 140px; line-height: 180px; }
+
+      /* S1 · vé gửi xe */
+      #machine { position: absolute; left: 240px; top: 380px; width: 600px; height: 200px; border-radius: 30px; background: #26375e; border: 5px solid var(--mus); }
+      #machine::after { content: ""; position: absolute; left: 120px; right: 120px; bottom: 30px; height: 18px; border-radius: 9px; background: #0a1124; }
+      #ticket { position: absolute; left: 330px; top: 540px; width: 420px; padding: 34px 36px 40px; background: var(--cream); color: var(--bg); border-radius: 6px; box-sizing: border-box; transform-origin: 50% 0;
+        -webkit-mask: radial-gradient(circle at 50% 100%, transparent 14px, #000 15px) bottom / 40px 100% repeat-x; }
+      #ticket .k { font-family: var(--disp); font-weight: 700; font-size: 48px; }
+      #ticket .r { display: flex; justify-content: space-between; font-weight: 700; font-size: 32px; margin-top: 14px; }
+      #ticket .big { font-family: var(--disp); font-weight: 700; font-size: 110px; text-align: center; margin-top: 10px; position: relative; height: 130px; }
+      #ticket .big span { position: absolute; left: 0; right: 0; }
+      #plus3 { left: 640px; top: 1080px; font-size: 64px; transform: rotate(-8deg); }
+
+      /* S2/S3 */
+      .qm { position: absolute; font-family: var(--disp); font-weight: 700; font-size: 120px; color: var(--mus); }
+      #memo { position: absolute; left: 190px; top: 560px; width: 700px; height: 700px; border-radius: 50%; overflow: hidden; border: 8px dashed var(--cream); background: #26375e; box-sizing: border-box; }
+      #memo-l { position: absolute; left: 108px; right: 108px; top: 1300px; text-align: center; font-weight: 800; font-size: 40px; }
+      #memo-l b { color: var(--mus); }
+
+      /* S4 · bản đồ kho báu */
+      #tmap { left: 140px; right: 140px; top: 520px; height: 760px; background: #ecdcb4; border: 6px solid #8a6a3a; color: #3a2a14; padding: 34px 40px; }
+      #tmap .lab { color: #8a3a1a; }
+      #tmap .k { font-family: var(--disp); font-weight: 700; font-size: 50px; text-transform: uppercase; }
+      #tgrid { position: relative; margin-top: 24px; height: 480px; border: 4px dashed #8a6a3a; border-radius: 16px; }
+      .tx { position: absolute; font-family: var(--disp); font-weight: 700; font-size: 60px; color: #b8321a; line-height: 1; }
+      #tq { position: absolute; left: 50%; top: 50%; margin: -70px 0 0 -40px; font-family: var(--disp); font-weight: 700; font-size: 140px; color: #3a2a14; opacity: .25; }
+
+      /* S5 · Sáu */
+      #psign { left: 190px; top: 330px; width: 700px; height: 860px; border-radius: 60px; }
+      .sau { position: absolute; left: 140px; top: 60px; width: 380px; height: 380px; }
+      #psign .nm { position: absolute; left: 0; right: 0; top: 480px; font-size: 104px; line-height: 1.05; text-transform: uppercase; }
+      #psign .sb { position: absolute; left: 0; right: 0; top: 720px; font-family: var(--body); font-weight: 800; font-size: 34px; letter-spacing: .16em; }
+      #follow { position: absolute; left: 50%; top: 1250px; width: 420px; margin-left: -210px; height: 110px; border-radius: 55px; background: var(--cream); color: var(--bg); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 52px; text-transform: uppercase; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* S7 · điện thoại chụp cột */
+      .phone { position: absolute; left: 190px; top: 260px; width: 700px; height: 1200px; border-radius: 80px; background: #0a0f1d; border: 14px solid #2a3654; box-sizing: border-box; overflow: hidden; }
+      .phone .scr { position: absolute; inset: 14px; border-radius: 62px; overflow: hidden; background: #2b2f38; }
+      #vf { position: absolute; inset: 0; }
+      #shot { position: absolute; left: 50%; bottom: 46px; width: 130px; height: 130px; margin-left: -65px; border-radius: 50%; border: 10px solid #fff; box-sizing: border-box; background: rgba(255,255,255,.25); }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+      .brk { position: absolute; border: 6px solid var(--mus); border-radius: 16px; opacity: 0; }
+      .bl { position: absolute; padding: 6px 16px 8px; background: var(--mus); color: var(--bg); font-family: var(--disp); font-weight: 700; font-size: 34px; border-radius: 10px; white-space: nowrap; text-transform: uppercase; opacity: 0; }
+
+      /* S8 · B2 / C / 17 */
+      #s8-h { top: 240px; font-size: 80px; }
+      .big3 { position: absolute; top: 560px; width: 250px; height: 320px; }
+      .big3 small { display: block; font-family: var(--body); font-weight: 800; font-size: 30px; letter-spacing: .12em; padding-top: 26px; }
+      .big3 b { display: block; font-size: 170px; line-height: 1.1; }
+      #b3a { left: 120px; } #b3b { left: 415px; } #b3c { left: 710px; }
+      #saved { left: 200px; right: 200px; top: 1040px; padding: 26px 30px; display: flex; align-items: center; gap: 24px; font-weight: 800; font-size: 40px; }
+      #saved .th { width: 130px; height: 130px; border-radius: 18px; background: #3a4870; flex: none; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 700; font-size: 40px; color: var(--mus); }
+
+      /* S9 · bản đồ ngoài trời */
+      #s9 .phone { top: 300px; }
+      #map { position: absolute; left: 0; top: 0; width: 644px; height: 1144px; }
+      #sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 480px; background: var(--cream); color: var(--bg); border-radius: 40px 40px 0 0; padding: 24px 0 0; }
+      #sheet .grab { width: 90px; height: 10px; border-radius: 5px; background: rgba(20,33,61,.25); margin: 0 auto 18px; }
+      .row { height: 120px; display: flex; align-items: center; gap: 26px; padding: 0 40px; font-weight: 700; font-size: 36px; border-bottom: 3px solid rgba(20,33,61,.08); }
+      .row i { width: 64px; height: 64px; border-radius: 50%; background: rgba(20,33,61,.1); flex: none; display: flex; align-items: center; justify-content: center; font-style: normal; font-family: var(--disp); font-weight: 700; font-size: 38px; }
+      #row3 i { background: var(--mus); color: var(--bg); }
+      #toast { position: absolute; left: 50px; right: 50px; top: 60px; padding: 22px 26px; background: var(--bg); color: var(--cream); border-radius: 20px; font-weight: 700; font-size: 32px; text-align: center; }
+      #sun { position: absolute; left: 820px; top: 210px; }
+      #s9-lab { position: absolute; left: 108px; top: 200px; font-family: var(--disp); font-weight: 700; font-size: 60px; text-transform: uppercase; }
+
+      /* S10 · định vị lệch trong hầm */
+      #warn { left: 240px; right: 240px; top: 230px; height: 150px; display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 64px; text-transform: uppercase; border-radius: 26px; }
+      #floors { left: 650px; top: 900px; width: 280px; padding: 24px; }
+      .fl { height: 110px; border: 4px solid rgba(244,239,225,.35); border-radius: 18px; margin-top: 16px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-family: var(--disp); font-weight: 700; font-size: 60px; }
+      .fl:first-child { margin-top: 0; }
+      .fl em { font-style: normal; color: var(--mus); }
+
+      /* S11 · tấm hình là chìa khóa */
+      #s11-h { top: 230px; font-size: 84px; }
+      #photo { position: absolute; left: 230px; top: 520px; width: 620px; height: 760px; background: var(--cream); padding: 24px 24px 90px; box-sizing: border-box; transform: rotate(-4deg); box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+      #photo .im { width: 100%; height: 100%; background: #2b2f38; position: relative; overflow: hidden; }
+      #photo .cap2 { position: absolute; left: 0; right: 0; bottom: 18px; text-align: center; font-family: var(--disp); font-weight: 700; font-size: 46px; color: var(--bg); }
+      #key { left: 600px; top: 1320px; font-size: 54px; transform: rotate(8deg); }
+
+      /* S12 · 2 thao tác */
+      #two { left: 108px; right: 108px; top: 230px; padding: 30px 40px; }
+      .ck { display: flex; align-items: center; gap: 24px; height: 110px; font-weight: 800; font-size: 40px; }
+      .ck .bx { width: 66px; height: 66px; border: 5px solid var(--mus); border-radius: 14px; flex: none; position: relative; box-sizing: border-box; }
+      .ck .bx svg { position: absolute; left: -4px; top: -16px; }
+      #found { left: 330px; top: 1150px; font-size: 70px; transform: rotate(-6deg); }
+
+      /* S13 · vé phim + tour tầng hầm */
+      #tk { position: absolute; left: 120px; top: 300px; width: 840px; height: 400px; display: flex; }
+      #tk .a { flex: 1; background: var(--mus); color: var(--bg); border-radius: 26px 0 0 26px; padding: 36px 40px; box-sizing: border-box;
+        -webkit-mask: radial-gradient(circle at 100% 0, transparent 26px, #000 27px) top / 100% 51% no-repeat, radial-gradient(circle at 100% 100%, transparent 26px, #000 27px) bottom / 100% 51% no-repeat; }
+      #tk .a .k { font-family: var(--disp); font-weight: 700; font-size: 84px; line-height: 1; text-transform: uppercase; margin-top: 10px; }
+      #tk .a .r { font-weight: 800; font-size: 36px; margin-top: 24px; }
+      #tk .lab { color: var(--bg); }
+      #stub { position: absolute; left: 120px; top: 760px; width: 840px; height: 420px; background: var(--cream); color: var(--bg); border-radius: 26px; padding: 34px 40px; box-sizing: border-box; border-top: 8px dashed var(--bg); }
+      #stub .lab { color: #b8321a; }
+      #stub .k { font-family: var(--disp); font-weight: 700; font-size: 70px; line-height: 1.05; text-transform: uppercase; margin-top: 12px; }
+      #stub .k .blk { white-space: nowrap; }
+      #stub .r { font-weight: 800; font-size: 34px; margin-top: 18px; }
+      #free { left: 600px; top: 1090px; font-size: 54px; transform: rotate(-10deg); }
+      #bar2 { position: absolute; left: 120px; top: 1250px; width: 840px; height: 70px; display: flex; border-radius: 35px; overflow: hidden; border: 4px solid var(--cream); box-sizing: border-box; }
+      #bar2 i { display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; font-size: 30px; transform-origin: 0 50%; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; z-index: 300; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(8, 13, 26, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post17" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <svg width="0" height="0" style="position:absolute"><defs>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M3 13l6 6L22 4" fill="none" stroke="#f2b134" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"><path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z" fill="#f2b134" stroke="#14213d" stroke-width="1.6"/><text x="12" y="12.5" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="9" fill="#14213d">P</text></symbol>
+        <!-- cảnh cột bê tông nhìn thẳng (trong khung ngắm / tấm hình) -->
+        <symbol id="pillar" viewBox="0 0 672 1172">
+          <rect width="672" height="1172" fill="#2b2f38"/><rect y="760" width="672" height="412" fill="#1f232b"/>
+          <path d="M0 760h672" stroke="#f2b134" stroke-width="6"/>
+          <rect x="196" y="0" width="280" height="1000" fill="#8a8f99"/><rect x="196" y="0" width="40" height="1000" fill="#9aa0aa"/>
+          <rect x="196" y="420" width="280" height="300" fill="#f2b134"/>
+          <text x="336" y="640" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="200" fill="#14213d">C17</text>
+          <rect x="226" y="150" width="220" height="190" rx="22" fill="#14213d" stroke="#f2b134" stroke-width="8"/>
+          <text x="336" y="296" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="150" fill="#f2b134">B2</text>
+          <path d="M520 0v70M630 0v70" stroke="#5a606c" stroke-width="6"/>
+          <rect x="490" y="70" width="170" height="110" rx="14" fill="#f4efe1"/>
+          <text x="575" y="148" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="64" fill="#14213d">DÃY C</text>
+          <g transform="translate(-60 830)"><rect x="0" y="0" width="230" height="200" rx="40" fill="#0a0d15" stroke="#34405e" stroke-width="5"/><rect x="20" y="20" width="190" height="80" rx="20" fill="#3a4870"/></g>
+          <g transform="translate(520 830)"><rect x="0" y="0" width="230" height="200" rx="40" fill="#f2b134" stroke="#14213d" stroke-width="5"/><rect x="20" y="20" width="190" height="80" rx="20" fill="#3a4870"/></g>
+        </symbol>
+      </defs></svg>
+
+      <!-- ===== THẾ GIỚI: bãi xe B2 (luôn ở dưới) ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1" style="z-index:0"><div class="in">
+        <div id="world"><svg id="garage" viewBox="0 -240 2400 4267" preserveAspectRatio="xMidYMid slice">
+          {{GARAGE}}
+          <path id="loop" d="M600 1210H180V1930H900V2650H180V3370H1300V2650H2280V1210H1500V490H300V1210" fill="none" stroke="#f4efe1" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 30" opacity="0"/>
+          <path id="route" d="M600 1210H2280V1930H1740V2040" fill="none" stroke="#f2b134" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+          <circle id="acc" cx="1200" cy="1930" r="420" fill="rgba(76,141,255,.18)" stroke="#4c8dff" stroke-width="6" opacity="0"/>
+          <circle id="gdot" cx="1200" cy="1930" r="34" fill="#4c8dff" stroke="#fff" stroke-width="10" opacity="0"/>
+          <g id="pawn" transform="translate(600 1210)"><circle r="44" fill="#f4efe1" stroke="#f2b134" stroke-width="10"/><circle cx="-14" cy="-6" r="6" fill="#14213d"/><circle cx="14" cy="-6" r="6" fill="#14213d"/><path d="M-12 18q12-10 24 0" stroke="#14213d" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+        </svg></div>
+        <div id="dim"></div>
+        <div class="tt" id="tt1"><span class="blk m">Ủa?</span></div>
+        <div class="tt" id="tt2"><span class="blk">Xe tao</span><span class="blk m">đâu?</span></div>
+        <div class="tt" id="tt3" style="font-size:80px"><span class="blk">Nguyên tầng</span><span class="blk m">toàn xe đen!</span></div>
+        <div class="tt" id="tt4" style="font-size:80px"><span class="blk">Khỏi đi</span><span class="blk m">lòng vòng</span></div>
+        <div class="tt" id="tt5" style="font-size:80px"><span class="blk">Định vị</span><span class="blk m">lệch lung tung</span></div>
+        <div class="tt" id="tt6" style="font-size:80px"><span class="blk">Đi thẳng</span><span class="blk m">tới xe</span></div>
+        <div class="qm" id="qm1" style="left:180px;top:620px">?</div><div class="qm" id="qm2" style="left:820px;top:760px">?</div><div class="qm" id="qm3" style="left:300px;top:1180px">?</div><div class="qm" id="qm4" style="left:760px;top:1260px">?</div>
+        <div id="memo"><svg width="684" height="684" viewBox="0 0 684 684"><rect width="684" height="684" fill="#182746"/><path d="M80 120v440M342 120v440M604 120v440" stroke="#f2b134" stroke-width="8"/>
+          <g transform="translate(211 340)"><rect x="-88" y="-180" width="176" height="360" rx="50" fill="#0a0d15" stroke="#34405e" stroke-width="6"/><rect x="-66" y="-110" width="132" height="76" rx="18" fill="#3a4870"/></g>
+          <g transform="translate(473 340)"><rect x="-88" y="-180" width="176" height="360" rx="50" fill="#f2b134" stroke="#14213d" stroke-width="6"/><rect x="-66" y="-110" width="132" height="76" rx="18" fill="#3a4870"/></g></svg></div>
+        <div id="memo-l">Manh mối: <b>kế một chiếc xe màu đen</b></div>
+        <div class="card" id="floors"><div class="fl">B1 <em>?</em></div><div class="fl">B2 <em>?</em></div><div class="fl">B3 <em>?</em></div></div>
+        <div class="sign" id="warn">⚠ Tầng hầm</div>
+        <div class="card" id="two">
+          <div class="ck"><div class="bx"><svg width="76" height="76" class="cm"><use href="#i-check"/></svg></div>Chụp số tầng, số cột</div>
+          <div class="ck"><div class="bx"><svg width="76" height="76" class="cm"><use href="#i-check"/></svg></div>Lưu vị trí (ngoài trời)</div>
+        </div>
+        <div class="stamp" id="found">Tìm thấy!</div>
+      </div></div>
+
+      <!-- S1 · gửi xe, đi chơi 3 tiếng -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="3.75" data-track-index="2" style="z-index:20"><div class="ov" id="s1-in">
+        <div class="safe h c" style="top:200px;font-size:64px"><span class="blk">Trung tâm</span><span class="blk m">thương mại</span></div>
+        <div id="machine"></div>
+        <div id="ticket"><div class="k">VÉ GỬI XE</div><div class="r"><span>Tầng hầm</span><span>B2</span></div><div class="r"><span>Giờ vào</span></div>
+          <div class="big"><span id="tm1">14:05</span><span id="tm2">17:05</span></div></div>
+        <div class="stamp" id="plus3">+3 tiếng</div>
+      </div></div>
+
+      <!-- S4 · manh mối thua truy tìm kho báu -->
+      <div class="clip scene" id="s4" data-start="14.7" data-duration="4.3" data-track-index="2" style="z-index:20"><div class="ov" id="s4-in" style="background:rgba(12,20,38,.82)">
+        <div class="safe h c" style="top:230px;font-size:80px"><span class="blk">Truy tìm</span><span class="blk m">kho báu?</span></div>
+        <div class="card" id="tmap"><div class="lab">Bản đồ kho báu</div><div class="k">Manh mối: kế xe đen</div>
+          <div id="tgrid"><div id="tq">?</div>
+            <div class="tx" style="left:40px;top:40px">✕</div><div class="tx" style="left:180px;top:120px">✕</div><div class="tx" style="left:330px;top:40px">✕</div><div class="tx" style="left:470px;top:150px">✕</div>
+            <div class="tx" style="left:70px;top:250px">✕</div><div class="tx" style="left:240px;top:330px">✕</div><div class="tx" style="left:400px;top:280px">✕</div><div class="tx" style="left:520px;top:360px">✕</div>
+            <div class="tx" style="left:120px;top:380px">✕</div><div class="tx" style="left:330px;top:190px">✕</div><div class="tx" style="left:560px;top:40px">✕</div><div class="tx" style="left:20px;top:150px">✕</div>
+          </div></div>
+      </div></div>
+
+      <!-- S5 · Sáu trên biển đỗ xe -->
+      <div class="clip scene" id="s5" data-start="19.1" data-duration="4.15" data-track-index="2" style="z-index:20"><div class="ov" id="s5-in">
+        <div class="sign" id="psign"><div class="sau" id="sau1">{{SAU}}</div><div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+          <div class="nm"><span class="blk nw">Sáu</span><span class="blk nw">Suy Nghĩ</span></div><div class="sb">KHU ĐẬU XE RIÊNG</div></div>
+        <div id="follow"><span id="fw1">+ Follow</span><span id="fw2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S7 · chụp hình số tầng, dãy, cột -->
+      <div class="clip scene" id="s7" data-start="27.3" data-duration="6.95" data-track-index="2" style="z-index:20"><div class="ov" id="s7-in">
+        <div class="safe h c" id="s7-h" style="top:110px;font-size:64px"><span class="blk">Trước khi rời <span class="m">chỗ đậu</span></span></div>
+        <div class="phone" id="ph7"><div class="scr"><svg id="vf" width="644" height="1144" viewBox="0 0 672 1172"><use href="#pillar" width="672" height="1172"/></svg><div id="shot"></div><div id="flash"></div>
+          <div class="brk" id="bk1" style="left:207px;top:130px;width:230px;height:209px"></div><div class="bl" id="lb1" style="left:30px;top:200px">Số tầng</div>
+          <div class="brk" id="bk2" style="left:456px;top:54px;width:190px;height:132px"></div><div class="bl" id="lb2" style="left:470px;top:206px">Dãy xe</div>
+          <div class="brk" id="bk3" style="left:178px;top:393px;width:287px;height:307px"></div><div class="bl" id="lb3" style="left:20px;top:740px">Mã cột</div>
+        </div></div>
+        <div class="tap" id="tap7" style="left:540px;top:1310px"></div>
+      </div></div>
+
+      <!-- S8 · ví dụ B2, dãy C, cột 17 -->
+      <div class="clip scene" id="s8" data-start="34.25" data-duration="5.4" data-track-index="2" style="z-index:20"><div class="ov" id="s8-in">
+        <div class="safe h c" id="s8-h">Ví dụ</div>
+        <div class="sign big3" id="b3a"><small>TẦNG</small><b>B2</b></div>
+        <div class="sign big3" id="b3b"><small>DÃY</small><b>C</b></div>
+        <div class="sign big3" id="b3c"><small>CỘT</small><b>17</b></div>
+        <div class="card" id="saved"><div class="th">C17</div><div>Đã lưu ảnh<br><span style="color:var(--mus)">Giờ đi chơi nè!</span></div></div>
+      </div></div>
+
+      <!-- S9 · gửi ngoài trời: lưu vị trí đậu xe trên bản đồ -->
+      <div class="clip scene" id="s9" data-start="39.6" data-duration="10.75" data-track-index="2" style="z-index:20"><div class="ov" id="s9-in">
+        <div id="s9-lab">Gửi <span class="m">ngoài trời</span></div>
+        <svg id="sun" width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#f2b134" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="#f2b134"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <div class="phone"><div class="scr" style="background:#1b2742">
+          <svg id="map" viewBox="0 0 672 1172"><g id="mapg">
+            <rect x="-600" y="-600" width="1900" height="2400" fill="#1b2742"/>
+            <rect x="60" y="120" width="240" height="200" rx="16" fill="#22355e"/><rect x="380" y="90" width="260" height="260" rx="16" fill="#22355e"/><rect x="40" y="420" width="300" height="320" rx="16" fill="#1f4a3c"/><rect x="420" y="460" width="220" height="200" rx="16" fill="#22355e"/>
+            <rect x="60" y="820" width="260" height="240" rx="16" fill="#22355e"/><rect x="400" y="760" width="240" height="320" rx="16" fill="#22355e"/>
+            <path d="M-600 380H1300M-600 720H1300M350 -600V1800M-600 1120H1300M720 -600V1800" stroke="#33497a" stroke-width="44"/>
+            <path d="M-600 380H1300M350 -600V1800" stroke="#f4efe1" stroke-width="3" stroke-dasharray="20 20" opacity=".35"/>
+            <path id="mroute" d="M350 1500V720H350V560" fill="none" stroke="#4c8dff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <g id="mpin" transform="translate(350 560)"><use href="#i-pin" x="-46" y="-92" width="92" height="92"/></g>
+            <circle id="macc" cx="350" cy="560" r="70" fill="rgba(76,141,255,.2)"/>
+            <circle id="mdot" cx="350" cy="560" r="22" fill="#4c8dff" stroke="#fff" stroke-width="7"/>
+          </g></svg>
+          <div id="sheet"><div class="grab"></div>
+            <div class="row"><i>●</i>Vị trí của bạn</div><div class="row"><i>↗</i>Chia sẻ vị trí</div><div class="row" id="row3"><i>P</i>Lưu vị trí đậu xe</div></div>
+          <div id="toast">✓ Đã lưu vị trí đậu xe</div>
+        </div></div>
+        <div class="tap" id="tap9a" style="left:554px;top:874px"></div>
+        <div class="tap" id="tap9b" style="left:540px;top:1366px"></div>
+      </div></div>
+
+      <!-- S11 · tấm hình số tầng, số cột mới quan trọng -->
+      <div class="clip scene" id="s11" data-start="57.15" data-duration="3.3" data-track-index="2" style="z-index:20"><div class="ov" id="s11-in" style="background:rgba(12,20,38,.86)">
+        <div class="safe h c" id="s11-h"><span class="blk">Tấm hình này</span><span class="blk m">mới là chìa khóa</span></div>
+        <div id="photo"><div class="im"><svg width="572" height="646" viewBox="0 0 672 760" preserveAspectRatio="xMidYMid slice"><use href="#pillar" width="672" height="1172"/></svg></div><div class="cap2">B2 · DÃY C · CỘT 17</div></div>
+        <div class="stamp" id="key">Quan trọng</div>
+      </div></div>
+
+      <!-- S13 · vé coi phim tặng kèm tour tầng hầm -->
+      <div class="clip scene" id="s13" data-start="64.55" data-duration="{{REST_FROM_64.55}}" data-track-index="2" style="z-index:20"><div class="ov" id="s13-in" style="background:rgba(12,20,38,.88)">
+        <div id="tk"><div class="a"><div class="lab">Vé coi phim</div><div class="k">Phim bom tấn</div><div class="r">Thời lượng: 2 tiếng · Ghế G7</div></div></div>
+        <div id="stub"><div class="lab">Tặng kèm</div><div class="k"><span class="blk">Tour khám phá</span><span class="blk">hệ thống tầng hầm</span></div><div class="r">Thời lượng: 1 tiếng · Tự túc</div></div>
+        <div class="stamp" id="free">Miễn phí!</div>
+        <div id="bar2"><i style="flex:2;background:var(--mus);color:var(--bg)" id="bA">Coi phim 2 tiếng</i><i style="flex:1;background:#b8321a" id="bB">Tìm xe 1 tiếng</i></div>
+      </div></div>
+
+      <div id="shutter"><div class="sign lv"><b>B2</b></div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.6) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.18); up(sel, at, 0.4, 24); };
+      const cam = (vb, at, d = 1.0, ease = "power2.inOut") => tl.to("#garage", { attr: { viewBox: vb }, duration: d, ease }, at);
+      const walk = (pts, at, each = 0.4) => pts.forEach(([x, y], i) => tl.to("#pawn", { x, y, duration: each, ease: "none" }, at + i * each));
+      const tap = (sel, at) => tl.fromTo(sel, { opacity: 0.95, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.5, ease: "power2.out", immediateRender: false }, at);
+      const drawPath = (sel, at, d) => { const el = document.querySelector(sel); const L = el.getTotalLength(); tl.fromTo(sel, { strokeDasharray: `${L} ${L}`, strokeDashoffset: L, opacity: 1 }, { strokeDashoffset: 0, opacity: 1, duration: d, ease: "none", immediateRender: false }, at); };
+      // Chuyển cảnh chữ ký: cửa cuốn kéo xuống (che) → kéo lên (lộ cảnh mới)
+      const shutter = (mid) => {
+        tl.fromTo("#shutter", { y: -1980 }, { y: 0, duration: 0.3, ease: "power2.in", immediateRender: false }, mid - 0.3);
+        tl.to("#shutter", { y: -1980, duration: 0.38, ease: "power2.inOut" }, mid + 0.06);
+      };
+      gsap.set("#shutter", { y: -1980 });
+      gsap.set(["#fw2", "#sau2", "#dim", ".tt", ".qm", "#memo", "#memo-l", "#floors", "#warn", "#two", "#found", ".cm"], { opacity: 0 });
+      [14.7, 19.1, 23.25, 27.3, 34.25, 39.6, 50.35, 57.15, 60.45, 64.55].forEach(shutter);
+      // pawn: dùng transform x/y của GSAP thay cho thuộc tính transform tĩnh
+      gsap.set("#pawn", { x: 600, y: 1210 }); document.querySelector("#pawn").removeAttribute("transform"); gsap.set("#pawn", { x: 600, y: 1210 });
+
+      // ===== S1 · vé gửi xe, đi chơi 3 tiếng (0–3.75) =====
+      tl.fromTo("#machine", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4 }, 0.1);
+      tl.fromTo("#ticket", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.7, ease: "power2.out" }, 0.35);
+      gsap.set("#tm2", { opacity: 0 });
+      stampIn("#plus3", 2.3, -8);
+      swapTxt("#tm1", "#tm2", 2.7);
+      tl.to("#s1-in", { y: 1960, duration: 0.45, ease: "power2.in" }, 3.3);
+
+      // ===== S2 · đứng giữa bãi xe mênh mông (3.75–8.6) =====
+      cam("250 588 700 1244", 0, 0.01);
+      cam("0 -240 2400 4267", 4.7, 1.8, "power2.inOut");
+      tl.fromTo("#pawn", { scale: 1 }, { scale: 1.8, duration: 1.8, ease: "power2.inOut", svgOrigin: "0 0" }, 4.7);
+      up("#tt1", 6.75, 0.3, 20);
+      title("#tt2", 7.4, "#tt1");
+      ["#qm1", "#qm2", "#qm3", "#qm4"].forEach((s, i) => pop(s, 7.5 + i * 0.1, 0.3));
+      out(["#tt2", ".qm"], 8.5, 0.2);
+
+      // ===== S3 · nhớ đậu kế xe đen → toàn xe đen (8.6–14.7) =====
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 8.6);
+      tl.fromTo("#memo", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 8.7);
+      up("#memo-l", 9.8, 0.4, 20);
+      tl.to(["#memo", "#memo-l", "#dim"], { opacity: 0, duration: 0.3 }, 11.5);
+      cam("600 1300 1400 2489", 11.6, 1.2);
+      title("#tt3", 12.75);
+      tl.fromTo("#garage .cb rect:first-child", { stroke: "#34405e" }, { stroke: "#f2b134", duration: 0.15, stagger: { each: 0.004, from: "random" }, immediateRender: false }, 12.8);
+
+      // ===== S6 · mẹo: khỏi đi lòng vòng (23.25–27.3) =====
+      tl.set(["#tt3"], { opacity: 0 }, 14.7);
+      tl.set("#garage .cb rect:first-child", { stroke: "#34405e" }, 19.0);
+      cam("0 -240 2400 4267", 23.0, 0.01);
+      title("#tt4", 23.5);
+      drawPath("#loop", 23.6, 1.8);
+      tl.to("#loop", { opacity: 0.25, duration: 0.3 }, 25.6);
+      tl.set("#tt4", { opacity: 0 }, 27.3);
+
+      // ===== S7 · chụp cột (27.3–34.25) =====
+      gsap.set(["#ph7"], { opacity: 0 });
+      up("#s7-h", 27.6, 0.4, 20);
+      tl.fromTo("#ph7", { opacity: 0, y: 500 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 29.0);
+      tl.fromTo("#vf", { scale: 1.08 }, { scale: 1, duration: 1.2, ease: "power1.out" }, 29.1);
+      tap("#tap7", 30.35);
+      tl.fromTo("#flash", { opacity: 0.9 }, { opacity: 0, duration: 0.35, immediateRender: false }, 30.45);
+      [["#bk1", "#lb1", 31.2], ["#bk2", "#lb2", 31.9], ["#bk3", "#lb3", 32.75]].forEach(([b, l, t]) => { pop(b, t, 1.3); up(l, t + 0.1, 0.3, 10); });
+
+      // ===== S8 · B2 / C / 17 (34.25–39.6) =====
+      gsap.set(["#saved"], { opacity: 0 });
+      up("#s8-h", 34.5, 0.35, 20);
+      [["#b3a", 35.15], ["#b3b", 35.9], ["#b3c", 36.65]].forEach(([s, t]) => tl.fromTo(s, { opacity: 0, rotationX: -90, transformOrigin: "50% 0%" }, { opacity: 1, rotationX: 0, duration: 0.45, ease: "back.out(1.8)" }, t));
+      up("#saved", 37.9, 0.4, 30);
+
+      // ===== S9 · bản đồ ngoài trời (39.6–50.35) =====
+      gsap.set(["#sheet", "#toast", "#mpin", "#mroute"], { opacity: 0 });
+      up("#s9-lab", 39.85, 0.4, 20);
+      tl.fromTo("#sun", { opacity: 0, rotation: -90 }, { opacity: 1, rotation: 0, duration: 0.6 }, 40.0);
+      tl.fromTo("#s9 .phone", { opacity: 0, y: 500 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 41.2);
+      tl.fromTo("#macc", { scale: 0.6, svgOrigin: "350 560" }, { scale: 1.3, svgOrigin: "350 560", duration: 0.8, repeat: 3, yoyo: true, ease: "sine.inOut", immediateRender: false }, 41.8);
+      tap("#tap9a", 43.0);
+      tl.fromTo("#sheet", { opacity: 1, y: 480 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 43.3);
+      tl.fromTo("#row3", { backgroundColor: "rgba(242,177,52,0)" }, { backgroundColor: "rgba(242,177,52,.35)", duration: 0.25 }, 45.75);
+      tap("#tap9b", 45.75);
+      tl.to("#sheet", { y: 480, duration: 0.35, ease: "power2.in" }, 46.25);
+      tl.fromTo("#mpin", { opacity: 0, y: -120 }, { opacity: 1, y: 0, duration: 0.4, ease: "bounce.out" }, 46.4);
+      tl.fromTo("#toast", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.3 }, 46.5);
+      out("#toast", 47.5, 0.2);
+      tl.to("#mapg", { y: -520, duration: 0.8, ease: "power2.inOut" }, 47.7);
+      tl.to(["#mdot", "#macc"], { attr: { cy: 1500 }, duration: 0.8, ease: "power2.inOut" }, 47.7);
+      tl.set("#mroute", { opacity: 1 }, 48.4);
+      drawPath("#mroute", 48.45, 1.2);
+
+      // ===== S10 · trong hầm định vị lệch, hổng biết tầng (50.35–57.15) =====
+      cam("500 1100 1400 2489", 50.3, 0.01);
+      pop("#warn", 50.6, 0.5);
+      tl.set(["#gdot", "#acc"], { opacity: 1 }, 52.0);
+      title("#tt5", 53.1);
+      tl.to("#warn", { opacity: 0, duration: 0.2 }, 53.0);
+      [[1500, 1500], [900, 2300], [1700, 2100], [1000, 1600], [1400, 2500]].forEach(([x, y], i) => {
+        tl.to(["#gdot", "#acc"], { attr: { cx: x, cy: y }, duration: 0.22, ease: "power3.inOut" }, 53.2 + i * 0.32);
+      });
+      tl.to("#acc", { attr: { r: 620 }, duration: 1.4, ease: "none" }, 53.2);
+      up("#floors", 54.95, 0.4, 40);
+      ["#floors .fl:nth-child(1)", "#floors .fl:nth-child(2)", "#floors .fl:nth-child(3)"].forEach((s, i) => tl.fromTo(s, { borderColor: "rgba(244,239,225,.35)" }, { borderColor: "#f2b134", duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 55.5 + i * 0.3));
+
+      // ===== S11 · tấm hình là chìa khóa (57.15–60.45) =====
+      tl.set(["#tt5", "#floors", "#gdot", "#acc"], { opacity: 0 }, 57.2);
+      up("#s11-h", 57.45, 0.4, 20);
+      tl.fromTo("#photo", { opacity: 0, y: 300, rotation: 8 }, { opacity: 1, y: 0, rotation: -4, duration: 0.55, ease: "back.out(1.4)" }, 57.6);
+      stampIn("#key", 59.25, 8);
+
+      // ===== S12 · 2 thao tác, đi thẳng tới xe (60.45–64.55) =====
+      tl.set("#loop", { opacity: 0 }, 60.4);
+      cam("0 400 2400 4267", 60.4, 0.01);
+      up("#two", 60.75, 0.4, 30);
+      tl.fromTo(".cm", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.45, ease: "back.out(3)" }, 61.2);
+      out("#two", 62.15, 0.2);
+      tl.set("#route", { opacity: 1 }, 62.2);
+      drawPath("#route", 62.2, 0.9);
+      walk([[2280, 1210], [2280, 1930], [1740, 1930], [1740, 2040]], 62.3, 0.3);
+      cam("1090 1300 1300 2311", 62.3, 1.3);
+      stampIn("#found", 63.6, -6);
+      tl.fromTo("#garage .mine rect:first-child", { stroke: "#14213d" }, { stroke: "#f4efe1", strokeWidth: 14, duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 63.5);
+
+      // ===== S13 · vé phim + tour tầng hầm (64.55–hết) =====
+      tl.set(["#found", "#route"], { opacity: 0 }, 64.6);
+      gsap.set(["#stub", "#free", "#bar2"], { opacity: 0 });
+      tl.fromTo("#tk", { opacity: 0, x: -400, rotation: -6 }, { opacity: 1, x: 0, rotation: 0, duration: 0.5, ease: "back.out(1.4)" }, 64.8);
+      tl.fromTo("#stub", { opacity: 0, y: 200, rotation: 4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "back.out(1.4)" }, 66.45);
+      up("#bar2", 67.4, 0.4, 20);
+      tl.fromTo("#bA", { scaleX: 0 }, { scaleX: 1, duration: 0.5 }, 67.5);
+      tl.fromTo("#bB", { scaleX: 0 }, { scaleX: 1, duration: 0.4 }, 68.0);
+      stampIn("#free", 71.3, -10);
+      // phía sau: camera lùi ra toàn bãi, "tao" vẫn đi lòng vòng (gọi lại đầu video)
+      tl.set("#loop", { opacity: 0.5 }, 64.6);
+      cam("0 -240 2400 4267", 64.6, 0.01);
+      tl.set("#pawn", { x: 600, y: 1210, scale: 1.8 }, 64.6);
+      walk([[180, 1210], [180, 1930], [900, 1930], [900, 2650], [180, 2650], [180, 3370], [1300, 3370]], 65.0, 1.2);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post17"] = tl;
+    </script>
+  </body>
+</html>
