@@ -23,7 +23,7 @@ Cài thêm font: `npm install @fontsource/<tên>`, rồi kiểm tra có subset `
 
 ```
 editvideo/
-├── projects/post-N/          # mỗi video một thư mục
+├── projects/<ten-video>/          # mỗi video một thư mục
 │   ├── voice.wav             # file giọng đọc gốc
 │   ├── script.txt            # lời thoại, mỗi câu một dòng ("A:"/"B:" để đánh dấu người nói)
 │   ├── transcript.json       # cụm lời + mốc thời gian (sinh bởi align.mjs, sửa tay được)
@@ -37,7 +37,7 @@ editvideo/
 │   ├── sfx-import.mjs        # nhập + chuẩn hóa SFX vào thư viện
 │   └── sfx-cues.mjs          # gắn SFX vào composition
 ├── sfx/                      # thư viện SFX đã chuẩn hóa (*.wav) + catalog.json
-├── build/   (gitignore)      # build/post-N/index.html, assets/, snapshots/, output.mp4
+├── build/   (gitignore)      # build/<ten-video>/index.html, assets/, snapshots/, output.mp4
 └── work/    (gitignore)      # file tạm
 ```
 
@@ -47,24 +47,24 @@ editvideo/
 
 ```bash
 # Tạo video mới
-mkdir -p projects/post-N/art
-cp /đường/dẫn/voice.wav projects/post-N/voice.wav
-#   viết projects/post-N/script.txt
+mkdir -p projects/<ten-video>/art
+cp /đường/dẫn/voice.wav projects/<ten-video>/voice.wav
+#   viết projects/<ten-video>/script.txt
 
 # 1) Khớp lời thoại vào voice
-node scripts/align.mjs projects/post-N/voice.wav projects/post-N/script.txt projects/post-N/transcript.json
+node scripts/align.mjs projects/<ten-video>/voice.wav projects/<ten-video>/script.txt projects/<ten-video>/transcript.json
 
-# 2) Chép build.mjs từ video gần nhất rồi sửa (font, NO_CAP, FORCE, placeholder)
-cp projects/post-M/build.mjs projects/post-N/   # rồi đổi "post-M" → "post-N"
+# 2) Chép khung mẫu rồi sửa (font, NO_CAP, FORCE, placeholder, nội dung template)
+cp projects/example/{build.mjs,template.html,sfx.json} projects/<ten-video>/
 
 # 3) Build không render, kiểm tra
-node projects/post-N/build.mjs --no-render
-cd build/post-N
+node projects/<ten-video>/build.mjs --no-render
+cd build/<ten-video>
 npx hyperframes lint
 npx hyperframes snapshot --no-end --at 1.5,8,15,22    # → snapshots/*.png + contact-sheet*.jpg
 
 # 4) Render (video 60 giây mất khoảng 2 phút, 100 giây khoảng 3 phút)
-node projects/post-N/build.mjs                       # → build/post-N/output.mp4
+node projects/<ten-video>/build.mjs                       # → build/<ten-video>/output.mp4
 
 # Nhập SFX mới vào thư viện
 node scripts/sfx-import.mjs <thư-mục-chứa-file-mới>
@@ -81,9 +81,9 @@ voice.wav + script.txt
 transcript.json ──┐
 template.html ────┤  build.mjs
 sfx.json ─────────┤   ├─ phụ đề (vn-text.mjs)
-art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn hóa → build/post-N/assets/
+art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn hóa → build/<ten-video>/assets/
                       ├─ SFX (sfx-cues.mjs) → assets/sfx/*.wav + thẻ <audio>
-                      └─ thay placeholder → build/post-N/index.html
+                      └─ thay placeholder → build/<ten-video>/index.html
                                 │  npx hyperframes render
                                 ▼
                            output.mp4 (1080×1920)
@@ -95,7 +95,7 @@ art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn h
    - Chi phí cơ bản: `(n − kỳ_vọng)² / (kỳ_vọng + 1.5)`. Kỳ vọng tính theo tốc độ nói trung bình (âm tiết/giây). Con số được tính nặng hơn chữ thường.
    - Ranh giới cụm không rơi vào dấu câu thì bị phạt: 6 điểm, hoặc 1,2 nếu là dấu phẩy.
    - Một cụm chứa 2 người nói thì bị phạt 50.
-3. In bảng cụm để đọc lại. Gặp cụm lệch (tiếng cười, chỗ đọc nhanh, đoạn kéo dài) thì sửa tay `transcript.json`:
+3. In bảng cụm để đọc lại. Gặp cụm lệch (tiếng động lạ, chỗ đọc nhanh, đoạn kéo dài) thì sửa tay `transcript.json`:
    - Đổi `text`, gộp cụm (nối `text`, lấy `end` của cụm sau), hoặc xóa cụm.
    - Giữ nguyên trường `i` vì `build.mjs` tham chiếu theo `i`.
    - Muốn soi chỗ ngắt thì dò lặng ở ngưỡng chặt hơn trên đoạn đó:
@@ -125,9 +125,9 @@ art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn h
 
 ### 4.4 Voice
 - `build.mjs` chuẩn hóa về -14 LUFS:
-  `ffmpeg -i voice.wav -af loudnorm=I=-14:TP=-1.5:LRA=9 -ar 48000 build/post-N/assets/voice.wav`
+  `ffmpeg -i voice.wav -af loudnorm=I=-14:TP=-1.5:LRA=9 -ar 48000 build/<ten-video>/assets/voice.wav`
 - Voice nằm ở track 9: `<audio id="voice" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9">`.
-- Độ dài video = độ dài voice + `TAIL` (1,3–2,6 giây, chừa chỗ cho cảnh kết).
+- Độ dài video = độ dài voice + `TAIL` (khoảng 1,5–2,5 giây, chừa chỗ cho cảnh kết).
 
 ---
 
@@ -135,7 +135,7 @@ art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn h
 
 ### 5.1 Khung cơ bản
 ```html
-<div id="root" data-composition-id="postN" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
   <!-- mỗi cảnh là một clip -->
   <div class="clip scene" id="s1" data-start="0" data-duration="7.05" data-track-index="1"><div class="in" id="s1-in">…</div></div>
   {{CAPTIONS}}
@@ -145,13 +145,13 @@ art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn h
 <script>
   const tl = gsap.timeline({ paused: true });
   // … toàn bộ animation đặt theo giây tuyệt đối trên một timeline
-  window.__timelines["postN"] = tl;
+  window.__timelines["main"] = tl;
 </script>
 ```
 - Clip chỉ hiện trong khoảng `data-start` đến `data-start + data-duration`. Phần tử trong clip animate bằng một timeline chung `tl`, theo giây tuyệt đối.
 - Mỗi cảnh có một lớp `.in`: cho mờ vào ở đầu cảnh (`fromTo opacity 0→1`) và mờ ra 0,15–0,2 giây trước khi clip kết thúc.
 - Lớp "thế giới" xuyên suốt (một bối cảnh dùng chung qua nhiều cảnh) đặt ở clip dài cả video. Ẩn/hiện bằng cách tween opacity của `#w-in` theo các khoảng thời gian.
-- Phần lặp lại (lưới, danh sách, dây đèn, tờ lịch…) có thể sinh bằng JS ngay đầu `<script>`, trước khi dựng timeline. Kết quả vẫn xác định (mỗi lần render giống nhau).
+- Phần lặp lại (lưới ô, danh sách, hàng icon…) có thể sinh bằng JS ngay đầu `<script>`, trước khi dựng timeline. Kết quả vẫn xác định (mỗi lần render giống nhau).
 
 ### 5.2 Placeholder do `build.mjs` thay
 | Placeholder | Nội dung |
@@ -176,13 +176,13 @@ const cam = (vb, at, d = 0.9) => tl.to("#svg", { attr: { viewBox: vb }, duration
 ```
 - **Số đếm / chữ chạy:** tween một object rồi ghi `textContent` trong `onUpdate`:
   `tl.fromTo(o, { v: 0 }, { v: 100, onUpdate: () => (el.textContent = Math.round(o.v)) }, at)`.
-- **Camera trên SVG:** tween `attr.viewBox` của thẻ `<svg>`. Nhân vật di chuyển bằng `x/y` của một `<g>`.
+- **Camera trên SVG:** tween `attr.viewBox` của thẻ `<svg>`. Đối tượng di chuyển bằng `x/y` của một `<g>`.
 - **Camera trên HTML:** đặt một dải rộng nhiều màn hình (ví dụ 5 × 1080px), rồi tween `x` của dải đó để lia ngang.
-- **Biến CSS:** tween được trực tiếp, ví dụ `{"--x": "300px"}` cho tâm đèn soi hay `{"--k": 1}` cho vạch gạch.
+- **Biến CSS:** tween được trực tiếp, ví dụ `{"--x": "300px"}` cho tâm một vùng sáng `radial-gradient` hay `{"--k": 1}` cho độ dài một vạch.
 - **Xoay quanh tâm trong SVG:** dùng `svgOrigin: "100 100"`.
 
 ### 5.4 Quy tắc tránh lỗi (lint và render)
-- `fromTo` mặc định có `immediateRender`: giá trị "from" được áp ngay từ đầu video. Hiệu ứng chỉ hiện tạm (điểm chạm, rung, tim bay, nhấp nháy) phải có `immediateRender: false`, nếu không chúng sẽ hiện sẵn từ khung đầu.
+- `fromTo` mặc định có `immediateRender`: giá trị "from" được áp ngay từ đầu video. Hiệu ứng chỉ hiện tạm (điểm chạm, rung, hạt bay ra, nhấp nháy) phải có `immediateRender: false`, nếu không chúng sẽ hiện sẵn từ khung đầu.
 - Phần tử mà CSS để `opacity: 0` thì phần đích của `fromTo` phải ghi rõ `opacity: 1`. Nếu không, worker render khởi động lại từ trạng thái gốc sẽ không thấy phần tử (lỗi `gsap_cold_seek_hidden_fromto_missing_reveal`).
 - Không vừa đặt `transform` trong CSS vừa tween `scale/rotation` bằng GSAP (lỗi `gsap_css_transform_conflict`). Đưa toàn bộ transform vào `fromTo`.
 - Lớp phủ toàn màn hình phải bắt đầu ở `opacity: 0`.
@@ -225,7 +225,7 @@ const cam = (vb, at, d = 0.9) => tl.to("#svg", { attr: { viewBox: vb }, duration
 
 ### 6.2 `sfx.json` và `sfx-cues.mjs`
 ```json
-{ "gainDb": 6, "minGap": 0.6, "scenes": [0, 7.0, 9.6], "cues": [ { "at": 0.35, "name": "pop", "vol": 0.55, "why": "ghi chú" } ] }
+{ "gainDb": 6, "minGap": 0.6, "scenes": [0, 7.0, 9.6], "cues": [ { "at": 0.35, "name": "pop", "vol": 0.55, "why": "thẻ bật ra" } ] }
 ```
 - `sfxHtml(cues, outDir, { gainDb, minGap, scenes })`:
   - Chép file vào `assets/sfx/`. Khi có `gainDb`, file được nâng mức rồi đi qua `alimiter limit=0.7`.
@@ -239,7 +239,7 @@ const cam = (vb, at, d = 0.9) => tl.to("#svg", { attr: { viewBox: vb }, duration
 
 ### 6.3 Đo âm lượng sau render
 ```bash
-cd build/post-N
+cd build/<ten-video>
 ffmpeg -i assets/voice.wav -af volumedetect -f null - 2>&1 | grep max_volume
 ffmpeg -i output.mp4      -af volumedetect -f null - 2>&1 | grep max_volume
 # soi từng mốc SFX lớn
@@ -257,7 +257,7 @@ for t in 10.5 24.3; do ffmpeg -ss $t -t 0.6 -i output.mp4 -af volumedetect -f nu
 | Phần tử không hiện trong MP4 nhưng snapshot vẫn thấy | Ghi rõ `opacity: 1` ở phần đích của `fromTo` |
 | Build dừng với lỗi "SFX quá dày" | Dời mốc hoặc bỏ bớt cue. So sánh có sai số `1e-6` |
 | Phụ đề ngắt giữa từ ghép | Thêm từ vào `COMPOUNDS`, hoặc dùng `FORCE` |
-| Phụ đề lệch lời (cụm siêu ngắn, đoạn cười) | Sửa tay `transcript.json` sau khi dò lặng ở ngưỡng chặt hơn |
+| Phụ đề lệch lời (cụm siêu ngắn, tiếng động lạ) | Sửa tay `transcript.json` sau khi dò lặng ở ngưỡng chặt hơn |
 | `hyperframes check` treo với video dài | Bỏ qua, dùng `lint` + `snapshot` rồi render thẳng |
 | `pkill -f …` giết luôn shell đang chạy | Đừng `pkill` theo chuỗi có trong chính lệnh đang chạy |
-| Hết dung lượng đĩa | Xóa `build/post-*/` cũ (`assets/`, `snapshots/`, `output.mp4` sinh lại được) |
+| Hết dung lượng đĩa | Xóa thư mục cũ trong `build/` (`assets/`, `snapshots/`, `output.mp4` sinh lại được) |
