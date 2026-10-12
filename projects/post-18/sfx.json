@@ -1,0 +1,264 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  8.9,
+  13.1,
+  23.15,
+  29.8,
+  38.25,
+  42.3,
+  50.3,
+  56.1,
+  60.7
+ ],
+ "cues": [
+  {
+   "at": 0.15,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "máy bay vô"
+  },
+  {
+   "at": 2.2,
+   "name": "ding-idea",
+   "vol": 0.55,
+   "why": "khởi động xong"
+  },
+  {
+   "at": 4.2,
+   "name": "oops",
+   "vol": 0.6,
+   "why": "gạch Anh → Việt"
+  },
+  {
+   "at": 7.3,
+   "name": "success-2",
+   "vol": 0.6,
+   "why": "lời nói → ý thiệt"
+  },
+  {
+   "at": 8.9,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 9.5,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "Sáu trên màn hình"
+  },
+  {
+   "at": 12.2,
+   "name": "like",
+   "vol": 0.7,
+   "why": "bấm follow"
+  },
+  {
+   "at": 13.1,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 13.75,
+   "name": "phone-ring",
+   "vol": 0.5,
+   "why": "đứa bạn gọi"
+  },
+  {
+   "at": 15.25,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "bong bóng"
+  },
+  {
+   "at": 17.45,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "bong bóng"
+  },
+  {
+   "at": 19,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "đang dịch"
+  },
+  {
+   "at": 20.45,
+   "name": "notify",
+   "vol": 0.65,
+   "why": "ý thiệt hiện ra"
+  },
+  {
+   "at": 23.15,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 24.8,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "bong bóng sếp"
+  },
+  {
+   "at": 26.45,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "đang dịch"
+  },
+  {
+   "at": 27.3,
+   "name": "notify",
+   "vol": 0.65,
+   "why": "ý thiệt"
+  },
+  {
+   "at": 28.6,
+   "name": "boing",
+   "vol": 0.55,
+   "why": "máy rung"
+  },
+  {
+   "at": 29.8,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 31.4,
+   "name": "send",
+   "vol": 0.55,
+   "why": "tin nhắn tới"
+  },
+  {
+   "at": 33.45,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "đang dịch"
+  },
+  {
+   "at": 34.5,
+   "name": "notify",
+   "vol": 0.65,
+   "why": "ý thiệt"
+  },
+  {
+   "at": 38.25,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 39,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "tắt máy?"
+  },
+  {
+   "at": 41.1,
+   "name": "hang-up",
+   "vol": 0.6,
+   "why": "màn hình tắt"
+  },
+  {
+   "at": 42.4,
+   "name": "crickets",
+   "vol": 0.35,
+   "why": "ban đêm"
+  },
+  {
+   "at": 44.1,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "bong bóng"
+  },
+  {
+   "at": 46.3,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "máy bật lại, đang dịch"
+  },
+  {
+   "at": 47.85,
+   "name": "notify",
+   "vol": 0.65,
+   "why": "ý thiệt"
+  },
+  {
+   "at": 49,
+   "name": "boing",
+   "vol": 0.6,
+   "why": "23:00 → 02:47"
+  },
+  {
+   "at": 50.3,
+   "name": "snap",
+   "vol": 0.5,
+   "why": "nhiễu sóng chuyển cảnh",
+   "group": "glitch"
+  },
+  {
+   "at": 50.95,
+   "name": "phone-ring",
+   "vol": 0.55,
+   "why": "má gọi"
+  },
+  {
+   "at": 53.45,
+   "name": "pop",
+   "vol": 0.35,
+   "why": "bong bóng má"
+  },
+  {
+   "at": 56.2,
+   "name": "record-scratch",
+   "vol": 0.8,
+   "why": "máy đứng hình"
+  },
+  {
+   "at": 57.15,
+   "name": "alert",
+   "vol": 0.4,
+   "why": "báo lỗi"
+  },
+  {
+   "at": 57.95,
+   "name": "click",
+   "vol": 0.45,
+   "why": "khởi động lại"
+  },
+  {
+   "at": 58.85,
+   "name": "click",
+   "vol": 0.45,
+   "why": "khởi động lại"
+  },
+  {
+   "at": 59.5,
+   "name": "riser",
+   "vol": 0.45,
+   "why": "đang xử lý"
+  },
+  {
+   "at": 60.75,
+   "name": "notify",
+   "vol": 0.7,
+   "why": "thông báo hệ thống"
+  },
+  {
+   "at": 63.35,
+   "name": "lose",
+   "vol": 0.6,
+   "why": "máy bốc khói"
+  }
+ ]
+}

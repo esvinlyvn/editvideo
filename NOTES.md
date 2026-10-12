@@ -128,6 +128,7 @@ node projects/post-11/build.mjs
 | 12–14 | Bungee · Pangolin · Paytone One | (làm ở branch `claude/hyperframes-video-editing-56w91n`) | | Xem NOTES bên đó |
 | 16 | Grandstander | Xanh rêu `#2f4b38`, chữ kem | Hồng ruy băng `#f7a3c0` | |
 | 17 | Oswald (chữ biển báo) | Navy sàn hầm `#14213d`, chữ kem | Vàng mù tạt `#f2b134` | Bãi xe toàn màn hình, không khung |
+| 18 | VT323 (chữ điểm ảnh) | Đen `#0b0a10` | Hồng neon `#ff3d9a` | Đoạn ban đêm nền tím than |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, grandstander, oswald, vt323, be-vietnam-pro.
@@ -173,6 +174,7 @@ node projects/post-11/build.mjs
 | Bảng clapper, cuộn phim, cây kéo | 10 | |
 | Giấy gói quà sọc quét chéo (`wipe`), hộp quà bật nắp (`openLid`), thẻ quà lật thành phiếu | 16 | |
 | Bãi xe sinh bằng code (`build.mjs` → `{{GARAGE}}`), camera viewBox toàn màn hình; cửa cuốn (`shutter`); khung ngắm điện thoại + bản đồ lưu vị trí | 17 | |
+| Máy cầm tay có màn hình CRT: lớp màn hình `show()`, chữ gõ ra `type()` (clip-path + steps), thanh "đang dịch", tắt màn hình kiểu CRT; nhiễu sóng `glitch()` | 18 | Giá trị nhiễu cố định (không random) để các worker render giống nhau |
 | Lịch bloc xé từng tờ (`rip`), cảnh phủ bị xé rơi (`tear`) / treo xuống (`drop`) | 11 | Cảnh sau nằm dưới cảnh trước: `z-index` giảm dần theo thời gian |
 
 ---
@@ -201,6 +203,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **11** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
 | **16** | 20/10: tặng quà hay giao thêm việc | **Quầy gói quà**: thẻ quà "Tặng em ♥" lật thành "Phiếu giao việc", Sáu nhảy ra từ hộp quà, hộp "ĐỒ XÀI CHUNG" gắn thẻ tên một người, cân "mắc tiền" vs "được để ý"; kết bằng hộp quà chưa mở + đơn hàng "1 ly sinh tố bơ · Người làm: Má" | Chuyển cảnh giấy gói quà quét chéo | 68,4s · 40 |
 | **17** | Mẹo nhớ chỗ đậu xe: chụp số tầng/dãy/cột, lưu vị trí trên bản đồ | **Bãi xe tầng hầm B2** nhìn từ trên xuống: camera lùi ra thấy bãi mênh mông, mọi xe đen viền vàng, "bản đồ kho báu" toàn dấu X, Sáu trên biển "khu đậu xe riêng", khung ngắm chụp cột B2·C17, bản đồ lưu vị trí đậu xe, định vị nhảy lung tung trong hầm; kết bằng vé phim tặng kèm "tour khám phá hệ thống tầng hầm" | Chuyển cảnh cửa cuốn; route vẽ bằng stroke-dashoffset | 75,7s · 43 |
+| **18** | Máy phiên dịch "ý thiệt" | **Máy dịch ý thiệt v1.0**: lời người ta nói (bong bóng) → máy nghe (sóng âm) → "đang dịch" → ý thiệt gõ ra trên màn hình; Sáu hiện trên màn hình, nút máy thành nút Follow; tắt máy khi "không dám xài"; ban đêm 23:00 → 02:47; má gọi → máy đứng hình, LỖI MÁ-404, khởi động lại 1/3–3/3, bốc khói "Máy cũng chịu thua!" | Chuyển cảnh nhiễu sóng CRT | 66,3s · 40 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 
@@ -215,4 +218,4 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 
 - Bộ màu: xanh rêu và kem, đen và hồng neon, xanh navy và vàng mù tạt.
 - Concept: bản đồ thành phố có camera, game board / thẻ bài, bảng tin TV, mô phỏng web trình duyệt.
-- SFX còn thiếu trong thư viện: `paper-tear` (post 11 tạm dùng `page-turn`), `camera-shutter`, `glitch`, `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`.
+- SFX còn thiếu trong thư viện: `glitch` (post 18 tạm dùng `snap`), `shutter-door` (post 17 tạm dùng `door-slam`), `paper-tear` (post 11 tạm dùng `page-turn`), `camera-shutter`, `glitch`, `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`.

@@ -66,6 +66,7 @@ export function breakLines(text, maxChars = 26, maxLines = 2) {
 
 // Có được tách cụm (phụ đề) giữa words[i-1] và words[i] không — dùng khi chia câu thành nhiều phụ đề
 export function canBreak(words, i) {
-  return i > 0 && i < words.length && breakCost(words, i) !== Infinity && !PRONOUN_END(words[i - 1]);
+  // "tiếng Anh" là tên ngôn ngữ, không phải đại từ "anh"
+  return i > 0 && i < words.length && breakCost(words, i) !== Infinity && !(PRONOUN_END(words[i - 1]) && bare(words[i - 2] ?? "") !== "tiếng");
 }
 const PRONOUN_END = (w) => PRONOUN.has(bare(w)) && !/[,.!?:;…]$/.test(w);

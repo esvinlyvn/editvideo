@@ -1,0 +1,264 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 2.35,
+   "speaker": "B",
+   "text": "Tao ước gì có người phát minh ra một cái máy phiên dịch."
+  },
+  {
+   "i": 1,
+   "start": 2.641,
+   "end": 4.983,
+   "speaker": "B",
+   "text": "Nhưng không phải dịch tiếng Anh qua tiếng Việt nha!"
+  },
+  {
+   "i": 2,
+   "start": 5.35,
+   "end": 8.416,
+   "speaker": "B",
+   "text": "Mà là dịch những câu người ta nói... ra cái ý thiệt trong đầu!"
+  },
+  {
+   "i": 3,
+   "start": 9.015,
+   "end": 10.035,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 4,
+   "start": 10.297,
+   "end": 11.366,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 5,
+   "start": 11.673,
+   "end": 12.467,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 6,
+   "start": 13.23,
+   "end": 14.742,
+   "speaker": "B",
+   "text": "Ví dụ mày gọi đứa bạn:"
+  },
+  {
+   "i": 7,
+   "start": 15.288,
+   "end": 15.517,
+   "speaker": "B",
+   "text": "“Ê,"
+  },
+  {
+   "i": 8,
+   "start": 15.785,
+   "end": 16.272,
+   "speaker": "B",
+   "text": "tới đâu rồi?”"
+  },
+  {
+   "i": 9,
+   "start": 16.77,
+   "end": 17.171,
+   "speaker": "B",
+   "text": "Nó nói:"
+  },
+  {
+   "i": 10,
+   "start": 17.492,
+   "end": 18.241,
+   "speaker": "B",
+   "text": "“Tao tới liền!”"
+  },
+  {
+   "i": 11,
+   "start": 18.889,
+   "end": 19.978,
+   "speaker": "B",
+   "text": "Máy phiên dịch hiện lên:"
+  },
+  {
+   "i": 12,
+   "start": 20.424,
+   "end": 22.795,
+   "speaker": "B",
+   "text": "“Đối tượng đang đứng trước tủ đồ, chưa lựa được cái áo!”"
+  },
+  {
+   "i": 13,
+   "start": 23.287,
+   "end": 24.287,
+   "speaker": "B",
+   "text": "Hoặc sếp nói:"
+  },
+  {
+   "i": 14,
+   "start": 24.829,
+   "end": 25.923,
+   "speaker": "B",
+   "text": "“Mọi người họp nhanh năm phút nha!”"
+  },
+  {
+   "i": 15,
+   "start": 26.456,
+   "end": 26.875,
+   "speaker": "B",
+   "text": "Máy hiện:"
+  },
+  {
+   "i": 16,
+   "start": 27.283,
+   "end": 29.425,
+   "speaker": "B",
+   "text": "“Đề nghị hủy toàn bộ kế hoạch giờ nghỉ trưa!”"
+  },
+  {
+   "i": 17,
+   "start": 29.928,
+   "end": 30.983,
+   "speaker": "B",
+   "text": "Rồi có đứa nhắn:"
+  },
+  {
+   "i": 18,
+   "start": 31.444,
+   "end": 32.947,
+   "speaker": "B",
+   "text": "“Bữa nào mình đi cà phê nha!”"
+  },
+  {
+   "i": 19,
+   "start": 33.499,
+   "end": 33.822,
+   "speaker": "B",
+   "text": "Máy dịch:"
+  },
+  {
+   "i": 20,
+   "start": 34.456,
+   "end": 37.638,
+   "speaker": "B",
+   "text": "“Lời mời này không đính kèm ngày, giờ và địa điểm cụ thể!”"
+  },
+  {
+   "i": 21,
+   "start": 38.368,
+   "end": 38.699,
+   "speaker": "B",
+   "text": "Mà tao nghĩ,"
+  },
+  {
+   "i": 22,
+   "start": 38.939,
+   "end": 40.343,
+   "speaker": "B",
+   "text": "nếu có thiệt chắc tao"
+  },
+  {
+   "i": 23,
+   "start": 40.67,
+   "end": 41.838,
+   "speaker": "B",
+   "text": "cũng không dám xài."
+  },
+  {
+   "i": 24,
+   "start": 42.354,
+   "end": 43.813,
+   "speaker": "B",
+   "text": "Tại tối nào tao cũng tự nói:"
+  },
+  {
+   "i": 25,
+   "start": 44.136,
+   "end": 45.501,
+   "speaker": "B",
+   "text": "“Coi thêm một video nữa rồi ngủ!”"
+  },
+  {
+   "i": 26,
+   "start": 46.293,
+   "end": 47.522,
+   "speaker": "B",
+   "text": "Máy vừa nghe xong đã hiện:"
+  },
+  {
+   "i": 27,
+   "start": 47.82,
+   "end": 48.762,
+   "speaker": "B",
+   "text": "“Dự kiến thời gian kết thúc:"
+  },
+  {
+   "i": 28,
+   "start": 48.959,
+   "end": 49.499,
+   "speaker": "B",
+   "text": "chưa xác định!”"
+  },
+  {
+   "i": 29,
+   "start": 50.453,
+   "end": 52.736,
+   "speaker": "B",
+   "text": "Nhưng cái câu đáng sợ nhất là lúc má gọi điện:"
+  },
+  {
+   "i": 30,
+   "start": 53.516,
+   "end": 55.297,
+   "speaker": "B",
+   "text": "“Con cứ về đi! Má không có la đâu!”"
+  },
+  {
+   "i": 31,
+   "start": 56.206,
+   "end": 56.672,
+   "speaker": "B",
+   "text": "Máy đứng hình."
+  },
+  {
+   "i": 32,
+   "start": 57.175,
+   "end": 57.721,
+   "speaker": "B",
+   "text": "Báo lỗi."
+  },
+  {
+   "i": 33,
+   "start": 57.97,
+   "end": 59.289,
+   "speaker": "B",
+   "text": "Khởi động lại ba lần."
+  },
+  {
+   "i": 34,
+   "start": 59.623,
+   "end": 60.178,
+   "speaker": "B",
+   "text": "Xong hiện một dòng:"
+  },
+  {
+   "i": 35,
+   "start": 60.757,
+   "end": 61.122,
+   "speaker": "B",
+   "text": "“Xin lỗi!"
+  },
+  {
+   "i": 36,
+   "start": 61.577,
+   "end": 63.362,
+   "speaker": "B",
+   "text": "Tình huống này vượt quá khả năng xử lý của hệ thống!”"
+  }
+ ]
+}
