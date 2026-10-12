@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Quà hay giao việc</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "quầy gói quà" =====
+         2 font: Grandstander (chữ lớn, thẻ quà) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền xanh rêu, chữ kem; 1 màu nhấn: hồng ruy băng
+         Ẩn dụ xuyên suốt: hộp quà + thẻ tên. Chuyển cảnh = tờ giấy gói quà sọc quét chéo qua màn hình
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Grandstander", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #2f4b38;
+        --bg2: #3a5a44;
+        --cream: #fbf3e3;
+        --ink: #213628;
+        --pink: #f7a3c0;
+        --muted: rgba(251, 243, 227, 0.62);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: radial-gradient(circle at 50% 38%, var(--bg2), var(--bg) 70%); }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.12; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .p { color: var(--pink); }
+      .lab { font-family: var(--body); font-weight: 800; font-size: 28px; letter-spacing: .18em; text-transform: uppercase; color: var(--pink); }
+      .tt { top: 220px; font-size: 76px; }
+      .card { position: absolute; background: var(--cream); color: var(--ink); border-radius: 30px; box-shadow: 0 16px 0 rgba(0,0,0,.18); box-sizing: border-box; }
+      .card .lab { color: #c9507a; }
+      .tag { position: absolute; background: var(--cream); color: var(--ink); border-radius: 18px 60px 60px 18px; box-shadow: 0 10px 0 rgba(0,0,0,.18); font-family: var(--disp); font-weight: 800; text-align: center; white-space: nowrap; box-sizing: border-box; }
+      .tag::before { content: ""; position: absolute; right: 26px; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--bg); }
+      .stamp { position: absolute; padding: 8px 24px 12px; border: 8px solid #e0457b; border-radius: 16px; color: #e0457b; font-family: var(--disp); font-weight: 900; white-space: nowrap; background: rgba(251,243,227,.85); }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -8px; right: -8px; top: 50%; height: 9px; margin-top: -4px; border-radius: 5px; background: #e0457b; transform-origin: 0 50%; }
+      .bub { position: absolute; background: var(--cream); color: var(--ink); border-radius: 46px; padding: 30px 44px 34px; font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1.15; text-align: center; box-shadow: 0 12px 0 rgba(0,0,0,.18); }
+      .bub .blk { white-space: nowrap; }
+      .bub::after { content: ""; position: absolute; width: 0; height: 0; border: 26px solid transparent; }
+      .bub.dn::after { left: 50%; bottom: -46px; margin-left: -26px; border-top-color: var(--cream); }
+
+      /* Chuyển cảnh: giấy gói quà */
+      #wrap { position: absolute; left: -400px; top: -300px; width: 1900px; height: 2600px; z-index: 250;
+        background: repeating-linear-gradient(90deg, var(--pink) 0 70px, var(--cream) 70px 140px); }
+      #wrap::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 90px; margin-left: -45px; background: #e0457b; box-shadow: 0 0 0 10px rgba(255,255,255,.4); }
+
+      /* A · 20/10 */
+      #a-str { position: absolute; left: 538px; top: 0; width: 4px; height: 420px; background: var(--cream); transform-origin: 50% 0; }
+      #a-tag { left: 210px; top: 400px; width: 660px; height: 380px; padding-top: 40px; transform-origin: 50% 0; border-radius: 40px; }
+      #a-tag::before { right: auto; left: 50%; top: 30px; margin: 0 0 0 -16px; width: 32px; height: 32px; }
+      #a-tag b { display: block; font-size: 210px; line-height: 1; margin-top: 30px; color: #e0457b; }
+      #a-tag span { display: block; font-family: var(--body); font-weight: 700; font-size: 36px; margin-top: 6px; }
+      .gb { position: absolute; top: 960px; width: 250px; text-align: center; }
+      .gb svg { display: block; margin: 0 auto; }
+      .gb .tag { position: relative; display: inline-block; margin-top: 18px; font-size: 42px; padding: 10px 56px 14px 26px; }
+      #gb1 { left: 108px; } #gb2 { left: 415px; } #gb3 { left: 722px; }
+      #a-q { position: absolute; left: 470px; top: 760px; width: 140px; height: 140px; border-radius: 50%; background: var(--pink); color: var(--ink); font-family: var(--disp); font-weight: 900; font-size: 110px; line-height: 140px; text-align: center; }
+
+      /* B · máy hút bụi */
+      #b-box { position: absolute; left: 470px; top: 900px; }
+      #b-lid { position: absolute; left: 460px; top: 852px; }
+      #b-vac { position: absolute; left: 190px; top: 700px; }
+      #b-tag { left: 700px; top: 1150px; font-size: 40px; padding: 10px 60px 14px 26px; transform: rotate(-8deg); }
+      #b-bub { left: 108px; right: 108px; top: 230px; }
+      #b-ua { top: 270px; font-size: 150px; }
+      #job { left: 108px; right: 108px; top: 220px; padding: 38px 48px 34px; }
+      #job .k { display: flex; justify-content: space-between; font-size: 44px; padding: 12px 0; border-bottom: 3px dashed rgba(33,54,40,.2); }
+      #job .k span { font-weight: 600; opacity: .65; } #job .k b { font-weight: 800; }
+      #job-st { right: 30px; top: -44px; font-size: 40px; transform: rotate(8deg); }
+
+      /* C · Sáu */
+      #c-name { top: 220px; font-size: 96px; }
+      .sau { position: absolute; left: 340px; top: 400px; width: 400px; height: 400px; }
+      #c-box { position: absolute; left: 290px; top: 880px; }
+      #c-lid { position: absolute; left: 280px; top: 842px; }
+      #follow { position: absolute; left: 50%; top: 1290px; width: 420px; margin-left: -210px; height: 110px; border-radius: 55px; background: var(--pink); color: var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 52px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* D · đồ gia dụng không sai */
+      #d-h { top: 220px; font-size: 72px; }
+      #appl { position: absolute; left: 108px; right: 108px; top: 520px; display: flex; justify-content: space-around; align-items: flex-end; height: 380px; }
+      #d-ok { left: 50%; top: 940px; margin-left: -230px; width: 460px; height: 110px; border-radius: 55px; background: var(--cream); color: var(--ink); font-family: var(--disp); font-weight: 900; font-size: 50px; display: flex; align-items: center; justify-content: center; gap: 14px; position: absolute; }
+      #note { left: 160px; right: 160px; top: 470px; padding: 36px 44px 40px; }
+      #note .ln { font-family: var(--disp); font-weight: 800; font-size: 48px; padding: 16px 0; border-bottom: 3px solid rgba(33,54,40,.12); display: flex; align-items: center; gap: 18px; }
+      #note .ln.hi { color: #c9507a; }
+      #d-gift { position: absolute; left: 400px; top: 1030px; }
+      #yes { left: 560px; top: 1080px; font-size: 54px; transform: rotate(-10deg); }
+      .ht { position: absolute; }
+
+      /* E · tự mua nồi, cây lau nhà */
+      #e-h { top: 220px; font-size: 76px; }
+      #e-box { position: absolute; left: 290px; top: 740px; }
+      #e-pot { position: absolute; left: 330px; top: 560px; }
+      #e-mop { position: absolute; left: 600px; top: 440px; transform: rotate(14deg); }
+      #meter { left: 108px; right: 108px; top: 1150px; position: absolute; }
+      #meter .k { display: flex; justify-content: space-between; font-family: var(--disp); font-weight: 800; font-size: 38px; margin-bottom: 12px; }
+      #meter .trk { height: 54px; border-radius: 27px; background: rgba(251,243,227,.18); overflow: hidden; border: 4px solid var(--cream); }
+      #meter .fl { display: block; height: 100%; width: 100%; background: var(--pink); transform-origin: 0 50%; }
+
+      /* F · đồ cả nhà, ghi tên 1 người */
+      #f-a, #f-b { top: 220px; font-size: 72px; }
+      #fam { position: absolute; left: 140px; top: 560px; }
+      #f-tag { left: 700px; top: 980px; font-size: 34px; padding: 8px 52px 12px 22px; transform-origin: 0% 50%; }
+      #f-lab { position: absolute; left: 140px; width: 800px; top: 1010px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 64px; color: var(--ink); white-space: nowrap; }
+
+      /* G · đổi cách nghĩ */
+      #g-h { top: 260px; font-size: 92px; }
+      #g-arrow { position: absolute; left: 420px; top: 520px; }
+      #wrongq { left: 108px; right: 108px; top: 940px; padding: 40px 40px 46px; text-align: center; }
+      #wrongq .q { font-family: var(--disp); font-weight: 800; font-size: 64px; margin-top: 14px; white-space: nowrap; }
+      #wq-x { left: 50%; margin-left: -150px; top: -70px; font-size: 38px; transform: rotate(10deg); }
+
+      /* H · câu hỏi đúng */
+      #h-h { top: 220px; font-size: 92px; }
+      .qc { left: 108px; right: 108px; padding: 34px 40px 40px; display: flex; align-items: center; gap: 28px; }
+      .qc .q { font-family: var(--disp); font-weight: 800; font-size: 54px; line-height: 1.16; }
+      .qc .q .blk { white-space: nowrap; }
+      #q1 { top: 460px; } #q2 { top: 820px; }
+
+      /* I · 3 kiểu quà */
+      .opt { left: 108px; right: 108px; height: 300px; display: flex; align-items: center; gap: 30px; padding: 0 40px; }
+      .opt .k { font-family: var(--disp); font-weight: 800; font-size: 52px; line-height: 1.15; }
+      .opt .k .blk { white-space: nowrap; }
+      .opt .s { font-family: var(--body); font-weight: 600; font-size: 30px; opacity: .7; margin-top: 6px; }
+      #o1 { top: 230px; } #o2 { top: 570px; } #o3 { top: 910px; }
+      .tk { width: 230px; height: 140px; border-radius: 16px; background: var(--pink); position: relative; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 40px; color: var(--ink); flex: none;
+        -webkit-mask: radial-gradient(circle at 0 50%, transparent 18px, #000 19px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 18px, #000 19px) right / 51% 100% no-repeat; }
+
+      /* J · cân */
+      #j-a { top: 220px; font-size: 72px; }
+      #j-b { top: 220px; font-size: 76px; }
+      #scale { position: absolute; left: 140px; top: 560px; }
+
+      /* K · máy xay cho má */
+      #k-h { top: 220px; font-size: 76px; }
+      #k-scene { position: absolute; left: 90px; top: 520px; }
+      #k-tag { left: 520px; top: 1080px; font-size: 38px; padding: 10px 56px 14px 24px; transform: rotate(6deg); }
+      #k-bub { left: 108px; right: 108px; top: 300px; }
+      #sweat { position: absolute; left: 330px; top: 600px; }
+
+      /* L · đơn hàng */
+      #phone { position: absolute; left: 270px; top: 300px; width: 540px; height: 1000px; border-radius: 70px; background: #17241b; border: 12px solid #101a13; box-sizing: border-box; overflow: hidden; }
+      #phone .scr { position: absolute; inset: 20px; border-radius: 52px; background: var(--cream); color: var(--ink); overflow: hidden; }
+      #phone .bar { height: 110px; background: var(--pink); display: flex; align-items: flex-end; padding: 0 36px 18px; font-family: var(--disp); font-weight: 900; font-size: 40px; }
+      #order { margin: 40px 30px 0; padding: 30px; border-radius: 30px; background: #fff; box-shadow: 0 8px 0 rgba(33,54,40,.1); }
+      #order .k { display: flex; justify-content: space-between; font-size: 30px; padding: 12px 0; border-bottom: 3px dashed rgba(33,54,40,.15); }
+      #order .k span { opacity: .6; font-weight: 600; } #order .k b { font-weight: 800; }
+      #order .t { font-family: var(--disp); font-weight: 900; font-size: 46px; margin: 10px 0 14px; }
+      #l-st { left: 380px; top: 960px; font-size: 52px; transform: rotate(-10deg); }
+      #l-box { position: absolute; left: 310px; top: 520px; }
+      #l-tag { left: 620px; top: 900px; font-size: 44px; padding: 8px 50px 12px 22px; transform: rotate(-6deg); }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; z-index: 300; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(15, 28, 19, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post16" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <!-- hộp quà: thân + nắp -->
+          <symbol id="box" viewBox="0 0 200 150"><rect x="4" y="4" width="192" height="142" rx="14" fill="#f7a3c0" stroke="#213628" stroke-width="6"/><rect x="84" y="4" width="32" height="142" fill="#fbf3e3" stroke="#213628" stroke-width="5"/><path d="M4 40h192" stroke="#213628" stroke-width="4" opacity=".25"/></symbol>
+          <symbol id="lid" viewBox="0 0 220 110"><path d="M110 58c-30-40-74-46-70-14 2 18 40 18 70 14zM110 58c30-40 74-46 70-14-2 18-40 18-70 14z" fill="#e0457b" stroke="#213628" stroke-width="5" stroke-linejoin="round"/><rect x="4" y="56" width="212" height="50" rx="12" fill="#f7a3c0" stroke="#213628" stroke-width="6"/><rect x="92" y="56" width="36" height="50" fill="#fbf3e3" stroke="#213628" stroke-width="5"/></symbol>
+          <symbol id="vac" viewBox="0 0 120 320"><rect x="40" y="4" width="40" height="22" rx="11" fill="#fbf3e3" stroke="#213628" stroke-width="5"/><path d="M60 26v190" stroke="#213628" stroke-width="10" stroke-linecap="round"/><path d="M60 26v190" stroke="#c9d6cc" stroke-width="4" stroke-linecap="round"/><rect x="34" y="150" width="52" height="96" rx="18" fill="#e0457b" stroke="#213628" stroke-width="5"/><circle cx="60" cy="180" r="10" fill="#fbf3e3" stroke="#213628" stroke-width="4"/><path d="M60 246v40" stroke="#213628" stroke-width="10"/><rect x="6" y="284" width="108" height="28" rx="12" fill="#fbf3e3" stroke="#213628" stroke-width="5"/></symbol>
+          <symbol id="pot" viewBox="0 0 140 100"><path d="M20 34h100v46a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z" fill="#c9d6cc" stroke="#213628" stroke-width="5"/><path d="M4 42h16M120 42h16" stroke="#213628" stroke-width="8" stroke-linecap="round"/><path d="M14 30h112" stroke="#213628" stroke-width="6" stroke-linecap="round"/><path d="M58 22c0-10 24-10 24 0" fill="none" stroke="#213628" stroke-width="6"/></symbol>
+          <symbol id="mop" viewBox="0 0 80 330"><path d="M40 6v240" stroke="#213628" stroke-width="10" stroke-linecap="round"/><path d="M40 6v240" stroke="#e0b88a" stroke-width="5" stroke-linecap="round"/><rect x="14" y="240" width="52" height="22" rx="6" fill="#213628"/><path d="M18 262l-10 60M28 262l-4 62M40 262v64M52 262l4 62M62 262l10 60" stroke="#fbf3e3" stroke-width="9" stroke-linecap="round"/></symbol>
+          <symbol id="blend" viewBox="0 0 120 200"><path d="M24 20h72l-8 110H32z" fill="rgba(255,255,255,.7)" stroke="#213628" stroke-width="5" stroke-linejoin="round"/><path d="M30 70h60l-4 60H34z" fill="#9cc77a"/><rect x="20" y="8" width="80" height="16" rx="6" fill="#213628"/><path d="M96 40h12v50H92" fill="none" stroke="#213628" stroke-width="6"/><path d="M22 130h76l8 60H14z" fill="#e0457b" stroke="#213628" stroke-width="5" stroke-linejoin="round"/><circle cx="60" cy="160" r="10" fill="#fbf3e3" stroke="#213628" stroke-width="4"/></symbol>
+          <symbol id="heart" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#e0457b"/></symbol>
+          <symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#9cc77a"/><path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#213628" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="flower" viewBox="0 0 120 150"><path d="M60 70l-24 70h48z" fill="#9cc77a" stroke="#213628" stroke-width="4" stroke-linejoin="round"/><path d="M40 120h40l-4 20H44z" fill="#fbf3e3" stroke="#213628" stroke-width="4"/><g stroke="#213628" stroke-width="4"><circle cx="40" cy="50" r="20" fill="#f7a3c0"/><circle cx="80" cy="46" r="20" fill="#e0457b"/><circle cx="60" cy="24" r="20" fill="#f7a3c0"/></g><g fill="#213628"><circle cx="40" cy="50" r="5"/><circle cx="80" cy="46" r="5"/><circle cx="60" cy="24" r="5"/></g></symbol>
+          <symbol id="sofa" viewBox="0 0 160 110"><path d="M20 40a14 14 0 0 1 14-14h92a14 14 0 0 1 14 14v26H20z" fill="#f7a3c0" stroke="#213628" stroke-width="5"/><rect x="6" y="56" width="148" height="34" rx="14" fill="#e0457b" stroke="#213628" stroke-width="5"/><path d="M20 90v14M140 90v14" stroke="#213628" stroke-width="7" stroke-linecap="round"/><text x="104" y="22" font-family="Grandstander" font-weight="900" font-size="26" fill="#213628">z z</text></symbol>
+          <symbol id="p-ma" viewBox="-70 -80 140 200"><path d="M-62 120c0-62 26-84 62-84s62 22 62 84z" fill="#e0457b"/><circle cy="-8" r="38" fill="#f0c49e"/><circle cy="-52" r="16" fill="#c9c1b8"/><path d="M-40-4c-6-38 18-50 40-50s46 12 40 50c-4-22-20-30-40-30s-36 8-40 30z" fill="#c9c1b8"/><circle cx="-13" cy="-4" r="3.5" fill="#213628"/><circle cx="13" cy="-4" r="3.5" fill="#213628"/><path d="M-10 16h20" fill="none" stroke="#213628" stroke-width="3" stroke-linecap="round"/></symbol>
+          <symbol id="p-me" viewBox="-70 -80 140 200"><path d="M-62 120c0-62 26-84 62-84s62 22 62 84z" fill="#fbf3e3"/><circle cy="-8" r="38" fill="#f0c49e"/><path d="M-40-10c-4-40 20-52 42-50 22 0 42 14 38 46-8-14-16-18-26-18 0 6-6 10-12 10 2-4 2-8 0-10-12 4-28 6-42 22z" fill="#1a1210"/><path d="M-19-4q6-6 12 0M7-4q6-6 12 0" fill="none" stroke="#213628" stroke-width="3.5" stroke-linecap="round"/><path d="M-12 12c6 10 18 10 24 0z" fill="#7a3b2a"/></symbol>
+        </defs>
+      </svg>
+
+      <!-- A · 20/10, quà cho má, vợ, người yêu (0–7.3) -->
+      <div class="clip scene" id="sa" data-start="0" data-duration="7.3" data-track-index="1"><div class="in">
+        <div id="a-str"></div>
+        <div class="tag" id="a-tag"><b>20.10</b><span>Ngày Phụ nữ Việt Nam</span></div>
+        <div class="gb" id="gb1"><svg width="220" height="220" viewBox="0 0 220 220"><use href="#lid" x="0" y="0" width="220" height="110"/><use href="#box" x="10" y="70" width="200" height="150"/></svg><div class="tag">Má</div></div>
+        <div class="gb" id="gb2"><svg width="220" height="220" viewBox="0 0 220 220"><use href="#lid" x="0" y="0" width="220" height="110"/><use href="#box" x="10" y="70" width="200" height="150"/></svg><div class="tag">Vợ</div></div>
+        <div class="gb" id="gb3"><svg width="220" height="220" viewBox="0 0 220 220"><use href="#lid" x="0" y="0" width="220" height="110"/><use href="#box" x="10" y="70" width="200" height="150"/></svg><div class="tag">Người yêu</div></div>
+        <div id="a-q">?</div>
+      </div></div>
+
+      <!-- B · tặng máy hút bụi → phiếu giao việc (7.3–15.5) -->
+      <div class="clip scene" id="sb" data-start="7.3" data-duration="8.2" data-track-index="1"><div class="in">
+        <svg id="b-box" width="480" height="360"><use href="#box" width="480" height="360"/></svg>
+        <svg id="b-lid" width="500" height="250"><use href="#lid" width="500" height="250"/></svg>
+        <svg id="b-vac" width="210" height="560"><use href="#vac" width="210" height="560"/></svg>
+        <div class="tag" id="b-tag">Tặng em ♥</div>
+        <div class="bub dn" id="b-bub"><span class="blk">“Quà cho em nè!</span><span class="blk">Từ nay hút bụi</span><span class="blk">khỏe hơn rồi!”</span></div>
+        <div class="safe h c p" id="b-ua">Ủa?</div>
+        <div class="card" id="job">
+          <div class="lab">Phiếu giao việc</div>
+          <div class="k"><span>Việc</span><b>Hút bụi</b></div>
+          <div class="k"><span>Người làm</span><b>Em</b></div>
+          <div class="k" style="border-bottom:0"><span>Hạn chót</span><b>Mỗi ngày</b></div>
+          <div class="stamp" id="job-st">ĐÃ GIAO</div>
+        </div>
+      </div></div>
+
+      <!-- C · Sáu từ hộp quà nhảy ra (15.5–19.6) -->
+      <div class="clip scene" id="sc" data-start="15.5" data-duration="4.1" data-track-index="1"><div class="in">
+        <div class="safe h c" id="c-name">Sáu Suy Nghĩ</div>
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <svg id="c-box" width="500" height="375"><use href="#box" width="500" height="375"/></svg>
+        <svg id="c-lid" width="520" height="260"><use href="#lid" width="520" height="260"/></svg>
+        <div id="follow"><span id="fw1">+ Follow</span><span id="fw2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- D · đồ gia dụng hổng sai, nếu người ta muốn thì quá đã (19.6–25.5) -->
+      <div class="clip scene" id="sd" data-start="19.6" data-duration="5.9" data-track-index="1"><div class="in">
+        <div class="safe h c" id="d-h"><span class="blk">Đồ gia dụng</span><span class="blk p">hổng có sai nha</span></div>
+        <div id="appl">
+          <svg width="130" height="347" id="ap1"><use href="#vac" width="130" height="347"/></svg>
+          <svg width="230" height="164" id="ap2"><use href="#pot" width="230" height="164"/></svg>
+          <svg width="170" height="283" id="ap3"><use href="#blend" width="170" height="283"/></svg>
+        </div>
+        <div id="d-ok"><svg width="56" height="56"><use href="#check"/></svg>Hổng sai</div>
+        <div class="card" id="note">
+          <div class="lab">Ghi chú: muốn có</div>
+          <div class="ln">• Đi biển với bạn</div>
+          <div class="ln hi" id="ln2">• Máy hút bụi mới <svg width="50" height="46"><use href="#heart"/></svg></div>
+          <div class="ln" style="border-bottom:0">• Ngủ nướng</div>
+        </div>
+        <svg id="d-gift" width="280" height="280" viewBox="0 0 220 220"><use href="#lid" x="0" y="0" width="220" height="110"/><use href="#box" x="10" y="70" width="200" height="150"/></svg>
+        <div class="stamp" id="yes">ĐÚNG Ý!</div>
+        <svg class="ht" id="ht1" width="70" height="64" style="left:330px;top:1000px"><use href="#heart"/></svg>
+        <svg class="ht" id="ht2" width="54" height="50" style="left:700px;top:960px"><use href="#heart"/></svg>
+        <svg class="ht" id="ht3" width="60" height="55" style="left:250px;top:1220px"><use href="#heart"/></svg>
+      </div></div>
+
+      <!-- E · chưa hỏi ý, tự mua nồi + cây lau nhà, tưởng người ta xúc động (25.5–31.0) -->
+      <div class="clip scene" id="se" data-start="25.5" data-duration="5.5" data-track-index="1"><div class="in">
+        <div class="safe h c" id="e-h"><span class="blk">Chưa hỏi ý</span><span class="blk p">mà tự mua…</span></div>
+        <svg id="e-mop" width="110" height="454"><use href="#mop" width="110" height="454"/></svg>
+        <svg id="e-pot" width="250" height="179"><use href="#pot" width="250" height="179"/></svg>
+        <svg id="e-box" width="500" height="375"><use href="#box" width="500" height="375"/></svg>
+        <div id="meter"><div class="k"><span>Mức xúc động dự kiến</span><span class="p" id="pct">0%</span></div><div class="trk"><span class="fl" id="mfl"></span></div></div>
+      </div></div>
+
+      <!-- F · đồ cho cả nhà, ghi tên một người (31.0–35.8) -->
+      <div class="clip scene" id="sf" data-start="31.0" data-duration="4.8" data-track-index="1"><div class="in">
+        <div class="safe h c" id="f-a"><span class="blk">Mua đồ</span><span class="blk p">cho cả nhà…</span></div>
+        <div class="safe h c" id="f-b"><span class="blk">…mà ghi tên</span><span class="blk p">một người!</span></div>
+        <svg id="fam" width="800" height="600" viewBox="0 0 800 600">
+          <use href="#vac" x="40" y="10" width="110" height="293"/>
+          <use href="#mop" x="610" y="0" width="80" height="330"/>
+          <use href="#pot" x="170" y="150" width="200" height="143"/>
+          <use href="#blend" x="430" y="80" width="140" height="233"/>
+          <rect x="10" y="260" width="780" height="330" rx="26" fill="#f7a3c0" stroke="#213628" stroke-width="8"/>
+          <rect x="360" y="260" width="80" height="330" fill="#fbf3e3" stroke="#213628" stroke-width="6"/>
+        </svg>
+        <div id="f-lab">ĐỒ XÀI CHUNG</div>
+        <div class="tag" id="f-tag">Tặng: Em ♥</div>
+      </div></div>
+
+      <!-- G · đổi cách nghĩ, đừng hỏi "mua gì cho có quà" (35.8–40.5) -->
+      <div class="clip scene" id="sg" data-start="35.8" data-duration="4.7" data-track-index="1"><div class="in">
+        <div class="safe h c" id="g-h"><span class="blk">Đổi cách nghĩ</span><span class="blk p">chút xíu</span></div>
+        <svg id="g-arrow" width="240" height="240" viewBox="0 0 24 24" fill="none" stroke="#f7a3c0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>
+        <div class="card" id="wrongq"><div class="lab">Đừng hỏi</div><div class="q"><span class="strike" id="wq-s">“Mua gì cho có quà ta?”<i></i></span></div><div class="stamp" id="wq-x">✗ SAI HƯỚNG</div></div>
+      </div></div>
+
+      <!-- H · hỏi đúng (40.5–44.7) -->
+      <div class="clip scene" id="sh" data-start="40.5" data-duration="4.2" data-track-index="1"><div class="in">
+        <div class="safe h c p" id="h-h">Hỏi:</div>
+        <div class="card qc" id="q1"><svg width="110" height="100" style="flex:none"><use href="#heart"/></svg><div class="q"><span class="blk">“Dạo này người đó</span><span class="blk">thích cái gì?”</span></div></div>
+        <div class="card qc" id="q2"><svg width="110" height="110" style="flex:none" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="#f7a3c0" stroke="#213628" stroke-width="1.6" stroke-linejoin="round"/></svg><div class="q"><span class="blk">“Muốn làm chuyện gì</span><span class="blk">mà chưa có dịp?”</span></div></div>
+      </div></div>
+
+      <!-- I · 3 kiểu quà (44.7–52.2) -->
+      <div class="clip scene" id="si" data-start="44.7" data-duration="7.5" data-track-index="1"><div class="in">
+        <div class="card opt" id="o1"><svg width="170" height="212" style="flex:none"><use href="#flower" width="170" height="212"/></svg><div><div class="k"><span class="blk">Một món nhỏ</span><span class="blk">họ thích</span></div></div></div>
+        <div class="card opt" id="o2"><div class="tk">VÉ ĐI CHƠI</div><div><div class="k"><span class="blk">Một buổi</span><span class="blk">đi chơi</span></div></div></div>
+        <div class="card opt" id="o3"><svg width="210" height="144" style="flex:none"><use href="#sofa" width="210" height="144"/></svg><div><div class="k"><span class="blk">Một ngày</span><span class="blk">nghỉ ngơi</span></div><div class="s">Khỏi lo thêm việc gì hết</div></div></div>
+      </div></div>
+
+      <!-- J · không cần mắc tiền, cần được để ý (52.2–56.3) -->
+      <div class="clip scene" id="sj" data-start="52.2" data-duration="4.1" data-track-index="1"><div class="in">
+        <div class="safe h c" id="j-a"><span class="blk">Quà đâu nhất thiết</span><span class="blk p">phải mắc tiền</span></div>
+        <div class="safe h c" id="j-b"><span class="blk">Quan trọng là</span><span class="blk p">được để ý</span></div>
+        <svg id="scale" width="800" height="700" viewBox="0 0 800 700">
+          <path d="M400 120v460M300 600h200" stroke="#fbf3e3" stroke-width="16" stroke-linecap="round"/>
+          <circle cx="400" cy="110" r="22" fill="#f7a3c0" stroke="#fbf3e3" stroke-width="8"/>
+          <g id="beam">
+            <path d="M120 120h560" stroke="#fbf3e3" stroke-width="14" stroke-linecap="round"/>
+            <g id="panL"><path d="M120 120l-70 170M120 120l70 170" stroke="#fbf3e3" stroke-width="5"/><path d="M30 290h180a90 40 0 0 1-180 0z" fill="#fbf3e3"/>
+              <g transform="translate(60 196)"><rect width="120" height="80" rx="12" fill="#f7a3c0" stroke="#213628" stroke-width="5"/><text x="60" y="54" text-anchor="middle" font-family="Grandstander" font-weight="900" font-size="34" fill="#213628">$$$</text></g></g>
+            <g id="panR"><path d="M680 120l-70 170M680 120l70 170" stroke="#fbf3e3" stroke-width="5"/><path d="M590 290h180a90 40 0 0 1-180 0z" fill="#fbf3e3"/>
+              <g transform="translate(620 170)"><use href="#heart" width="120" height="110"/></g></g>
+          </g>
+          <text x="120" y="420" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="36" fill="#fbf3e3">Mắc tiền</text>
+          <text x="680" y="420" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="36" fill="#f7a3c0">Được để ý</text>
+        </svg>
+      </div></div>
+
+      <!-- K · tặng má máy xay sinh tố, rồi nhờ má xay (56.3–62.0) -->
+      <div class="clip scene" id="sk" data-start="56.3" data-duration="5.7" data-track-index="1"><div class="in">
+        <div class="safe h c" id="k-h"><span class="blk">Tặng má</span><span class="blk p">máy xay sinh tố</span></div>
+        <svg id="k-scene" width="900" height="760" viewBox="0 0 900 760">
+          <use href="#p-ma" x="20" y="140" width="320" height="457"/>
+          <g id="k-me"><use href="#p-me" x="600" y="160" width="300" height="428"/></g>
+          <g id="k-gift"><use href="#blend" x="350" y="130" width="200" height="333"/><use href="#box" x="300" y="380" width="300" height="225"/></g>
+        </svg>
+        <div class="tag" id="k-tag">Tặng Má ♥</div>
+        <div class="bub dn" id="k-bub"><span class="blk">“Má ơi, xay cho con</span><span class="blk">ly bơ nha!”</span></div>
+        <svg id="sweat" width="80" height="100" viewBox="0 0 24 30"><path d="M12 2c6 9 8 14 8 18a8 8 0 0 1-16 0c0-4 2-9 8-18z" fill="#9fd3f0" stroke="#213628" stroke-width="1.6"/></svg>
+      </div></div>
+
+      <!-- L · quà chưa mở, đơn hàng đã lên (62.0–hết) -->
+      <div class="clip scene" id="sl" data-start="62.0" data-duration="{{REST_FROM_62.0}}" data-track-index="1"><div class="in">
+        <div id="phone"><div class="scr"><div class="bar">Đơn hàng mới</div>
+          <div id="order"><div class="lab" style="color:#c9507a">Đơn #2010</div><div class="t">1 ly sinh tố bơ</div>
+            <div class="k"><span>Khách</span><b>Con</b></div><div class="k"><span>Người làm</span><b>Má</b></div><div class="k" style="border-bottom:0"><span>Máy xay</span><b>Quà 20/10</b></div></div>
+        </div></div>
+        <div class="stamp" id="l-st">ĐÃ LÊN ĐƠN</div>
+        <svg id="l-box" width="460" height="460" viewBox="0 0 220 220"><use href="#lid" x="0" y="0" width="220" height="110"/><use href="#box" x="10" y="70" width="200" height="150"/></svg>
+        <div class="tag" id="l-tag">Chưa mở</div>
+      </div></div>
+
+      <div id="wrap"></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.6) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const strike = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const hop = (sel, at, h = 24) => tl.fromTo(sel, { y: 0 }, { y: -h, duration: 0.14, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, at);
+      const shake = (sel, at, n = 7, a = 4) => tl.fromTo(sel, { rotation: -a }, { rotation: a, duration: 0.06, repeat: n, yoyo: true, ease: "none", immediateRender: false }, at);
+      // Chuyển cảnh chữ ký: tờ giấy gói quà sọc quét chéo (che kín ở giữa → cảnh mới lộ ra)
+      const wipe = (mid) => {
+        tl.fromTo("#wrap", { x: -2200 }, { x: 0, duration: 0.28, ease: "power2.in", immediateRender: false }, mid - 0.28);
+        tl.to("#wrap", { x: 2300, duration: 0.32, ease: "power2.out" }, mid);
+      };
+      // Mở hộp: nắp bật lên rồi bay
+      const openLid = (sel, at) => tl.to(sel, { y: -260, x: 120, rotation: 24, opacity: 0, duration: 0.5, ease: "power2.out" }, at);
+      gsap.set("#wrap", { rotation: -14, x: -2200 });
+      gsap.set(["#fw2", "#sau2"], { opacity: 0 });
+      [7.3, 15.5, 19.6, 25.5, 31.0, 35.8, 40.5, 44.7, 52.2, 56.3, 62.0].forEach(wipe);
+
+      // ===== A · 20/10 =====
+      tl.fromTo("#a-str", { scaleY: 0 }, { scaleY: 1, duration: 0.3 }, 0);
+      tl.fromTo("#a-tag", { opacity: 0, y: -500, rotation: -18 }, { opacity: 1, y: 0, rotation: 0, duration: 0.9, ease: "elastic.out(1, 0.5)" }, 0.15);
+      tl.to(["#a-tag", "#a-str"], { y: -200, scale: 0.62, duration: 0.5, ease: "power2.inOut" }, 2.5);
+      ["#gb1", "#gb2", "#gb3"].forEach((s, i) => tl.fromTo(s, { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, [3.6, 4.35, 4.95][i]));
+      pop("#a-q", 5.85, 0.3);
+      ["#gb1", "#gb2", "#gb3"].forEach((s, i) => hop(s, 6.1 + i * 0.12, 30));
+
+      // ===== B · máy hút bụi → phiếu giao việc =====
+      gsap.set(["#b-vac", "#b-bub", "#b-ua", "#job"], { opacity: 0 });
+      tl.fromTo(["#b-box", "#b-lid", "#b-tag"], { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 7.4);
+      openLid("#b-lid", 8.2);
+      tl.fromTo("#b-vac", { opacity: 0, x: 260, y: 120, rotation: 20 }, { opacity: 1, x: 0, y: 0, rotation: -6, duration: 0.6, ease: "back.out(1.5)" }, 8.3);
+      tl.fromTo("#b-bub", { opacity: 0, scale: 0.6, transformOrigin: "50% 100%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 9.9);
+      out("#b-bub", 12.75, 0.15);
+      pop("#b-ua", 12.85, 0.4);
+      out("#b-ua", 13.3, 0.12);
+      tl.to("#b-tag", { scaleX: 0, duration: 0.15, ease: "power2.in" }, 13.35);
+      tl.fromTo("#job", { opacity: 0, rotationY: -90 }, { opacity: 1, rotationY: 0, duration: 0.4, ease: "back.out(1.6)" }, 13.45);
+      stampIn("#job-st", 14.45, 10);
+      shake("#b-vac", 14.5, 5, 3);
+
+      // ===== C · Sáu =====
+      gsap.set(["#sau1", "#c-name", "#follow"], { opacity: 0 });
+      tl.fromTo(["#c-box", "#c-lid"], { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 15.5);
+      openLid("#c-lid", 15.75);
+      tl.fromTo("#sau1", { opacity: 0, y: 380, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, 15.8);
+      up("#c-name", 16.6, 0.4, 24);
+      tl.to("#sau1", { opacity: 0, duration: 0.06 }, 17.3); tl.to("#sau2", { opacity: 1, duration: 0.06 }, 17.3);
+      tl.fromTo("#sau2", { y: 0 }, { y: -10, duration: 0.1, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 17.35);
+      tl.to("#sau2", { opacity: 0, duration: 0.06 }, 18.0); tl.to("#sau1", { opacity: 1, duration: 0.06 }, 18.0);
+      pop("#follow", 17.85, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 18.5);
+      swapTxt("#fw1", "#fw2", 18.6); tl.to("#follow", { backgroundColor: "#fbf3e3", duration: 0.2 }, 18.6);
+
+      // ===== D · đồ gia dụng hổng sai =====
+      gsap.set(["#d-h", "#note", "#d-gift", "#yes", "#ht1", "#ht2", "#ht3", "#d-ok"], { opacity: 0 });
+      up("#d-h", 19.85, 0.4, 24);
+      ["#ap1", "#ap2", "#ap3"].forEach((s, i) => tl.fromTo(s, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 20.2 + i * 0.25));
+      pop("#d-ok", 21.3, 0.5);
+      out(["#appl", "#d-ok"], 22.25, 0.2);
+      up("#note", 22.4, 0.45, 40);
+      tl.fromTo("#ln2", { backgroundColor: "rgba(247,163,192,0)" }, { backgroundColor: "rgba(247,163,192,.45)", duration: 0.3 }, 23.2);
+      pop("#d-gift", 24.2, 0.4);
+      stampIn("#yes", 24.5, -10);
+      ["#ht1", "#ht2", "#ht3"].forEach((s, i) => tl.fromTo(s, { opacity: 0, y: 40, scale: 0.4 }, { opacity: 1, y: -60, scale: 1, duration: 0.6, ease: "power2.out" }, 24.4 + i * 0.12));
+
+      // ===== E · tự mua nồi, cây lau nhà =====
+      gsap.set(["#e-pot", "#e-mop", "#meter"], { opacity: 0 });
+      up("#e-h", 25.75, 0.4, 24);
+      up("#e-box", 26.0, 0.4, 60);
+      tl.fromTo("#e-pot", { opacity: 0, y: -600 }, { opacity: 1, y: 0, duration: 0.4, ease: "bounce.out" }, 27.75);
+      tl.fromTo("#e-mop", { opacity: 0, y: -700 }, { opacity: 1, y: 0, duration: 0.45, ease: "bounce.out" }, 28.55);
+      up("#meter", 29.45, 0.3, 20);
+      tl.fromTo("#mfl", { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: "power2.in" }, 29.7);
+      (() => { const o = { v: 0 }; tl.to(o, { v: 100, duration: 1.0, ease: "power2.in", onUpdate: () => (document.querySelector("#pct").textContent = Math.round(o.v) + "%") }, 29.7); })();
+      shake("#meter", 30.7, 5, 1);
+
+      // ===== F · đồ cả nhà, ghi tên một người =====
+      gsap.set(["#f-a", "#f-b", "#f-tag"], { opacity: 0 });
+      up("#f-a", 31.2, 0.4, 24);
+      tl.fromTo(["#fam", "#f-lab"], { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 31.3);
+      tl.fromTo("#f-lab", { scale: 0.7 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, 32.3);
+      out("#f-a", 33.5, 0.18); up("#f-b", 33.6, 0.4, 24);
+      tl.fromTo("#f-tag", { opacity: 0, rotation: -60 }, { opacity: 1, rotation: 0, duration: 0.6, ease: "elastic.out(1, 0.45)" }, 34.1);
+      tl.to("#f-tag", { scale: 1.35, duration: 0.25, yoyo: true, repeat: 1 }, 34.9);
+
+      // ===== G · đổi cách nghĩ =====
+      gsap.set(["#wrongq", "#wq-x"], { opacity: 0 });
+      up("#g-h", 36.0, 0.4, 24);
+      tl.fromTo("#g-arrow", { opacity: 0, rotation: -180 }, { opacity: 1, rotation: 0, duration: 0.7, ease: "back.out(1.6)" }, 36.3);
+      up("#wrongq", 38.0, 0.4, 40);
+      strike("#wq-s", 39.75);
+      stampIn("#wq-x", 40.0, 12);
+
+      // ===== H · hỏi đúng =====
+      gsap.set(["#q1", "#q2"], { opacity: 0 });
+      pop("#h-h", 40.65, 0.5);
+      up("#q1", 40.95, 0.4, 40);
+      up("#q2", 42.85, 0.4, 40);
+      hop("#q1 svg", 41.8, 16); hop("#q2 svg", 43.7, 16);
+
+      // ===== I · 3 kiểu quà =====
+      gsap.set(["#o1", "#o2", "#o3"], { opacity: 0 });
+      [["#o1", 44.9], ["#o2", 47.1], ["#o3", 48.85]].forEach(([s, t]) => tl.fromTo(s, { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.5)" }, t));
+      tl.fromTo("#o3 svg", { y: 0 }, { y: -8, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 49.6);
+      tl.to(["#o1", "#o2"], { opacity: 0.5, duration: 0.3 }, 49.2);
+
+      // ===== J · cân =====
+      gsap.set(["#j-b"], { opacity: 0 });
+      up("#j-a", 52.4, 0.4, 24);
+      tl.fromTo("#scale", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 52.45);
+      tl.fromTo("#beam", { rotation: -10 }, { rotation: -10, duration: 0.01, svgOrigin: "400 120" }, 52.4);
+      tl.to("#beam", { rotation: 14, duration: 0.8, ease: "elastic.out(1, 0.5)", svgOrigin: "400 120" }, 54.1);
+      tl.fromTo("#panL", { rotation: 10 }, { rotation: -14, duration: 0.8, ease: "elastic.out(1, 0.5)", svgOrigin: "120 120" }, 54.1);
+      tl.fromTo("#panR", { rotation: 10 }, { rotation: -14, duration: 0.8, ease: "elastic.out(1, 0.5)", svgOrigin: "680 120" }, 54.1);
+      out("#j-a", 53.95, 0.18); up("#j-b", 54.05, 0.4, 24);
+
+      // ===== K · máy xay cho má =====
+      gsap.set(["#k-bub", "#sweat", "#k-me"], { opacity: 0 });
+      up("#k-h", 56.55, 0.4, 24);
+      tl.fromTo(["#k-scene", "#k-tag"], { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 56.6);
+      tl.fromTo("#k-me", { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, 58.9);
+      out("#k-h", 59.7, 0.18);
+      tl.fromTo("#k-bub", { opacity: 0, scale: 0.6, transformOrigin: "70% 100%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 59.8);
+      tl.fromTo("#sweat", { opacity: 0, y: -20 }, { opacity: 1, y: 30, duration: 0.6, ease: "power1.in" }, 61.0);
+
+      // ===== L · quà chưa mở, đơn đã lên =====
+      gsap.set(["#phone", "#l-st"], { opacity: 0 });
+      tl.fromTo(["#l-box", "#l-tag"], { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 62.1);
+      shake("#l-box", 63.5, 5, 3);
+      tl.to("#l-box", { x: -260, y: 470, scale: 0.55, duration: 0.5, ease: "power2.inOut" }, 64.4);
+      tl.to("#l-tag", { x: -350, y: 250, scale: 0.75, duration: 0.5, ease: "power2.inOut" }, 64.4);
+      tl.fromTo("#phone", { opacity: 0, y: 900 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.3)" }, 64.6);
+      stampIn("#l-st", 65.7, -10);
+      tl.to("#l-box", { y: 456, duration: 0.14, yoyo: true, repeat: 1, ease: "power1.out" }, 66.4);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post16"] = tl;
+    </script>
+  </body>
+</html>

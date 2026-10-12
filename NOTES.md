@@ -125,9 +125,11 @@ node projects/post-11/build.mjs
 | 9 | Baloo 2 | Hồng phấn `#fff0f3` | Đỏ hồng `#e8335a` | |
 | 10 | Space Grotesk | Giấy kraft `#f4ede1` | Xanh ngọc `#0fa3a3` | |
 | 11 | Playfair Display | Trắng ngà `#fbf4e8` (nửa sau `#f4e7d6`) | Đỏ cờ `#d42a1f` | Font serif đầu tiên |
+| 12–14 | Bungee · Pangolin · Paytone One | (làm ở branch `claude/hyperframes-video-editing-56w91n`) | | Xem NOTES bên đó |
+| 16 | Grandstander | Xanh rêu `#2f4b38`, chữ kem | Hồng ruy băng `#f7a3c0` | |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
-- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, be-vietnam-pro.
+- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, grandstander, oswald, vt323, be-vietnam-pro.
 - Phụ đề: chữ trắng 44px, Be Vietnam Pro 600, nền tối bán trong suốt bo góc kèm đổ bóng, khung trái 108px phải 150px.
 
 ### Âm thanh
@@ -168,6 +170,7 @@ node projects/post-11/build.mjs
 | Dấu đóng (`stampIn`), gạch chữ (`strike`), gạch chân (`ul`), highlight (`mark`) | 6–10 | |
 | Thẻ lật mặt 3D (bài toán → quyết định) | 7 | |
 | Bảng clapper, cuộn phim, cây kéo | 10 | |
+| Giấy gói quà sọc quét chéo (`wipe`), hộp quà bật nắp (`openLid`), thẻ quà lật thành phiếu | 16 | |
 | Lịch bloc xé từng tờ (`rip`), cảnh phủ bị xé rơi (`tear`) / treo xuống (`drop`) | 11 | Cảnh sau nằm dưới cảnh trước: `z-index` giảm dần theo thời gian |
 
 ---
@@ -194,6 +197,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **9** | Xóa app ≠ hủy gói đăng ký | **App là người yêu cũ**: ảnh đôi bị xé, quyết định cấp dưỡng, "ứng dụng cũ" | Hướng dẫn hủy gói trên iPhone và Android từng bước; Sáu vẽ theo avatar; SFX có phiên bản theo cảnh | 98,0s · 68 |
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
 | **11** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
+| **16** | 20/10: tặng quà hay giao thêm việc | **Quầy gói quà**: thẻ quà "Tặng em ♥" lật thành "Phiếu giao việc", Sáu nhảy ra từ hộp quà, hộp "ĐỒ XÀI CHUNG" gắn thẻ tên một người, cân "mắc tiền" vs "được để ý"; kết bằng hộp quà chưa mở + đơn hàng "1 ly sinh tố bơ · Người làm: Má" | Chuyển cảnh giấy gói quà quét chéo | 68,4s · 40 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

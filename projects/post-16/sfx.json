@@ -1,0 +1,271 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  7.3,
+  15.5,
+  19.6,
+  25.5,
+  31,
+  35.8,
+  40.5,
+  44.7,
+  52.2,
+  56.3,
+  62
+ ],
+ "cues": [
+  {
+   "at": 0.2,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "thẻ 20.10 đu xuống"
+  },
+  {
+   "at": 3.6,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "hộp quà Má"
+  },
+  {
+   "at": 4.95,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "hộp quà Người yêu"
+  },
+  {
+   "at": 5.85,
+   "name": "boing",
+   "vol": 0.6,
+   "why": "dấu hỏi"
+  },
+  {
+   "at": 7.3,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 8.2,
+   "name": "pop",
+   "vol": 0.7,
+   "why": "bật nắp hộp"
+  },
+  {
+   "at": 12.85,
+   "name": "record-scratch",
+   "vol": 0.85,
+   "why": "Ủa?"
+  },
+  {
+   "at": 13.45,
+   "name": "paper-rustle",
+   "vol": 0.6,
+   "why": "thẻ quà lật thành phiếu"
+  },
+  {
+   "at": 14.45,
+   "name": "stamp",
+   "vol": 0.9,
+   "why": "ĐÃ GIAO"
+  },
+  {
+   "at": 15.5,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 16.1,
+   "name": "pop",
+   "vol": 0.7,
+   "why": "Sáu nhảy khỏi hộp"
+  },
+  {
+   "at": 18.5,
+   "name": "like",
+   "vol": 0.7,
+   "why": "bấm follow"
+  },
+  {
+   "at": 19.6,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 21.3,
+   "name": "success-2",
+   "vol": 0.6,
+   "why": "hổng sai"
+  },
+  {
+   "at": 24.5,
+   "name": "stamp",
+   "vol": 0.85,
+   "why": "ĐÚNG Ý!"
+  },
+  {
+   "at": 25.5,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 28,
+   "name": "punch",
+   "vol": 0.6,
+   "why": "nồi rớt vô hộp"
+  },
+  {
+   "at": 28.75,
+   "name": "boing",
+   "vol": 0.6,
+   "why": "cây lau nhà"
+  },
+  {
+   "at": 29.7,
+   "name": "riser",
+   "vol": 0.55,
+   "why": "mức xúc động"
+  },
+  {
+   "at": 30.4,
+   "name": "oops",
+   "vol": 0.65,
+   "why": "xúc động... chưa chắc"
+  },
+  {
+   "at": 31,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 32.3,
+   "name": "stamp",
+   "vol": 0.7,
+   "why": "ĐỒ XÀI CHUNG"
+  },
+  {
+   "at": 34.1,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "thẻ Tặng: Em"
+  },
+  {
+   "at": 35.8,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 38.05,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "thẻ đừng hỏi"
+  },
+  {
+   "at": 39.75,
+   "name": "scribble",
+   "vol": 0.8,
+   "why": "gạch câu hỏi"
+  },
+  {
+   "at": 40.5,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 41.15,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "câu hỏi 1"
+  },
+  {
+   "at": 42.85,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "câu hỏi 2"
+  },
+  {
+   "at": 44.7,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 47.1,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "buổi đi chơi"
+  },
+  {
+   "at": 48.85,
+   "name": "pop",
+   "vol": 0.6,
+   "why": "ngày nghỉ ngơi"
+  },
+  {
+   "at": 52.2,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 54.15,
+   "name": "ding-idea",
+   "vol": 0.8,
+   "why": "cân nghiêng về được để ý"
+  },
+  {
+   "at": 56.3,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 59.8,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "bong bóng nhờ má"
+  },
+  {
+   "at": 61.05,
+   "name": "oops",
+   "vol": 0.6,
+   "why": "má toát mồ hôi"
+  },
+  {
+   "at": 62,
+   "name": "swipe",
+   "vol": 0.55,
+   "why": "giấy gói quà quét qua",
+   "group": "wipe"
+  },
+  {
+   "at": 64.6,
+   "name": "notify",
+   "vol": 0.75,
+   "why": "đơn hàng mới"
+  },
+  {
+   "at": 65.7,
+   "name": "stamp",
+   "vol": 0.95,
+   "why": "ĐÃ LÊN ĐƠN"
+  }
+ ]
+}

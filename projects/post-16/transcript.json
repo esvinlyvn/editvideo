@@ -1,0 +1,250 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.229,
+   "end": 1.84,
+   "speaker": "B",
+   "text": "Ngày 20 tháng 10 sắp tới rồi!"
+  },
+  {
+   "i": 1,
+   "start": 2.463,
+   "end": 5.408,
+   "speaker": "B",
+   "text": "Mấy ông đang tính mua quà cho má, cho vợ, cho người yêu,"
+  },
+  {
+   "i": 2,
+   "start": 5.801,
+   "end": 6.712,
+   "speaker": "B",
+   "text": "nghe tao hỏi một câu nè."
+  },
+  {
+   "i": 3,
+   "start": 7.484,
+   "end": 8.965,
+   "speaker": "B",
+   "text": "Mua cái máy hút bụi tặng người ta,"
+  },
+  {
+   "i": 4,
+   "start": 9.472,
+   "end": 9.755,
+   "speaker": "B",
+   "text": "rồi kêu:"
+  },
+  {
+   "i": 5,
+   "start": 9.962,
+   "end": 12.373,
+   "speaker": "B",
+   "text": "“Quà cho em nè! Từ nay hút bụi khỏe hơn rồi!”"
+  },
+  {
+   "i": 6,
+   "start": 12.893,
+   "end": 13.039,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 7,
+   "start": 13.381,
+   "end": 14.858,
+   "speaker": "B",
+   "text": "Tặng quà hay vừa giao thêm việc vậy cha?"
+  },
+  {
+   "i": 8,
+   "start": 15.724,
+   "end": 16.32,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 9,
+   "start": 16.656,
+   "end": 17.567,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 10,
+   "start": 17.882,
+   "end": 18.609,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 11,
+   "start": 19.839,
+   "end": 21.986,
+   "speaker": "B",
+   "text": "Tao không nói tặng đồ gia dụng là sai nha."
+  },
+  {
+   "i": 12,
+   "start": 22.367,
+   "end": 25.147,
+   "speaker": "B",
+   "text": "Nếu người ta đang muốn có cái máy đó, được tặng thì quá đã!"
+  },
+  {
+   "i": 13,
+   "start": 25.744,
+   "end": 29.161,
+   "speaker": "B",
+   "text": "Nhưng nếu chưa hỏi ý mà tự mua một cái nồi, một cây lau nhà,"
+  },
+  {
+   "i": 14,
+   "start": 29.514,
+   "end": 30.852,
+   "speaker": "B",
+   "text": "rồi nghĩ người nhận phải xúc động..."
+  },
+  {
+   "i": 15,
+   "start": 31.14,
+   "end": 31.729,
+   "speaker": "B",
+   "text": "Thì coi chừng"
+  },
+  {
+   "i": 16,
+   "start": 32.052,
+   "end": 33.375,
+   "speaker": "B",
+   "text": "mày đang mua đồ cho cả nhà,"
+  },
+  {
+   "i": 17,
+   "start": 33.619,
+   "end": 35.356,
+   "speaker": "B",
+   "text": "nhưng ghi tên một người lên hộp quà đó!"
+  },
+  {
+   "i": 18,
+   "start": 36.009,
+   "end": 37.405,
+   "speaker": "B",
+   "text": "Thử đổi cách nghĩ chút xíu."
+  },
+  {
+   "i": 19,
+   "start": 38.007,
+   "end": 38.574,
+   "speaker": "B",
+   "text": "Đừng hỏi:"
+  },
+  {
+   "i": 20,
+   "start": 38.783,
+   "end": 40.176,
+   "speaker": "B",
+   "text": "“Mua gì cho có quà ta?”"
+  },
+  {
+   "i": 21,
+   "start": 40.679,
+   "end": 42.601,
+   "speaker": "B",
+   "text": "Hỏi: “Dạo này người đó thích cái gì?"
+  },
+  {
+   "i": 22,
+   "start": 42.826,
+   "end": 44.423,
+   "speaker": "B",
+   "text": "Muốn làm chuyện gì mà chưa có dịp?”"
+  },
+  {
+   "i": 23,
+   "start": 44.904,
+   "end": 46.468,
+   "speaker": "B",
+   "text": "Có khi là một món nhỏ họ thích."
+  },
+  {
+   "i": 24,
+   "start": 47.086,
+   "end": 48.326,
+   "speaker": "B",
+   "text": "Có khi là một buổi đi chơi."
+  },
+  {
+   "i": 25,
+   "start": 48.846,
+   "end": 50.551,
+   "speaker": "B",
+   "text": "Có khi là một ngày được nghỉ ngơi"
+  },
+  {
+   "i": 26,
+   "start": 50.83,
+   "end": 51.803,
+   "speaker": "B",
+   "text": "mà không phải lo thêm việc."
+  },
+  {
+   "i": 27,
+   "start": 52.44,
+   "end": 53.629,
+   "speaker": "B",
+   "text": "Quà đâu nhất thiết phải mắc tiền."
+  },
+  {
+   "i": 28,
+   "start": 53.955,
+   "end": 55.795,
+   "speaker": "B",
+   "text": "Quan trọng là người nhận thấy mình được để ý."
+  },
+  {
+   "i": 29,
+   "start": 56.62,
+   "end": 58.534,
+   "speaker": "B",
+   "text": "Chứ tặng má cái máy xay sinh tố,"
+  },
+  {
+   "i": 30,
+   "start": 58.906,
+   "end": 59.526,
+   "speaker": "B",
+   "text": "xong quay qua hỏi:"
+  },
+  {
+   "i": 31,
+   "start": 59.857,
+   "end": 61.536,
+   "speaker": "B",
+   "text": "“Má ơi, xay cho con ly bơ nha!”"
+  },
+  {
+   "i": 32,
+   "start": 62.17,
+   "end": 63.011,
+   "speaker": "B",
+   "text": "Thì thôi, con ơi..."
+  },
+  {
+   "i": 33,
+   "start": 63.414,
+   "end": 64.544,
+   "speaker": "B",
+   "text": "Má chưa kịp mở quà,"
+  },
+  {
+   "i": 34,
+   "start": 64.754,
+   "end": 65.918,
+   "speaker": "B",
+   "text": "con đã mở đơn hàng rồi!"
+  }
+ ]
+}
