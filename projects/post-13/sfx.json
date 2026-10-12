@@ -1,0 +1,275 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  3.5,
+  5.0,
+  6.4,
+  8.6,
+  12.4,
+  15.85,
+  18.3,
+  21.4,
+  25.6,
+  32.15,
+  39.3,
+  41.0,
+  47.0,
+  51.6
+ ],
+ "cues": [
+  {
+   "at": 0.15,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "kéo rèm"
+  },
+  {
+   "at": 3.65,
+   "name": "alarm",
+   "vol": 0.5,
+   "why": "đồng hồ reo"
+  },
+  {
+   "at": 5.0,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "chiều"
+  },
+  {
+   "at": 6.7,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "chén cơm"
+  },
+  {
+   "at": 8.0,
+   "name": "toggle",
+   "vol": 0.45,
+   "why": "tắt đèn"
+  },
+  {
+   "at": 8.7,
+   "name": "tick-tock",
+   "vol": 0.45,
+   "why": "ngày lặp lại"
+  },
+  {
+   "at": 9.35,
+   "name": "stamp",
+   "vol": 0.8,
+   "why": "y chang"
+  },
+  {
+   "at": 10.5,
+   "name": "paper-rustle",
+   "vol": 0.55,
+   "why": "nhật ký"
+  },
+  {
+   "at": 11.3,
+   "name": "crickets",
+   "vol": 0.45,
+   "why": "trống trơn"
+  },
+  {
+   "at": 12.45,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "Sáu"
+  },
+  {
+   "at": 13.6,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 14.9,
+   "name": "like",
+   "vol": 0.65,
+   "why": "follow"
+  },
+  {
+   "at": 15.9,
+   "name": "shimmer",
+   "vol": 0.6,
+   "why": "màu quay lại"
+  },
+  {
+   "at": 18.4,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "đồng hồ"
+  },
+  {
+   "at": 19.45,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "điện thoại"
+  },
+  {
+   "at": 20.05,
+   "name": "toggle",
+   "vol": 0.5,
+   "why": "không có thông báo"
+  },
+  {
+   "at": 21.45,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "chiều"
+  },
+  {
+   "at": 22.7,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "pin 3%"
+  },
+  {
+   "at": 23.3,
+   "name": "oops",
+   "vol": 0.5,
+   "why": "mệt xỉu"
+  },
+  {
+   "at": 23.95,
+   "name": "zoom-in",
+   "vol": 0.55,
+   "why": "zoom về nhà"
+  },
+  {
+   "at": 24.55,
+   "name": "door-open",
+   "vol": 0.6,
+   "why": "nhà mình"
+  },
+  {
+   "at": 25.65,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "tối"
+  },
+  {
+   "at": 26.35,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "chén cơm"
+  },
+  {
+   "at": 27.4,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "gối"
+  },
+  {
+   "at": 28.1,
+   "name": "click",
+   "vol": 0.5,
+   "why": "bật đèn"
+  },
+  {
+   "at": 28.85,
+   "name": "notify",
+   "vol": 0.6,
+   "why": "tin nhắn má"
+  },
+  {
+   "at": 32.15,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "hoành tráng"
+  },
+  {
+   "at": 35.4,
+   "name": "scribble",
+   "vol": 0.6,
+   "why": "trúng số"
+  },
+  {
+   "at": 36.55,
+   "name": "scribble",
+   "vol": 0.6,
+   "why": "thăng chức"
+  },
+  {
+   "at": 38.1,
+   "name": "scribble",
+   "vol": 0.6,
+   "why": "đăng lên mạng"
+  },
+  {
+   "at": 39.3,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "quay lại cửa sổ"
+  },
+  {
+   "at": 39.9,
+   "name": "suspense",
+   "vol": 0.45,
+   "why": "lạ lắm"
+  },
+  {
+   "at": 41.1,
+   "name": "whoosh-heavy",
+   "vol": 0.6,
+   "why": "bão"
+  },
+  {
+   "at": 41.85,
+   "name": "bass-drop",
+   "vol": 0.75,
+   "why": "sét"
+  },
+  {
+   "at": 43.4,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "polaroid"
+  },
+  {
+   "at": 44.6,
+   "name": "shimmer",
+   "vol": 0.6,
+   "why": "mong nhất"
+  },
+  {
+   "at": 45.5,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "tua lại"
+  },
+  {
+   "at": 47.0,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "trời quang"
+  },
+  {
+   "at": 47.9,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "bài đăng"
+  },
+  {
+   "at": 50.4,
+   "name": "stamp",
+   "vol": 0.75,
+   "why": "đâu có sao"
+  },
+  {
+   "at": 51.7,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "tối bình yên"
+  },
+  {
+   "at": 54.0,
+   "name": "shimmer",
+   "vol": 0.7,
+   "why": "câu chốt"
+  }
+ ]
+}
