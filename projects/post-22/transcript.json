@@ -1,0 +1,257 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.63,
+   "speaker": "B",
+   "text": "“Má ăn rồi, con ăn đi!”"
+  },
+  {
+   "i": 1,
+   "start": 2.468,
+   "end": 7.817,
+   "speaker": "B",
+   "text": "Có bao giờ mày tự hỏi, sao hồi nhỏ má mình hay no đúng lúc trong nhà còn đúng một miếng ngon không?"
+  },
+  {
+   "i": 2,
+   "start": 8.797,
+   "end": 9.852,
+   "speaker": "B",
+   "text": "Hồi đó nghe sao tin vậy."
+  },
+  {
+   "i": 3,
+   "start": 10.528,
+   "end": 11.683,
+   "speaker": "B",
+   "text": "Lớn lên mới bắt đầu hiểu..."
+  },
+  {
+   "i": 4,
+   "start": 12.207,
+   "end": 13.055,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 6,
+   "start": 13.565,
+   "end": 14.429,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 7,
+   "start": 14.869,
+   "end": 15.536,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 8,
+   "start": 16.939,
+   "end": 18.159,
+   "speaker": "B",
+   "text": "Có những câu ba má nói,"
+  },
+  {
+   "i": 9,
+   "start": 18.602,
+   "end": 19.395,
+   "speaker": "B",
+   "text": "nghe thì bình thường,"
+  },
+  {
+   "i": 10,
+   "start": 19.859,
+   "end": 21.321,
+   "speaker": "B",
+   "text": "nhưng ý phía sau lại là một chuyện khác."
+  },
+  {
+   "i": 11,
+   "start": 22.523,
+   "end": 23.307,
+   "speaker": "B",
+   "text": "“Má ăn rồi!”"
+  },
+  {
+   "i": 12,
+   "start": 24.183,
+   "end": 25.89,
+   "speaker": "B",
+   "text": "Có khi là muốn nhường phần ngon cho con."
+  },
+  {
+   "i": 13,
+   "start": 27.056,
+   "end": 27.649,
+   "speaker": "B",
+   "text": "“Má có tiền,"
+  },
+  {
+   "i": 14,
+   "start": 27.995,
+   "end": 28.788,
+   "speaker": "B",
+   "text": "con giữ đó mà xài!”"
+  },
+  {
+   "i": 15,
+   "start": 29.844,
+   "end": 31.611,
+   "speaker": "B",
+   "text": "Có khi trong túi chẳng còn dư bao nhiêu."
+  },
+  {
+   "i": 16,
+   "start": 32.929,
+   "end": 34.163,
+   "speaker": "B",
+   "text": "“Ở nhà mọi chuyện bình thường,"
+  },
+  {
+   "i": 17,
+   "start": 34.365,
+   "end": 35.49,
+   "speaker": "B",
+   "text": "con cứ lo công việc đi!”"
+  },
+  {
+   "i": 18,
+   "start": 36.474,
+   "end": 38.962,
+   "speaker": "B",
+   "text": "Có khi là ba má không muốn mình ở xa phải lo lắng."
+  },
+  {
+   "i": 19,
+   "start": 40.129,
+   "end": 42.427,
+   "speaker": "B",
+   "text": "Rồi có một câu nghe hoài mà nhiều khi mình không để ý."
+  },
+  {
+   "i": 20,
+   "start": 43.291,
+   "end": 44.529,
+   "speaker": "B",
+   "text": "“Chừng nào rảnh thì về chơi!”"
+  },
+  {
+   "i": 21,
+   "start": 45.613,
+   "end": 47.193,
+   "speaker": "B",
+   "text": "Ba má đâu có bắt mình phải về ngay."
+  },
+  {
+   "i": 22,
+   "start": 47.901,
+   "end": 49.553,
+   "speaker": "B",
+   "text": "Cũng không nói thẳng là đang nhớ."
+  },
+  {
+   "i": 23,
+   "start": 50.207,
+   "end": 50.997,
+   "speaker": "B",
+   "text": "Chỉ hỏi vậy thôi."
+  },
+  {
+   "i": 24,
+   "start": 51.918,
+   "end": 52.45,
+   "speaker": "B",
+   "text": "Mà lạ lắm..."
+  },
+  {
+   "i": 25,
+   "start": 53.105,
+   "end": 53.708,
+   "speaker": "B",
+   "text": "Hồi nhỏ,"
+  },
+  {
+   "i": 26,
+   "start": 54.13,
+   "end": 55.829,
+   "speaker": "B",
+   "text": "mình có chuyện gì cũng chạy đi kiếm ba má."
+  },
+  {
+   "i": 27,
+   "start": 56.562,
+   "end": 58.03,
+   "speaker": "B",
+   "text": "Lớn lên, ba má muốn gặp mình,"
+  },
+  {
+   "i": 28,
+   "start": 58.404,
+   "end": 60.348,
+   "speaker": "B",
+   "text": "đôi khi chỉ dám hỏi chừng nào con rảnh."
+  },
+  {
+   "i": 29,
+   "start": 61.346,
+   "end": 61.69,
+   "speaker": "B",
+   "text": "Tất nhiên,"
+  },
+  {
+   "i": 30,
+   "start": 61.872,
+   "end": 62.848,
+   "speaker": "B",
+   "text": "mỗi nhà mỗi khác."
+  },
+  {
+   "i": 31,
+   "start": 63.656,
+   "end": 64.783,
+   "speaker": "B",
+   "text": "Nhưng nếu mày may mắn"
+  },
+  {
+   "i": 32,
+   "start": 65.109,
+   "end": 67.09,
+   "speaker": "B",
+   "text": "vẫn còn người chờ mình về ăn một bữa cơm..."
+  },
+  {
+   "i": 33,
+   "start": 67.898,
+   "end": 69.315,
+   "speaker": "B",
+   "text": "Thì bữa nào thu xếp về chơi nha."
+  },
+  {
+   "i": 34,
+   "start": 70.12,
+   "end": 71.214,
+   "speaker": "B",
+   "text": "Đừng đợi tới dịp gì đặc biệt."
+  },
+  {
+   "i": 35,
+   "start": 72.172,
+   "end": 72.845,
+   "speaker": "B",
+   "text": "Đối với ba má,"
+  },
+  {
+   "i": 36,
+   "start": 73.362,
+   "end": 75.795,
+   "speaker": "B",
+   "text": "nhiều khi mày về nhà đã là chuyện đặc biệt rồi."
+  }
+ ]
+}

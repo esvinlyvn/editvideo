@@ -1,0 +1,246 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  12.1,
+  16.35,
+  22.25,
+  26.95,
+  31.9,
+  39.9,
+  51.7,
+  61.1,
+  70.0
+ ],
+ "cues": [
+  {
+   "at": 0.05,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "má nói"
+  },
+  {
+   "at": 5.4,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "miếng ngon"
+  },
+  {
+   "at": 8.8,
+   "name": "toggle",
+   "vol": 0.45,
+   "why": "tin liền"
+  },
+  {
+   "at": 10.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "kính lúp"
+  },
+  {
+   "at": 12.2,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "Sáu"
+  },
+  {
+   "at": 14.1,
+   "name": "boing",
+   "vol": 0.4,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 15.35,
+   "name": "like",
+   "vol": 0.6,
+   "why": "follow"
+  },
+  {
+   "at": 16.6,
+   "name": "page-turn",
+   "vol": 0.5,
+   "why": "từ điển"
+  },
+  {
+   "at": 17.25,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "mở sách"
+  },
+  {
+   "at": 20.0,
+   "name": "page-turn",
+   "vol": 0.5,
+   "why": "lật"
+  },
+  {
+   "at": 22.35,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "mục 1"
+  },
+  {
+   "at": 22.95,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "nghĩa đen"
+  },
+  {
+   "at": 24.5,
+   "name": "scribble",
+   "vol": 0.5,
+   "why": "nghĩa thật"
+  },
+  {
+   "at": 27.05,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "mục 2"
+  },
+  {
+   "at": 28.4,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "nghĩa đen"
+  },
+  {
+   "at": 30.15,
+   "name": "scribble",
+   "vol": 0.5,
+   "why": "nghĩa thật"
+  },
+  {
+   "at": 32.0,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "mục 3"
+  },
+  {
+   "at": 33.6,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "nghĩa đen"
+  },
+  {
+   "at": 36.8,
+   "name": "scribble",
+   "vol": 0.5,
+   "why": "nghĩa thật"
+  },
+  {
+   "at": 40.1,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "câu nghe hoài"
+  },
+  {
+   "at": 43.2,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "mục 4"
+  },
+  {
+   "at": 45.6,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "không có nghĩa"
+  },
+  {
+   "at": 46.6,
+   "name": "scribble",
+   "vol": 0.55,
+   "why": "gạch về ngay"
+  },
+  {
+   "at": 48.6,
+   "name": "scribble",
+   "vol": 0.55,
+   "why": "ba má nhớ con"
+  },
+  {
+   "at": 50.3,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "nhớ"
+  },
+  {
+   "at": 51.85,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "mà lạ lắm"
+  },
+  {
+   "at": 53.1,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "hồi nhỏ"
+  },
+  {
+   "at": 54.2,
+   "name": "whoosh-fast",
+   "vol": 0.45,
+   "why": "chạy kiếm ba má"
+  },
+  {
+   "at": 56.55,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "lớn lên"
+  },
+  {
+   "at": 61.3,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "mỗi nhà"
+  },
+  {
+   "at": 63.6,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "nhà"
+  },
+  {
+   "at": 65.2,
+   "name": "toggle",
+   "vol": 0.45,
+   "why": "đèn sáng"
+  },
+  {
+   "at": 67.9,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "thu xếp"
+  },
+  {
+   "at": 69.0,
+   "name": "success",
+   "vol": 0.55,
+   "why": "tick"
+  },
+  {
+   "at": 70.3,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "dịp"
+  },
+  {
+   "at": 70.9,
+   "name": "scribble",
+   "vol": 0.5,
+   "why": "gạch dịp"
+  },
+  {
+   "at": 72.2,
+   "name": "page-turn",
+   "vol": 0.55,
+   "why": "mục cuối"
+  },
+  {
+   "at": 74.5,
+   "name": "shimmer",
+   "vol": 0.55,
+   "why": "chốt"
+  }
+ ]
+}

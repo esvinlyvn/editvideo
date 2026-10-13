@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Từ điển ba má</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "Từ điển ba má" =====
+         2 font: Lora (mục từ, tiêu đề kiểu sách từ điển) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền giấy ngà, chữ chính nâu mực, 1 màu nhấn: đỏ đất (bút gạch nghĩa thật)
+         Mỗi câu ba má hay nói = một mục từ: nghĩa đen / nghĩa thật. Mở bằng mâm cơm còn một miếng ngon, kết bằng mục từ "Con về"
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Lora", serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #f4ead8;
+        --ink: #2f2219;
+        --red: #c4532f;
+        --muted: rgba(47, 34, 25, 0.6);
+        --paper: #fffaf0;
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg);
+        background-image: radial-gradient(ellipse 1000px 1300px at 50% 45%, rgba(255,255,255,.5), rgba(255,255,255,0) 70%); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .nw { white-space: nowrap; }
+      .c { text-align: center; }
+      .r { color: var(--red); }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.1; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 206px; font-size: 74px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+      .sheet { background: var(--paper); border-radius: 14px; box-shadow: 0 2px 0 rgba(47,34,25,.08), 0 24px 46px rgba(47,34,25,.16); }
+
+      /* S1 mâm cơm */
+      #table { position: absolute; left: 108px; top: 560px; }
+      #bubble { position: absolute; left: 108px; top: 360px; padding: 26px 34px 30px; border-radius: 34px 34px 34px 8px; background: var(--paper); font-family: var(--disp); font-style: italic; font-weight: 500; font-size: 60px; white-space: nowrap; box-shadow: 0 16px 30px rgba(47,34,25,.15); opacity: 0; }
+      #bubble small { display: block; font-family: var(--body); font-style: normal; font-weight: 700; font-size: 24px; letter-spacing: .14em; color: var(--red); margin-bottom: 6px; }
+      #last { position: absolute; left: 560px; top: 760px; padding: 10px 22px 12px; border-radius: 14px; background: var(--red); color: #fff; font-weight: 700; font-size: 30px; white-space: nowrap; opacity: 0; }
+      #believe { position: absolute; left: 108px; top: 1250px; padding: 16px 28px; border-radius: 16px; background: var(--ink); color: var(--paper); font-family: var(--disp); font-weight: 700; font-size: 44px; white-space: nowrap; opacity: 0; }
+      #lens { position: absolute; left: 620px; top: 300px; opacity: 0; }
+
+      /* Từ điển */
+      #book { position: absolute; left: 230px; top: 470px; width: 620px; height: 800px; border-radius: 14px 26px 26px 14px; background: var(--red); color: var(--paper); box-shadow: 18px 18px 0 rgba(47,34,25,.18); opacity: 0; transform-origin: 0 50%; }
+      #book::before { content: ""; position: absolute; left: 40px; top: 0; bottom: 0; width: 6px; background: rgba(255,250,240,.4); }
+      #book .t { position: absolute; left: 80px; right: 50px; top: 170px; font-family: var(--disp); font-weight: 700; font-size: 100px; line-height: 1.02; }
+      #book .s { position: absolute; left: 80px; right: 50px; top: 470px; font-family: var(--disp); font-style: italic; font-weight: 500; font-size: 40px; line-height: 1.3; opacity: .9; }
+      #book .ed { position: absolute; left: 80px; bottom: 60px; font-weight: 700; font-size: 24px; letter-spacing: .2em; opacity: .7; }
+
+      .entry { position: absolute; left: 108px; right: 108px; top: 400px; padding: 44px 46px 50px 60px; box-sizing: border-box; opacity: 0; border-left: 10px solid var(--red); }
+      .entry .no { font-weight: 700; font-size: 26px; letter-spacing: .18em; color: var(--red); }
+      .entry .hw { font-family: var(--disp); font-weight: 700; font-size: 70px; line-height: 1.12; margin-top: 10px; }
+      .entry .hw .blk { white-space: nowrap; }
+      .entry .pos { font-family: var(--disp); font-style: italic; font-weight: 500; font-size: 32px; color: var(--muted); margin-top: 10px; }
+      .entry .row { margin-top: 34px; opacity: 0; }
+      .entry .row .lb { font-weight: 700; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+      .entry .row .tx { font-family: var(--disp); font-weight: 500; font-size: 56px; line-height: 1.18; margin-top: 6px; }
+      .entry .row .tx .blk { white-space: nowrap; }
+      .entry .row.real .lb { color: var(--red); }
+      .entry .row.real .tx { font-weight: 700; }
+      .mark { position: relative; display: inline-block; }
+      .mark > i { position: absolute; left: -6px; right: -6px; bottom: 4px; height: 22px; background: rgba(196,83,47,.25); transform-origin: 0 50%; transform: scaleX(0); z-index: -1; }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -6px; right: -6px; top: 54%; height: 7px; border-radius: 4px; background: var(--red); transform-origin: 0 50%; transform: scaleX(0); }
+      .ic { position: absolute; right: 50px; top: 46px; opacity: .9; }
+
+      /* hồi nhỏ / lớn lên */
+      .then { position: absolute; top: 420px; width: 410px; height: 820px; padding: 34px 26px; box-sizing: border-box; text-align: center; opacity: 0; }
+      #thA { left: 108px; } #thB { right: 108px; }
+      .then .k { font-family: var(--disp); font-weight: 700; font-size: 52px; }
+      .then .q { margin-top: 24px; font-family: var(--disp); font-style: italic; font-weight: 500; font-size: 38px; line-height: 1.2; }
+      .then .q .blk { white-space: nowrap; }
+
+      /* về nhà */
+      #home { position: absolute; left: 108px; top: 420px; opacity: 0; }
+      #plan { position: absolute; left: 160px; right: 160px; top: 1060px; padding: 28px 34px; display: flex; align-items: center; gap: 24px; opacity: 0; }
+      #plan .k { font-family: var(--disp); font-weight: 700; font-size: 46px; line-height: 1.12; }
+      #plan .k .blk { white-space: nowrap; }
+      .ck { width: 70px; height: 70px; border-radius: 12px; border: 5px solid var(--ink); flex: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+      #houses { position: absolute; left: 108px; right: 108px; top: 470px; display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; }
+      #occ { position: absolute; left: 108px; right: 108px; top: 420px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+      .occ { padding: 16px 28px 18px; border-radius: 40px; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 44px; opacity: 0; position: relative; white-space: nowrap; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 104px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 48px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(47, 34, 25, 0.9); text-shadow: 0 2px 6px rgba(0,0,0,.3); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post22" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- S1 · Má ăn rồi, con ăn đi! — mâm cơm còn đúng một miếng ngon -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="12.15" data-track-index="1"><div class="in" id="s1-in">
+        <div id="bubble"><small>Má</small>“Má ăn rồi, con ăn đi!”</div>
+        <svg id="table" width="864" height="640" viewBox="0 0 864 640" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="432" cy="330" rx="410" ry="270" fill="#e3c9a2" stroke="#2f2219" stroke-width="6"/>
+          <ellipse cx="432" cy="320" rx="150" ry="100" fill="#fffaf0" stroke="#2f2219" stroke-width="6"/>
+          <g id="piece"><path d="M392 310c10-26 70-30 84-6 10 18-6 36-42 36-30 0-52-12-42-30z" fill="#a0522d" stroke="#2f2219" stroke-width="5"/><path d="M410 306c12-6 34-8 52-2" stroke="#fffaf0" stroke-width="4" opacity=".6"/></g>
+          <g transform="translate(150 470)"><ellipse rx="80" ry="50" fill="#fffaf0" stroke="#2f2219" stroke-width="5"/><ellipse rx="56" ry="30" fill="#ffffff"/></g>
+          <g transform="translate(714 470)"><ellipse rx="80" ry="50" fill="#fffaf0" stroke="#2f2219" stroke-width="5"/><ellipse rx="56" ry="30" fill="#ffffff"/></g>
+          <g id="chop" transform="translate(730 120)"><path d="M0 0L-200 170M20 10L-180 185" stroke="#2f2219" stroke-width="9"/></g>
+        </svg>
+        <div id="last">miếng ngon cuối cùng</div>
+        <div id="believe">Hồi nhỏ: tin liền ✓</div>
+        <svg id="lens" width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="#2f2219" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="6.5" fill="rgba(255,250,240,.55)"/><path d="M15 15l6 6" stroke-width="2.4"/></svg>
+      </div></div>
+
+      <!-- S2 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s2" data-start="12.1" data-duration="4.3" data-track-index="1"><div class="in" id="s2-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S3 · Từ điển ba má: nghe thì bình thường, ý phía sau khác -->
+      <div class="clip scene" id="s3" data-start="16.35" data-duration="5.95" data-track-index="1"><div class="in" id="s3-in">
+        <div class="safe h c tt"><span class="blk">Nghe bình thường,</span><span class="blk r">ý phía sau khác</span></div>
+        <div id="book"><div class="t">Từ điển<br>ba má</div><div class="s">Nghĩa đen – nghĩa thật<br>của những câu nghe hoài</div><div class="ed">ẤN BẢN GIA ĐÌNH</div></div>
+      </div></div>
+
+      <!-- S4 · Mục 1: Má ăn rồi -->
+      <div class="clip scene" id="s4" data-start="22.25" data-duration="4.75" data-track-index="1"><div class="in" id="s4-in">
+        <div class="sheet entry" id="e1"><div class="no">Mục 1</div><div class="hw">“Má ăn rồi!”</div><div class="pos">(câu nói, hay gặp lúc còn một miếng ngon)</div>
+          <div class="row"><div class="lb">Nghĩa đen</div><div class="tx">Má no rồi.</div></div>
+          <div class="row real"><div class="lb">Nghĩa thật</div><div class="tx"><span class="mark">Phần ngon để dành cho con.<i></i></span></div></div>
+          <div class="ic">{{IC_BOWL}}</div></div>
+      </div></div>
+
+      <!-- S5 · Mục 2: Má có tiền -->
+      <div class="clip scene" id="s5" data-start="26.95" data-duration="5.0" data-track-index="1"><div class="in" id="s5-in">
+        <div class="sheet entry" id="e2"><div class="no">Mục 2</div><div class="hw"><span class="blk">“Má có tiền,</span><span class="blk">con giữ đó mà xài!”</span></div><div class="pos">(câu nói, hay gặp lúc con dúi tiền)</div>
+          <div class="row"><div class="lb">Nghĩa đen</div><div class="tx">Má dư dả lắm.</div></div>
+          <div class="row real"><div class="lb">Nghĩa thật</div><div class="tx"><span class="mark"><span class="blk">Trong túi chẳng còn</span><span class="blk">dư bao nhiêu.</span><i></i></span></div></div>
+          <div class="ic">{{IC_WALLET}}</div></div>
+      </div></div>
+
+      <!-- S6 · Mục 3: Ở nhà bình thường -->
+      <div class="clip scene" id="s6" data-start="31.9" data-duration="8.05" data-track-index="1"><div class="in" id="s6-in">
+        <div class="sheet entry" id="e3"><div class="no">Mục 3</div><div class="hw" style="font-size:48px"><span class="blk">“Ở nhà mọi chuyện bình thường,</span><span class="blk">con cứ lo công việc đi!”</span></div><div class="pos">(câu nói, hay gặp qua điện thoại)</div>
+          <div class="row"><div class="lb">Nghĩa đen</div><div class="tx">Nhà ổn hết.</div></div>
+          <div class="row real"><div class="lb">Nghĩa thật</div><div class="tx"><span class="mark"><span class="blk">Không muốn con ở xa</span><span class="blk">phải lo lắng.</span><i></i></span></div></div>
+          <div class="ic" style="top:auto;bottom:46px">{{IC_PHONE}}</div></div>
+      </div></div>
+
+      <!-- S7 · Mục 4: Chừng nào rảnh thì về chơi -->
+      <div class="clip scene" id="s7" data-start="39.9" data-duration="11.85" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe h c tt" id="s7-h"><span class="blk">Có một câu</span><span class="blk r">nghe hoài…</span></div>
+        <div class="sheet entry" id="e4" style="top:430px"><div class="no">Mục 4</div><div class="hw">“Chừng nào rảnh<br>thì về chơi!”</div><div class="pos">(câu nói, nghe hoài mà ít để ý)</div>
+          <div class="row" id="e4a"><div class="lb">Không có nghĩa là</div><div class="tx"><span class="strike">Về ngay đi.<i></i></span></div></div>
+          <div class="row real" id="e4b"><div class="lb">Nghĩa thật</div><div class="tx"><span class="mark">Ba má nhớ con.<i></i></span></div></div>
+          <div class="ic">{{IC_HOUSE}}</div></div>
+      </div></div>
+
+      <!-- S8 · Hồi nhỏ / Lớn lên -->
+      <div class="clip scene" id="s8" data-start="51.7" data-duration="9.45" data-track-index="1"><div class="in" id="s8-in">
+        <div class="safe h c tt"><span class="blk">Mà lạ lắm…</span></div>
+        <div class="sheet then" id="thA"><div class="lab">Hồi nhỏ</div>{{FIG_KID}}<div class="q"><span class="blk">Có chuyện gì</span><span class="blk">cũng chạy đi</span><span class="blk r">kiếm ba má</span></div></div>
+        <div class="sheet then" id="thB"><div class="lab">Lớn lên</div>{{FIG_ADULT}}<div class="q"><span class="blk">Ba má muốn gặp,</span><span class="blk">chỉ dám hỏi:</span><span class="blk r">“Chừng nào rảnh?”</span></div></div>
+      </div></div>
+
+      <!-- S9 · Mỗi nhà mỗi khác · còn người chờ về ăn cơm · thu xếp về chơi -->
+      <div class="clip scene" id="s9" data-start="61.1" data-duration="9.0" data-track-index="1"><div class="in" id="s9-in">
+        <svg id="houses" width="864" height="300" viewBox="0 0 864 300" fill="none" stroke="#2f2219" stroke-width="5" stroke-linejoin="round">
+          <path d="M20 290V160l90-70 90 70v130z" fill="#fffaf0"/><path d="M240 290V120h150v170z" fill="#e3c9a2"/><path d="M220 120l95-60 95 60"/><path d="M440 290V180l70-50 70 50v110z" fill="#fffaf0"/><path d="M610 290V100h120v190z" fill="#e3c9a2"/><path d="M750 290V170l50-40 50 40v120z" fill="#fffaf0"/>
+          <path d="M0 292H864"/></svg>
+        <svg id="home" width="864" height="620" viewBox="0 0 864 620" fill="none" stroke="#2f2219" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M150 600V300L432 110l282 190v300z" fill="#fffaf0"/>
+          <rect id="winL" x="250" y="360" width="160" height="130" rx="8" fill="#e3c9a2"/><rect x="510" y="380" width="110" height="220" rx="6" fill="#e3c9a2"/>
+          <g transform="translate(330 470)"><path d="M-50 0h100a50 30 0 0 1-100 0z" fill="#fffaf0"/><path d="M-30 -8c6-10 54-10 60 0" stroke-width="4"/><path d="M40 -40l-20 30M54 -36l-24 26" stroke-width="4"/></g>
+          <path d="M100 600H764"/></svg>
+        <div class="sheet" id="plan"><div class="ck">{{IC_CHECK}}</div><div class="k"><span class="blk">Bữa nào thu xếp</span><span class="blk r">về ăn cơm với ba má</span></div></div>
+      </div></div>
+
+      <!-- Kết · Đừng đợi dịp đặc biệt · Mục cuối: Con về -->
+      <div class="clip scene" id="s10" data-start="70.0" data-duration="{{END_DUR}}" data-track-index="1"><div class="in" id="s10-in">
+        <div class="safe h c tt" id="s10-h"><span class="blk">Khỏi đợi</span><span class="blk r">dịp đặc biệt</span></div>
+        <div id="occ"><span class="occ"><span class="strike">Tết<i></i></span></span><span class="occ"><span class="strike">Sinh nhật<i></i></span></span><span class="occ"><span class="strike">Đám giỗ<i></i></span></span></div>
+        <div class="sheet entry" id="e5" style="top:620px"><div class="no">Mục cuối</div><div class="hw">“Con về.”</div><div class="pos">(chuyện đối với ba má)</div>
+          <div class="row real" id="e5b"><div class="lb">Nghĩa</div><div class="tx"><span class="mark">Đã là chuyện đặc biệt rồi.<i></i></span></div></div>
+          <div class="ic">{{IC_HOUSE}}</div></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const mark = (sel, at) => tl.fromTo(sel + " .mark > i", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, at);
+      const strike = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, at);
+      // mục từ: lật trang vào, rồi hiện "nghĩa đen" và "nghĩa thật"
+      const entry = (sel, at, a, b) => { tl.fromTo(sel, { opacity: 0, rotationY: -35, transformOrigin: "0% 50%", x: 40 }, { opacity: 1, rotationY: 0, x: 0, duration: 0.5, ease: E }, at);
+        if (a) tl.fromTo(sel + " .row:not(.real)", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, a);
+        if (b) { tl.fromTo(sel + " .row.real", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35 }, b); mark(sel, b + 0.3); } };
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+
+      // ---------- Cảnh: lật trang ----------
+      [["#s1-in", 0, 12.15], ["#s2-in", 12.1, 16.4], ["#s3-in", 16.35, 22.3], ["#s4-in", 22.25, 27.0], ["#s5-in", 26.95, 31.95], ["#s6-in", 31.9, 39.95],
+       ["#s7-in", 39.9, 51.75], ["#s8-in", 51.7, 61.15], ["#s9-in", 61.1, 70.05], ["#s10-in", 70.0, 99]].forEach(([s, a, b], i) => {
+        if (i) tl.fromTo(s, { opacity: 0, x: 70 }, { opacity: 1, x: 0, duration: 0.34, ease: E }, a + 0.02);
+        if (b < 99) tl.to(s, { opacity: 0, x: -70, duration: 0.16, ease: "power2.in" }, b - 0.18);
+      });
+
+      // ===== S1 · mâm cơm =====
+      tl.fromTo("#table", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 0);
+      tl.fromTo("#bubble", { opacity: 0, scale: 0.7, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 0.05);
+      tl.fromTo("#chop", { x: 0, y: 0 }, { x: -60, y: 40, duration: 0.6, ease: "power2.out", immediateRender: false }, 0.9);
+      out("#bubble", 2.4, 0.25);
+      tl.fromTo("#last", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 5.4);
+      tl.fromTo("#piece", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.12, duration: 0.25, yoyo: true, repeat: 3, immediateRender: false }, 5.6);
+      out("#last", 10.4, 0.2);
+      tl.fromTo("#believe", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2)" }, 8.8);
+      tl.fromTo("#lens", { opacity: 0, x: 120, y: 200, rotation: 20 }, { opacity: 1, x: -180, y: 420, rotation: 0, duration: 0.7, ease: E }, 10.5);
+
+      // ===== S2 · Sáu =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 12.25);
+      up("#s4-name", 13.6, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 14.1); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 14.1);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 14.15);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 14.6); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 14.6);
+      pop("#follow", 14.85, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 15.35);
+      swapTxt("#f1", "#f2", 15.45); tl.to("#follow", { backgroundColor: "#2f2219", duration: 0.2 }, 15.45);
+
+      // ===== S3 · Từ điển ba má =====
+      up("#s3-in .tt", 16.6, 0.4, 24);
+      tl.fromTo("#book", { opacity: 0, rotationY: -60, x: 60 }, { opacity: 1, rotationY: 0, x: 0, duration: 0.7, ease: E }, 17.2);
+      tl.to("#book", { rotationY: -18, duration: 0.5, ease: "power2.inOut" }, 20.0);
+
+      // ===== S4–S6 · Mục 1–3 =====
+      entry("#e1", 22.35, 22.95, 24.2);
+      entry("#e2", 27.05, 28.4, 29.85);
+      entry("#e3", 32.0, 33.6, 36.5);
+
+      // ===== S7 · Mục 4 =====
+      up("#s7-h", 40.1, 0.4, 24);
+      out("#s7-h", 42.9, 0.2);
+      entry("#e4", 43.2);
+      tl.fromTo("#e4a", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, 45.6);
+      strike("#e4a .strike", 46.6);
+      tl.fromTo("#e4b", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35 }, 47.9);
+      mark("#e4", 48.6);
+      tl.fromTo("#e4 .ic", { scale: 1 }, { scale: 1.15, duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, 50.3);
+
+      // ===== S8 · Hồi nhỏ / Lớn lên =====
+      up("#s8-in .tt", 51.85, 0.4, 24);
+      tl.fromTo("#thA", { opacity: 0, y: 50, rotation: -2 }, { opacity: 1, y: 0, rotation: -1, duration: 0.45, ease: "back.out(1.5)" }, 53.1);
+      tl.fromTo("#thA .kid", { x: -60 }, { x: 0, duration: 0.8, ease: "power2.out" }, 54.2);
+      tl.fromTo("#thB", { opacity: 0, y: 50, rotation: 2 }, { opacity: 1, y: 0, rotation: 1, duration: 0.45, ease: "back.out(1.5)" }, 56.55);
+
+      // ===== S9 · Mỗi nhà mỗi khác · còn người chờ · thu xếp về =====
+      tl.fromTo("#houses", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 61.3);
+      out("#houses", 63.4, 0.25);
+      tl.fromTo("#home", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 63.6);
+      tl.fromTo("#winL", { fill: "#e3c9a2" }, { fill: "#f7c66b", duration: 0.6 }, 65.2);
+      tl.fromTo("#plan", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 67.9);
+      tl.fromTo("#plan .ck svg", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, 69.0);
+
+      // ===== Kết · khỏi đợi dịp đặc biệt · Mục cuối: Con về =====
+      up("#s10-h", 70.15, 0.4, 24);
+      tl.fromTo(".occ", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, stagger: 0.15 }, 70.3);
+      [0, 1, 2].forEach((k) => strike(`.occ:nth-child(${k + 1}) .strike`, 70.9 + k * 0.15));
+      entry("#e5", 72.2, 0, 73.4);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post22"] = tl;
+    </script>
+  </body>
+</html>
