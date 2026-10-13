@@ -1,0 +1,291 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  8.6,
+  13.6,
+  15.8,
+  19.9,
+  27.7,
+  30.1,
+  33.2,
+  35.0,
+  39.3,
+  43.2,
+  44.9,
+  48.6,
+  53.0,
+  58.9,
+  63.7,
+  67.0,
+  72.4,
+  77.3
+ ],
+ "cues": [
+  {
+   "at": 0.5,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "ngày này năm ngoái"
+  },
+  {
+   "at": 1.7,
+   "name": "boing",
+   "vol": 0.5,
+   "why": "ghim ?"
+  },
+  {
+   "at": 3.0,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "công ty"
+  },
+  {
+   "at": 3.8,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "công viên"
+  },
+  {
+   "at": 4.65,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "cà phê"
+  },
+  {
+   "at": 8.8,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "quên, mờ"
+  },
+  {
+   "at": 10.6,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "điện thoại"
+  },
+  {
+   "at": 11.6,
+   "name": "toggle",
+   "vol": 0.55,
+   "why": "bật"
+  },
+  {
+   "at": 13.8,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "dấu chấm hiện lại"
+  },
+  {
+   "at": 15.85,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "Sáu"
+  },
+  {
+   "at": 17.0,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 18.5,
+   "name": "like",
+   "vol": 0.65,
+   "why": "follow"
+  },
+  {
+   "at": 19.95,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "dòng thời gian"
+  },
+  {
+   "at": 21.1,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "thẻ tính năng"
+  },
+  {
+   "at": 23.6,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 27.75,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "cần bật"
+  },
+  {
+   "at": 28.6,
+   "name": "toggle",
+   "vol": 0.55,
+   "why": "công tắc"
+  },
+  {
+   "at": 30.35,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "điện thoại"
+  },
+  {
+   "at": 31.35,
+   "name": "click",
+   "vol": 0.55,
+   "why": "mở Maps"
+  },
+  {
+   "at": 32.9,
+   "name": "click",
+   "vol": 0.55,
+   "why": "hình đại diện"
+  },
+  {
+   "at": 33.5,
+   "name": "swipe",
+   "vol": 0.45,
+   "why": "menu"
+  },
+  {
+   "at": 34.6,
+   "name": "click",
+   "vol": 0.55,
+   "why": "dòng thời gian"
+  },
+  {
+   "at": 35.2,
+   "name": "swipe",
+   "vol": 0.45,
+   "why": "trang"
+  },
+  {
+   "at": 37.1,
+   "name": "click",
+   "vol": 0.55,
+   "why": "chọn ngày"
+  },
+  {
+   "at": 37.7,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "danh sách"
+  },
+  {
+   "at": 39.4,
+   "name": "zoom-in",
+   "vol": 0.45,
+   "why": "quán cà phê"
+  },
+  {
+   "at": 40.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "quên tên"
+  },
+  {
+   "at": 43.2,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "chuyến đi"
+  },
+  {
+   "at": 43.8,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "đi bất chợt"
+  },
+  {
+   "at": 44.9,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "con đường"
+  },
+  {
+   "at": 45.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "đường quen"
+  },
+  {
+   "at": 48.65,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "toàn cảnh"
+  },
+  {
+   "at": 49.3,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "câu chuyện"
+  },
+  {
+   "at": 53.05,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "lưu ý"
+  },
+  {
+   "at": 54.6,
+   "name": "toggle",
+   "vol": 0.5,
+   "why": "mặc định tắt"
+  },
+  {
+   "at": 56.45,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "không chính xác"
+  },
+  {
+   "at": 58.9,
+   "name": "lock",
+   "vol": 0.5,
+   "why": "riêng tư"
+  },
+  {
+   "at": 63.7,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "tắt xóa"
+  },
+  {
+   "at": 65.2,
+   "name": "scribble",
+   "vol": 0.5,
+   "why": "xóa lịch sử"
+  },
+  {
+   "at": 67.0,
+   "name": "zoom-in",
+   "vol": 0.45,
+   "why": "nhìn lại tên"
+  },
+  {
+   "at": 72.4,
+   "name": "shimmer",
+   "vol": 0.6,
+   "why": "ký ức"
+  },
+  {
+   "at": 77.35,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "kết"
+  },
+  {
+   "at": 79.8,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "cảm giác"
+  },
+  {
+   "at": 81.3,
+   "name": "ding-idea",
+   "vol": 0.5,
+   "why": "chốt"
+  }
+ ]
+}
