@@ -1,0 +1,307 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  5.2,
+  8.2,
+  12.0,
+  16.3,
+  20.2,
+  24.2,
+  28.9,
+  34.9,
+  40.2,
+  47.2,
+  53.7,
+  56.95,
+  66.0,
+  72.7,
+  80.9,
+  85.7
+ ],
+ "cues": [
+  {
+   "at": 0.1,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "mở"
+  },
+  {
+   "at": 1.5,
+   "name": "whoosh-heavy",
+   "vol": 0.6,
+   "why": "lặn xuống 200 m"
+  },
+  {
+   "at": 4.1,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "độ sâu"
+  },
+  {
+   "at": 5.2,
+   "name": "zoom-in",
+   "vol": 0.5,
+   "why": "zoom cây"
+  },
+  {
+   "at": 6.0,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "50 m"
+  },
+  {
+   "at": 6.6,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "16 tầng"
+  },
+  {
+   "at": 8.3,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "cuộn phim"
+  },
+  {
+   "at": 8.9,
+   "name": "stamp",
+   "vol": 0.7,
+   "why": "phim viễn tưởng?"
+  },
+  {
+   "at": 10.75,
+   "name": "stamp",
+   "vol": 0.75,
+   "why": "có thiệt"
+  },
+  {
+   "at": 12.1,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "Sáu"
+  },
+  {
+   "at": 13.6,
+   "name": "boing",
+   "vol": 0.45,
+   "why": "Sáu cười"
+  },
+  {
+   "at": 14.85,
+   "name": "like",
+   "vol": 0.65,
+   "why": "follow"
+  },
+  {
+   "at": 16.3,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "bản đồ"
+  },
+  {
+   "at": 16.9,
+   "name": "pop",
+   "vol": 0.55,
+   "why": "ghim"
+  },
+  {
+   "at": 20.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "2009"
+  },
+  {
+   "at": 22.3,
+   "name": "suspense",
+   "vol": 0.45,
+   "why": "đoàn đi"
+  },
+  {
+   "at": 24.3,
+   "name": "zoom-in",
+   "vol": 0.45,
+   "why": "thấy rừng"
+  },
+  {
+   "at": 25.6,
+   "name": "ding-idea",
+   "vol": 0.6,
+   "why": "lối ra?"
+  },
+  {
+   "at": 28.95,
+   "name": "wrong-buzzer",
+   "vol": 0.6,
+   "why": "nhưng không"
+  },
+  {
+   "at": 32.6,
+   "name": "punch",
+   "vol": 0.5,
+   "why": "vách hang"
+  },
+  {
+   "at": 34.95,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "quay ngược thời gian"
+  },
+  {
+   "at": 37.7,
+   "name": "oops",
+   "vol": 0.5,
+   "why": "lấy đâu ra nắng"
+  },
+  {
+   "at": 40.3,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "mái hang"
+  },
+  {
+   "at": 42.75,
+   "name": "bass-drop",
+   "vol": 0.55,
+   "why": "sập"
+  },
+  {
+   "at": 43.45,
+   "name": "punch",
+   "vol": 0.55,
+   "why": "đá rơi"
+  },
+  {
+   "at": 44.8,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "hố sụt"
+  },
+  {
+   "at": 47.5,
+   "name": "shimmer",
+   "vol": 0.65,
+   "why": "nắng lọt vô"
+  },
+  {
+   "at": 48.95,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "cây mọc"
+  },
+  {
+   "at": 49.6,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "cây mọc"
+  },
+  {
+   "at": 50.3,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "cây mọc"
+  },
+  {
+   "at": 53.75,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "tên"
+  },
+  {
+   "at": 55.3,
+   "name": "cymbal",
+   "vol": 0.5,
+   "why": "Vườn Địa Đàng"
+  },
+  {
+   "at": 57.0,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "chi tiết"
+  },
+  {
+   "at": 58.3,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "cây ngoài trời"
+  },
+  {
+   "at": 59.1,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "cây trong hang"
+  },
+  {
+   "at": 59.8,
+   "name": "chart-up",
+   "vol": 0.55,
+   "why": "vươn cao"
+  },
+  {
+   "at": 60.6,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "nhãn"
+  },
+  {
+   "at": 62.7,
+   "name": "pop",
+   "vol": 0.45,
+   "why": "thân nhỏ"
+  },
+  {
+   "at": 66.0,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "giữa rừng"
+  },
+  {
+   "at": 68.8,
+   "name": "riser",
+   "vol": 0.5,
+   "why": "ngước lên"
+  },
+  {
+   "at": 70.0,
+   "name": "shimmer",
+   "vol": 0.55,
+   "why": "nắng"
+  },
+  {
+   "at": 72.7,
+   "name": "whoosh-heavy",
+   "vol": 0.6,
+   "why": "lùi ra lòng núi"
+  },
+  {
+   "at": 77.1,
+   "name": "ding-idea",
+   "vol": 0.5,
+   "why": "khó tin"
+  },
+  {
+   "at": 81.0,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "về mặt đất"
+  },
+  {
+   "at": 85.2,
+   "name": "pop",
+   "vol": 0.5,
+   "why": "người"
+  },
+  {
+   "at": 85.9,
+   "name": "whoosh-fast",
+   "vol": 0.45,
+   "why": "mũi tên xuống"
+  },
+  {
+   "at": 88.4,
+   "name": "shimmer",
+   "vol": 0.6,
+   "why": "chốt"
+  }
+ ]
+}

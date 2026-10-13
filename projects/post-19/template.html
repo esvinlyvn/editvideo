@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Khu rừng dưới lòng đất</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "mặt cắt lòng núi" (phim tài liệu thám hiểm) =====
+         2 font: Fraunces (tiêu đề kiểu tạp chí thám hiểm) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền nâu đá tối, chữ chính kem, 1 màu nhấn: xanh lá rừng
+         Thế giới: một mặt cắt dọc từ mặt đất xuống lòng hang — camera lặn xuống bằng viewBox, thước đo độ sâu bên trái
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Fraunces", serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #14100c;
+        --cream: #f4ecdf;
+        --leaf: #7ee08a;
+        --ink: #14100c;
+        --soft: rgba(244, 236, 223, 0.66);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg);
+        background-image: radial-gradient(ellipse 900px 1200px at 50% 40%, rgba(126,224,138,.06), rgba(0,0,0,0) 70%); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .nw { white-space: nowrap; }
+      .c { text-align: center; }
+      .g { color: var(--leaf); }
+      .h { font-family: var(--disp); font-weight: 900; line-height: 1.06; letter-spacing: -0.01em; }
+      .h .blk { white-space: nowrap; }
+      .tt { position: absolute; left: 108px; right: 108px; top: 206px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 74px; line-height: 1.06; opacity: 0; }
+      .tt .blk { white-space: nowrap; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+      .card { background: var(--cream); color: var(--ink); border-radius: 24px; box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+
+      /* thế giới: mặt cắt */
+      #frame { position: absolute; left: 108px; top: 400px; width: 864px; height: 1060px; border-radius: 30px; overflow: hidden; border: 4px solid rgba(244,236,223,.85); box-sizing: border-box; background: #3a3029; }
+      #frame svg { display: block; }
+      #depth { position: absolute; right: 136px; top: 428px; padding: 12px 22px 14px; border-radius: 16px; background: rgba(20,16,12,.82); border: 3px solid var(--leaf); text-align: right; opacity: 0; z-index: 5; }
+      #depth small { display: block; font-weight: 700; font-size: 20px; letter-spacing: .18em; color: var(--soft); }
+      #depth b { font-family: var(--disp); font-weight: 900; font-size: 64px; color: var(--leaf); line-height: 1; }
+      .tag { position: absolute; padding: 14px 24px 16px; border-radius: 16px; background: var(--cream); color: var(--ink); font-family: var(--disp); font-weight: 900; font-size: 46px; line-height: 1.05; white-space: nowrap; opacity: 0; z-index: 6; box-shadow: 0 12px 26px rgba(0,0,0,.4); }
+      .tag.g2 { background: var(--leaf); }
+      .tag small { display: block; font-family: var(--body); font-weight: 700; font-size: 22px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+      #nope { position: absolute; left: 50%; top: 760px; width: 240px; height: 240px; margin-left: -120px; opacity: 0; z-index: 7; }
+
+      /* S3 phim viễn tưởng? */
+      #film { position: absolute; left: 108px; right: 108px; top: 480px; height: 560px; border-radius: 18px; background: #0b0907; border: 4px solid var(--cream); overflow: hidden; }
+      #film .holes { position: absolute; left: 0; right: 0; height: 40px; background-image: radial-gradient(circle at 24px 20px, var(--cream) 0 9px, transparent 10px); background-size: 52px 40px; opacity: .5; }
+      #film .scr { position: absolute; left: 30px; right: 30px; top: 60px; bottom: 60px; border-radius: 10px; overflow: hidden; background: linear-gradient(180deg, #22303a, #0f1a16); }
+      #scifi { position: absolute; left: 50%; top: 600px; width: 620px; margin-left: -310px; padding: 8px 0 14px; border: 9px solid var(--cream); border-radius: 20px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 64px; color: var(--cream); transform: rotate(-6deg); opacity: 0; background: rgba(11,9,7,.75); white-space: nowrap; }
+      #real { position: absolute; left: 50%; top: 1120px; width: 520px; margin-left: -260px; padding: 10px 0 16px; border-radius: 20px; background: var(--leaf); color: var(--ink); text-align: center; font-family: var(--disp); font-weight: 900; font-size: 74px; transform: rotate(4deg); opacity: 0; }
+
+      /* S5 vị trí */
+      #vnmap { position: absolute; left: 150px; top: 420px; opacity: 0; }
+      #loc { position: absolute; left: 470px; top: 640px; width: 450px; padding: 30px 32px 34px; opacity: 0; }
+      #loc .k { font-family: var(--disp); font-weight: 900; font-size: 64px; line-height: 1.02; }
+      #loc .s { font-weight: 600; font-size: 30px; margin-top: 12px; color: rgba(20,16,12,.66); }
+
+      /* S11 cây ngoài trời vs trong hang */
+      .tree2 { position: absolute; top: 420px; width: 400px; height: 900px; text-align: center; opacity: 0; }
+      #tA { left: 108px; } #tB { right: 108px; }
+      .tree2 svg { position: absolute; left: 0; bottom: 80px; }
+      .tree2 b { position: absolute; left: 0; right: 0; bottom: 0; font-family: var(--disp); font-weight: 900; font-size: 44px; white-space: nowrap; }
+      #thin { position: absolute; left: 700px; top: 1150px; padding: 10px 20px 12px; border-radius: 14px; background: var(--leaf); color: var(--ink); font-weight: 700; font-size: 30px; white-space: nowrap; opacity: 0; }
+      #tall { position: absolute; left: 600px; top: 600px; padding: 10px 20px 12px; border-radius: 14px; background: var(--cream); color: var(--ink); font-weight: 700; font-size: 30px; white-space: nowrap; opacity: 0; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 104px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--leaf); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 48px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(10, 8, 6, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post19" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- ===== THẾ GIỚI: mặt cắt núi → hang → rừng ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1"><div class="in" id="w-in">
+        <div class="tt" id="t1"><span class="blk">Một khu rừng</span><span class="blk g">dưới lòng đất</span></div>
+        <div class="tt" id="t2"><span class="blk">Cây cao tới</span><span class="blk g">50 mét!</span></div>
+        <div class="tt" id="t3"><span class="blk">Năm 2009,</span><span class="blk g">đoàn thám hiểm…</span></div>
+        <div class="tt" id="t4"><span class="blk">Tưởng đã thấy</span><span class="blk g">lối ra ngoài</span></div>
+        <div class="tt" id="t5"><span class="blk">Vẫn còn</span><span class="blk g">trong hang!</span></div>
+        <div class="tt" id="t6"><span class="blk">Dưới đất</span><span class="blk g">lấy đâu ra nắng?</span></div>
+        <div class="tt" id="t7"><span class="blk">Mái hang</span><span class="blk g">sụp xuống</span></div>
+        <div class="tt" id="t8"><span class="blk">Nắng lọt vô,</span><span class="blk g">rừng mọc lên</span></div>
+        <div class="tt" id="t9"><span class="blk">Vườn</span><span class="blk g">Địa Đàng</span></div>
+        <div class="tt" id="t10"><span class="blk">Ngước lên…</span><span class="blk g">thấy trời</span></div>
+        <div class="tt" id="t11"><span class="blk">Mà đang ở</span><span class="blk g">trong lòng núi</span></div>
+        <div class="tt" id="t12"><span class="blk">Ngay dưới</span><span class="blk g">chân mình</span></div>
+        <div id="frame">
+          <svg id="wsvg" width="856" height="1052" viewBox="0 0 1000 1227">
+            <defs>
+              <linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fc4e6"/><stop offset="1" stop-color="#d9efe8"/></linearGradient>
+              <linearGradient id="gbeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1b8" stop-opacity=".75"/><stop offset="1" stop-color="#fff1b8" stop-opacity=".08"/></linearGradient>
+              <linearGradient id="gshaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9dfe6"/><stop offset=".35" stop-color="#5e7a70"/><stop offset="1" stop-color="#2e2a22"/></linearGradient>
+            </defs>
+            <rect x="-1200" y="-400" width="3400" height="700" fill="url(#gsky)"/>
+            <circle cx="830" cy="110" r="52" fill="#ffd96a"/>
+            <!-- đá: lớp nền + các vỉa đá vôi -->
+            <rect x="-1200" y="300" width="3400" height="3000" fill="#3a3029"/>
+            <g id="strata"></g>
+            <!-- núi đá vôi nhô lên mặt đất -->
+            <path d="M-1200 300C-900 120-700 140-500 300M100 300C220 90 400 60 520 300M840 300C980 110 1200 120 1400 300M1500 300C1700 160 1900 180 2200 300" fill="#4a3d33"/>
+            <g id="canopy" fill="#3f7d4a"></g>
+            <!-- hang: lòng hang tối -->
+            <path id="cave" d="M-1200 1620C-900 1560-500 1600-200 1560 100 1520 300 1500 500 1500H860C1000 1500 1250 1540 1500 1560 1800 1600 2000 1590 2200 1620V2500H-1200z" fill="#1d1813"/>
+            <!-- giếng trời (hố sụt) -->
+            <path id="shaft" d="M540 300H820L860 1500H500z" fill="url(#gshaft)"/>
+            <g id="lid" fill="#3a3029" stroke="#2c241e" stroke-width="6">
+              <path id="lid1" d="M538 300H690L690 700H525z"/><path id="lid2" d="M690 300H822L835 700H690z"/>
+              <path id="lid3" d="M525 700H690V1100H512z"/><path id="lid4" d="M690 700H835L848 1100H690z"/>
+              <path id="lid5" d="M512 1100H690V1502H498z"/><path id="lid6" d="M690 1100H848L862 1502H690z"/>
+            </g>
+            <path d="M1250 1560C1300 1800 1240 2100 1300 2500H2200V1560z" fill="#3a3029"/>
+            <path id="beam" d="M500 1500H860L940 2500H420z" fill="url(#gbeam)" opacity="0"/>
+            <g id="forest"></g>
+            <!-- nền hang -->
+            <path d="M-1200 2500H2200V3300H-1200z" fill="#2c241e"/>
+            <g id="ruler"></g>
+            <!-- đoàn thám hiểm -->
+            <g id="team" transform="translate(-80 2500)"></g>
+            <g transform="translate(1290 2250)"><g id="wall-mark" opacity="0"><rect x="-170" y="-50" width="340" height="90" rx="14" fill="#f4ecdf"/><text x="0" y="14" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="46" fill="#14100c">VÁCH HANG</text></g></g>
+            <!-- người đứng trên mặt đất (cảnh kết) -->
+            <g transform="translate(470 300) scale(2)"><g id="walker" opacity="0"><circle cy="-60" r="11" fill="#f4ecdf"/><path d="M0 -48V-18M0 -18l-10 18M0 -18l10 18M0 -40l-12 14M0 -40l12 14" stroke="#f4ecdf" stroke-width="7" stroke-linecap="round"/></g></g>
+            <path id="down" opacity="0" d="M470 340V2330M440 2300l30 40 30-40" stroke="#7ee08a" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="1 22"/>
+          </svg>
+        </div>
+        <div id="depth"><small>Độ sâu</small><b id="dv">0 m</b></div>
+        <div class="tag g2" id="tag50" style="left:610px;top:760px"><small>chiều cao</small>~50 m</div>
+        <div class="tag" id="tagB" style="left:150px;top:900px"><small>cỡ cỡ</small>tòa nhà 16 tầng</div>
+        <div class="tag" id="tagExit" style="left:540px;top:600px">Lối ra?</div>
+        <svg id="nope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#14100c" stroke="#7ee08a" stroke-width="1.6"/><path d="M7 7l10 10M17 7L7 17" stroke="#7ee08a" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <div class="tag" id="tagHole" style="left:330px;top:540px"><small>hố sụt</small>khoảng trống khổng lồ</div>
+        <div class="tag g2" id="tagThin" style="left:600px;top:1160px">thân nhỏ xíu</div>
+      </div></div>
+
+      <!-- S3 · Phim viễn tưởng? Có thiệt! -->
+      <div class="clip scene" id="s3" data-start="8.2" data-duration="3.95" data-track-index="2"><div class="in" id="s3-in">
+        <div id="film"><div class="holes" style="top:8px"></div><div class="holes" style="bottom:8px"></div><div class="scr">
+          <svg width="804" height="440" viewBox="0 0 804 440"><circle cx="640" cy="90" r="46" fill="#cfe8ff" opacity=".7"/><circle cx="560" cy="60" r="14" fill="#cfe8ff" opacity=".5"/>
+            <path d="M0 440V260c80-60 160-40 240 0s160 40 240 0 200-60 324 0v180z" fill="#13241d"/><path d="M90 440V230M120 440V170M300 440V200M330 440V250M520 440V180M560 440V220M700 440V190" stroke="#2e5a40" stroke-width="10"/>
+            <g fill="#3f7d4a"><circle cx="90" cy="220" r="26"/><circle cx="120" cy="160" r="30"/><circle cx="300" cy="190" r="28"/><circle cx="520" cy="170" r="32"/><circle cx="700" cy="180" r="26"/></g></svg></div></div>
+        <div id="scifi">Phim viễn tưởng?</div>
+        <div id="real">Có thiệt!</div>
+      </div></div>
+
+      <!-- S4 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s4" data-start="12.0" data-duration="3.75" data-track-index="2"><div class="in" id="s4-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S5 · Hang Sơn Đoòng, Phong Nha -->
+      <div class="clip scene" id="s5" data-start="16.3" data-duration="3.95" data-track-index="2"><div class="in" id="s5-in">
+        <div class="safe h c" style="top:206px;font-size:74px"><span class="blk">Nằm ở đâu?</span></div>
+        <svg id="vnmap" width="300" height="980" viewBox="0 0 120 400" fill="none">
+          <path d="M40 6c14-4 30 2 38 12 4 10 14 14 22 18-6 8-18 8-26 14-6 6-10 14-16 20-4 8 2 16 6 24 6 12 14 22 22 32 8 10 14 20 18 32 4 14 4 28 0 42-4 16-12 30-20 44-10 16-22 30-36 42-8 6-16 14-22 22-4 8-10 14-18 16 2-10 8-18 10-28-6-4-10-10-8-18 6-8 16-12 22-20 10-12 18-26 22-40 4-14 2-28-4-40-8-14-18-26-24-40-6-12-10-26-8-40 2-12 0-24-6-34-4-8-10-16-8-24 4-10 14-14 22-16z" fill="#4a3d33" stroke="#f4ecdf" stroke-width="2.4" stroke-linejoin="round"/>
+          <g id="pin" transform="translate(64 150)"><circle r="18" fill="#7ee08a" opacity=".3"/><circle r="8" fill="#7ee08a" stroke="#14100c" stroke-width="2"/></g>
+        </svg>
+        <div class="card" id="loc"><div class="lab" style="color:rgba(20,16,12,.55)">Quảng Bình</div><div class="k">Hang<br>Sơn Đoòng</div><div class="s">Khu vực Phong Nha</div></div>
+      </div></div>
+
+      <!-- S11 · Cây trong hang: cao mà thân nhỏ -->
+      <div class="clip scene" id="s11" data-start="56.95" data-duration="9.0" data-track-index="2"><div class="in" id="s11-in">
+        <div class="safe h c" style="top:206px;font-size:74px"><span class="blk">Chi tiết</span><span class="blk g">tao khoái nhất</span></div>
+        <div class="tree2" id="tA"><svg width="400" height="520" viewBox="0 0 400 520"><rect x="170" y="300" width="60" height="220" rx="10" fill="#6b4a33"/><ellipse cx="200" cy="230" rx="170" ry="140" fill="#3f7d4a"/></svg><b>Cây ngoài trời</b></div>
+        <div class="tree2" id="tB"><svg width="400" height="820" viewBox="0 0 400 820"><defs><linearGradient id="lb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1b8" stop-opacity=".8"/><stop offset="1" stop-color="#fff1b8" stop-opacity="0"/></linearGradient></defs>
+          <path d="M140 0h120l60 820H80z" fill="url(#lb)" opacity=".5"/><rect id="trunkB" x="190" y="120" width="20" height="700" rx="8" fill="#6b4a33"/><ellipse id="crownB" cx="200" cy="110" rx="90" ry="70" fill="#7ee08a"/></svg><b class="g">Cây trong hang</b></div>
+        <div id="tall">↑ vươn tới ánh sáng</div>
+        <div id="thin">← thân nhỏ</div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // ---------- Dựng thế giới ----------
+      const strata = document.getElementById("strata");
+      for (let k = 0; k < 14; k++) { const y = 360 + k * 160, a = 10 + (k % 3) * 8;
+        strata.insertAdjacentHTML("beforeend", `<path d="M-1200 ${y}C-600 ${y - a} 0 ${y + a} 600 ${y}S1600 ${y - a} 2200 ${y}V${y + 70}H-1200z" fill="${k % 2 ? "#43372e" : "#352b24"}"/>`); }
+      const canopy = document.getElementById("canopy");
+      for (let x = -1200; x < 2200; x += 70) if (x < 520 || x > 840) canopy.insertAdjacentHTML("beforeend", `<ellipse cx="${x}" cy="${292 - (x % 3) * 6}" rx="48" ry="${22 + (x % 4) * 3}"/>`);
+      // rừng trong hang: cây cao, thân mảnh (50 m ≈ 375 đơn vị; 7,5 đơn vị/m)
+      const forest = document.getElementById("forest");
+      [[470, 200], [520, 300], [570, 375], [620, 260], [670, 340], [720, 375], [770, 230], [820, 300], [880, 190], [430, 150]].forEach(([x, h], k) => {
+        forest.insertAdjacentHTML("beforeend", `<g class="tree" transform="translate(${x} 2500)"><rect x="-5" y="${-h}" width="10" height="${h}" rx="4" fill="#5a4030"/><ellipse cx="0" cy="${-h}" rx="${30 + (k % 3) * 8}" ry="${22 + (k % 2) * 6}" fill="${k % 2 ? "#5fbf6e" : "#7ee08a"}"/><ellipse cx="${(k % 2 ? -1 : 1) * 14}" cy="${-h * 0.62}" rx="18" ry="12" fill="#4f9d5c"/></g>`); });
+      // thước đo độ sâu
+      const ruler = document.getElementById("ruler");
+      ruler.insertAdjacentHTML("beforeend", `<path d="M40 300V2500" stroke="#f4ecdf" stroke-width="4" opacity=".6"/>`);
+      for (let m = 0; m <= 280; m += 50) { const y = 300 + m * 7.5;
+        ruler.insertAdjacentHTML("beforeend", `<path d="M40 ${y}h30" stroke="#f4ecdf" stroke-width="4"/><text x="80" y="${y + 12}" font-family="Be Vietnam Pro" font-weight="700" font-size="34" fill="#f4ecdf">${m} m</text>`); }
+      // đoàn thám hiểm: 3 người, đèn đội đầu
+      const team = document.getElementById("team");
+      [0, 60, 120].forEach((dx) => team.insertAdjacentHTML("beforeend", `<g transform="translate(${-dx * 1.5} 0) scale(1.5)"><path d="M10 -52l120 -24v52z" fill="#fff1b8" opacity=".22"/><circle cy="-56" r="11" fill="#f4ecdf"/><circle cx="8" cy="-60" r="4" fill="#ffd96a"/><path d="M0 -44V-16M0 -16l-10 16M0 -16l10 16M0 -36l-12 12M0 -36l12 12" stroke="#f4ecdf" stroke-width="7" stroke-linecap="round"/><rect x="-16" y="-42" width="12" height="20" rx="3" fill="#7ee08a"/></g>`));
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.2); up(sel, at, 0.45, 24); };
+      const cam = (vb, at, d = 1.2, ease = "power2.inOut") => tl.to("#wsvg", { attr: { viewBox: vb }, duration: d, ease }, at);
+      const tag = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 20, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(2)" }, at);
+      const dep = { v: 0 };
+      const depth = (to, at, d) => tl.to(dep, { v: to, duration: d, ease: "power2.inOut", onUpdate: () => (document.getElementById("dv").textContent = Math.round(dep.v) + " m") }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+      // trạng thái ban đầu: hố đã mở, rừng đã có, nắng chiếu (đoạn đầu là hiện tại)
+      gsap.set("#lid path", { opacity: 0 }); gsap.set("#beam", { opacity: 1 });
+
+      // ---------- Lớp phủ ----------
+      [["#s3-in", 8.2, 12.15], ["#s4-in", 12.0, 15.75], ["#s5-in", 16.3, 20.25], ["#s11-in", 56.95, 65.95]].forEach(([s, a, b]) => {
+        tl.fromTo(s, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.38, ease: E }, a + 0.02);
+        tl.to(s, { opacity: 0, duration: 0.18 }, b - 0.2);
+      });
+      [[8.2, 20.2], [56.95, 65.9]].forEach(([a, b]) => { tl.to("#w-in", { opacity: 0, duration: 0.25 }, a); tl.to("#w-in", { opacity: 1, duration: 0.35 }, b); });
+
+      // ===== S1 · Khu rừng sâu hơn 200 m dưới lòng đất =====
+      cam("0 0 1000 1227", 0, 0.01);
+      tl.fromTo("#frame", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 0);
+      up("#t1", 0.25, 0.45, 24);
+      tl.fromTo("#depth", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.3);
+      cam("0 1330 1000 1227", 1.5, 2.6, "power2.inOut"); depth(260, 1.5, 2.6);
+      // ===== S2 · Cây cao tới 50 mét =====
+      title("#t2", 5.2, "#t1");
+      cam("360 1960 600 736", 5.2, 1.1);
+      out("#depth", 5.2, 0.2);
+      tag("#tag50", 6.0); tag("#tagB", 6.6);
+      out(["#tag50", "#tagB"], 8.0, 0.2);
+
+      // ===== S3 · phim viễn tưởng? có thiệt =====
+      tl.fromTo("#film", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 8.3);
+      tl.fromTo("#scifi", { opacity: 0, scale: 2.2, rotation: -20 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.28, ease: "power4.in" }, 8.9);
+      tl.fromTo("#real", { opacity: 0, scale: 2.2, rotation: 15 }, { opacity: 1, scale: 1, rotation: 4, duration: 0.28, ease: "power4.in" }, 10.75);
+
+      // ===== S4 · Sáu =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 12.1);
+      up("#s4-name", 13.05, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 13.6); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 13.6);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 13.65);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 14.1); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 14.1);
+      pop("#follow", 14.35, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 14.85);
+      swapTxt("#f1", "#f2", 14.95); tl.to("#follow", { backgroundColor: "#f4ecdf", duration: 0.2 }, 14.95);
+
+      // ===== S5 · Sơn Đoòng, Phong Nha =====
+      tl.fromTo("#vnmap", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, 16.45);
+      tl.fromTo("#pin", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 16.9);
+      tl.fromTo("#pin circle:first-child", { scale: 1, transformOrigin: "50% 50%" }, { scale: 2.2, opacity: 0, duration: 0.8, repeat: 2, ease: "power1.out", immediateRender: false }, 17.3);
+      tl.fromTo("#loc", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.6)" }, 17.0);
+
+      // ===== S6 · 2009: đoàn thám hiểm → thấy rừng, tưởng lối ra → nhưng không → vẫn trong hang =====
+      title("#t3", 20.5, "#t2");
+      cam("-200 1840 900 1104", 20.2, 0.01);
+      tl.fromTo("#team", { x: -80 }, { x: 260, duration: 3.6, ease: "none" }, 22.3);
+      tl.fromTo("#team > g", { y: 0 }, { y: -4, duration: 0.18, repeat: 19, yoyo: true, immediateRender: false }, 22.3);
+      cam("200 1700 1000 1227", 24.2, 1.6);
+      title("#t4", 24.3, "#t3");
+      tag("#tagExit", 25.6);
+      tl.fromTo("#nope", { opacity: 0, scale: 2, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.28, ease: "power4.in" }, 28.95);
+      out(["#nope", "#tagExit"], 29.8, 0.2);
+      tl.to("#team", { x: 1060, duration: 3.4, ease: "none" }, 29.9);
+      tl.fromTo("#team > g", { y: 0 }, { y: -4, duration: 0.18, repeat: 17, yoyo: true, immediateRender: false }, 29.9);
+      cam("560 1700 1000 1227", 30.0, 3.0, "power1.inOut");
+      title("#t5", 31.6, "#t4");
+      tl.fromTo("#wall-mark", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, 32.6);
+
+      // ===== S7 · Cây sống kiểu gì? Nắng ở đâu? (quay về lúc hang còn kín) =====
+      title("#t6", 35.0, "#t5");
+      out("#wall-mark", 34.9, 0.2);
+      tl.set("#team", { opacity: 0 }, 34.9);
+      cam("0 1100 1000 1227", 34.9, 1.2);
+      tl.to(".tree", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.6, ease: "power2.in" }, 35.2);
+      tl.to("#beam", { opacity: 0, duration: 0.5 }, 35.2);
+      tl.to("#lid path", { opacity: 1, duration: 0.5 }, 35.4);
+      tl.to("#shaft", { opacity: 0.2, duration: 0.5 }, 35.4);
+
+      // ===== S8 · Mái hang sụp → khoảng trống khổng lồ =====
+      title("#t7", 40.2, "#t6");
+      cam("0 200 1000 1227", 40.2, 1.6);
+      tl.fromTo("#frame", { x: 0 }, { x: 8, duration: 0.05, repeat: 9, yoyo: true, immediateRender: false }, 42.75);
+      ["#lid1", "#lid2", "#lid3", "#lid4", "#lid5", "#lid6"].forEach((l, k) => tl.to(l, { y: 1300, rotation: (k % 2 ? 1 : -1) * 20, opacity: 0, duration: 1.1, ease: "power2.in" }, 42.8 + k * 0.1));
+      tl.to("#shaft", { opacity: 1, duration: 0.6 }, 43.3);
+      tag("#tagHole", 44.8);
+      out("#tagHole", 46.8, 0.2);
+
+      // ===== S9 · Nắng lọt vô, cây mọc, thành rừng =====
+      title("#t8", 47.4, "#t7");
+      cam("0 1330 1000 1227", 47.2, 1.4);
+      tl.to("#beam", { opacity: 1, duration: 1.0 }, 47.5);
+      tl.to(".tree", { scaleY: 1, duration: 1.4, stagger: 0.18, ease: "back.out(1.4)" }, 48.95);
+
+      // ===== S10 · Vườn Địa Đàng =====
+      title("#t9", 53.75, "#t8");
+      tl.fromTo("#t9 .g", { scale: 1 }, { scale: 1.12, duration: 0.3, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 55.3);
+
+      // ===== S11 · Cây cao mà thân nhỏ (lớp phủ) =====
+      tl.fromTo("#tA", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 58.3);
+      tl.fromTo("#tB", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 59.1);
+      tl.fromTo("#trunkB", { scaleY: 0.3, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 1.6, ease: "power2.out" }, 59.3);
+      tl.fromTo("#crownB", { y: 490 }, { y: 0, duration: 1.6, ease: "power2.out" }, 59.3);
+      up("#tall", 60.6, 0.35, 16);
+      up("#thin", 62.7, 0.35, 16);
+      tl.fromTo("#trunkB", { scaleX: 1, transformOrigin: "50% 50%" }, { scaleX: 1.6, duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 63.3);
+
+      // ===== S12 · Đứng giữa rừng, ngước lên thấy nắng → nhớ ra đang trong lòng núi =====
+      tl.set("#t9", { opacity: 0 }, 56.9);
+      title("#t10", 66.1);
+      cam("330 1900 700 859", 66.0, 0.01);
+      cam("380 700 700 859", 68.8, 2.4, "power1.inOut");
+      tl.fromTo("#beam", { opacity: 1 }, { opacity: 0.6, duration: 0.6, yoyo: true, repeat: 3, immediateRender: false }, 70.0);
+      title("#t11", 72.7, "#t10");
+      cam("-1200 -400 3400 4171", 73.0, 3.0, "power2.inOut");
+
+      // ===== S13 · Ngay dưới chân mình =====
+      title("#t12", 85.7, "#t11");
+      cam("-100 -150 1200 1472", 81.0, 3.0);
+      tl.fromTo("#walker", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4 }, 85.2);
+      tl.fromTo("#down", { opacity: 0, strokeDashoffset: 0 }, { opacity: 1, strokeDashoffset: -230, duration: 2.5, ease: "none" }, 85.9);
+      cam("-500 150 2000 2454", 87.0, 2.5, "power2.inOut");
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post19"] = tl;
+    </script>
+  </body>
+</html>
