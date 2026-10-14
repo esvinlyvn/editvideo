@@ -83,9 +83,13 @@ const vol = (f) => {
 };
 const dur = (f) => +execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]).toString();
 
+// Âm người dùng đã cấm xài: không nhập lại vô thư viện
+const BANNED = new Set(["scribble-2"]);
+
 const catalog = fs.existsSync(path.join(OUT, "catalog.json")) ? JSON.parse(fs.readFileSync(path.join(OUT, "catalog.json"))) : {};
 for (const file of fs.readdirSync(src).filter((f) => /\.(mp3|wav|m4a|ogg|aac|flac)$/i.test(f)).sort()) {
   const name = path.basename(file, path.extname(file)).toLowerCase();
+  if (BANNED.has(name)) { console.log(`${name.padEnd(15)} BỎ QUA (đã cấm xài)`); continue; }
   // "pop-2" = phiên bản 2 của "pop" (file không đánh số = phiên bản 1)
   const base = name.replace(/-(\d+)$/, "");
   const variant = name === base ? 1 : Number(name.match(/-(\d+)$/)[1]);

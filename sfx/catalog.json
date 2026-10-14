@@ -529,16 +529,6 @@
     "mean": -30,
     "peak": -15.1
   },
-  "scribble-2": {
-    "file": "scribble-2.wav",
-    "base": "scribble",
-    "variant": 2,
-    "class": "accent",
-    "use": "gạch chữ, quẹt highlight",
-    "duration": 0.51,
-    "mean": -30.1,
-    "peak": -15.6
-  },
   "scribble": {
     "file": "scribble.wav",
     "base": "scribble",

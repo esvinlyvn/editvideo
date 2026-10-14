@@ -137,7 +137,7 @@ node projects/post-11/build.mjs
 ### Âm thanh
 
 - Voice chuẩn hóa về -14 LUFS (loudnorm trong `build.mjs`). Không có nhạc nền.
-- Thư viện `sfx/`: 53 âm gốc, 90 file kể cả phiên bản (`pop`, `pop-2`…). Đã chuẩn hóa:
+- Thư viện `sfx/`: 53 âm gốc, 89 file kể cả phiên bản (`pop`, `pop-2`…). Đã chuẩn hóa:
   - Cắt lặng đầu và cuối, lọc tần số dưới 40 Hz, giới hạn độ dài theo nhóm.
   - Âm lượng trung bình khoảng -30 dB, có limiter chặn đỉnh.
   - Các phiên bản cùng tên chênh nhau ≤ khoảng 2,5 dB.
@@ -148,7 +148,7 @@ node projects/post-11/build.mjs
   - Chuyển cảnh: `whoosh-soft` / `whoosh-fast` / `whoosh-heavy` / `zoom-in`.
   - Thẻ hoặc icon bật ra: `pop`.
   - Bấm, chọn: `click`, `toggle`.
-  - Gạch chữ: `scribble`.
+  - Gạch chữ: `scribble` (chỉ bản gốc; `scribble-2` đã bị cấm và xóa khỏi thư viện).
   - Đóng dấu, nhãn đập: `stamp`.
   - Tiền: `coin`, `cash`.
   - Đúng, xong: `success`, `ding-idea`.
