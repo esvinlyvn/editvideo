@@ -50,7 +50,7 @@ Xem **`NOTES.md`** để biết phong cách series, cấu trúc repo, cách rend
 
 ## 5. SFX
 
-- Thư viện chung nằm ở `sfx/`: 53 âm gốc, 90 file kể cả các phiên bản. Đã chuẩn hóa; xem `sfx/catalog.json` để biết nhóm, công dụng và mức âm lượng.
+- Thư viện chung nằm ở `sfx/`: 53 âm gốc, 89 file kể cả các phiên bản. Đã chuẩn hóa; xem `sfx/catalog.json` để biết nhóm, công dụng và mức âm lượng.
 - Thêm âm mới: đổi tên file theo đúng tên trong thư viện (`pop-3.mp3`…) rồi chạy `node scripts/sfx-import.mjs <thư mục>`. Các phiên bản cùng tên được kéo về cùng mức (chênh ≤ khoảng 2,5 dB).
 - `crowd-chatter` là âm nền dài 15 giây, đặt rất nhỏ (vol 0,3–0,5) dưới voice để tạo không khí.
 - Mỗi post có `sfx.json` dạng `{ "gainDb": 6, "minGap": 0.6, "cues": [...] }`. Mức người dùng đã duyệt: +6 dB, khoảng 1 điểm mỗi 1,7–2 giây.
@@ -60,6 +60,7 @@ Xem **`NOTES.md`** để biết phong cách series, cấu trúc repo, cách rend
   - KHÔNG xen kẽ pop-1, pop-2, pop-1 trong cùng bối cảnh.
   - Muốn ép phiên bản cụ thể thì ghi tên đầy đủ (`"pop-2"`), hoặc thêm `"group"` cho cue.
 - Không có nhạc nền, trừ khi người dùng yêu cầu.
+- **Cấm xài `scribble-2`** (người dùng yêu cầu). File đã bị xóa khỏi thư viện và bị chặn trong `sfx-import.mjs`. Âm "scribble" giờ chỉ còn một phiên bản.
 - Sau khi render, đo lại âm lượng: SFX không được vượt đỉnh của giọng nói.
 
 ## 6. Quy trình (không phụ thuộc API)
