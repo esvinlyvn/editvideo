@@ -56,10 +56,10 @@
       #real { position: absolute; left: 50%; top: 1120px; width: 520px; margin-left: -260px; padding: 10px 0 16px; border-radius: 20px; background: var(--leaf); color: var(--ink); text-align: center; font-family: var(--disp); font-weight: 900; font-size: 74px; transform: rotate(4deg); opacity: 0; }
 
       /* S5 vị trí */
-      #vnmap { position: absolute; left: 150px; top: 420px; opacity: 0; }
-      #loc { position: absolute; left: 470px; top: 640px; width: 450px; padding: 30px 32px 34px; opacity: 0; }
-      #loc .k { font-family: var(--disp); font-weight: 900; font-size: 64px; line-height: 1.02; }
-      #loc .s { font-weight: 600; font-size: 30px; margin-top: 12px; color: rgba(20,16,12,.66); }
+      #vnmap { position: absolute; left: 108px; top: 320px; opacity: 0; }
+      #loc { position: absolute; left: 630px; top: 330px; width: 300px; padding: 24px 26px 26px; opacity: 0; }
+      #loc .k { font-family: var(--disp); font-weight: 900; font-size: 52px; line-height: 1.02; }
+      #loc .s { font-weight: 600; font-size: 26px; margin-top: 12px; color: rgba(20,16,12,.66); }
 
       /* S11 cây ngoài trời vs trong hang */
       .tree2 { position: absolute; top: 420px; width: 400px; height: 900px; text-align: center; opacity: 0; }
@@ -165,11 +165,8 @@
 
       <!-- S5 · Hang Sơn Đoòng, Phong Nha -->
       <div class="clip scene" id="s5" data-start="16.3" data-duration="3.95" data-track-index="2"><div class="in" id="s5-in">
-        <div class="safe h c" style="top:206px;font-size:74px"><span class="blk">Nằm ở đâu?</span></div>
-        <svg id="vnmap" width="300" height="980" viewBox="0 0 120 400" fill="none">
-          <path d="M40 6c14-4 30 2 38 12 4 10 14 14 22 18-6 8-18 8-26 14-6 6-10 14-16 20-4 8 2 16 6 24 6 12 14 22 22 32 8 10 14 20 18 32 4 14 4 28 0 42-4 16-12 30-20 44-10 16-22 30-36 42-8 6-16 14-22 22-4 8-10 14-18 16 2-10 8-18 10-28-6-4-10-10-8-18 6-8 16-12 22-20 10-12 18-26 22-40 4-14 2-28-4-40-8-14-18-26-24-40-6-12-10-26-8-40 2-12 0-24-6-34-4-8-10-16-8-24 4-10 14-14 22-16z" fill="#4a3d33" stroke="#f4ecdf" stroke-width="2.4" stroke-linejoin="round"/>
-          <g id="pin" transform="translate(64 150)"><circle r="18" fill="#7ee08a" opacity=".3"/><circle r="8" fill="#7ee08a" stroke="#14100c" stroke-width="2"/></g>
-        </svg>
+        <div class="safe h c" style="top:206px;font-size:70px"><span class="blk">Nằm ở đâu?</span></div>
+        {{VNMAP}}
         <div class="card" id="loc"><div class="lab" style="color:rgba(20,16,12,.55)">Quảng Bình</div><div class="k">Hang<br>Sơn Đoòng</div><div class="s">Khu vực Phong Nha</div></div>
       </div></div>
 

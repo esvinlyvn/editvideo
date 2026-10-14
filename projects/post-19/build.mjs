@@ -101,6 +101,7 @@ const html = fs
   .replace("{{SFX}}", fs.existsSync(path.join(HERE, "sfx.json")) ? ((j) => (Array.isArray(j) ? sfxHtml(j, out) : sfxHtml(j.cues, out, j)))(JSON.parse(fs.readFileSync(path.join(HERE, "sfx.json"), "utf8"))) : "")
   .replace("{{VOICE_DUR}}", String(r2(VOICE_DUR)))
   .replace("{{END_DUR}}", String(r2(DURATION - 80.8)))
+  .replace("{{VNMAP}}", fs.readFileSync(path.join(HERE, "art/vnmap.svg"), "utf8"))
   .replace("{{SAU}}", fs.readFileSync(path.join(HERE, "art/sau.svg"), "utf8"))
   .replace("{{SAU_LAUGH}}", fs.readFileSync(path.join(HERE, "art/sau-laugh.svg"), "utf8"))
   ;
