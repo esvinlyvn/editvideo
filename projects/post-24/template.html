@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>731 liệt sĩ · tháp nước</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "dấu mốc tháp nước" — giọng tưởng niệm, trang trọng =====
+         2 font: Literata (tiêu đề) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền đêm xanh than, chữ chính kem, 1 màu nhấn: vàng nhang đèn. Đỏ cờ chỉ xuất hiện như màu minh họa ở cảnh lễ.
+         Ảnh tham khảo KHÔNG đưa vào video: ba tấm ảnh được vẽ lại bằng nét (không vẽ hài cốt), tháp nước là hình xuyên suốt.
+         Nhịp chậm, chuyển cảnh mờ dần; không SFX hài.
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Literata", serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #12161c;
+        --cream: #efe8da;
+        --gold: #d9b26a;
+        --soft: rgba(239, 232, 218, 0.62);
+        --line: rgba(239, 232, 218, 0.85);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg);
+        background-image: radial-gradient(ellipse 900px 1300px at 50% 42%, rgba(217,178,106,.07), rgba(0,0,0,0) 70%); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .nw { white-space: nowrap; }
+      .c { text-align: center; }
+      .g { color: var(--gold); }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.12; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 214px; font-size: 64px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+      .card { background: rgba(239,232,218,.06); border: 2px solid rgba(239,232,218,.28); border-radius: 22px; }
+      .o0 { opacity: 0; }
+      .abs { position: absolute; }
+      .photo { position: absolute; padding: 18px 18px 54px; background: #e9e2d2; border-radius: 6px; box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+      .photo svg { display: block; }
+      .photo b { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-family: var(--disp); font-weight: 600; font-size: 26px; color: #4a4338; white-space: nowrap; }
+      .big { font-family: var(--disp); font-weight: 800; color: var(--gold); line-height: 1; }
+      .pill { display: inline-block; padding: 12px 26px 14px; border-radius: 40px; border: 2px solid var(--gold); color: var(--gold); font-weight: 700; font-size: 32px; white-space: nowrap; }
+      .row { display: flex; align-items: center; gap: 24px; padding: 22px 28px; margin-top: 18px; font-family: var(--disp); font-weight: 600; font-size: 42px; }
+      .row i { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold); flex: none; display: flex; align-items: center; justify-content: center; font-style: normal; color: var(--gold); font-size: 34px; font-family: var(--body); font-weight: 700; }
+      #dots731, #dots2 { position: absolute; left: 140px; width: 800px; display: grid; grid-template-columns: repeat(27, 1fr); gap: 6px; }
+      #dots731 i, #dots2 i { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px rgba(217,178,106,.6); opacity: 0; }
+      #dots2 i.c33 { background: var(--cream); box-shadow: 0 0 10px rgba(239,232,218,.6); }
+      .world { position: absolute; left: 108px; top: 420px; width: 864px; height: 1000px; border-radius: 26px; overflow: hidden; border: 2px solid rgba(239,232,218,.3); }
+      .world svg { display: block; }
+      .bub { position: absolute; padding: 16px 24px 18px; border-radius: 22px 22px 22px 6px; background: var(--cream); color: var(--bg); font-family: var(--disp); font-weight: 600; font-size: 34px; white-space: nowrap; opacity: 0; }
+      .thumb { width: 100%; aspect-ratio: 4/3; background: linear-gradient(#8a8478 0 38%, #5b574f 38%); border: 3px solid #d9d2c2; border-radius: 4px; opacity: .55; }
+      #thumbs { position: absolute; left: 108px; right: 108px; top: 440px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+      .board { position: absolute; left: 108px; top: 420px; width: 864px; height: 1000px; }
+      .pin { position: absolute; width: 260px; padding: 14px 14px 18px; background: #e9e2d2; color: #2b2721; border-radius: 6px; box-shadow: 0 16px 30px rgba(0,0,0,.45); text-align: center; font-family: var(--disp); font-weight: 600; font-size: 28px; opacity: 0; }
+      .pin svg { display: block; margin: 0 auto 8px; }
+      .chip { position: absolute; display: flex; align-items: center; gap: 16px; padding: 16px 26px; border-radius: 40px; background: rgba(239,232,218,.08); border: 2px solid rgba(239,232,218,.35); font-family: var(--disp); font-weight: 600; font-size: 36px; white-space: nowrap; opacity: 0; }
+      .chip svg { flex: none; }
+      .idc { height: 150px; border-radius: 14px; border: 2px dashed rgba(239,232,218,.35); padding: 16px 18px; box-sizing: border-box; font-size: 22px; color: var(--soft); line-height: 1.7; opacity: 0; }
+      #ids { position: absolute; left: 108px; right: 108px; top: 440px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s3-name { top: 980px; font-size: 96px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 400px; margin-left: -200px; height: 104px; border-radius: 52px; border: 2px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 44px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(6, 8, 11, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post24" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- S1 · Ba bức ảnh cũ, một tháp nước, tám năm -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="5.6" data-track-index="1"><div class="in" id="s1-in">
+        <div class="photo o0" id="p1a" style="left:150px;top:520px;transform:rotate(-8deg)"></div>
+        <div class="photo o0" id="p1b" style="left:330px;top:470px;transform:rotate(3deg)"></div>
+        <div class="photo o0" id="p1c" style="left:480px;top:560px;transform:rotate(9deg)"></div>
+        <div class="abs o0" id="tw1" style="left:390px;top:440px"></div>
+        <div class="safe c big o0" id="eight" style="top:1170px;font-size:110px">8 năm</div>
+        <div class="safe c lab o0" id="eightS" style="top:1300px">đi tìm sự thật</div>
+      </div></div>
+
+      <!-- S2 · 731 liệt sĩ giữa lòng Sài Gòn -->
+      <div class="clip scene" id="s2" data-start="5.55" data-duration="6.8" data-track-index="1"><div class="in" id="s2-in">
+        <div class="safe c big" id="n731" style="top:250px;font-size:170px">0</div>
+        <div class="safe c h" style="top:440px;font-size:58px"><span class="blk">liệt sĩ</span></div>
+        <div id="dots731" style="top:560px"></div>
+        <div class="safe c lab o0" id="sgn" style="top:1420px">ngay giữa lòng Sài Gòn</div>
+      </div></div>
+
+      <!-- S3 · Sáu -->
+      <div class="clip scene" id="s3" data-start="12.3" data-duration="5.6" data-track-index="1"><div class="in" id="s3-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="safe h c" id="s3-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S4 · 14.10.2026 · Lễ truy điệu tại Công viên Lê Thị Riêng -->
+      <div class="clip scene" id="s4" data-start="17.85" data-duration="7.2" data-track-index="1"><div class="in" id="s4-in">
+        <div class="safe c lab" style="top:300px">Lễ truy điệu</div>
+        <div class="safe c big o0" id="d1410" style="top:360px;font-size:150px">14.10.2026</div>
+        <div class="safe c h o0" id="ltr" style="top:560px;font-size:60px"><span class="blk">Công viên</span><span class="blk g">Lê Thị Riêng</span></div>
+        <div class="abs o0" id="incense" style="left:390px;top:800px"></div>
+      </div></div>
+
+      <!-- S5 · 731 → Nghĩa trang Liệt sĩ TP.HCM -->
+      <div class="clip scene" id="s5" data-start="25.0" data-duration="5.0" data-track-index="1"><div class="in" id="s5-in">
+        <div class="safe c big" style="top:320px;font-size:150px">731</div>
+        <div class="safe c h" style="top:500px;font-size:52px"><span class="blk">hài cốt liệt sĩ</span></div>
+        <svg class="abs" style="left:500px;top:640px" width="80" height="240" viewBox="0 0 80 240"><path id="arr5" d="M40 0V220M14 196l26 30 26-30" stroke="#d9b26a" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="1" pathLength="1" stroke-dashoffset="1"/></svg>
+        <div class="abs o0" id="gate" style="left:290px;top:900px"></div>
+        <div class="safe c h o0" id="ntls" style="top:1240px;font-size:46px"><span class="blk">Nghĩa trang Liệt sĩ</span><span class="blk g">Thành phố Hồ Chí Minh</span></div>
+      </div></div>
+
+      <!-- S6 · Xuân Mậu Thân 1968 -->
+      <div class="clip scene" id="s6" data-start="29.95" data-duration="6.4" data-track-index="1"><div class="in" id="s6-in">
+        <div class="safe c lab" style="top:520px">Tổng tiến công và nổi dậy</div>
+        <div class="safe c h" style="top:590px;font-size:84px"><span class="blk">Xuân Mậu Thân</span></div>
+        <div class="safe c big o0" id="y1968" style="top:720px;font-size:240px">1968</div>
+      </div></div>
+
+      <!-- S7 · Mảnh đất: nghĩa địa Đô Thành → công viên → bên dưới -->
+      <div class="clip scene" id="s7" data-start="36.3" data-duration="19.9" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe h c tt o0" id="t7a"><span class="blk">Gần 60 năm trước:</span><span class="blk g">nghĩa địa Đô Thành</span></div>
+        <div class="safe h c tt o0" id="t7b"><span class="blk">Sau chiến tranh:</span><span class="blk g">thành công viên</span></div>
+        <div class="safe h c tt o0" id="t7c"><span class="blk">Nhưng bên dưới…</span></div>
+        <div class="world"><svg id="land" width="860" height="996" viewBox="0 0 1000 1158"></svg></div>
+      </div></div>
+
+      <!-- S8 · Nhân chứng nhớ, nhưng địa hình đã đổi -->
+      <div class="clip scene" id="s8" data-start="56.1" data-duration="11.3" data-track-index="1"><div class="in" id="s8-in">
+        <div class="safe h c tt"><span class="blk">Nhân chứng nhớ…</span><span class="blk g">nhưng ở đâu?</span></div>
+        <div class="world"><svg id="park2" width="860" height="996" viewBox="0 0 1000 1158"></svg></div>
+        <div class="bub" id="b1" style="left:150px;top:520px">“Hình như chỗ này…”</div>
+        <div class="bub" id="b2" style="left:480px;top:760px">“Gần hàng cây kia…”</div>
+        <div class="bub" id="b3" style="left:200px;top:1040px">“Hay phía bên đó?”</div>
+      </div></div>
+
+      <!-- S9 · Kiến trúc sư Nguyễn Xuân Thắng -->
+      <div class="clip scene" id="s9" data-start="67.3" data-duration="7.4" data-track-index="1"><div class="in" id="s9-in">
+        <div class="safe c lab" style="top:300px">Một người lần theo manh mối</div>
+        <div class="abs o0" id="tools" style="left:340px;top:420px"></div>
+        <div class="safe c card o0" id="name9" style="top:900px;padding:36px 30px"><div class="lab">Kiến trúc sư</div><div class="h" style="font-size:72px;margin-top:10px">Nguyễn Xuân Thắng</div></div>
+      </div></div>
+
+      <!-- S10 · 2018: một bức ảnh đen trắng · không rõ địa điểm · giữa hàng triệu tấm -->
+      <div class="clip scene" id="s10" data-start="74.6" data-duration="19.9" data-track-index="1"><div class="in" id="s10-in">
+        <div class="safe c big o0" id="y2018" style="top:230px;font-size:110px">2018</div>
+        <div class="photo o0" id="p10" style="left:170px;top:420px"></div>
+        <div class="pill abs o0" id="unk" style="left:330px;top:1130px">Địa điểm: không rõ ?</div>
+        <div id="thumbs"></div>
+        <div class="safe h c o0" id="t10" style="top:1180px;font-size:56px"><span class="blk">Ông Thắng</span><span class="blk g">vẫn tìm tiếp</span></div>
+      </div></div>
+
+      <!-- S11 · Ảnh thứ hai · chi tiết: tháp nước -->
+      <div class="clip scene" id="s11" data-start="94.4" data-duration="16.3" data-track-index="1"><div class="in" id="s11-in">
+        <div class="safe h c tt o0" id="t11a"><span class="blk">Thêm một bức ảnh</span></div>
+        <div class="safe h c tt o0" id="t11b"><span class="blk">Tháp nước này</span><span class="blk g">ở đâu?</span></div>
+        <div class="photo o0" id="p11" style="left:170px;top:420px"></div>
+        <svg class="abs o0" id="ring11" style="left:620px;top:440px" width="220" height="300" viewBox="0 0 220 300"><ellipse cx="110" cy="150" rx="100" ry="140" stroke="#d9b26a" stroke-width="6" fill="none"/></svg>
+        <div class="abs o0" id="tw11" style="left:390px;top:1120px"></div>
+      </div></div>
+
+      <!-- S12 · Bài toán không gian & lịch sử: bảng đối chiếu -->
+      <div class="clip scene" id="s12" data-start="110.6" data-duration="21.2" data-track-index="1"><div class="in" id="s12-in">
+        <div class="safe h c tt"><span class="blk">Bài toán</span><span class="blk g">không gian và lịch sử</span></div>
+        <div class="board">
+          <svg class="abs" width="864" height="1000" viewBox="0 0 864 1000"><g id="strings" stroke="#d9b26a" stroke-width="3" fill="none" opacity="0">
+            <path d="M432 470L140 120M432 470L724 120M432 470L140 820M432 470L724 820M432 470L432 900"/></g></svg>
+          <div class="pin" id="pn1" style="left:10px;top:20px"></div>
+          <div class="pin" id="pn2" style="left:594px;top:20px"></div>
+          <div class="pin" id="pn3" style="left:10px;top:690px"></div>
+          <div class="pin" id="pn4" style="left:594px;top:690px"></div>
+          <div class="pin" id="pn5" style="left:302px;top:300px;width:260px"></div>
+        </div>
+      </div></div>
+
+      <!-- S13 · Bản đồ: cư xá Bắc Hải, nghĩa địa Đô Thành · lần ngược về 1968 -->
+      <div class="clip scene" id="s13" data-start="132.3" data-duration="15.6" data-track-index="1"><div class="in" id="s13-in">
+        <div class="safe h c tt o0" id="t13a"><span class="blk">Cư xá Bắc Hải,</span><span class="blk g">gần nghĩa địa Đô Thành</span></div>
+        <div class="safe h c tt o0" id="t13b"><span class="blk">Lần ngược về</span></div>
+        <div class="world"><svg id="map13" width="860" height="996" viewBox="0 0 1000 1158"></svg></div>
+        <div class="safe c big o0" id="yrRoll" style="top:300px;font-size:120px">2026</div>
+        <div class="abs lab o0" id="mapnote" style="left:130px;top:1380px;letter-spacing:.08em;font-size:22px">sơ đồ minh họa, không theo tỷ lệ</div>
+      </div></div>
+
+      <!-- S14 · Tám năm kiên trì · chuyển cơ quan chức năng · khoanh vùng -->
+      <div class="clip scene" id="s14" data-start="148.3" data-duration="24.1" data-track-index="1"><div class="in" id="s14-in">
+        <div class="safe c big o0" id="y8" style="top:230px;font-size:110px">8 năm</div>
+        <div class="safe" id="list14" style="top:420px">
+          <div class="row card o0" id="l1"><i>1</i>Khảo sát thực địa</div>
+          <div class="row card o0" id="l2"><i>2</i>Đối chiếu bản đồ</div>
+          <div class="row card o0" id="l3"><i>3</i>Kiểm tra giả thuyết</div>
+          <div class="row card o0" id="l4"><i>4</i>Tìm gặp người còn nhớ</div>
+        </div>
+        <div class="safe c card o0" id="agency" style="top:1180px;padding:26px"><div class="lab">chuyển tới</div><div class="h" style="font-size:52px;margin-top:6px">Cơ quan chức năng</div></div>
+        <div class="world o0" id="zoneW"><svg id="zone" width="860" height="996" viewBox="0 0 1000 1158"></svg></div>
+      </div></div>
+
+      <!-- S15 · 23.6.2026 → gần 4 tháng → 731 (698 + 33) -->
+      <div class="clip scene" id="s15" data-start="172.3" data-duration="24.6" data-track-index="1"><div class="in" id="s15-in">
+        <div class="safe c big o0" id="d236" style="top:250px;font-size:130px">23.6.2026</div>
+        <div class="safe c lab o0" id="d236s" style="top:420px">ghi nhận những hài cốt đầu tiên</div>
+        <div class="safe o0" id="bar15" style="top:620px">
+          <div style="display:flex;justify-content:space-between;font-family:var(--disp);font-weight:600;font-size:36px"><span>23.6</span><span class="g">14.10</span></div>
+          <div style="margin-top:14px;height:20px;border-radius:10px;background:rgba(239,232,218,.15);overflow:hidden"><i id="barfill" style="display:block;height:100%;background:var(--gold);transform-origin:0 50%;transform:scaleX(0)"></i></div>
+          <div class="c lab" style="margin-top:18px">gần 4 tháng · tìm kiếm, quy tập, bảo quản</div>
+        </div>
+        <div class="safe c big o0" id="n731b" style="top:250px;font-size:150px">731</div>
+        <div id="dots2" style="top:450px" class="o0"></div>
+        <div class="safe o0" id="split" style="top:1335px;display:flex;justify-content:space-between">
+          <div><span class="big" style="font-size:80px">698</span><div class="lab" style="margin-top:6px">quy tập riêng lẻ</div></div>
+          <div style="text-align:right"><span class="big" style="font-size:80px;color:var(--cream)">33</span><div class="lab" style="margin-top:6px">một mộ tập thể</div></div>
+        </div>
+      </div></div>
+
+      <!-- S16 · Lễ truy điệu · hàng ngàn người tiễn đưa -->
+      <div class="clip scene" id="s16" data-start="197.0" data-duration="19.8" data-track-index="1"><div class="in" id="s16-in">
+        <div class="safe h c tt o0" id="t16a"><span class="blk">14.10 · Lễ truy điệu</span></div>
+        <div class="safe h c tt o0" id="t16b"><span class="blk">Hàng ngàn người</span><span class="blk g">tới tiễn đưa</span></div>
+        <div class="abs" id="cere" style="left:108px;top:420px"></div>
+        <div class="safe h c o0" id="thanks" style="top:1290px;font-size:60px"><span class="blk g">Cảm ơn.</span></div>
+      </div></div>
+
+      <!-- S17 · Kiến trúc sư: bản vẽ tương lai → tìm về quá khứ -->
+      <div class="clip scene" id="s17" data-start="216.8" data-duration="25.6" data-track-index="1"><div class="in" id="s17-in">
+        <div class="safe h c tt o0" id="t17a"><span class="blk">Không chứng kiến 1968,</span><span class="blk g">nhưng nối lại dấu vết</span></div>
+        <div class="safe h c tt o0" id="t17b"><span class="blk">Người vẽ tương lai</span><span class="blk g">tìm về quá khứ</span></div>
+        <div class="abs" id="desk" style="left:108px;top:440px"></div>
+      </div></div>
+
+      <!-- S18 · Không phải công sức của một người -->
+      <div class="clip scene" id="s18" data-start="242.6" data-duration="18.5" data-track-index="1"><div class="in" id="s18-in">
+        <div class="safe h c tt"><span class="blk">Không phải</span><span class="blk g">công sức một người</span></div>
+        <div class="chip" id="c1" style="left:108px;top:470px">{{IC_EAR}}Nhân chứng giữ ký ức</div>
+        <div class="chip" id="c2" style="left:108px;top:600px">{{IC_DOC}}Người sưu tầm tài liệu</div>
+        <div class="chip" id="c3" style="left:108px;top:730px">{{IC_BOOK}}Các nhà nghiên cứu</div>
+        <div class="chip" id="c4" style="left:108px;top:860px">{{IC_SHOVEL}}Lực lượng tìm kiếm</div>
+        <div class="chip" id="c5" style="left:108px;top:990px">{{IC_LENS}}Người làm giám định</div>
+        <div class="chip" id="c6" style="left:108px;top:1120px">{{IC_HANDS}}Nhiều cá nhân, đơn vị khác</div>
+        <div class="safe c h o0" id="t18" style="top:1290px;font-size:46px"><span class="blk g">Mỗi người góp một phần</span></div>
+      </div></div>
+
+      <!-- S19 · Chưa xác định danh tính -->
+      <div class="clip scene" id="s19" data-start="261.0" data-duration="11.4" data-track-index="1"><div class="in" id="s19-in">
+        <div class="safe h c tt"><span class="blk">Câu chuyện</span><span class="blk g">chưa kết thúc</span></div>
+        <div id="ids"></div>
+        <div class="safe c lab o0" id="ahead" style="top:1340px">tìm lại tên tuổi, quê quán · vẫn còn ở phía trước</div>
+      </div></div>
+
+      <!-- S20 · Ba bức ảnh cũ · một tháp nước · một góc phố · ký ức Sài Gòn · nơi an nghỉ -->
+      <div class="clip scene" id="s20" data-start="272.3" data-duration="23.3" data-track-index="1"><div class="in" id="s20-in">
+        <div class="photo o0" id="q1" style="left:150px;top:500px;transform:rotate(-7deg)"></div>
+        <div class="photo o0" id="q2" style="left:330px;top:450px;transform:rotate(2deg)"></div>
+        <div class="photo o0" id="q3" style="left:480px;top:540px;transform:rotate(8deg)"></div>
+        <div class="safe h c o0" id="m1" style="top:1180px;font-size:60px"><span class="blk">Một tháp nước.</span></div>
+        <div class="safe h c o0" id="m2" style="top:1180px;font-size:60px"><span class="blk">Một góc phố.</span></div>
+        <div class="safe h c o0" id="m3" style="top:1180px;font-size:56px"><span class="blk g">Một phần ký ức Sài Gòn.</span></div>
+        <div class="abs o0" id="rest" style="left:108px;top:440px"></div>
+      </div></div>
+
+      <!-- Kết · Tri ân · tên của mình · một con người, một quê hương, một gia đình -->
+      <div class="clip scene" id="s21" data-start="295.4" data-duration="{{END_DUR}}" data-track-index="1"><div class="in" id="s21-in">
+        <div class="safe c card o0" id="tri" style="top:330px;padding:40px 36px">
+          <div class="lab">Xin tri ân</div>
+          <div class="h" style="font-size:42px;margin-top:16px;line-height:1.35"><span class="blk">Kiến trúc sư Nguyễn Xuân Thắng,</span><span class="blk">những người tham gia tìm kiếm,</span><span class="blk g">các anh hùng liệt sĩ</span></div>
+        </div>
+        <div class="safe o0" id="names" style="top:860px">
+          <div class="card" style="padding:26px 30px;font-family:var(--disp);font-weight:600;font-size:40px;line-height:1.8">Họ tên: <span class="g">……………………</span><br>Quê quán: <span class="g">……………………</span></div>
+        </div>
+        <div class="safe o0" id="three" style="top:480px;display:flex;justify-content:space-around;text-align:center">
+          <div>{{IC_PERSON}}<div class="h" style="font-size:32px;margin-top:14px;white-space:nowrap">một con người</div></div>
+          <div>{{IC_HOME}}<div class="h" style="font-size:32px;margin-top:14px;white-space:nowrap">một quê hương</div></div>
+          <div>{{IC_FAMILY}}<div class="h" style="font-size:32px;margin-top:14px;white-space:nowrap">một gia đình</div></div>
+        </div>
+        <div class="abs o0" id="onedot" style="left:520px;top:1000px;width:40px;height:40px;border-radius:50%;background:var(--gold);box-shadow:0 0 30px rgba(217,178,106,.8)"></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // ================= Hình vẽ dùng lại =================
+      const C = "#efe8da", G = "#d9b26a";
+      // Tháp nước: bồn trụ, mái chóp, chòi nhỏ trên đỉnh, 4 chân giàn chéo
+      const TOWER = (w, col = C, sw = 6) => `<svg width="${w}" height="${w * 1.6}" viewBox="0 0 100 160" fill="none" stroke="${col}" stroke-width="${sw * 100 / w * 1.6 > 4 ? 3 : sw * 100 / w}" stroke-linejoin="round" stroke-linecap="round">
+        <path class="dr" pathLength="1" d="M50 4v8M44 12h12l2 6H42z"/><path class="dr" pathLength="1" d="M18 34c4-10 18-16 32-16s28 6 32 16"/><path class="dr" pathLength="1" d="M18 34v30c0 6 14 10 32 10s32-4 32-10V34"/><path class="dr" pathLength="1" d="M18 34c0 6 14 10 32 10s32-4 32-10"/>
+        <path class="dr" pathLength="1" d="M26 74L20 156M74 74l6 82M42 76l-2 80M58 76l2 80"/><path class="dr" pathLength="1" d="M24 96h52M22 122h56M24 96l54 26M76 96L22 122M21 140h58"/></svg>`;
+      // Ảnh 1 (đen trắng): bãi đất trống, mô đất, vài người đứng xa, dãy nhà thấp, tháp nước bên phải — không vẽ hài cốt
+      const PH_BW = (w) => `<svg width="${w}" height="${w * 0.66}" viewBox="0 0 600 396"><defs><linearGradient id="bwsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7d4cd"/><stop offset="1" stop-color="#bdb9b0"/></linearGradient></defs>
+        <rect width="600" height="396" fill="url(#bwsky)"/><path d="M0 150h600v246H0z" fill="#8f8a81"/><g fill="#a9a59c"><rect x="20" y="118" width="160" height="34"/><rect x="190" y="112" width="200" height="40"/></g><g fill="#7c776f">${[...Array(12)].map((_, k) => `<rect x="${30 + k * 28}" y="${126 + (k % 2) * 4}" width="14" height="8"/>`).join("")}</g>
+        <g transform="translate(470 30) scale(.62)" fill="none" stroke="#55514a" stroke-width="5"><path d="M18 34c4-10 18-16 32-16s28 6 32 16v30c0 6-14 10-32 10s-32-4-32-10z" fill="#9d998f"/><path d="M26 74L20 156M74 74l6 82M24 96h52M24 96l54 26M76 96L22 122"/></g>
+        <g fill="#5d5850"><ellipse cx="190" cy="250" rx="110" ry="38"/><ellipse cx="420" cy="230" rx="140" ry="44"/><ellipse cx="300" cy="340" rx="200" ry="40"/></g>
+        <g fill="#3e3a34"><path d="M470 300c0-40 6-70 14-90 10-4 18-4 24 0 8 20 12 50 12 90z"/><circle cx="496" cy="196" r="13"/></g></svg>`;
+      // Ảnh 2 (màu phai): trời xanh nhạt, thân cây khô, vài người đứng nhìn từ phía sau, tháp nước giữa khung, dãy nhà xa
+      const PH_COL = (w) => `<svg width="${w}" height="${w * 0.66}" viewBox="0 0 600 396"><rect width="600" height="396" fill="#a9c3d6"/><path d="M0 170h600v226H0z" fill="#b7987a"/><g fill="#d9dde0"><rect x="0" y="140" width="240" height="32"/></g><g fill="#7a8a70" opacity=".8"><rect x="300" y="150" width="300" height="22"/></g>
+        <g transform="translate(330 70) scale(.7)" fill="none" stroke="#5a5a58" stroke-width="5"><path d="M18 34c4-10 18-16 32-16s28 6 32 16v30c0 6-14 10-32 10s-32-4-32-10z" fill="#b9b8b2"/><path d="M26 74L20 156M74 74l6 82M24 96h52M24 96l54 26M76 96L22 122"/></g>
+        <path d="M398 396V40l10-30 6 30v356z" fill="#6e5a48"/><g fill="#8e6e52"><ellipse cx="300" cy="300" rx="260" ry="30"/></g>
+        <g fill="#2f3440">${[[90, 210], [160, 225], [250, 205], [300, 200], [450, 215], [500, 230]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="12"/><path d="M${x - 16} ${y + 92}c0-50 6-78 16-78s16 28 16 78z"/>`).join("")}</g></svg>`;
+      // Ảnh 3 (không ảnh): nhìn từ trên xuống, các dãy mái nhà, dải đất cháy, một vệt đánh dấu
+      const PH_AIR = (w) => `<svg width="${w}" height="${w * 0.66}" viewBox="0 0 600 396"><rect width="600" height="396" fill="#9c8a6d"/><path d="M0 300h600v40H0z" fill="#4c443a"/>
+        <g fill="#c9c3b5">${[...Array(18)].map((_, k) => `<rect x="${20 + (k % 6) * 95}" y="${110 + Math.floor(k / 6) * 55}" width="${70 + (k % 3) * 8}" height="24" rx="3" transform="rotate(-6 300 200)"/>`).join("")}</g>
+        <path d="M200 40C260 50 330 60 380 70S500 80 560 72" stroke="#d9b26a" stroke-width="10" fill="none" stroke-linecap="round"/><g fill="#5f6b4d">${[...Array(10)].map((_, k) => `<circle cx="${60 + k * 55}" cy="${360 + (k % 2) * 10}" r="16"/>`).join("")}</g></svg>`;
+      const ph = (id, f, w, cap) => { const el = document.getElementById(id); el.innerHTML = f(w) + (cap ? `<b>${cap}</b>` : ""); };
+      ph("p1a", PH_BW, 380); ph("p1b", PH_COL, 380); ph("p1c", PH_AIR, 380);
+      ph("q1", PH_BW, 380); ph("q2", PH_COL, 380); ph("q3", PH_AIR, 380);
+      ph("p10", PH_BW, 700, "ảnh đen trắng · không ghi địa điểm"); ph("p11", PH_BW, 700, "phía xa: một tháp nước");
+      document.getElementById("tw1").innerHTML = TOWER(300, G, 5);
+      document.getElementById("tw11").innerHTML = TOWER(170, G, 5);
+      // 731 đốm sáng
+      const d731 = document.getElementById("dots731"); d731.innerHTML = "<i></i>".repeat(731);
+      const d2 = document.getElementById("dots2"); d2.innerHTML = "<i></i>".repeat(698) + '<i class="c33"></i>'.repeat(33);
+      // nhang (3 cây) + khói
+      document.getElementById("incense").innerHTML = `<svg width="300" height="460" viewBox="0 0 300 460" fill="none" stroke-linecap="round"><path d="M60 440h180" stroke="${C}" stroke-width="4"/><path d="M80 440c0-60 140-60 140 0" stroke="${C}" stroke-width="4"/>
+        ${[120, 150, 180].map((x, k) => `<path d="M${x} 410V${200 + k * 10}" stroke="${G}" stroke-width="5"/><circle cx="${x}" cy="${198 + k * 10}" r="5" fill="#ff9a4a"/><path class="smoke" d="M${x} ${190 + k * 10}c-16-30 16-50 0-80s16-50 0-80" stroke="${C}" stroke-width="3" opacity=".45"/>`).join("")}</svg>`;
+      // cổng nghĩa trang (mái, cột, bậc)
+      document.getElementById("gate").innerHTML = `<svg width="500" height="300" viewBox="0 0 500 300" fill="none" stroke="${C}" stroke-width="5" stroke-linejoin="round"><path d="M40 90L250 20l210 70z" fill="rgba(239,232,218,.08)"/><path d="M80 90v170M180 90v170M320 90v170M420 90v170M40 260h420M20 290h460"/><path d="M220 140h60v120h-60z" stroke="${G}"/></svg>`;
+      // dụng cụ kiến trúc: compa, thước, bản vẽ
+      document.getElementById("tools").innerHTML = `<svg width="400" height="420" viewBox="0 0 400 420" fill="none" stroke="${C}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="60" width="320" height="300" rx="8" fill="rgba(239,232,218,.05)"/><path d="M80 300l90-150 90 150M120 230h100" stroke="${G}"/><circle cx="170" cy="150" r="10" stroke="${G}"/><path d="M60 380l300-60M70 360l6 26M130 348l5 26M190 336l5 26M250 324l5 26M310 312l5 26"/></svg>`;
+      // bàn vẽ: trái "tương lai" (mặt đứng công trình), phải "quá khứ" (ảnh cũ + tháp nước)
+      document.getElementById("desk").innerHTML = `<svg width="864" height="900" viewBox="0 0 864 900" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="80" width="400" height="520" rx="10" fill="rgba(80,120,170,.18)" stroke="${C}" stroke-width="3"/><text x="210" y="60" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="${C}" letter-spacing="4">BẢN VẼ · TƯƠNG LAI</text>
+        <g stroke="${C}" stroke-width="3" opacity=".9"><path d="M80 540V260h120v280M200 540V200h120v340M60 540h300"/>${[...Array(8)].map((_, k) => `<path d="M${100 + (k % 2) * 40} ${290 + Math.floor(k / 2) * 60}h24"/><path d="M${220 + (k % 2) * 50} ${230 + Math.floor(k / 2) * 70}h28"/>`).join("")}</g>
+        <rect x="454" y="80" width="400" height="520" rx="10" fill="rgba(217,178,106,.08)" stroke="${G}" stroke-width="3"/><text x="654" y="60" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="${G}" letter-spacing="4">TƯ LIỆU · QUÁ KHỨ</text>
+        <g transform="translate(520 380) rotate(-4)"><rect width="270" height="190" rx="4" fill="#d9d2c2"/><rect x="12" y="12" width="246" height="140" fill="#8f897d"/><rect x="12" y="12" width="246" height="56" fill="#c9c2b2"/><ellipse cx="90" cy="120" rx="60" ry="14" fill="#5f5a52"/><ellipse cx="190" cy="110" rx="56" ry="13" fill="#5f5a52"/></g>
+        <g transform="translate(605 110) scale(1.1)"><g fill="none" stroke="${G}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${TOWER(100, G, 5).replace(/<svg[^>]*>/, "").replace("</svg>", "")}</g></g>
+        <path id="bridge" d="M210 640C210 740 654 740 654 640" stroke="${G}" stroke-width="6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="arrowBack" d="M380 790H484M460 770l24 20-24 20" stroke="${G}" stroke-width="6" opacity="0" transform="rotate(180 432 790)"/>
+        <text x="432" y="860" text-anchor="middle" font-family="Literata" font-weight="600" font-size="34" fill="${C}" id="deskTxt" opacity="0">kiến thức kiến trúc → tìm về quá khứ</text></svg>`;
+      // cảnh lễ: hàng hộp hài cốt phủ cờ, hoa, đội nghi lễ; đám đông thắp nhang
+      document.getElementById("cere").innerHTML = `<svg width="864" height="820" viewBox="0 0 864 820" fill="none" stroke-linecap="round">
+        <g id="boxes">${[...Array(12)].map((_, k) => { const x = 40 + (k % 4) * 205, y = 80 + Math.floor(k / 4) * 120; return `<g class="bx" transform="translate(${x} ${y})"><rect width="170" height="70" rx="6" fill="#6b4a30" stroke="${C}" stroke-width="2"/><path d="M0 0h80v70H0z" fill="#b33a2e" opacity=".9"/><path d="M40 22l4 10h10l-8 7 3 10-9-6-9 6 3-10-8-7h10z" fill="${G}"/></g>`; }).join("")}</g>
+        <g id="guard" fill="${C}" opacity=".9">${[...Array(6)].map((_, k) => `<g transform="translate(${90 + k * 140} 470)"><rect x="-16" y="-12" width="32" height="12" rx="3" fill="${C}"/><circle r="16" cy="12"/><path d="M-22 120c0-60 8-90 22-90s22 30 22 90z"/></g>`).join("")}</g>
+        <g id="crowd" opacity="0">${[...Array(16)].map((_, k) => `<g transform="translate(${30 + k * 54} ${700 + (k % 2) * 16})" fill="rgba(239,232,218,.55)"><circle r="14"/><path d="M-20 110c0-50 8-80 20-80s20 30 20 80z"/><path d="M18 -10V-60" stroke="${G}" stroke-width="3"/><circle cx="18" cy="-62" r="3" fill="#ff9a4a"/></g>`).join("")}</g></svg>`;
+      // nơi an nghỉ: các hàng bia, khói nhang
+      document.getElementById("rest").innerHTML = `<svg width="864" height="760" viewBox="0 0 864 760" fill="none">${[...Array(4)].map((_, r) => [...Array(6)].map((_, c) => `<path d="M${70 + c * 130 + r * 10} ${300 + r * 110}v-50a24 24 0 0 1 48 0v50z" fill="rgba(239,232,218,.85)" opacity="${1 - r * 0.15}"/>`).join("")).join("")}
+        <path class="smoke" d="M430 260c-20-40 20-60 0-100s20-60 0-100" stroke="${C}" stroke-width="3" opacity=".4"/><path d="M430 300V270" stroke="${G}" stroke-width="5"/><circle cx="430" cy="266" r="5" fill="#ff9a4a"/></svg>`;
+      // thẻ danh tính trống
+      document.getElementById("ids").innerHTML = [...Array(15)].map(() => `<div class="idc">Họ tên: ……<br>Quê quán: ……</div>`).join("");
+      // lưới ảnh cũ
+      document.getElementById("thumbs").innerHTML = [...Array(64)].map((_, k) => `<i class="thumb" ${k === 27 ? 'id="theOne"' : ""}></i>`).join("");
+      // bảng đối chiếu
+      const pin = (id, svg, t) => (document.getElementById(id).innerHTML = svg + t);
+      pin("pn1", TOWER(90, "#2b2721", 4), "Hình dáng<br>công trình");
+      pin("pn2", `<svg width="200" height="140" viewBox="0 0 200 140" fill="none" stroke="#2b2721" stroke-width="4">${[...Array(4)].map((_, k) => `<rect x="10" y="${10 + k * 32}" width="${150 - k * 20}" height="20" rx="3"/>`).join("")}</svg>`, "Vị trí các dãy nhà");
+      pin("pn3", `<svg width="200" height="140" viewBox="0 0 200 140" fill="none" stroke="#2b2721" stroke-width="3"><path d="M10 10l60 14 60-14 60 14v110l-60-14-60 14-60-14z"/><path d="M70 24v110M130 10v110"/><path d="M30 70h140M100 30v90" stroke-dasharray="4 6"/></svg>`, "Bản đồ cũ");
+      pin("pn4", PH_AIR(200), "Không ảnh");
+      pin("pn5", PH_COL(232), "Ảnh màu");
+
+      // ---- Thế giới mảnh đất (S7): mặt cắt — mặt đất y=520 ----
+      const land = document.getElementById("land");
+      land.innerHTML = `<rect width="1000" height="520" fill="#1d2430"/><rect y="520" width="1000" height="640" fill="#2a241d"/>
+        ${[...Array(5)].map((_, k) => `<path d="M0 ${600 + k * 110}C300 ${590 + k * 110} 700 ${615 + k * 110} 1000 ${600 + k * 110}" stroke="rgba(239,232,218,.08)" stroke-width="3"/>`).join("")}
+        <path d="M0 520H1000" stroke="${C}" stroke-width="4"/>
+        <g id="graves">${[...Array(14)].map((_, k) => `<path d="M${60 + k * 65} 520v-46a18 18 0 0 1 36 0v46z" fill="rgba(239,232,218,.8)"/>`).join("")}</g>
+        <g id="trees" opacity="0">${[...Array(7)].map((_, k) => `<g class="tr" transform="translate(${90 + k * 140} 520)"><rect x="-6" y="-120" width="12" height="120" fill="#6b5a46"/><circle cy="-140" r="${50 + (k % 3) * 10}" fill="#3f6b4a"/></g>`).join("")}</g>
+        <path id="path7" d="M0 516H1000" stroke="#c9b48a" stroke-width="10" opacity="0"/>
+        <g id="people" opacity="0" fill="${C}">${[...Array(4)].map((_, k) => `<g class="pp" transform="translate(${150 + k * 220} 520)"><circle cy="-92" r="13"/><path d="M0 -78v40M0 -38l-14 38M0 -38l14 38M0 -66l-16 18M0 -66l16 18" stroke="${C}" stroke-width="7" stroke-linecap="round"/></g>`).join("")}</g>
+        <g id="hidden" opacity="0">${[...Array(10)].map((_, k) => `<rect x="${100 + k * 80}" y="${720 + (k % 3) * 60}" width="50" height="22" rx="6" fill="none" stroke="${G}" stroke-width="3" stroke-dasharray="6 6"/>`).join("")}<text x="500" y="1050" text-anchor="middle" font-family="Literata" font-weight="600" font-size="40" fill="${G}">dấu tích chưa được tìm thấy</text></g>
+        <text id="lbl1968" x="40" y="80" font-family="Be Vietnam Pro" font-weight="700" font-size="30" fill="${C}" letter-spacing="4">NĂM 1968</text>`;
+      // ---- Công viên nhìn từ trên (S8) ----
+      const PARK = (svgId) => { const el = document.getElementById(svgId);
+        el.innerHTML = `<rect width="1000" height="1158" fill="#1b2a24"/><g fill="#2f4a3a">${[...Array(30)].map((_, k) => `<circle cx="${(k * 173) % 980 + 10}" cy="${(k * 271) % 1120 + 20}" r="${40 + (k % 4) * 10}"/>`).join("")}</g>
+          <path d="M0 580C300 520 600 650 1000 560M480 0C520 400 430 800 520 1158" stroke="#c9b48a" stroke-width="22" fill="none" opacity=".75"/>`; };
+      PARK("park2");
+      document.getElementById("park2").insertAdjacentHTML("beforeend", `<g id="qs" fill="${G}" font-family="Literata" font-weight="800" font-size="70" opacity="0"><text x="180" y="300">?</text><text x="740" y="600">?</text><text x="300" y="800">?</text><text x="760" y="900">?</text><text x="520" y="640">?</text></g>
+        <g id="shift" opacity="0" stroke="${C}" stroke-width="3" stroke-dasharray="10 10" fill="none"><path d="M60 300h300v260H60zM600 700h320v300H600z"/></g>`);
+      // ---- Bản đồ sơ đồ (S13): công viên (nghĩa địa cũ), cư xá Bắc Hải, tháp nước ----
+      const map = document.getElementById("map13");
+      map.innerHTML = `<rect width="1000" height="1158" fill="#171d26"/><g stroke="rgba(239,232,218,.25)" stroke-width="16">${[...Array(6)].map((_, k) => `<path d="M${k * 200} 0V1158"/><path d="M0 ${k * 230}H1000"/>`).join("")}</g>
+        <path d="M0 980L1000 760" stroke="rgba(239,232,218,.35)" stroke-width="30"/>
+        <g id="parkArea"><rect x="90" y="250" width="420" height="440" rx="20" fill="rgba(63,107,74,.45)" stroke="${C}" stroke-width="3"/><text x="300" y="460" text-anchor="middle" font-family="Literata" font-weight="600" font-size="34" fill="${C}">Công viên Lê Thị Riêng</text><text id="oldName" x="300" y="505" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="24" fill="${G}" opacity="0">(nghĩa địa Đô Thành năm xưa)</text></g>
+        <g id="bachhai" opacity="0"><g fill="rgba(239,232,218,.75)">${[...Array(12)].map((_, k) => `<rect x="${600 + (k % 3) * 100}" y="${250 + Math.floor(k / 3) * 90}" width="80" height="50" rx="4"/>`).join("")}</g><text x="740" y="640" text-anchor="middle" font-family="Literata" font-weight="600" font-size="34" fill="${C}">Cư xá Bắc Hải</text></g>
+        <g id="towerPin" opacity="0" transform="translate(560 170)"><circle r="46" fill="rgba(217,178,106,.25)"/><g transform="translate(-30 -48) scale(.6)"><g fill="none" stroke="${G}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${TOWER(100, G, 6).replace(/<svg[^>]*>/, "").replace("</svg>", "")}</g></g></g>`;
+      // ---- Khoanh vùng (S14) ----
+      const zone = document.getElementById("zone");
+      zone.innerHTML = map.innerHTML.replace(/id="/g, 'data-x="') + `<path id="zonePoly" d="M140 320L470 300L480 640L150 660z" fill="rgba(217,178,106,.18)" stroke="${G}" stroke-width="5" stroke-dasharray="14 10"/>`;
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out";
+      const fadeUp = (sel, at, d = 0.7, y = 26) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const fadeOut = (sel, at, d = 0.5) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const swapT = (a, b, at) => { fadeOut(a, at - 0.1, 0.4); fadeUp(b, at + 0.2, 0.7, 20); };
+      const drawIn = (sel, at, d = 1.2) => tl.fromTo(sel, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+      const cam = (id, vb, at, d = 2) => tl.to(id, { attr: { viewBox: vb }, duration: d, ease: "power1.inOut" }, at);
+      gsap.set("#f2", { opacity: 0 });
+
+      // Cảnh: mờ vào/mờ ra chậm
+      [["#s1-in", 0, 5.6], ["#s2-in", 5.55, 12.35], ["#s3-in", 12.3, 17.9], ["#s4-in", 17.85, 25.05], ["#s5-in", 25.0, 30.0], ["#s6-in", 29.95, 36.35], ["#s7-in", 36.3, 56.2],
+       ["#s8-in", 56.1, 67.4], ["#s9-in", 67.3, 74.7], ["#s10-in", 74.6, 94.5], ["#s11-in", 94.4, 110.7], ["#s12-in", 110.6, 131.8], ["#s13-in", 132.3, 147.9],
+       ["#s14-in", 148.3, 172.4], ["#s15-in", 172.3, 196.9], ["#s16-in", 197.0, 216.8], ["#s17-in", 216.8, 242.4], ["#s18-in", 242.6, 261.1], ["#s19-in", 261.0, 272.4],
+       ["#s20-in", 272.3, 295.6], ["#s21-in", 295.4, 999]].forEach(([s, a, b], i) => {
+        if (i) tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, a + 0.02);
+        if (b < 999) tl.to(s, { opacity: 0, duration: 0.45, ease: "power1.in" }, b - 0.5);
+      });
+
+      // S1
+      [["#p1a", 0.1], ["#p1b", 0.45], ["#p1c", 0.8]].forEach(([p, at]) => tl.fromTo(p, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.8, ease: E }, at));
+      tl.to(["#p1a", "#p1b", "#p1c"], { opacity: 0.18, duration: 0.6 }, 1.5);
+      tl.fromTo("#tw1", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.55);
+      drawIn("#tw1 .dr", 1.6, 1.6);
+      fadeUp("#eight", 3.7, 0.7); fadeUp("#eightS", 4.0, 0.6, 14);
+
+      // S2 · 731
+      const n1 = { v: 0 };
+      tl.fromTo(n1, { v: 0 }, { v: 731, duration: 5.0, ease: "power1.inOut", onUpdate: () => (document.getElementById("n731").textContent = Math.round(n1.v)) }, 6.0);
+      tl.to("#dots731 i", { opacity: 1, duration: 0.3, stagger: { each: 5.0 / 731, from: "start" } }, 6.0);
+      fadeUp("#sgn", 10.6, 0.6, 14);
+
+      // S3 · Sáu (bình thản, không cười)
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: E }, 12.4);
+      fadeUp("#s3-name", 13.4, 0.7, 20);
+      fadeUp("#follow", 16.3, 0.5, 14);
+      tl.to("#f1", { opacity: 0, duration: 0.2 }, 16.9); tl.to("#f2", { opacity: 1, duration: 0.3 }, 17.0);
+
+      // S4 · 14.10.2026
+      fadeUp("#d1410", 18.5, 0.8); fadeUp("#ltr", 21.4, 0.8); fadeUp("#incense", 22.7, 1.0, 30);
+      tl.fromTo("#incense .smoke", { y: 0, opacity: 0.45 }, { y: -20, opacity: 0.15, duration: 2.2, repeat: 1, yoyo: true, ease: "sine.inOut", immediateRender: false }, 23.0);
+
+      // S5 · → nghĩa trang
+      drawIn("#arr5", 26.6, 1.0); fadeUp("#gate", 27.4, 0.8); fadeUp("#ntls", 28.0, 0.8, 16);
+
+      // S6 · 1968
+      tl.fromTo("#y1968", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.4, ease: E }, 32.8);
+
+      // S7 · mảnh đất
+      cam("#land", "0 0 1000 1158", 36.3, 0.01);
+      fadeUp("#t7a", 36.6, 0.7);
+      tl.fromTo("#graves path", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 }, 37.0);
+      swapT("#t7a", "#t7b", 40.5);
+      tl.to("#graves", { opacity: 0, duration: 1.2 }, 41.4);
+      tl.to("#lbl1968", { opacity: 0, duration: 0.6 }, 41.4);
+      tl.to("#trees", { opacity: 1, duration: 0.3 }, 43.7);
+      tl.fromTo(".tr", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 1.2, stagger: 0.15, ease: E }, 44.9);
+      tl.to("#path7", { opacity: 1, duration: 0.8 }, 46.2);
+      tl.to("#people", { opacity: 1, duration: 0.8 }, 47.5);
+      tl.fromTo(".pp", { x: (i) => 150 + i * 220 }, { x: (i) => 220 + i * 220, duration: 3.5, ease: "none", immediateRender: false }, 47.5);
+      swapT("#t7b", "#t7c", 51.1);
+      cam("#land", "0 380 1000 1158", 51.3, 2.2);
+      tl.to("#hidden", { opacity: 1, duration: 1.2 }, 53.0);
+
+      // S8 · nhân chứng
+      fadeUp("#b1", 56.8, 0.5, 14); fadeUp("#b2", 57.6, 0.5, 14); fadeUp("#b3", 58.4, 0.5, 14);
+      tl.to("#qs", { opacity: 1, duration: 0.8 }, 59.8);
+      tl.to("#shift", { opacity: 1, duration: 0.6 }, 61.6);
+      tl.fromTo("#shift", { x: 0 }, { x: 60, duration: 1.4, ease: "sine.inOut", immediateRender: false }, 61.8);
+      tl.to(["#b1", "#b2", "#b3"], { opacity: 0.3, duration: 0.6 }, 63.6);
+      tl.fromTo("#qs text", { y: 0 }, { y: (i) => (i % 2 ? 30 : -30), x: (i) => (i % 2 ? -40 : 40), duration: 2.5, ease: "sine.inOut", immediateRender: false }, 63.6);
+
+      // S9 · KTS
+      fadeUp("#tools", 68.0, 0.8); fadeUp("#name9", 72.1, 0.8);
+
+      // S10 · 2018 · ảnh đen trắng · hàng triệu tấm
+      fadeUp("#y2018", 74.9, 0.7);
+      fadeUp("#p10", 78.2, 0.9, 40);
+      fadeUp("#unk", 83.2, 0.6, 14);
+      tl.to(["#p10", "#unk", "#y2018"], { opacity: 0, duration: 0.6 }, 85.5);
+      tl.fromTo("#thumbs .thumb", { opacity: 0, scale: 0.6 }, { opacity: 0.8, scale: 1, duration: 0.3, stagger: { each: 0.02, from: "random" } }, 85.8);
+      tl.to("#thumbs .thumb", { opacity: 0.25, duration: 0.8 }, 89.0);
+      tl.set("#theOne", { backgroundImage: "none" }, 91.7); tl.to("#theOne", { opacity: 1, backgroundColor: "#d9b26a", boxShadow: "0 0 30px rgba(217,178,106,.8)", scale: 1.3, duration: 0.8 }, 91.7);
+      fadeUp("#t10", 92.0, 0.7);
+
+      // S11 · ảnh thứ hai · tháp nước
+      fadeUp("#t11a", 94.6, 0.6);
+      fadeUp("#p11", 94.8, 0.9, 40);
+      tl.fromTo("#ring11", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 100.6);
+      tl.fromTo("#tw11", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 101.5);
+      drawIn("#tw11 .dr", 101.6, 1.4);
+      swapT("#t11a", "#t11b", 105.4);
+      tl.fromTo("#ring11", { scale: 1 }, { scale: 1.08, duration: 0.8, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 106.0);
+
+      // S12 · bảng đối chiếu
+      [["#pn1", 115.5, -2], ["#pn2", 117.4, 3], ["#pn3", 118.9, -1], ["#pn4", 120.0, 2], ["#pn5", 123.6, -3]].forEach(([p, at, r]) => tl.fromTo(p, { opacity: 0, y: 30, rotation: -4 }, { opacity: 1, y: 0, rotation: r, duration: 0.7, ease: E }, at));
+      tl.to("#strings", { opacity: 1, duration: 0.3 }, 128.4);
+      drawIn("#strings path", 128.4, 2.6);
+
+      // S13 · bản đồ
+      fadeUp("#t13a", 133.3, 0.7);
+      tl.to("#towerPin", { opacity: 1, duration: 0.6 }, 133.6);
+      drawIn("#towerPin .dr", 133.6, 1.2);
+      tl.fromTo("#towerPin circle", { scale: 1 }, { scale: 1.6, opacity: 0, transformOrigin: "50% 50%", duration: 1.6, repeat: 2, ease: "power1.out", immediateRender: false }, 134.2);
+      tl.to("#bachhai", { opacity: 1, duration: 0.8 }, 135.6);
+      tl.to("#oldName", { opacity: 1, duration: 0.8 }, 137.9);
+      fadeUp("#mapnote", 138.5, 0.6, 10);
+      swapT("#t13a", "#t13b", 144.0);
+      tl.fromTo("#yrRoll", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 144.6);
+      const yr = { v: 2026 };
+      tl.fromTo(yr, { v: 2026 }, { v: 1968, duration: 2.2, ease: "power2.inOut", onUpdate: () => (document.getElementById("yrRoll").textContent = Math.round(yr.v)) }, 144.8);
+      tl.to("#map13", { filter: "sepia(0.8) brightness(0.8)", duration: 2.2 }, 144.8);
+
+      // S14 · 8 năm · danh sách · cơ quan · khoanh vùng
+      fadeUp("#y8", 148.6, 0.7);
+      [["#l1", 151.8], ["#l2", 154.2], ["#l3", 155.3], ["#l4", 156.5]].forEach(([l, at]) => tl.fromTo(l, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, at));
+      fadeUp("#agency", 159.7, 0.7);
+      tl.to(["#y8", "#list14", "#agency"], { opacity: 0, duration: 0.5 }, 162.4);
+      tl.fromTo("#zoneW", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 162.7);
+      drawIn("#zonePoly", 168.0, 2.4);
+
+      // S15 · 23.6 → 4 tháng → 731
+      fadeUp("#d236", 172.6, 0.8); fadeUp("#d236s", 177.2, 0.6, 14);
+      fadeUp("#bar15", 180.0, 0.6);
+      tl.fromTo("#barfill", { scaleX: 0 }, { scaleX: 1, duration: 5.4, ease: "none" }, 180.4);
+      tl.to(["#d236", "#d236s", "#bar15"], { opacity: 0, duration: 0.5 }, 186.0);
+      fadeUp("#n731b", 186.6, 0.8);
+      tl.to("#dots2", { opacity: 1, duration: 0.1 }, 186.6);
+      tl.to("#dots2 i", { opacity: 1, duration: 0.25, stagger: { each: 2.6 / 731 } }, 186.8);
+      fadeUp("#split", 190.6, 0.7);
+      tl.to("#dots2 i:not(.c33)", { opacity: 0.55, duration: 0.6 }, 193.6);
+
+      // S16 · lễ truy điệu
+      fadeUp("#t16a", 197.4, 0.7);
+      tl.fromTo("#cere .bx", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 198.0);
+      tl.fromTo("#guard g", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, 200.5);
+      swapT("#t16a", "#t16b", 204.3);
+      tl.to("#crowd", { opacity: 1, duration: 1.0 }, 204.6);
+      fadeUp("#thanks", 212.0, 1.0, 16);
+
+      // S17 · bàn vẽ
+      fadeUp("#t17a", 217.0, 0.8);
+      tl.fromTo("#desk", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 217.4);
+      drawIn("#desk .dr", 218.0, 1.6);
+      drawIn("#bridge", 226.0, 2.5);
+      swapT("#t17a", "#t17b", 233.4);
+      tl.to("#arrowBack", { opacity: 1, duration: 0.6 }, 238.7);
+      tl.fromTo("#arrowBack", { x: 0 }, { x: -20, duration: 0.6, yoyo: true, repeat: 3, immediateRender: false }, 239.3);
+      tl.to("#deskTxt", { opacity: 1, duration: 0.8 }, 239.0);
+
+      // S18 · nhiều người góp sức
+      [["#c1", 246.1], ["#c2", 248.1], ["#c3", 249.8], ["#c4", 250.9], ["#c5", 252.1], ["#c6", 256.0]].forEach(([c, at]) => tl.fromTo(c, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, at));
+      fadeUp("#t18", 257.7, 0.8);
+
+      // S19 · danh tính
+      tl.fromTo(".idc", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 }, 263.1);
+      fadeUp("#ahead", 266.2, 0.7, 12);
+
+      // S20 · ba bức ảnh · tháp nước · góc phố · ký ức · nơi an nghỉ
+      [["#q1", 272.6], ["#q2", 272.9], ["#q3", 273.2]].forEach(([p, at]) => tl.fromTo(p, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, at));
+      fadeUp("#m1", 284.4, 0.5, 14); tl.to(["#q1", "#q3"], { opacity: 0.35, duration: 0.5 }, 284.4);
+      swapT("#m1", "#m2", 285.8); tl.to("#q1", { opacity: 1, duration: 0.5 }, 285.8); tl.to("#q2", { opacity: 0.35, duration: 0.5 }, 285.8);
+      swapT("#m2", "#m3", 287.2); tl.to(["#q1", "#q2", "#q3"], { opacity: 1, duration: 0.5 }, 287.2);
+      tl.to(["#q1", "#q2", "#q3", "#m3"], { opacity: 0, duration: 0.6 }, 289.1);
+      tl.fromTo("#rest", { opacity: 0 }, { opacity: 1, duration: 1.0 }, 289.6);
+      tl.fromTo("#rest .smoke", { y: 0, opacity: 0.4 }, { y: -18, opacity: 0.12, duration: 2.0, repeat: 1, yoyo: true, ease: "sine.inOut", immediateRender: false }, 290.8);
+
+      // Kết
+      fadeUp("#tri", 295.8, 0.9);
+      fadeUp("#names", 303.3, 0.9);
+      tl.to(["#tri", "#names"], { opacity: 0, duration: 0.6 }, 310.0);
+      tl.fromTo("#onedot", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.8, ease: E }, 310.7);
+      fadeUp("#three > div:nth-child(1)", 312.5, 0.8); fadeUp("#three > div:nth-child(2)", 315.1, 0.8); fadeUp("#three > div:nth-child(3)", 316.3, 0.8);
+      tl.to("#three", { opacity: 1, duration: 0.1 }, 312.4);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post24"] = tl;
+    </script>
+  </body>
+</html>

@@ -133,6 +133,7 @@ node projects/post-11/build.mjs
 | 21 | Bricolage Grotesque | Bạc hà `#e7f3ec` chấm Riso | Hồng huỳnh quang `#ff4f9a` (chữ chính xanh than) | Bóng chữ lệch kiểu in Riso |
 | 22 | Lora (serif từ điển) | Giấy ngà `#f4ead8` | Đỏ đất `#c4532f` (chữ chính nâu mực) | |
 | 23 | Plus Jakarta Sans | Xám bản đồ `#f1f2f6` | Tím `#5b3df5` | |
+| 24 | Literata | Đêm xanh than `#12161c`, chữ kem `#efe8da` | Vàng nến `#d9b26a` (đỏ cờ chỉ trong cảnh lễ) | Giọng trang nghiêm, SFX thưa |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
@@ -209,6 +210,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **21** | Earworm: nhạc tự lặp trong đầu | **Cái đầu là máy cát-xét**: băng quay, liveshow lúc đi ngủ, bấm tắt không được; "con sâu trong tai"; sóng nhạc chọn đúng 10 giây lặp x99, cờ trắng; DJ quên danh sách nhạc; nghiên cứu nhai kẹo (biểu đồ minh họa); nhai làm băng khựng; két sắt "giữ kỹ như tài sản thừa kế" | Riso: `text-shadow` hồng lệch | 79,4s · 54 |
 | **22** | Những câu ba má nói | **Từ điển ba má**: mâm cơm còn một miếng ngon, mỗi câu là một mục từ (nghĩa đen / nghĩa thật, bút dạ đánh dấu), "Chừng nào rảnh thì về chơi" = ba má nhớ con; hồi nhỏ vs lớn lên; mục cuối "Con về." = chuyện đặc biệt | Mục từ lật trang `rotationY`; tắt phụ đề ở các câu trích | 78,4s · 38 |
 | **23** | Google Maps Dòng thời gian | **Bản đồ ký ức**: ghim + dấu chấm đường đi trên bản đồ có camera; hướng dẫn 4 bước trên điện thoại mô phỏng (mở app, hình đại diện, Dòng thời gian, chọn ngày cũ); quán cà phê quên tên, chuyến đi, con đường quen; 4 thẻ lưu ý riêng tư; kết "điện thoại lưu địa điểm, mình nhớ cảm giác" | Giao diện app là mô phỏng chung, không chép giao diện thật | 85,0s · 44 |
+| **24** | 731 liệt sĩ · Lê Thị Riêng | **Tháp nước làm manh mối**: 3 bức ảnh cũ vẽ lại trừu tượng (không vẽ hài cốt) → lớp đất nghĩa địa → công viên → nhân chứng hỏi "ở đâu?" → KTS Nguyễn Xuân Thắng, bảng ghim nối manh mối → sơ đồ Cư xá Bắc Hải → 8 năm → 731 = 698 + 33 chấm → lễ truy điệu (hộp phủ cờ, đội nghi lễ, người thắp nhang) → bàn vẽ tương lai/quá khứ → thẻ danh tính trống → tri ân, "một con người, một quê hương, một gia đình" | Ảnh người dùng gửi chỉ để tham khảo; sơ đồ không theo tỷ lệ | 321,5s · 191 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

@@ -1,0 +1,908 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.152,
+   "speaker": "B",
+   "text": "Ba bức ảnh cũ,"
+  },
+  {
+   "i": 1,
+   "start": 1.565,
+   "end": 3.355,
+   "speaker": "B",
+   "text": "một tháp nước gần như bị lãng quên,"
+  },
+  {
+   "i": 2,
+   "start": 3.66,
+   "end": 5.017,
+   "speaker": "B",
+   "text": "và tám năm đi tìm sự thật..."
+  },
+  {
+   "i": 3,
+   "start": 5.788,
+   "end": 12.094,
+   "speaker": "B",
+   "text": "Ít ai ngờ những manh mối tưởng chừng nhỏ bé đó lại góp phần mở ra hành trình tìm kiếm 731 liệt sĩ ngay giữa lòng Sài Gòn."
+  },
+  {
+   "i": 5,
+   "start": 12.4,
+   "end": 13.492,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 6,
+   "start": 14.524,
+   "end": 14.953,
+   "speaker": "B",
+   "text": "tao là"
+  },
+  {
+   "i": 7,
+   "start": 15.161,
+   "end": 16.151,
+   "speaker": "B",
+   "text": "Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 8,
+   "start": 16.52,
+   "end": 17.14,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 9,
+   "start": 18.509,
+   "end": 19.546,
+   "speaker": "B",
+   "text": "Ngày 14 tháng 10"
+  },
+  {
+   "i": 10,
+   "start": 19.792,
+   "end": 21,
+   "speaker": "B",
+   "text": "năm 2026,"
+  },
+  {
+   "i": 11,
+   "start": 21.384,
+   "end": 22.418,
+   "speaker": "B",
+   "text": "tại Công viên Lê Thị Riêng,"
+  },
+  {
+   "i": 12,
+   "start": 22.64,
+   "end": 24.554,
+   "speaker": "B",
+   "text": "một lễ truy điệu đặc biệt đã diễn ra."
+  },
+  {
+   "i": 13,
+   "start": 25.289,
+   "end": 29.354,
+   "speaker": "B",
+   "text": "731 hài cốt liệt sĩ được đưa về an táng tại Nghĩa trang Liệt sĩ Thành phố Hồ Chí Minh."
+  },
+  {
+   "i": 14,
+   "start": 30.171,
+   "end": 35.314,
+   "speaker": "B",
+   "text": "Họ là những người đã hy sinh trong cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân năm 1968."
+  },
+  {
+   "i": 16,
+   "start": 36.633,
+   "end": 37.666,
+   "speaker": "B",
+   "text": "Gần sáu mươi năm trước,"
+  },
+  {
+   "i": 17,
+   "start": 38.079,
+   "end": 39.784,
+   "speaker": "B",
+   "text": "khu đất này còn là nghĩa địa Đô Thành."
+  },
+  {
+   "i": 18,
+   "start": 40.521,
+   "end": 41.218,
+   "speaker": "B",
+   "text": "Sau chiến tranh,"
+  },
+  {
+   "i": 19,
+   "start": 41.576,
+   "end": 42.88,
+   "speaker": "B",
+   "text": "nơi đây được cải tạo thành công viên."
+  },
+  {
+   "i": 20,
+   "start": 43.729,
+   "end": 44.579,
+   "speaker": "B",
+   "text": "Thời gian trôi qua,"
+  },
+  {
+   "i": 21,
+   "start": 44.922,
+   "end": 45.864,
+   "speaker": "B",
+   "text": "cây xanh mọc lên,"
+  },
+  {
+   "i": 22,
+   "start": 46.185,
+   "end": 50.339,
+   "speaker": "B",
+   "text": "những con đường hình thành, người dân tới đây tập thể dục, vui chơi, sinh hoạt mỗi ngày."
+  },
+  {
+   "i": 23,
+   "start": 51.084,
+   "end": 52.729,
+   "speaker": "B",
+   "text": "Nhưng bên dưới một phần khuôn viên ấy,"
+  },
+  {
+   "i": 24,
+   "start": 52.96,
+   "end": 55.402,
+   "speaker": "B",
+   "text": "vẫn còn những dấu tích lịch sử chưa được tìm thấy."
+  },
+  {
+   "i": 25,
+   "start": 56.499,
+   "end": 59.081,
+   "speaker": "B",
+   "text": "Nhiều nhân chứng biết từng có những khu mộ tập thể tại đây."
+  },
+  {
+   "i": 27,
+   "start": 59.676,
+   "end": 61.3,
+   "speaker": "B",
+   "text": "Vấn đề là sau hàng chục năm,"
+  },
+  {
+   "i": 28,
+   "start": 61.55,
+   "end": 62.954,
+   "speaker": "B",
+   "text": "địa hình đã thay đổi quá nhiều."
+  },
+  {
+   "i": 29,
+   "start": 63.49,
+   "end": 66.359,
+   "speaker": "B",
+   "text": "Những lời kể không còn đủ để xác định chính xác từng vị trí."
+  },
+  {
+   "i": 30,
+   "start": 67.627,
+   "end": 68.046,
+   "speaker": "B",
+   "text": "Và rồi,"
+  },
+  {
+   "i": 31,
+   "start": 68.474,
+   "end": 71.307,
+   "speaker": "B",
+   "text": "một người đàn ông bắt đầu lần theo những manh mối còn sót lại."
+  },
+  {
+   "i": 32,
+   "start": 72.073,
+   "end": 73.829,
+   "speaker": "B",
+   "text": "Ông là kiến trúc sư Nguyễn Xuân Thắng."
+  },
+  {
+   "i": 33,
+   "start": 74.92,
+   "end": 76.045,
+   "speaker": "B",
+   "text": "Năm 2018,"
+  },
+  {
+   "i": 34,
+   "start": 76.309,
+   "end": 77.753,
+   "speaker": "B",
+   "text": "trong lúc tìm kiếm tư liệu lịch sử,"
+  },
+  {
+   "i": 35,
+   "start": 78.158,
+   "end": 79.529,
+   "speaker": "B",
+   "text": "ông bắt gặp một bức ảnh đen trắng."
+  },
+  {
+   "i": 36,
+   "start": 80.26,
+   "end": 82.565,
+   "speaker": "B",
+   "text": "Bức ảnh ghi lại một cảnh chôn cất thời chiến,"
+  },
+  {
+   "i": 37,
+   "start": 82.994,
+   "end": 84.812,
+   "speaker": "B",
+   "text": "nhưng không có thông tin rõ ràng về địa điểm."
+  },
+  {
+   "i": 38,
+   "start": 85.754,
+   "end": 86.595,
+   "speaker": "B",
+   "text": "Một tấm hình cũ"
+  },
+  {
+   "i": 39,
+   "start": 86.833,
+   "end": 88.106,
+   "speaker": "B",
+   "text": "giữa hàng triệu tấm hình cũ."
+  },
+  {
+   "i": 40,
+   "start": 88.906,
+   "end": 90.91,
+   "speaker": "B",
+   "text": "Với nhiều người, có lẽ câu chuyện đã dừng ở đó."
+  },
+  {
+   "i": 41,
+   "start": 91.687,
+   "end": 92.484,
+   "speaker": "B",
+   "text": "Nhưng ông Thắng thì không."
+  },
+  {
+   "i": 42,
+   "start": 93.137,
+   "end": 93.986,
+   "speaker": "B",
+   "text": "Ông tiếp tục tìm kiếm."
+  },
+  {
+   "i": 43,
+   "start": 94.575,
+   "end": 96.262,
+   "speaker": "B",
+   "text": "Rồi thêm một bức ảnh khác xuất hiện."
+  },
+  {
+   "i": 44,
+   "start": 97.202,
+   "end": 97.931,
+   "speaker": "B",
+   "text": "Trong tấm ảnh này"
+  },
+  {
+   "i": 45,
+   "start": 98.243,
+   "end": 99.716,
+   "speaker": "B",
+   "text": "có một chi tiết rất đáng chú ý."
+  },
+  {
+   "i": 46,
+   "start": 100.554,
+   "end": 102.959,
+   "speaker": "B",
+   "text": "Phía xa là một tháp nước có hình dáng đặc biệt."
+  },
+  {
+   "i": 47,
+   "start": 103.828,
+   "end": 104.86,
+   "speaker": "B",
+   "text": "Ông bắt đầu đặt câu hỏi:"
+  },
+  {
+   "i": 48,
+   "start": 105.468,
+   "end": 107.216,
+   "speaker": "B",
+   "text": "Nếu tìm được tháp nước đó,"
+  },
+  {
+   "i": 49,
+   "start": 107.466,
+   "end": 110.079,
+   "speaker": "B",
+   "text": "liệu có thể xác định nơi bức ảnh được chụp hay không?"
+  },
+  {
+   "i": 51,
+   "start": 110.837,
+   "end": 111.376,
+   "speaker": "B",
+   "text": "Từ đây,"
+  },
+  {
+   "i": 52,
+   "start": 111.64,
+   "end": 114.549,
+   "speaker": "B",
+   "text": "cuộc tìm kiếm trở thành một bài toán về không gian và lịch sử."
+  },
+  {
+   "i": 53,
+   "start": 115.496,
+   "end": 116.894,
+   "speaker": "B",
+   "text": "Ông đối chiếu hình dáng công trình,"
+  },
+  {
+   "i": 54,
+   "start": 117.381,
+   "end": 118.409,
+   "speaker": "B",
+   "text": "vị trí các dãy nhà,"
+  },
+  {
+   "i": 55,
+   "start": 118.874,
+   "end": 122.284,
+   "speaker": "B",
+   "text": "bản đồ cũ và những tấm không ảnh chụp Sài Gòn nhiều thập kỷ trước."
+  },
+  {
+   "i": 57,
+   "start": 123.465,
+   "end": 127.33,
+   "speaker": "B",
+   "text": "Rồi một bức ảnh màu từ tư liệu lịch sử tiếp tục bổ sung những chi tiết còn thiếu."
+  },
+  {
+   "i": 58,
+   "start": 128.409,
+   "end": 130.094,
+   "speaker": "B",
+   "text": "Những manh mối tưởng như rời rạc"
+  },
+  {
+   "i": 59,
+   "start": 130.333,
+   "end": 131.406,
+   "speaker": "B",
+   "text": "dần kết nối với nhau."
+  },
+  {
+   "i": 60,
+   "start": 132.588,
+   "end": 132.946,
+   "speaker": "B",
+   "text": "Cuối cùng,"
+  },
+  {
+   "i": 61,
+   "start": 133.289,
+   "end": 137.511,
+   "speaker": "B",
+   "text": "nhóm nghiên cứu nhận ra tháp nước trong ảnh có liên hệ với khu vực cư xá Bắc Hải,"
+  },
+  {
+   "i": 63,
+   "start": 137.9,
+   "end": 139.352,
+   "speaker": "B",
+   "text": "gần nghĩa địa Đô Thành năm xưa."
+  },
+  {
+   "i": 64,
+   "start": 140.415,
+   "end": 141.51,
+   "speaker": "B",
+   "text": "Một công trình bình thường,"
+  },
+  {
+   "i": 65,
+   "start": 141.891,
+   "end": 143.463,
+   "speaker": "B",
+   "text": "vẫn tồn tại giữa thành phố hiện đại,"
+  },
+  {
+   "i": 66,
+   "start": 144.008,
+   "end": 147.259,
+   "speaker": "B",
+   "text": "bỗng trở thành dấu mốc giúp lần ngược về năm 1968."
+  },
+  {
+   "i": 68,
+   "start": 148.58,
+   "end": 149.783,
+   "speaker": "B",
+   "text": "Tám năm kiên trì tìm kiếm."
+  },
+  {
+   "i": 69,
+   "start": 150.548,
+   "end": 151.514,
+   "speaker": "B",
+   "text": "Không chỉ có những bức ảnh,"
+  },
+  {
+   "i": 70,
+   "start": 151.845,
+   "end": 153.763,
+   "speaker": "B",
+   "text": "mà còn là rất nhiều lần khảo sát thực địa,"
+  },
+  {
+   "i": 71,
+   "start": 154.175,
+   "end": 154.916,
+   "speaker": "B",
+   "text": "đối chiếu bản đồ,"
+  },
+  {
+   "i": 72,
+   "start": 155.295,
+   "end": 156.152,
+   "speaker": "B",
+   "text": "kiểm tra giả thuyết"
+  },
+  {
+   "i": 73,
+   "start": 156.441,
+   "end": 158.656,
+   "speaker": "B",
+   "text": "và tìm gặp những người còn nhớ chuyện năm xưa."
+  },
+  {
+   "i": 74,
+   "start": 159.68,
+   "end": 161.717,
+   "speaker": "B",
+   "text": "Những kết quả ấy được chuyển tới cơ quan chức năng."
+  },
+  {
+   "i": 75,
+   "start": 162.596,
+   "end": 163.006,
+   "speaker": "B",
+   "text": "Từ đó,"
+  },
+  {
+   "i": 76,
+   "start": 163.292,
+   "end": 164.487,
+   "speaker": "B",
+   "text": "cùng với lời kể nhân chứng,"
+  },
+  {
+   "i": 77,
+   "start": 164.834,
+   "end": 167.487,
+   "speaker": "B",
+   "text": "tư liệu lịch sử và các phương pháp khảo sát khoa học,"
+  },
+  {
+   "i": 78,
+   "start": 168.004,
+   "end": 168.878,
+   "speaker": "B",
+   "text": "lực lượng chuyên trách"
+  },
+  {
+   "i": 79,
+   "start": 169.132,
+   "end": 171.283,
+   "speaker": "B",
+   "text": "từng bước xác định khu vực cần tìm kiếm."
+  },
+  {
+   "i": 81,
+   "start": 172.567,
+   "end": 174.607,
+   "speaker": "B",
+   "text": "Ngày 23 tháng 6 năm 2026,"
+  },
+  {
+   "i": 82,
+   "start": 175.122,
+   "end": 176.796,
+   "speaker": "B",
+   "text": "cuộc tìm kiếm tại Công viên Lê Thị Riêng"
+  },
+  {
+   "i": 83,
+   "start": 177.069,
+   "end": 178.881,
+   "speaker": "B",
+   "text": "bắt đầu ghi nhận những hài cốt đầu tiên."
+  },
+  {
+   "i": 84,
+   "start": 180.017,
+   "end": 181.213,
+   "speaker": "B",
+   "text": "Trong gần bốn tháng tiếp theo,"
+  },
+  {
+   "i": 85,
+   "start": 181.561,
+   "end": 183.813,
+   "speaker": "B",
+   "text": "các lực lượng làm việc cẩn trọng để tìm kiếm,"
+  },
+  {
+   "i": 86,
+   "start": 184.084,
+   "end": 184.492,
+   "speaker": "B",
+   "text": "quy tập"
+  },
+  {
+   "i": 87,
+   "start": 184.75,
+   "end": 185.95,
+   "speaker": "B",
+   "text": "và bảo quản những gì còn lại."
+  },
+  {
+   "i": 88,
+   "start": 186.486,
+   "end": 187.281,
+   "speaker": "B",
+   "text": "Kết quả là"
+  },
+  {
+   "i": 89,
+   "start": 187.473,
+   "end": 189.685,
+   "speaker": "B",
+   "text": "731 hài cốt liệt sĩ được tìm thấy."
+  },
+  {
+   "i": 90,
+   "start": 190.271,
+   "end": 196.387,
+   "speaker": "B",
+   "text": "Trong đó có 698 hài cốt được quy tập riêng lẻ và 33 hài cốt thuộc một mộ tập thể."
+  },
+  {
+   "i": 91,
+   "start": 197.363,
+   "end": 198.247,
+   "speaker": "B",
+   "text": "Ngày 14 tháng 10,"
+  },
+  {
+   "i": 92,
+   "start": 198.589,
+   "end": 200.214,
+   "speaker": "B",
+   "text": "thành phố tổ chức lễ truy điệu"
+  },
+  {
+   "i": 93,
+   "start": 200.438,
+   "end": 203.456,
+   "speaker": "B",
+   "text": "và đưa các liệt sĩ về Nghĩa trang Liệt sĩ Thành phố Hồ Chí Minh."
+  },
+  {
+   "i": 94,
+   "start": 204.299,
+   "end": 205.76,
+   "speaker": "B",
+   "text": "Hàng ngàn người dân đã tới tiễn đưa."
+  },
+  {
+   "i": 95,
+   "start": 206.468,
+   "end": 209.371,
+   "speaker": "B",
+   "text": "Có những người chưa từng biết tên một liệt sĩ nào trong số đó."
+  },
+  {
+   "i": 96,
+   "start": 210.086,
+   "end": 211.204,
+   "speaker": "B",
+   "text": "Nhưng họ vẫn có mặt."
+  },
+  {
+   "i": 97,
+   "start": 211.706,
+   "end": 215.714,
+   "speaker": "B",
+   "text": "Bởi có những lời cảm ơn không cần biết tên người nhận mới có thể nói ra."
+  },
+  {
+   "i": 98,
+   "start": 216.971,
+   "end": 219.815,
+   "speaker": "B",
+   "text": "Và trong hành trình này, điều khiến tao suy nghĩ nhiều nhất là"
+  },
+  {
+   "i": 99,
+   "start": 220.162,
+   "end": 222.102,
+   "speaker": "B",
+   "text": "công việc của kiến trúc sư Nguyễn Xuân Thắng."
+  },
+  {
+   "i": 100,
+   "start": 222.837,
+   "end": 232.434,
+   "speaker": "B",
+   "text": "Ông không trực tiếp chứng kiến những gì xảy ra vào năm 1968. Nhưng đã dành nhiều năm để tìm hiểu, đối chiếu và nối lại những dấu vết mà thời gian gần như xóa nhòa."
+  },
+  {
+   "i": 102,
+   "start": 233.351,
+   "end": 234.258,
+   "speaker": "B",
+   "text": "Một người làm kiến trúc,"
+  },
+  {
+   "i": 103,
+   "start": 234.577,
+   "end": 238.056,
+   "speaker": "B",
+   "text": "vốn quen với bản vẽ và những công trình sẽ được xây dựng trong tương lai..."
+  },
+  {
+   "i": 104,
+   "start": 238.659,
+   "end": 240.18,
+   "speaker": "B",
+   "text": "Lại dùng chính kiến thức của mình"
+  },
+  {
+   "i": 105,
+   "start": 240.513,
+   "end": 241.942,
+   "speaker": "B",
+   "text": "để tìm về một phần quá khứ."
+  },
+  {
+   "i": 106,
+   "start": 242.896,
+   "end": 245.585,
+   "speaker": "B",
+   "text": "Dĩ nhiên, hành trình ấy không phải công sức của một người."
+  },
+  {
+   "i": 107,
+   "start": 246.136,
+   "end": 247.819,
+   "speaker": "B",
+   "text": "Còn có những nhân chứng giữ gìn ký ức,"
+  },
+  {
+   "i": 108,
+   "start": 248.124,
+   "end": 249.428,
+   "speaker": "B",
+   "text": "những người sưu tầm tài liệu,"
+  },
+  {
+   "i": 109,
+   "start": 249.788,
+   "end": 250.568,
+   "speaker": "B",
+   "text": "các nhà nghiên cứu,"
+  },
+  {
+   "i": 110,
+   "start": 250.867,
+   "end": 251.674,
+   "speaker": "B",
+   "text": "lực lượng tìm kiếm,"
+  },
+  {
+   "i": 111,
+   "start": 252.143,
+   "end": 257.406,
+   "speaker": "B",
+   "text": "những người làm công tác giám định và rất nhiều cá nhân, đơn vị khác."
+  },
+  {
+   "i": 114,
+   "start": 257.658,
+   "end": 260.346,
+   "speaker": "B",
+   "text": "Mỗi người góp một phần để điều tưởng chừng không thể dần trở thành hiện thực."
+  },
+  {
+   "i": 116,
+   "start": 261.375,
+   "end": 262.742,
+   "speaker": "B",
+   "text": "Nhưng câu chuyện vẫn chưa kết thúc."
+  },
+  {
+   "i": 117,
+   "start": 263.068,
+   "end": 265.41,
+   "speaker": "B",
+   "text": "Bởi nhiều liệt sĩ vẫn chưa xác định được danh tính."
+  },
+  {
+   "i": 118,
+   "start": 266.001,
+   "end": 271.41,
+   "speaker": "B",
+   "text": "Công việc giám định, đối chiếu thông tin để tìm lại tên tuổi và quê quán của từng người vẫn còn ở phía trước."
+  },
+  {
+   "i": 120,
+   "start": 272.555,
+   "end": 274.626,
+   "speaker": "B",
+   "text": "Tao cứ nghĩ mãi về ba bức ảnh cũ đó."
+  },
+  {
+   "i": 121,
+   "start": 275.266,
+   "end": 275.799,
+   "speaker": "B",
+   "text": "Ngày được chụp,"
+  },
+  {
+   "i": 122,
+   "start": 276.382,
+   "end": 277.87,
+   "speaker": "B",
+   "text": "có lẽ chẳng ai hình dung rằng"
+  },
+  {
+   "i": 123,
+   "start": 278.214,
+   "end": 279.401,
+   "speaker": "B",
+   "text": "gần sáu mươi năm sau,"
+  },
+  {
+   "i": 124,
+   "start": 279.962,
+   "end": 283.585,
+   "speaker": "B",
+   "text": "những chi tiết nhỏ trong ảnh lại có thể trở thành manh mối quan trọng đến vậy."
+  },
+  {
+   "i": 126,
+   "start": 284.404,
+   "end": 284.989,
+   "speaker": "B",
+   "text": "Một tháp nước."
+  },
+  {
+   "i": 127,
+   "start": 285.766,
+   "end": 286.402,
+   "speaker": "B",
+   "text": "Một góc phố."
+  },
+  {
+   "i": 128,
+   "start": 287.192,
+   "end": 288.514,
+   "speaker": "B",
+   "text": "Một phần ký ức của Sài Gòn."
+  },
+  {
+   "i": 129,
+   "start": 289.264,
+   "end": 290.302,
+   "speaker": "B",
+   "text": "Và một hành trình dài"
+  },
+  {
+   "i": 130,
+   "start": 290.779,
+   "end": 292.816,
+   "speaker": "B",
+   "text": "để những người đã nằm lại suốt bao năm"
+  },
+  {
+   "i": 131,
+   "start": 293.192,
+   "end": 294.804,
+   "speaker": "B",
+   "text": "được đưa về nơi an nghỉ trang trọng."
+  },
+  {
+   "i": 132,
+   "start": 295.608,
+   "end": 298.252,
+   "speaker": "B",
+   "text": "Xin được gửi lời tri ân tới kiến trúc sư Nguyễn Xuân Thắng,"
+  },
+  {
+   "i": 133,
+   "start": 298.784,
+   "end": 300.253,
+   "speaker": "B",
+   "text": "những người tham gia cuộc tìm kiếm"
+  },
+  {
+   "i": 134,
+   "start": 300.622,
+   "end": 302.426,
+   "speaker": "B",
+   "text": "và tất cả các liệt sĩ đã hy sinh."
+  },
+  {
+   "i": 135,
+   "start": 303.227,
+   "end": 303.696,
+   "speaker": "B",
+   "text": "Mong rằng"
+  },
+  {
+   "i": 136,
+   "start": 304.187,
+   "end": 304.985,
+   "speaker": "B",
+   "text": "một ngày không xa,"
+  },
+  {
+   "i": 137,
+   "start": 305.591,
+   "end": 307.43,
+   "speaker": "B",
+   "text": "những người vẫn chưa được xác định danh tính"
+  },
+  {
+   "i": 138,
+   "start": 307.783,
+   "end": 309.784,
+   "speaker": "B",
+   "text": "sẽ được gọi lại bằng chính tên của mình."
+  },
+  {
+   "i": 139,
+   "start": 310.647,
+   "end": 311.903,
+   "speaker": "B",
+   "text": "Để phía sau mỗi con số,"
+  },
+  {
+   "i": 140,
+   "start": 312.439,
+   "end": 314.453,
+   "speaker": "B",
+   "text": "người ta còn tìm lại được một con người,"
+  },
+  {
+   "i": 141,
+   "start": 315.074,
+   "end": 315.71,
+   "speaker": "B",
+   "text": "một quê hương"
+  },
+  {
+   "i": 142,
+   "start": 316.279,
+   "end": 317.99,
+   "speaker": "B",
+   "text": "và một gia đình từng mong chờ."
+  }
+ ]
+}

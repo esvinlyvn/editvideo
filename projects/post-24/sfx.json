@@ -1,0 +1,473 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  5.55,
+  12.3,
+  17.85,
+  25.0,
+  29.95,
+  36.3,
+  56.1,
+  67.3,
+  74.6,
+  94.4,
+  110.6,
+  132.3,
+  148.3,
+  172.3,
+  197.0,
+  216.8,
+  242.6,
+  261.0,
+  272.3,
+  295.4
+ ],
+ "cues": [
+  {
+   "at": 0.4,
+   "name": "whoosh-soft",
+   "vol": 0.5,
+   "why": "ba bức ảnh"
+  },
+  {
+   "at": 1.7,
+   "name": "shimmer",
+   "vol": 0.4,
+   "why": "tháp nước"
+  },
+  {
+   "at": 3.6,
+   "name": "tick",
+   "vol": 0.45,
+   "why": "8 năm"
+  },
+  {
+   "at": 5.8,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "731"
+  },
+  {
+   "at": 6.4,
+   "name": "tick-tock",
+   "vol": 0.35,
+   "why": "đếm"
+  },
+  {
+   "at": 12.4,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "Sáu"
+  },
+  {
+   "at": 18.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "14.10.2026"
+  },
+  {
+   "at": 22.7,
+   "name": "shimmer",
+   "vol": 0.45,
+   "why": "nhang"
+  },
+  {
+   "at": 25.1,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "an táng"
+  },
+  {
+   "at": 27.0,
+   "name": "click",
+   "vol": 0.4,
+   "why": "mũi tên"
+  },
+  {
+   "at": 30.1,
+   "name": "bass-drop",
+   "vol": 0.45,
+   "why": "1968"
+  },
+  {
+   "at": 36.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "lớp đất"
+  },
+  {
+   "at": 44.0,
+   "name": "page-turn",
+   "vol": 0.5,
+   "why": "thành công viên"
+  },
+  {
+   "at": 50.0,
+   "name": "paper-rustle",
+   "vol": 0.4,
+   "why": "người dân"
+  },
+  {
+   "at": 56.3,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "nhân chứng"
+  },
+  {
+   "at": 57.6,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "bong bóng"
+  },
+  {
+   "at": 59.8,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "bong bóng"
+  },
+  {
+   "at": 61.8,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "bong bóng"
+  },
+  {
+   "at": 67.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "KTS"
+  },
+  {
+   "at": 70.5,
+   "name": "scribble",
+   "vol": 0.4,
+   "why": "compa"
+  },
+  {
+   "at": 74.8,
+   "name": "page-turn",
+   "vol": 0.5,
+   "why": "2018"
+  },
+  {
+   "at": 77.5,
+   "name": "paper-rustle",
+   "vol": 0.45,
+   "why": "ảnh đen trắng"
+  },
+  {
+   "at": 85.8,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "hàng triệu tấm"
+  },
+  {
+   "at": 91.7,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "một tấm"
+  },
+  {
+   "at": 94.6,
+   "name": "page-turn",
+   "vol": 0.5,
+   "why": "ảnh thứ hai"
+  },
+  {
+   "at": 101.6,
+   "name": "scribble",
+   "vol": 0.4,
+   "why": "tháp nước"
+  },
+  {
+   "at": 104.0,
+   "name": "zoom-in",
+   "vol": 0.45,
+   "why": "khoanh"
+  },
+  {
+   "at": 110.8,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "bảng"
+  },
+  {
+   "at": 115.5,
+   "name": "click",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 117.4,
+   "name": "click",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 118.9,
+   "name": "click",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 120.0,
+   "name": "click",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 123.6,
+   "name": "click",
+   "vol": 0.45,
+   "why": "ghim"
+  },
+  {
+   "at": 132.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "bản đồ"
+  },
+  {
+   "at": 133.6,
+   "name": "ding-idea",
+   "vol": 0.55,
+   "why": "tháp nước"
+  },
+  {
+   "at": 137.9,
+   "name": "riser",
+   "vol": 0.35,
+   "why": "lần ngược"
+  },
+  {
+   "at": 148.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "8 năm"
+  },
+  {
+   "at": 151.8,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "1"
+  },
+  {
+   "at": 154.2,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "2"
+  },
+  {
+   "at": 156.5,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "3"
+  },
+  {
+   "at": 159.7,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "4"
+  },
+  {
+   "at": 162.7,
+   "name": "page-turn",
+   "vol": 0.45,
+   "why": "cơ quan"
+  },
+  {
+   "at": 168.0,
+   "name": "shimmer",
+   "vol": 0.45,
+   "why": "khoanh vùng"
+  },
+  {
+   "at": 172.5,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "23.6"
+  },
+  {
+   "at": 180.0,
+   "name": "tick-tock",
+   "vol": 0.35,
+   "why": "4 tháng"
+  },
+  {
+   "at": 187.5,
+   "name": "shimmer",
+   "vol": 0.55,
+   "why": "731"
+  },
+  {
+   "at": 191.0,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "698"
+  },
+  {
+   "at": 193.5,
+   "name": "tick",
+   "vol": 0.4,
+   "why": "33"
+  },
+  {
+   "at": 197.2,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "lễ"
+  },
+  {
+   "at": 200.5,
+   "name": "paper-rustle",
+   "vol": 0.35,
+   "why": "đội nghi lễ"
+  },
+  {
+   "at": 204.6,
+   "name": "crowd-chatter",
+   "vol": 0.3,
+   "why": "đám đông"
+  },
+  {
+   "at": 212.0,
+   "name": "shimmer",
+   "vol": 0.55,
+   "why": "Cảm ơn"
+  },
+  {
+   "at": 217.0,
+   "name": "page-turn",
+   "vol": 0.45,
+   "why": "bàn vẽ"
+  },
+  {
+   "at": 226.0,
+   "name": "scribble",
+   "vol": 0.4,
+   "why": "nối"
+  },
+  {
+   "at": 233.4,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "quá khứ"
+  },
+  {
+   "at": 238.7,
+   "name": "click",
+   "vol": 0.4,
+   "why": "mũi tên"
+  },
+  {
+   "at": 242.8,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "nhiều người"
+  },
+  {
+   "at": 246.1,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 248.1,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 249.8,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 250.9,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 252.1,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 256.0,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "chip"
+  },
+  {
+   "at": 261.2,
+   "name": "paper-rustle",
+   "vol": 0.45,
+   "why": "thẻ trống"
+  },
+  {
+   "at": 266.5,
+   "name": "page-turn",
+   "vol": 0.4,
+   "why": "giám định"
+  },
+  {
+   "at": 272.6,
+   "name": "whoosh-soft",
+   "vol": 0.45,
+   "why": "ba bức ảnh"
+  },
+  {
+   "at": 280.0,
+   "name": "shimmer",
+   "vol": 0.4,
+   "why": "chi tiết"
+  },
+  {
+   "at": 289.5,
+   "name": "whoosh-soft",
+   "vol": 0.4,
+   "why": "nơi an nghỉ"
+  },
+  {
+   "at": 295.6,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "tri ân"
+  },
+  {
+   "at": 305.0,
+   "name": "paper-rustle",
+   "vol": 0.4,
+   "why": "tên"
+  },
+  {
+   "at": 312.5,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "con người"
+  },
+  {
+   "at": 315.1,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "quê hương"
+  },
+  {
+   "at": 316.3,
+   "name": "pop",
+   "vol": 0.4,
+   "why": "gia đình"
+  },
+  {
+   "at": 318.5,
+   "name": "shimmer",
+   "vol": 0.5,
+   "why": "kết"
+  }
+ ]
+}
