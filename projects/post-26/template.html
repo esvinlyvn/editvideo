@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Thành phố dưới biển</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Một mặt cắt từ trời xuống đáy biển": thế giới SVG có camera =====
+         Trời hoàng hôn · mặt biển (y=1000) · lòng biển · đáy biển (y=2700) · lớp trầm tích.
+         Thành phố cảng xây trên khối trầm tích mềm → khối đất sụt dần, chìm xuống đáy biển, cột nghiêng, tượng đổ.
+         Năm 2000: thuyền khảo sát + thợ lặn soi đèn tìm lại tượng, đền, bến cảng và tấm bia khắc chữ.
+         Kết: bóng thành phố xưa hiện lên phía trên phế tích (cùng một khung hình, hai thời).
+         2 font: Cormorant Garamond (tiêu đề cổ điển) · Be Vietnam Pro (phụ đề). Chữ kem #fdf3e1 + nhấn san hô đất nung #ff8a5c. */
+      :root { --disp: "Cormorant Garamond", serif; --body: "Be Vietnam Pro", sans-serif; --cream: #fdf3e1; --acc: #ff8a5c; --bg: #0a2230; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 600px; background: linear-gradient(rgba(10,25,36,.9) 0, rgba(10,25,36,.6) 300px, rgba(10,25,36,0) 600px); }
+      #shBot { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; background: linear-gradient(rgba(5,18,26,0), rgba(5,18,26,.75)); }
+      #dim { position: absolute; inset: 0; background: rgba(8,26,37,.84); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.04; text-shadow: 0 4px 20px rgba(0,0,0,.55); }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 200px; font-size: 76px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .2em; text-transform: uppercase; color: rgba(253,243,225,.75); white-space: nowrap; }
+      .card { background: rgba(9,30,42,.88); border: 2px solid rgba(253,243,225,.4); border-radius: 22px; }
+      .nm { position: absolute; padding: 18px 28px 22px; border-radius: 18px; background: #f3e3c3; color: #2b1d10; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,.45); opacity: 0; }
+      .nm b { display: block; font-family: var(--disp); font-weight: 700; font-size: 60px; line-height: 1; white-space: nowrap; }
+      .nm span { display: block; margin-top: 6px; font-weight: 700; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: #8a5a32; white-space: nowrap; }
+      .chip { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; margin: 8px 6px 0 0; border-radius: 40px; background: rgba(9,30,42,.88); border: 2px solid var(--acc); font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 20px 12px; border-radius: 26px; background: rgba(9,30,42,.9); border: 2px solid var(--acc); font-family: var(--disp); font-weight: 700; font-size: 34px; white-space: nowrap; opacity: 0; }
+      .tag::after { content: ""; position: absolute; left: 50%; bottom: -20px; width: 2px; height: 18px; background: var(--acc); }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(4, 14, 20, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post26" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div><div id="shBot"></div>
+        <div class="tag" id="tgTemple">Đền thờ</div>
+        <div class="tag" id="tgStatue">Tượng đá khổng lồ</div>
+        <div class="tag" id="tgPort">Bến cảng</div>
+        <div class="tag" id="tgSed">Trầm tích mềm</div>
+        <div class="tag" id="tgBay">Vịnh Aboukir</div>
+        <div id="dim"></div>
+
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="tOpen"><span class="blk">Cửa ngõ thương mại</span><span class="blk a">của Ai Cập cổ đại</span></div>
+        <div class="safe c o0" id="hYears" style="top:200px"><div class="lab">biến mất suốt</div><div class="h a" style="font-size:150px"><span class="blk"><span id="yrN">0</span>+ năm</span></div></div>
+        <div class="nm" id="nm1" style="left:120px;top:560px;transform:rotate(-4deg)"><b>THONIS</b><span>một thành phố?</span></div>
+        <div class="nm" id="nm2" style="left:560px;top:760px;transform:rotate(3deg)"><b>HERACLEION</b><span>thành phố khác?</span></div>
+        <div class="safe c h o0" id="nmQ" style="top:1020px;font-size:160px"><span class="blk a">?</span></div>
+        <div class="safe h c tt o0" id="tStele"><span class="blk">Một tấm bia đá</span><span class="blk a">dưới biển</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:96px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <div class="safe h c tt o0" id="tFind"><span class="blk">Phát hiện khảo cổ</span><span class="blk a">thú vị nhất Ai Cập</span></div>
+        <div class="safe c o0" id="tName" style="top:200px"><div class="lab">thành phố</div><div class="h" style="font-size:96px;margin-top:6px"><span class="blk">Thonis-</span><span class="blk a">Heracleion</span></div></div>
+        <div class="safe o0" id="mapC" style="top:200px"><svg id="mapS" width="864" height="760" viewBox="0 0 864 760"></svg></div>
+        <div class="safe h c tt o0" id="tGate"><span class="blk">Cửa ngõ</span><span class="blk a">hàng hải</span></div>
+        <div class="safe h c tt o0" id="tTrade"><span class="blk">Hàng hóa, thương nhân,</span><span class="blk a">trạm kiểm soát</span></div>
+        <div class="safe h c tt o0" id="tMyst"><span class="blk">Một bí ẩn</span><span class="blk a">kéo dài hàng thế kỷ</span></div>
+        <div class="safe o0" id="scrolls" style="top:430px;height:760px">
+          <div class="abs" id="scrE" style="position:absolute;left:0;top:0;opacity:0"><svg width="420" height="300" viewBox="0 0 420 300"><rect x="20" y="20" width="380" height="260" rx="10" fill="#e9d29e" stroke="#7a5228" stroke-width="5"/><rect x="0" y="10" width="34" height="280" rx="16" fill="#c79a5a" stroke="#7a5228" stroke-width="4"/><rect x="386" y="10" width="34" height="280" rx="16" fill="#c79a5a" stroke="#7a5228" stroke-width="4"/><text x="210" y="170" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="64" fill="#5a3416">Thonis</text><g id="glyE" stroke="#7a5228" stroke-width="5" fill="none"><path d="M80 70h20v30h-20zM130 70c10 0 20 10 20 20s-10 20-20 20M180 60v40M170 80h20M230 70l20 30h-20zM290 70a14 14 0 1 0 1 0M330 60v40l20-20"/><path d="M80 220h260"/></g></svg><div class="lab c" style="margin-top:8px">ghi chép Ai Cập</div></div>
+          <div class="abs" id="scrG" style="position:absolute;right:0;top:330px;opacity:0"><svg width="420" height="300" viewBox="0 0 420 300"><rect x="20" y="20" width="380" height="260" rx="6" fill="#efe4c8" stroke="#55606e" stroke-width="5"/><path d="M50 70h320M50 100h300M50 220h320M50 250h280" stroke="#55606e" stroke-width="4"/><text x="210" y="180" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="64" fill="#26303d">Heracleion</text></svg><div class="lab c" style="margin-top:8px">ghi chép Hy Lạp</div></div>
+        </div>
+        <div class="safe h c tt o0" id="tSame"><span class="blk">Có phải</span><span class="blk a">cùng một nơi?</span></div>
+        <div class="safe h c tt o0" id="tWhy" style="font-size:110px"><span class="blk a">Vì sao?</span></div>
+        <div class="safe h c tt o0" id="tSink"><span class="blk">Nền đất mềm</span><span class="blk a">sụt lún dần</span></div>
+        <div class="safe h c tt o0" id="tLiq"><span class="blk">Đất bị hóa lỏng</span></div>
+        <div class="safe c o0" id="film" style="top:300px"><div class="card" style="display:inline-block;padding:20px 26px 24px;position:relative">
+          <svg width="600" height="340" viewBox="0 0 600 340"><rect x="10" y="10" width="580" height="320" rx="16" fill="#0d1b24" stroke="#fdf3e1" stroke-width="4"/>
+            <path d="M40 300C120 120 260 40 420 70C500 86 560 140 560 200C500 150 440 160 420 210C400 260 300 300 40 300z" fill="#2a8fb3" stroke="#fdf3e1" stroke-width="4"/><path d="M90 300h60v-50h-60zM170 300h50v-70h-50z" fill="#c9a46a"/>
+            <text x="300" y="58" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#fdf3e1" letter-spacing="6">NHƯ TRÊN PHIM</text>
+            <path id="filmX" d="M30 320L570 20" stroke="#ff5a4e" stroke-width="16" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+          <div class="h" style="font-size:58px;margin-top:22px"><span class="blk">Không phải một đêm</span><span class="blk a">mà hàng trăm năm</span></div></div>
+        <div class="safe c o0" id="c8" style="top:200px"><div class="lab">đến</div><div class="h a" style="font-size:120px"><span class="blk">thế kỷ VIII</span></div><div class="lab">chìm hoàn toàn</div></div>
+        <div class="safe c o0" id="y2000" style="top:200px"><div class="h a" style="font-size:120px"><span class="blk">Năm 2000</span></div><div class="lab" style="margin-top:6px">nhóm của Franck Goddio</div></div>
+        <div class="safe o0" id="found" style="top:200px"><div class="lab">tìm thấy</div><div><span class="chip" id="fd1">Tượng đá khổng lồ</span><span class="chip" id="fd2">Đền thờ</span><span class="chip" id="fd3">Bến cảng</span><span class="chip" id="fd4">Hiện vật</span></div></div>
+        <div class="safe h c tt o0" id="tKey"><span class="blk">Chìa khóa:</span><span class="blk a">tấm bia khắc chữ</span></div>
+        <div class="safe c o0" id="merge" style="top:200px;height:1200px"><div class="h a" style="position:absolute;left:0;right:0;top:650px;font-size:80px"><span class="blk">= cùng một thành phố</span></div></div>
+        <div class="safe o0" id="addr" style="top:700px"><div style="margin:0 auto;width:560px;padding:26px 30px 30px;border-radius:18px;background:#1f5f7a;border:6px solid #fdf3e1;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.5)">
+          <div class="lab" style="color:#cde9f2">địa chỉ</div><div class="h" style="font-size:66px;margin-top:6px"><span class="blk">Thonis</span><span class="blk a">= Heracleion</span></div></div></div>
+        <div class="safe h c tt o0" id="tSearch"><span class="blk">Ngàn năm</span><span class="blk a">tìm hai thành phố</span></div>
+        <div class="safe h c tt o0" id="tOnce"><span class="blk">Từng quyết định</span><span class="blk a">cửa ngõ một nền văn minh</span></div>
+        <div class="safe h c tt o0" id="tNow"><span class="blk">Giờ nằm im</span><span class="blk a">dưới nước biển</span></div>
+        <div class="safe h c tt o0" id="tTech"><span class="blk">Thiết bị khảo sát</span><span class="blk a">hiện đại</span></div>
+        <div class="safe h c tt o0" id="tBook"><span class="blk">Lịch sử không chỉ</span><span class="blk a">nằm trong sách cũ</span></div>
+        <div class="safe h c tt o0" id="tStill"><span class="blk">Nó vẫn nằm đó</span></div>
+        <div class="safe h c tt o0" id="tNot"><span class="blk">Chỉ là</span><span class="blk a">mình chưa tìm ra</span></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const CR = "#fdf3e1", ACC = "#ff8a5c", STONE = "#e8cf9a", STONE2 = "#c9a46a", DK = "#4a3320";
+      const SEA = 1000, BED = 2700, SINK = 1650;
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      let seed = 5; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+      // ---------- công trình ----------
+      const column = (x, y, h, cls = "") => `<g class="${cls}"><g transform="translate(${x} ${y})"><rect x="-16" y="${-h}" width="32" height="${h}" fill="${STONE}" stroke="${DK}" stroke-width="3"/><path d="M-30 ${-h}c6-30 54-30 60 0z" fill="${STONE2}" stroke="${DK}" stroke-width="3"/><path d="M-6 ${-h + 10}v${h - 20}M6 ${-h + 10}v${h - 20}" stroke="${STONE2}" stroke-width="2"/><rect x="-22" y="-12" width="44" height="12" fill="${STONE2}" stroke="${DK}" stroke-width="3"/></g></g>`;
+      const statue = (x, y, s, id) => `<g id="${id}"><g transform="translate(${x} ${y}) scale(${s})"><rect x="-46" y="-30" width="92" height="30" fill="${STONE2}" stroke="${DK}" stroke-width="4"/><path d="M-28-30v-150h56v150z" fill="${STONE}" stroke="${DK}" stroke-width="4"/><path d="M-40-180c0-50 80-50 80 0l-14 10h-52z" fill="${STONE2}" stroke="${DK}" stroke-width="4"/><circle cx="0" cy="-200" r="22" fill="${STONE}" stroke="${DK}" stroke-width="4"/><path d="M-28-130h56M-20-80h40" stroke="${DK}" stroke-width="3"/><path d="M-14-30v-60M14-30v-60" stroke="${DK}" stroke-width="3"/></g></g>`;
+      const pylon = (x) => `<g><path d="M${x} 990l20-230h120l20 230z" fill="${STONE}" stroke="${DK}" stroke-width="4"/><path d="M${x + 220} 990l20-230h120l20 230z" fill="${STONE}" stroke="${DK}" stroke-width="4"/><rect x="${x + 160}" y="820" width="80" height="170" fill="#7b5a36" stroke="${DK}" stroke-width="4"/><path d="M${x + 150} 820h100" stroke="${DK}" stroke-width="8"/><path d="M${x + 40} 820h80M${x + 40} 860h80M${x + 260} 820h80M${x + 260} 860h80" stroke="${STONE2}" stroke-width="4"/></g>`;
+      const house = (x, w, h, c) => `<g><rect x="${x}" y="${990 - h}" width="${w}" height="${h}" fill="${c}" stroke="${DK}" stroke-width="3"/><rect x="${x + w / 2 - 10}" y="${990 - 34}" width="20" height="34" fill="#5a3d22"/><rect x="${x + 12}" y="${990 - h + 16}" width="16" height="14" fill="#5a3d22"/><rect x="${x + w - 28}" y="${990 - h + 16}" width="16" height="14" fill="#5a3d22"/></g>`;
+      const palm = (x, s = 1) => `<g transform="translate(${x} 990) scale(${s})"><path d="M0 0c4-60-6-110 4-160" stroke="#7a5228" stroke-width="10" fill="none"/><path d="M4-160c-40-10-70 10-80 30M4-160c40-14 72 4 84 26M4-160c-20-30-50-34-70-30M4-160c24-30 56-30 70-20M4-160c0-30 6-40 10-50" stroke="#3f7a4a" stroke-width="14" fill="none" stroke-linecap="round"/></g>`;
+      const person = (x, c, s = 1, extra = "") => `<g transform="translate(${x} 990) scale(${s})"><circle cy="-58" r="10" fill="#b77b52"/><path d="M-12 0l3-44h18l3 44z" fill="${c}"/>${extra}</g>`;
+      const amph = (x, y) => `<path d="M${x} ${y}c-14 0-16-30-8-44l-4-10h24l-4 10c8 14 6 44-8 44z" fill="#c76b3e" stroke="${DK}" stroke-width="2.5"/>`;
+      const ship = (s = 1, sail = "#f3e3c3") => `<g transform="scale(${s})"><path d="M-170 0c40 40 300 40 340 0l20-30h-380z" fill="#7a4b28" stroke="${DK}" stroke-width="4"/><path d="M180-30c20-10 30-30 26-50" stroke="#7a4b28" stroke-width="10" fill="none"/><path d="M0-30v-250" stroke="${DK}" stroke-width="7"/><path d="M-110-260h220v170h-220z" fill="${sail}" stroke="${DK}" stroke-width="4"/><path d="M-110-200h220M-110-140h220" stroke="${ACC}" stroke-width="10" opacity=".8"/>${[...Array(7)].map((_, k) => `<path d="M${-120 + k * 36} 8l-14 34" stroke="${DK}" stroke-width="4"/>`).join("")}</g>`;
+
+      // ---------- khối thành phố (đất trầm tích + công trình) — chìm cả khối ----------
+      let sedDots = ""; for (let k = 0; k < 140; k++) sedDots += `<circle class="sd" cx="${880 + rnd() * 1540}" cy="${1010 + rnd() * 560}" r="${3 + rnd() * 5}" fill="#8a6a40" opacity=".8"/>`;
+      const land = `<g id="land"><path d="M860 990H2440L2520 3200H780z" fill="#c9a46a"/><path d="M840 1150C1200 1120 1600 1190 2460 1140L2520 3200H780z" fill="#b48a52"/><path d="M830 1330C1300 1300 1800 1370 2470 1320L2520 3200H780z" fill="#9c7646"/><path d="M820 1600C1300 1570 1800 1640 2480 1590L2520 3200H780z" fill="#86643a"/><g id="sedDots">${sedDots}</g><path d="M860 990H2440" stroke="${DK}" stroke-width="5"/></g>`;
+      const quay = `<g id="quay"><rect x="820" y="960" width="160" height="40" fill="${STONE2}" stroke="${DK}" stroke-width="4"/><path d="M840 960v-50M940 960v-50" stroke="${DK}" stroke-width="6"/><g id="cargo">${amph(1000, 990)}${amph(1028, 990)}${amph(1056, 990)}<rect x="1076" y="950" width="44" height="40" fill="#a4733f" stroke="${DK}" stroke-width="3"/><rect x="1124" y="958" width="36" height="32" fill="#a4733f" stroke="${DK}" stroke-width="3"/></g>
+        <g id="customs"><rect x="1180" y="860" width="160" height="130" fill="#d8bf8a" stroke="${DK}" stroke-width="4"/><path d="M1170 860h180l-20-30h-140z" fill="${STONE2}" stroke="${DK}" stroke-width="4"/><rect x="1236" y="920" width="48" height="70" fill="#5a3d22"/><path d="M1340 860v-80" stroke="${DK}" stroke-width="5"/><path d="M1340 782h60l-14 18 14 18h-60z" fill="${ACC}"/></g>
+        <g id="merch">${person(1150, "#e8d7b0", 1, `<g transform="translate(16 -30)">${amph(0, 0)}</g>`)}${person(1380, "#3f7a8a")}${person(1420, "#a14b32", 0.95, `<rect x="12" y="-40" width="20" height="26" fill="#efe4c8"/>`)}</g></g>`;
+      const temple = `<g id="temple">${pylon(1640)}${[2060, 2130, 2200, 2270, 2340].map((x, i) => column(x, 990, 230, "col")).join("")}<path d="M2030 760h340v-24h-340z" fill="${STONE2}" stroke="${DK}" stroke-width="4"/></g>`;
+      const homes = `<g id="homes">${[[1430, 90, 120, "#e3c890"], [1530, 80, 150, "#d9bb80"], [2400, 0, 0, ""]].filter((h) => h[1]).map(([x, w, h, c]) => house(x, w, h, c)).join("")}${palm(1480, 0.9)}${palm(2420, 1)}</g>`;
+      const stele = `<g id="stele"><g transform="translate(2000 990)"><path d="M-46 0v-170c0-30 92-30 92 0v170z" fill="#57606b" stroke="#1d242c" stroke-width="5"/><g id="steleTxt" stroke="#c9d3dc" stroke-width="3" fill="none">${[...Array(6)].map((_, r) => `<path d="M-30 ${-150 + r * 22}h${44 + ((r * 13) % 18)}"/>`).join("")}<path d="M-10-172a10 10 0 1 0 20 0a10 10 0 1 0-20 0"/></g></g></g>`;
+      const cityInner = `${land}${quay}${homes}${temple}${statue(1610, 990, 1.25, "st1")}${stele}${statue(1960, 990, 1.1, "st2")}`;
+      const ghostInner = `${quay}${homes}${temple}${statue(1610, 990, 1.25, "")}${stele}${statue(1960, 990, 1.1, "")}`.replace(/ id="[^"]*"/g, "").replace(/class="col"/g, "");
+      const city = `<g id="cityW"><g id="cityM">${cityInner}</g></g>`;
+      // bóng thành phố xưa (hồi tưởng) — dùng lại đúng hình
+      const ghostCity = `<g id="ghostCity" opacity="0" style="filter:sepia(.7) brightness(1.15)">${ghostInner}</g>`;
+      // ---------- biển, trời, đáy ----------
+      let rays = ""; for (let k = 0; k < 9; k++) rays += `<path d="M${200 + k * 340} ${SEA}l${-120 + k * 6} 1500h120z" fill="#bfe9ff" opacity=".05"/>`;
+      let fish = ""; for (let k = 0; k < 26; k++) fish += `<path class="fish" d="M${700 + rnd() * 2000} ${1250 + rnd() * 1200}l26 10-26 10 6-10z" fill="#9fd8ec" opacity=".6"/>`;
+      let bub = ""; for (let k = 0; k < 30; k++) bub += `<circle class="bub" cx="${900 + rnd() * 1500}" cy="${1300 + rnd() * 1300}" r="${3 + rnd() * 6}" fill="none" stroke="#cdeff9" stroke-width="2" opacity=".5"/>`;
+      const bedR = `<g id="bed"><path d="M-3000 ${BED}C0 ${BED - 30} 1200 ${BED + 30} 2600 ${BED}S6000 ${BED - 20} 8000 ${BED}V6000H-3000z" fill="#b5935c"/><path d="M-3000 ${BED + 160}C1000 ${BED + 120} 2000 ${BED + 200} 8000 ${BED + 150}V6000H-3000z" fill="#9b7a48"/><path d="M-3000 ${BED + 400}C1000 ${BED + 360} 2000 ${BED + 440} 8000 ${BED + 390}V6000H-3000z" fill="#7e6038"/>
+        ${[...Array(30)].map((_, k) => `<path d="M${-500 + k * 160} ${BED + 6}c10-40 20-60 10-90" stroke="#4f8a5a" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>`).join("")}<g id="mound" opacity=".9"><g transform="translate(3330 ${BED + 10}) rotate(-24)"><rect x="-18" y="-170" width="36" height="170" fill="${STONE}" stroke="${DK}" stroke-width="3"/><path d="M-32-170c6-30 58-30 64 0z" fill="${STONE2}" stroke="${DK}" stroke-width="3"/></g><circle cx="3480" cy="${BED - 24}" r="34" fill="${STONE}" stroke="${DK}" stroke-width="3"/><ellipse cx="3400" cy="${BED + 6}" rx="300" ry="56" fill="#a8864f"/><circle cx="3400" cy="${BED - 60}" r="220" fill="#ffe7a8" opacity=".08"/></g></g>`;
+      const water = `<rect x="-3000" y="${SEA}" width="11000" height="6000" fill="url(#gSea)"/>`;
+      const waterFront = `<rect x="-3000" y="${SEA + 6}" width="11000" height="6000" fill="#0b4660" opacity=".42"/>`;
+      const surf = `<path id="surf" d="M-3000 ${SEA}${[...Array(110)].map((_, k) => `q50 ${k % 2 ? 10 : -10} 100 0`).join("")}" stroke="#d9f4ff" stroke-width="5" fill="none" opacity=".7"/>`;
+      const sky = `<rect x="-3000" y="-5000" width="11000" height="${5000 + SEA}" fill="url(#gSky)"/><circle cx="-300" cy="${SEA - 60}" r="120" fill="#ffd28a" opacity=".9"/>${[[300, 300], [1900, 200], [2900, 420]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="220" ry="34" fill="#ffd7b3" opacity=".35"/>`).join("")}`;
+      const ships = `<g id="shipsW"><g id="ship1"><g transform="translate(-600 ${SEA})">${ship(1)}</g></g><g id="ship2"><g transform="translate(-1300 ${SEA})">${ship(0.8, "#e9d6ae")}</g></g></g>`;
+      // năm 2000: thuyền khảo sát, thợ lặn, sóng sonar
+      const diver = (id, x) => `<g id="${id}" opacity="0"><g transform="translate(${x} 0)"><path d="M0 0l280 140-280 30z" fill="#fff5c8" opacity=".25" class="beam"/><g transform="rotate(20)"><rect x="-70" y="-14" width="90" height="28" rx="14" fill="#1e2a33"/><circle cx="30" cy="0" r="16" fill="#1e2a33"/><circle cx="36" cy="-2" r="8" fill="#7fd1ff"/><rect x="-60" y="-28" width="50" height="16" rx="8" fill="#ffb43c"/><path d="M-70-6l-40-14M-70 6l-40 14" stroke="#1e2a33" stroke-width="10" stroke-linecap="round"/></g></g></g>`;
+      const survey = `<g id="boat" opacity="0"><g transform="translate(1500 ${SEA})"><path d="M-200 0h400l-40 50h-320z" fill="#f2f2f2" stroke="#1d242c" stroke-width="5"/><rect x="-90" y="-70" width="150" height="70" fill="#ffb43c" stroke="#1d242c" stroke-width="5"/><path d="M40-70v-70" stroke="#1d242c" stroke-width="5"/></g></g>
+        <g id="sonar" opacity="0" fill="none" stroke="#7fd1ff" stroke-width="5">${[0, 1, 2, 3].map((k) => `<path class="arc" d="M${1200 - k * 260} ${1200 + k * 340}Q1500 ${1300 + k * 420} ${1800 + k * 260} ${1200 + k * 340}" opacity="0"/>`).join("")}</g>
+        <g id="d1w"><g id="d1y">${diver("d1", 1300)}</g></g><g id="d2w"><g id="d2y">${diver("d2", 1800)}</g></g>`;
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="-600" x2="0" y2="${SEA}"><stop offset="0" stop-color="#21415e"/><stop offset=".6" stop-color="#d98a6a"/><stop offset="1" stop-color="#ffcf98"/></linearGradient>
+          <linearGradient id="gSea" gradientUnits="userSpaceOnUse" x1="0" y1="${SEA}" x2="0" y2="${BED}"><stop offset="0" stop-color="#2380a3"/><stop offset=".5" stop-color="#145a78"/><stop offset="1" stop-color="#0a3247"/></linearGradient></defs>
+        ${sky}${water}<g>${rays}</g><g id="fishG">${fish}</g>${city}${bedR}${waterFront}${ghostCity}<g id="bubG">${bub}</g>${surf}${ships}${survey}`;
+
+      // ---------- bản đồ minh họa (Địa Trung Hải) ----------
+      document.getElementById("mapS").innerHTML = `<rect width="864" height="760" rx="24" fill="#123a4f" stroke="#fdf3e1" stroke-opacity=".4" stroke-width="3"/>
+        <path d="M60 60C200 40 330 90 380 150C420 210 360 260 330 300C300 340 340 380 300 400C260 380 240 330 210 300C170 250 90 230 60 200z" fill="#d9c08c" stroke="#7a5228" stroke-width="3"/><text x="230" y="180" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#5a3416">HY LẠP</text>
+        <path d="M380 420c40-8 80-6 110 4" stroke="#d9c08c" stroke-width="14" stroke-linecap="round"/>
+        <path d="M0 640C120 600 300 610 420 600C460 596 480 570 520 570C560 570 580 600 640 610C720 620 800 600 864 590V760H0z" fill="#d9c08c" stroke="#7a5228" stroke-width="3"/><path d="M520 575L500 760M520 575L560 760M520 575L530 760" stroke="#3b8fbf" stroke-width="5" fill="none"/><text x="660" y="700" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#5a3416">AI CẬP</text>
+        <path id="route" d="M300 300C380 380 440 480 488 568" stroke="${ACC}" stroke-width="6" stroke-dasharray="14 12" fill="none" opacity="0"/>
+        <g id="dotT" opacity="0"><circle cx="490" cy="572" r="13" fill="${ACC}" stroke="#fff" stroke-width="4"/><text x="476" y="545" text-anchor="end" font-family="Cormorant Garamond" font-weight="700" font-size="34" fill="#fdf3e1">Thonis-Heracleion</text></g>
+        <g id="dotA" opacity="0"><circle cx="420" cy="602" r="11" fill="#fdf3e1" stroke="#123a4f" stroke-width="4"/><text x="400" y="640" text-anchor="end" font-family="Cormorant Garamond" font-weight="700" font-size="32" fill="#fdf3e1">Alexandria · 331 TCN</text></g>
+        <g id="mapShip" opacity="0"><path d="M-18 0h36l-6 8h-24z M0 0v-26l16 18z" fill="#fdf3e1"/></g>
+        <text x="844" y="740" text-anchor="end" font-family="Be Vietnam Pro" font-weight="600" font-size="20" fill="#fdf3e1" opacity=".6">bản đồ minh họa</text>`;
+
+      // ---------- camera ----------
+      const P = {
+        open: CAM(1560, SEA, 1000, 1020), wide: CAM(1450, 1500, 2600, 960), stele: CAM(2000, BED - 120, 700, 1100), name: CAM(1650, SEA, 1150, 1240),
+        ships: CAM(400, SEA - 120, 1300, 1150), port: CAM(1250, SEA - 100, 1000, 1150), sect: CAM(1650, 1200, 1500, 900), sunk: CAM(1650, BED - 220, 1300, 1150),
+        deep: CAM(1600, 1850, 2200, 960), ruinsW: CAM(1900, BED - 200, 1200, 1150), statue: CAM(1700, BED - 300, 900, 1150), far: CAM(3300, BED - 120, 1000, 1150), port2: CAM(1300, BED - 200, 1100, 1150),
+      };
+      document.getElementById("W").setAttribute("viewBox", vbs(P.open));
+      place("tgTemple", P.ruinsW, 2200, BED - 330); place("tgStatue", P.ruinsW, 1700, BED - 170); place("tgPort", P.port2, 1100, BED - 120);
+      place("tgSed", P.sect, 1650, 1300); place("tgBay", P.deep, 1500, SEA - 120);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.5)";
+      const cam = (v, at, d = 1.6, ease = "power2.inOut") => tl.to("#W", { attr: { viewBox: vbs(v) }, duration: d, ease }, at);
+      const fadeUp = (sel, at, d = 0.6, y = 24) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.35) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.55, 18); out(sel, b - 0.35, 0.32); };
+      const counter = (id, from, to, at, d) => { const o = { v: from }; tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power1.out", immediateRender: false, onUpdate: () => (document.getElementById(id).textContent = Math.round(o.v).toLocaleString("vi-VN")) }, at); };
+      const sinkTo = (y, at, d) => tl.to("#cityM", { y, duration: d, ease: "power1.inOut" }, at);
+      // nhịp sống: sóng, cá, bọt, buồm
+      tl.fromTo("#surf", { x: 0 }, { x: -200, duration: 20, repeat: 6, ease: "none", immediateRender: false }, 0);
+      tl.fromTo(".fish", { x: 0 }, { x: 160, duration: 6, repeat: 22, yoyo: true, ease: "sine.inOut", stagger: 0.3, immediateRender: false }, 0);
+      tl.fromTo(".bub", { y: 0, opacity: 0.5 }, { y: -300, opacity: 0, duration: 5, repeat: 26, stagger: 0.2, ease: "none", immediateRender: false }, 0);
+
+      // ---- 0–5.6 · thành phố cửa ngõ thương mại → biến mất hơn một ngàn năm
+      tl.fromTo("#ship1", { x: 0 }, { x: 1150, duration: 5.2, ease: "power1.out", immediateRender: false }, 0);
+      T("#tOpen", 0.2, 3.7);
+      cam(P.wide, 3.4, 2.4);
+      sinkTo(SINK, 3.7, 2.0);
+      fadeUp("#hYears", 3.8, 0.5); counter("yrN", 0, 1000, 3.9, 1.6); out("#hYears", 6.2, 0.3);
+      tl.set("#cityM", { y: 0 }, 6.4); tl.set("#ship1", { x: 0 }, 6.4);
+
+      // ---- 6.5–9.6 · tưởng là hai thành phố khác nhau
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 6.3);
+      tl.fromTo("#nm1", { opacity: 0, x: -200, rotation: -14 }, { opacity: 1, x: 0, rotation: -4, duration: 0.6, ease: B, immediateRender: false }, 6.6);
+      tl.fromTo("#nm2", { opacity: 0, x: 200, rotation: 12 }, { opacity: 1, x: 0, rotation: 3, duration: 0.6, ease: B, immediateRender: false }, 7.6);
+      fadeUp("#nmQ", 8.4, 0.4); out(["#nm1", "#nm2", "#nmQ"], 10.1, 0.3);
+
+      // ---- 10.5–13.2 · tấm bia đá dưới biển
+      tl.set("#W", { attr: { viewBox: vbs(CAM(2000, SEA + 100, 900, 1100)) } }, 10.2);
+      tl.set("#cityM", { y: SINK }, 10.2); tl.set(["#st1", "#st2"], { rotation: 0 }, 10.2);
+      tl.to("#dim", { opacity: 0, duration: 0.4 }, 10.3);
+      cam(P.stele, 10.4, 2.4, "power2.inOut");
+      T("#tStele", 10.6, 13.9);
+      tl.fromTo("#steleTxt", { stroke: "#c9d3dc" }, { stroke: "#ffd27a", duration: 0.6, yoyo: true, repeat: 3, immediateRender: false }, 12.0);
+      tl.set("#cityM", { y: 0 }, 14.0);
+
+      // ---- 13.9–21.1 · Sáu chào · phát hiện khảo cổ thú vị nhất Ai Cập
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 13.7);
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: B, immediateRender: false }, 13.85);
+      out("#sauBox", 16.6, 0.3);
+      tl.set("#W", { attr: { viewBox: vbs(P.wide) } }, 16.6);
+      tl.to("#dim", { opacity: 0, duration: 0.5 }, 16.7);
+      T("#tFind", 16.9, 21.2);
+      cam(P.name, 17.0, 4.0, "sine.inOut");
+
+      // ---- 21.3–22.4 · tên thành phố
+      fadeUp("#tName", 21.3, 0.5); out("#tName", 22.7, 0.3);
+
+      // ---- 22.9–34.1 · bản đồ: Alexandria 331 TCN; tàu Hy Lạp phải qua cảng này
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 22.7);
+      fadeUp("#mapC", 22.9, 0.5);
+      tl.to("#dotT", { opacity: 1, duration: 0.4 }, 23.4); tl.to("#dotA", { opacity: 1, duration: 0.4 }, 24.4);
+      tl.fromTo("#dotA circle", { scale: 2.4, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.5, ease: B, immediateRender: false }, 24.4);
+      tl.fromTo("#dotT circle", { scale: 1 }, { scale: 1.8, transformOrigin: "50% 50%", duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 27.3);
+      tl.to("#route", { opacity: 1, duration: 0.3 }, 28.8);
+      tl.fromTo("#route", { strokeDashoffset: 300 }, { strokeDashoffset: 0, duration: 2.0, ease: "none", immediateRender: false }, 28.8);
+      tl.to("#mapShip", { opacity: 1, duration: 0.2 }, 29.0);
+      tl.fromTo("#mapShip", { x: 300, y: 300 }, { x: 488, y: 566, duration: 2.6, ease: "power1.inOut", immediateRender: false }, 29.0);
+      out("#mapC", 31.2, 0.35); tl.to("#dim", { opacity: 0, duration: 0.4 }, 31.2);
+      cam(P.ships, 31.1, 0.1);
+      T("#tGate", 31.3, 34.2);
+      tl.fromTo("#ship1", { x: 0 }, { x: 1300, duration: 3.4, ease: "power1.out", immediateRender: false }, 31.2);
+      tl.fromTo("#ship2", { x: 0 }, { x: 1600, duration: 3.6, ease: "power1.out", immediateRender: false }, 31.4);
+      cam(P.port, 31.6, 3.0, "sine.inOut");
+
+      // ---- 34.3–40.7 · hàng hóa, thương nhân, kiểm soát thương mại
+      T("#tTrade", 34.3, 41.0);
+      tl.fromTo("#cargo > *", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out", stagger: 0.12, immediateRender: false }, 34.4);
+      tl.fromTo("#merch > g", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.4, ease: E, immediateRender: false }, 36.3);
+      tl.fromTo("#customs path:last-child", { scaleX: 0.6, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.25, yoyo: true, repeat: 5, immediateRender: false }, 38.0);
+      cam(CAM(1450, SEA - 100, 1100, 1150), 37.5, 3.2, "sine.inOut");
+
+      // ---- 41.9–54.5 · bí ẩn: Thonis (Ai Cập) – Heracleion (Hy Lạp)
+      T("#tMyst", 41.9, 44.8);
+      cam(P.wide, 41.8, 2.4);
+      tl.to("#dim", { opacity: 1, duration: 0.4 }, 44.6);
+      tl.to("#scrolls", { opacity: 1, duration: 0.01 }, 44.8);
+      tl.fromTo("#scrE", { opacity: 0, scale: 0.5, rotation: -10 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.6, ease: B, immediateRender: false }, 46.5);
+      tl.fromTo("#scrG", { opacity: 0, scale: 0.5, rotation: 10 }, { opacity: 1, scale: 1, rotation: 3, duration: 0.6, ease: B, immediateRender: false }, 48.8);
+      T("#tSame", 51.5, 55.0);
+      tl.to("#scrE", { x: 120, y: 120, duration: 0.8, ease: "power2.inOut" }, 52.0); tl.to("#scrG", { x: -120, y: -120, duration: 0.8, ease: "power2.inOut" }, 52.0);
+      tl.to("#scrolls", { opacity: 0, duration: 0.3 }, 54.8); tl.to("#dim", { opacity: 0, duration: 0.4 }, 54.9);
+
+      // ---- 55.5–59 · dần chìm xuống biển · Vì sao?
+      cam(CAM(1650, 1200, 1500, 900), 55.0, 1.5);
+      sinkTo(260, 55.6, 3.0);
+      fadeUp("#tWhy", 58.5, 0.4); out("#tWhy", 59.9, 0.3);
+
+      // ---- 60–74 · trầm tích mềm · sụt lún · hóa lỏng
+      T("#tSink", 60.1, 70.0);
+      fadeUp("#tgSed", 61.0, 0.4); out("#tgSed", 63.5, 0.3);
+      sinkTo(620, 64.5, 4.5);
+      cam(CAM(1650, 1550, 1500, 900), 64.5, 4.5, "sine.inOut");
+      T("#tLiq", 70.0, 75.2);
+      tl.fromTo(".sd", { x: 0 }, { x: 6, duration: 0.08, repeat: 40, yoyo: true, ease: "none", stagger: 0.01, immediateRender: false }, 70.1);
+      tl.to("#st1", { rotation: -14, transformOrigin: "50% 100%", duration: 2.0, ease: "power2.in" }, 71.0);
+      tl.to(".col", { rotation: (i) => [-6, 4, -10, 8, -4][i], transformOrigin: "50% 100%", duration: 2.2, ease: "power2.in", stagger: 0.15 }, 71.4);
+      sinkTo(1000, 72.2, 2.6);
+
+      // ---- 75–80 · không phải sóng thần một đêm như trên phim
+      tl.to("#dim", { opacity: 1, duration: 0.4 }, 75.0);
+      fadeUp("#film", 75.3, 0.5);
+      tl.fromTo("#filmX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, immediateRender: false }, 77.6);
+      out("#film", 80.6, 0.3); tl.to("#dim", { opacity: 0, duration: 0.4 }, 80.7);
+
+      // ---- 81.2–84.1 · thế kỷ VIII chìm hoàn toàn
+      cam(P.deep, 80.6, 1.0);
+      sinkTo(SINK, 81.3, 2.6);
+      tl.to("#st1", { rotation: -82, duration: 1.4, ease: "bounce.out" }, 82.6);
+      fadeUp("#c8", 81.4, 0.5); out("#c8", 85.4, 0.3);
+
+      // ---- 85.8–92 · năm 2000: Franck Goddio, vịnh Aboukir — thuyền, thợ lặn, sonar
+      fadeUp("#y2000", 85.8, 0.5); out("#y2000", 92.2, 0.3);
+      tl.to("#boat", { opacity: 1, duration: 0.5 }, 86.0); tl.fromTo("#boat", { x: -600 }, { x: 0, duration: 2.0, ease: E, immediateRender: false }, 86.0);
+      fadeUp("#tgBay", 88.2, 0.4); out("#tgBay", 91.4, 0.3);
+      tl.to("#sonar", { opacity: 1, duration: 0.1 }, 88.5);
+      tl.fromTo("#sonar .arc", { opacity: 0 }, { opacity: 0.9, duration: 0.3, stagger: 0.25, repeat: 3, yoyo: true, immediateRender: false }, 88.5);
+      tl.to(["#d1", "#d2"], { opacity: 1, duration: 0.4 }, 89.0);
+      tl.fromTo("#d1y", { y: SEA + 60 }, { y: BED - 330, duration: 3.6, ease: "power1.inOut", immediateRender: false }, 89.0);
+      tl.fromTo("#d2y", { y: SEA + 100 }, { y: BED - 260, duration: 3.8, ease: "power1.inOut", immediateRender: false }, 89.3);
+      tl.to("#sonar", { opacity: 0, duration: 0.4 }, 92.4);
+
+      // ---- 92.6–97 · tìm thấy tượng, đền, bến cảng, hiện vật
+      cam(P.ruinsW, 92.3, 1.4);
+      tl.to("#found", { opacity: 1, duration: 0.01 }, 92.6);
+      fadeUp("#fd1", 92.6, 0.35, 12); fadeUp("#tgStatue", 92.8, 0.35);
+      fadeUp("#fd2", 94.5, 0.35, 12); fadeUp("#tgTemple", 94.6, 0.35);
+      out(["#tgStatue", "#tgTemple"], 95.3, 0.2); cam(P.port2, 95.3, 0.8); fadeUp("#fd3", 95.6, 0.35, 12); fadeUp("#tgPort", 96.1, 0.35);
+      fadeUp("#fd4", 96.4, 0.35, 12);
+      tl.fromTo(".beam", { opacity: 0.1 }, { opacity: 0.4, duration: 0.6, yoyo: true, repeat: 6, immediateRender: false }, 92.6);
+      out(["#found", "#tgStatue", "#tgTemple", "#tgPort"], 97.2, 0.3);
+
+      // ---- 97.4–101.5 · chìa khóa: tấm bia khắc chữ
+      cam(P.stele, 97.3, 1.6);
+      tl.to("#d2y", { y: BED - 230, duration: 1.4 }, 97.3); tl.to("#d2w", { x: 120, duration: 1.4 }, 97.3);
+      T("#tKey", 97.5, 102.2);
+      tl.fromTo("#steleTxt", { stroke: "#c9d3dc" }, { stroke: "#ffd27a", duration: 0.5, yoyo: true, repeat: 5, immediateRender: false }, 99.2);
+
+      // ---- 102.4–110.7 · hai tên = một thành phố; tên Ai Cập / tên Hy Lạp
+      tl.to("#dim", { opacity: 1, duration: 0.4 }, 102.2);
+      tl.to("#merge", { opacity: 1, duration: 0.01 }, 102.3);
+      tl.fromTo("#nm1", { opacity: 0, x: 0, y: 0, rotation: -4 }, { opacity: 1, duration: 0.4, immediateRender: false }, 102.4);
+      tl.fromTo("#nm2", { opacity: 0, x: 0, y: 0, rotation: 3 }, { opacity: 1, duration: 0.4, immediateRender: false }, 102.6);
+      tl.to("#nm1", { x: 290, y: -80, rotation: 0, duration: 0.8, ease: "power3.inOut" }, 103.8); tl.to("#nm2", { x: -230, y: -110, rotation: 0, duration: 0.8, ease: "power3.inOut" }, 103.8);
+      fadeUp("#merge .h", 104.4, 0.5);
+      tl.call(() => { document.querySelector("#nm1 span").textContent = "người Ai Cập gọi"; document.querySelector("#nm2 span").textContent = "người Hy Lạp gọi"; }, null, 105.5);
+      tl.call(() => { document.querySelector("#nm1 span").textContent = "một thành phố?"; document.querySelector("#nm2 span").textContent = "thành phố khác?"; }, null, 102.3);
+      tl.fromTo("#nm1", { scale: 1 }, { scale: 1.08, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, 105.6);
+      tl.fromTo("#nm2", { scale: 1 }, { scale: 1.08, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, 107.7);
+      out(["#nm1", "#nm2", "#merge"], 110.9, 0.3);
+
+      // ---- 111.4–117.7 · ngàn năm tìm hai thành phố → chung một địa chỉ
+      T("#tSearch", 111.4, 115.3);
+      fadeUp("#addr", 115.4, 0.5); tl.fromTo("#addr > div", { rotation: -6 }, { rotation: 2, duration: 0.5, ease: B, immediateRender: false }, 115.4);
+      out("#addr", 118.4, 0.3); tl.to("#dim", { opacity: 0, duration: 0.5 }, 118.4);
+
+      // ---- 118.9–126.6 · từng quyết định cửa ngõ một nền văn minh → giờ nằm im dưới nước (hai thời một khung)
+      cam(P.deep, 118.3, 0.1);
+      T("#tOnce", 119.0, 124.9);
+      tl.to("#ghostCity", { opacity: 0.7, duration: 1.2 }, 120.9);
+      tl.fromTo("#ghostCity", { y: 0 }, { y: -6, duration: 1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 121.5);
+      T("#tNow", 124.95, 127.2);
+      tl.to("#ghostCity", { opacity: 0, duration: 1.2 }, 125.0);
+      cam(P.sunk, 125.0, 2.0, "sine.inOut");
+
+      // ---- 127.3–131.6 · thiết bị khảo sát hiện đại
+      T("#tTech", 127.3, 132.6);
+      tl.to("#sonar", { opacity: 1, duration: 0.1 }, 127.4);
+      tl.fromTo("#sonar .arc", { opacity: 0 }, { opacity: 0.9, duration: 0.3, stagger: 0.25, repeat: 3, yoyo: true, immediateRender: false }, 127.4);
+      tl.fromTo(".beam", { opacity: 0.1 }, { opacity: 0.45, duration: 0.5, yoyo: true, repeat: 4, immediateRender: false }, 128.0);
+      tl.to("#sonar", { opacity: 0, duration: 0.4 }, 132.0);
+
+      // ---- 132.9–end · lịch sử không chỉ trong sách cũ · nó vẫn nằm đó · mình chưa tìm ra
+      T("#tBook", 132.9, 135.2);
+      tl.to(["#d1", "#d2", "#boat"], { opacity: 0, duration: 0.8 }, 133.0);
+      cam(CAM(2600, BED - 120, 1000, 1150), 133.0, 3.0, "sine.inOut");
+      T("#tStill", 135.25, 137.3);
+      T("#tNot", 137.4, 999);
+      cam(P.far, 136.5, 4.0, "sine.inOut");
+      tl.fromTo("#mound", { opacity: 0.6 }, { opacity: 1, duration: 0.8, yoyo: true, repeat: 3, immediateRender: false }, 138.0);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post26"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 2.634,
+   "speaker": "B",
+   "text": "Tui đang điều hành một tập đoàn có bảy dự án lớn."
+  },
+  {
+   "i": 1,
+   "start": 3.105,
+   "end": 5.154,
+   "speaker": "B",
+   "text": "Dự án nào cũng được đầu tư rất bài bản."
+  },
+  {
+   "i": 2,
+   "start": 5.504,
+   "end": 7.331,
+   "speaker": "B",
+   "text": "Và đặc biệt, chưa có dự án nào hoạt động!"
+  },
+  {
+   "i": 4,
+   "start": 7.982,
+   "end": 8.84,
+   "speaker": "B",
+   "text": "Dự án học tiếng Anh:"
+  },
+  {
+   "i": 5,
+   "start": 9.152,
+   "end": 9.842,
+   "speaker": "B",
+   "text": "mua khóa học,"
+  },
+  {
+   "i": 6,
+   "start": 10.144,
+   "end": 10.479,
+   "speaker": "B",
+   "text": "mua sách,"
+  },
+  {
+   "i": 7,
+   "start": 10.721,
+   "end": 11.28,
+   "speaker": "B",
+   "text": "tải ứng dụng."
+  },
+  {
+   "i": 8,
+   "start": 11.559,
+   "end": 13.162,
+   "speaker": "B",
+   "text": "Hiện tại mới thuộc câu Hello!"
+  },
+  {
+   "i": 9,
+   "start": 13.819,
+   "end": 14.629,
+   "speaker": "B",
+   "text": "Dự án tập thể dục:"
+  },
+  {
+   "i": 10,
+   "start": 14.951,
+   "end": 16.127,
+   "speaker": "B",
+   "text": "mua giày, mua đồ,"
+  },
+  {
+   "i": 11,
+   "start": 16.361,
+   "end": 17.601,
+   "speaker": "B",
+   "text": "đặt báo thức 5 giờ sáng."
+  },
+  {
+   "i": 12,
+   "start": 17.993,
+   "end": 18.666,
+   "speaker": "B",
+   "text": "Sáng hôm sau,"
+  },
+  {
+   "i": 13,
+   "start": 18.992,
+   "end": 19.842,
+   "speaker": "B",
+   "text": "ban lãnh đạo quyết định..."
+  },
+  {
+   "i": 14,
+   "start": 20.07,
+   "end": 21.289,
+   "speaker": "B",
+   "text": "ngủ thêm để bảo đảm sức khỏe!"
+  },
+  {
+   "i": 15,
+   "start": 21.974,
+   "end": 26.941,
+   "speaker": "B",
+   "text": "Còn dự án tiết kiệm tiền thì đang gặp khó khăn do chính ban lãnh đạo thích mua sắm."
+  },
+  {
+   "i": 17,
+   "start": 27.928,
+   "end": 29.071,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ."
+  },
+  {
+   "i": 18,
+   "start": 29.461,
+   "end": 32.83,
+   "speaker": "B",
+   "text": "Hôm nay mình nói về cái tập đoàn rất nhiều người đang âm thầm điều hành trong đầu."
+  },
+  {
+   "i": 19,
+   "start": 33.878,
+   "end": 35.537,
+   "speaker": "B",
+   "text": "Có một chuyện khá thú vị trong tâm lý học."
+  },
+  {
+   "i": 20,
+   "start": 36.148,
+   "end": 37.007,
+   "speaker": "B",
+   "text": "Muốn làm một việc"
+  },
+  {
+   "i": 21,
+   "start": 37.243,
+   "end": 39.809,
+   "speaker": "B",
+   "text": "và thật sự làm được việc đó là hai chuyện khác nhau."
+  },
+  {
+   "i": 22,
+   "start": 40.467,
+   "end": 45.28,
+   "speaker": "B",
+   "text": "Năm 2006, hai nhà nghiên cứu Gollwitzer và Sheeran tổng hợp 94 nghiên cứu thực nghiệm."
+  },
+  {
+   "i": 23,
+   "start": 45.725,
+   "end": 51.417,
+   "speaker": "B",
+   "text": "Họ phát hiện một kiểu lập kế hoạch gọi là “nếu – thì” có tác dụng đáng kể trong việc giúp con người thực hiện mục tiêu."
+  },
+  {
+   "i": 26,
+   "start": 52.024,
+   "end": 52.663,
+   "speaker": "B",
+   "text": "Nghe đơn giản lắm."
+  },
+  {
+   "i": 27,
+   "start": 53.184,
+   "end": 53.726,
+   "speaker": "B",
+   "text": "Thay vì nói:"
+  },
+  {
+   "i": 28,
+   "start": 54.107,
+   "end": 55.123,
+   "speaker": "B",
+   "text": "“Từ mai tui sẽ học tiếng Anh!”"
+  },
+  {
+   "i": 29,
+   "start": 55.632,
+   "end": 56.031,
+   "speaker": "B",
+   "text": "Hãy nói:"
+  },
+  {
+   "i": 30,
+   "start": 56.472,
+   "end": 58.113,
+   "speaker": "B",
+   "text": "“Nếu ăn cơm tối xong lúc 8 giờ,"
+  },
+  {
+   "i": 31,
+   "start": 58.408,
+   "end": 60.853,
+   "speaker": "B",
+   "text": "tui sẽ ngồi vô bàn học 10 phút trước khi cầm điện thoại.”"
+  },
+  {
+   "i": 32,
+   "start": 61.578,
+   "end": 65.426,
+   "speaker": "B",
+   "text": "Khác biệt nằm ở chỗ bạn đã xác định sẵn khi nào bắt đầu và phải làm gì."
+  },
+  {
+   "i": 33,
+   "start": 66.058,
+   "end": 66.827,
+   "speaker": "B",
+   "text": "Tới đúng tình huống đó,"
+  },
+  {
+   "i": 34,
+   "start": 67.107,
+   "end": 68.909,
+   "speaker": "B",
+   "text": "bạn không cần ngồi thương lượng lại với bản thân."
+  },
+  {
+   "i": 35,
+   "start": 69.765,
+   "end": 70.483,
+   "speaker": "B",
+   "text": "Và một mẹo nữa:"
+  },
+  {
+   "i": 36,
+   "start": 70.837,
+   "end": 73.246,
+   "speaker": "B",
+   "text": "đừng đo tiến độ bằng những thứ đã mua để chuẩn bị."
+  },
+  {
+   "i": 37,
+   "start": 73.931,
+   "end": 75.771,
+   "speaker": "B",
+   "text": "Mua giày không được tính là đã chạy bộ."
+  },
+  {
+   "i": 39,
+   "start": 76.266,
+   "end": 78.056,
+   "speaker": "B",
+   "text": "Mua sách không được tính là đã đọc sách."
+  },
+  {
+   "i": 41,
+   "start": 78.634,
+   "end": 81.504,
+   "speaker": "B",
+   "text": "Cài ứng dụng học tiếng Anh cũng chưa được tính là biết tiếng Anh!"
+  },
+  {
+   "i": 42,
+   "start": 82.038,
+   "end": 83.962,
+   "speaker": "B",
+   "text": "Thành tích phải là hành động đã thực hiện."
+  },
+  {
+   "i": 44,
+   "start": 84.358,
+   "end": 87.13,
+   "speaker": "B",
+   "text": "Nên nếu bạn cũng đang có bảy dự án ma giống tui,"
+  },
+  {
+   "i": 45,
+   "start": 87.332,
+   "end": 88.776,
+   "speaker": "B",
+   "text": "thử chọn đúng một cái,"
+  },
+  {
+   "i": 47,
+   "start": 89.244,
+   "end": 91.461,
+   "speaker": "B",
+   "text": "lên lịch cho một hành động nhỏ và làm thiệt."
+  },
+  {
+   "i": 48,
+   "start": 92.057,
+   "end": 92.872,
+   "speaker": "B",
+   "text": "Còn sáu dự án kia?"
+  },
+  {
+   "i": 49,
+   "start": 93.333,
+   "end": 94.252,
+   "speaker": "B",
+   "text": "Cho tụi nó tạm nghỉ,"
+  },
+  {
+   "i": 50,
+   "start": 94.578,
+   "end": 96.241,
+   "speaker": "B",
+   "text": "chứ tập đoàn đang thiếu nhân sự trầm trọng."
+  },
+  {
+   "i": 51,
+   "start": 96.651,
+   "end": 99.2,
+   "speaker": "B",
+   "text": "Mà nhân sự duy nhất lại đang bận... họp bàn chiến lược!"
+  }
+ ]
+}

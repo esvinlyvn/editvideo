@@ -1,0 +1,334 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 2.057,
+   "speaker": "B",
+   "text": "Có một chuyện đáng sợ về trí nhớ con người."
+  },
+  {
+   "i": 1,
+   "start": 2.633,
+   "end": 6.266,
+   "speaker": "B",
+   "text": "Người ta có thể khiến bạn nhớ nhầm một chi tiết mà bạn chưa từng nhìn thấy,"
+  },
+  {
+   "i": 3,
+   "start": 7.044,
+   "end": 8.051,
+   "speaker": "B",
+   "text": "chỉ bằng cách đặt câu hỏi!"
+  },
+  {
+   "i": 4,
+   "start": 8.662,
+   "end": 11.05,
+   "speaker": "B",
+   "text": "Và chuyện này đã được chứng minh qua thí nghiệm tâm lý học."
+  },
+  {
+   "i": 5,
+   "start": 12.037,
+   "end": 12.512,
+   "speaker": "B",
+   "text": "Tui là Sáu."
+  },
+  {
+   "i": 6,
+   "start": 12.931,
+   "end": 16.955,
+   "speaker": "B",
+   "text": "Hôm nay kể bạn nghe một trò mà chính bộ não của mình đôi khi cũng không nhận ra."
+  },
+  {
+   "i": 8,
+   "start": 19.089,
+   "end": 20.572,
+   "speaker": "B",
+   "text": "Trong một nghiên cứu nổi tiếng về trí nhớ,"
+  },
+  {
+   "i": 9,
+   "start": 21.023,
+   "end": 23.949,
+   "speaker": "B",
+   "text": "người tham gia được xem cảnh một chiếc xe chạy qua biển báo nhường đường."
+  },
+  {
+   "i": 10,
+   "start": 24.553,
+   "end": 24.998,
+   "speaker": "B",
+   "text": "Sau đó,"
+  },
+  {
+   "i": 11,
+   "start": 25.294,
+   "end": 26.577,
+   "speaker": "B",
+   "text": "có người đặt câu hỏi về chiếc xe,"
+  },
+  {
+   "i": 12,
+   "start": 27.245,
+   "end": 28.828,
+   "speaker": "B",
+   "text": "nhưng cố tình nhắc tới biển báo DỪNG."
+  },
+  {
+   "i": 13,
+   "start": 30.006,
+   "end": 31.409,
+   "speaker": "B",
+   "text": "Nghe thì tưởng chỉ nhầm một chữ."
+  },
+  {
+   "i": 14,
+   "start": 32.382,
+   "end": 37.007,
+   "speaker": "B",
+   "text": "Nhưng khi được kiểm tra lại, một số người tham gia lại nhớ rằng mình đã nhìn thấy biển báo DỪNG thật!"
+  },
+  {
+   "i": 15,
+   "start": 37.763,
+   "end": 38.018,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 16,
+   "start": 38.345,
+   "end": 39.756,
+   "speaker": "B",
+   "text": "Rõ ràng lúc đầu là biển nhường đường mà?"
+  },
+  {
+   "i": 17,
+   "start": 40.199,
+   "end": 40.985,
+   "speaker": "B",
+   "text": "Chuyện gì xảy ra vậy?"
+  },
+  {
+   "i": 18,
+   "start": 42.194,
+   "end": 45.225,
+   "speaker": "B",
+   "text": "Các nhà tâm lý học gọi đây là hiệu ứng thông tin sai lệch."
+  },
+  {
+   "i": 19,
+   "start": 46.602,
+   "end": 49.116,
+   "speaker": "B",
+   "text": "Trí nhớ không giống camera ghi lại nguyên vẹn mọi thứ."
+  },
+  {
+   "i": 21,
+   "start": 49.759,
+   "end": 50.83,
+   "speaker": "B",
+   "text": "Khi nhớ lại một sự kiện,"
+  },
+  {
+   "i": 22,
+   "start": 51.227,
+   "end": 55.436,
+   "speaker": "B",
+   "text": "não có thể tái dựng thông tin từ những gì mình đã thấy, đã nghe và biết thêm sau đó."
+  },
+  {
+   "i": 25,
+   "start": 56.198,
+   "end": 57.683,
+   "speaker": "B",
+   "text": "Nếu có thông tin sai chen vô,"
+  },
+  {
+   "i": 26,
+   "start": 58.062,
+   "end": 59.186,
+   "speaker": "B",
+   "text": "ký ức đôi khi bị thay đổi theo."
+  },
+  {
+   "i": 27,
+   "start": 60.008,
+   "end": 60.728,
+   "speaker": "B",
+   "text": "Đáng nói hơn,"
+  },
+  {
+   "i": 28,
+   "start": 60.915,
+   "end": 64.439,
+   "speaker": "B",
+   "text": "cảm giác nhớ rất rõ không có nghĩa là mình chắc chắn nhớ đúng."
+  },
+  {
+   "i": 31,
+   "start": 65.671,
+   "end": 66.954,
+   "speaker": "B",
+   "text": "Vậy chuyện này liên quan gì tới cuộc sống?"
+  },
+  {
+   "i": 32,
+   "start": 68.031,
+   "end": 70.697,
+   "speaker": "B",
+   "text": "Ví dụ hai người đang cãi nhau về một chuyện xảy ra tuần trước."
+  },
+  {
+   "i": 34,
+   "start": 71.818,
+   "end": 72.273,
+   "speaker": "B",
+   "text": "Một người nói:"
+  },
+  {
+   "i": 35,
+   "start": 73.003,
+   "end": 74.164,
+   "speaker": "B",
+   "text": "“Hôm đó bạn nói đúng câu này!”"
+  },
+  {
+   "i": 36,
+   "start": 74.949,
+   "end": 76.01,
+   "speaker": "B",
+   "text": "Người kia nhất quyết không nhận."
+  },
+  {
+   "i": 37,
+   "start": 76.802,
+   "end": 78.208,
+   "speaker": "B",
+   "text": "Cả hai đều tin mình nhớ chính xác."
+  },
+  {
+   "i": 38,
+   "start": 78.828,
+   "end": 81.751,
+   "speaker": "B",
+   "text": "Nhưng có khi một người đã nhớ lẫn những gì được kể lại sau đó."
+  },
+  {
+   "i": 40,
+   "start": 82.943,
+   "end": 84.048,
+   "speaker": "B",
+   "text": "Nên với những chuyện quan trọng,"
+  },
+  {
+   "i": 41,
+   "start": 84.331,
+   "end": 87.597,
+   "speaker": "B",
+   "text": "đặc biệt là công việc, tiền bạc hoặc một lời thỏa thuận,"
+  },
+  {
+   "i": 44,
+   "start": 87.937,
+   "end": 88.903,
+   "speaker": "B",
+   "text": "đừng chỉ dựa vào trí nhớ."
+  },
+  {
+   "i": 45,
+   "start": 89.454,
+   "end": 91.803,
+   "speaker": "B",
+   "text": "Ghi lại thông tin khi sự việc vừa xảy ra."
+  },
+  {
+   "i": 46,
+   "start": 92.503,
+   "end": 93.419,
+   "speaker": "B",
+   "text": "Kiểm tra tin nhắn,"
+  },
+  {
+   "i": 47,
+   "start": 93.637,
+   "end": 95.411,
+   "speaker": "B",
+   "text": "tài liệu hoặc bằng chứng có thật."
+  },
+  {
+   "i": 48,
+   "start": 96.221,
+   "end": 97.523,
+   "speaker": "B",
+   "text": "Và khi cần hỏi người khác,"
+  },
+  {
+   "i": 49,
+   "start": 97.799,
+   "end": 98.681,
+   "speaker": "B",
+   "text": "hãy hỏi trung lập,"
+  },
+  {
+   "i": 50,
+   "start": 99.095,
+   "end": 100.745,
+   "speaker": "B",
+   "text": "đừng gài sẵn câu trả lời vô câu hỏi."
+  },
+  {
+   "i": 51,
+   "start": 101.847,
+   "end": 103.583,
+   "speaker": "B",
+   "text": "Không phải vì trí nhớ của mình vô dụng."
+  },
+  {
+   "i": 52,
+   "start": 104.306,
+   "end": 106.002,
+   "speaker": "B",
+   "text": "Mà vì nó không phải máy quay phim."
+  },
+  {
+   "i": 53,
+   "start": 106.542,
+   "end": 108.057,
+   "speaker": "B",
+   "text": "Nó giống một ông biên tập viên hơn."
+  },
+  {
+   "i": 54,
+   "start": 108.557,
+   "end": 108.945,
+   "speaker": "B",
+   "text": "Có khi thiếu một cảnh,"
+  },
+  {
+   "i": 55,
+   "start": 109.14,
+   "end": 111.197,
+   "speaker": "B",
+   "text": "ổng tự ghép cảnh khác vô."
+  },
+  {
+   "i": 56,
+   "start": 111.629,
+   "end": 113.251,
+   "speaker": "B",
+   "text": "Ghép xong còn rất tự tin tuyên bố:"
+  },
+  {
+   "i": 57,
+   "start": 113.777,
+   "end": 115.908,
+   "speaker": "B",
+   "text": "“Bản gốc đó bạn! Tui nhớ rõ lắm!”"
+  }
+ ]
+}
