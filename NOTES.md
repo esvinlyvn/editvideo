@@ -138,6 +138,7 @@ node projects/post-11/build.mjs
 | 26 | Cormorant Garamond | Biển sâu `#0a2230`, trời hoàng hôn | San hô đất nung `#ff8a5c` (chữ kem) | Mặt cắt trời–biển–đáy biển |
 | 27 | Chakra Petch | Phòng dựng tối `#14161b` | Xanh đầu đọc `#22d3ee` (đỏ chỉ ở biển DỪNG) | Phòng dựng phim của trí nhớ |
 | 28 | Archivo | Kem `#fbf3e4`, phố ban ngày | Xanh bạc hà `#00a884` (đỏ cho lỗi) | Con phố + dây mạng thanh toán dưới đất |
+| 29 | Exo 2 (nghiêng) | Đấu trường đêm `#0b1020`, trời hoàng hôn | Cam lửa `#ff5a1f` (xe đỏ `#d91c2a`) | Không logo thương hiệu |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
@@ -219,6 +220,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **26** | Thonis-Heracleion | **Mặt cắt trời → đáy biển**: thành phố cảng trên khối trầm tích, tàu Hy Lạp vào cảng, hàng hóa/thương nhân/trạm thu thuế; hai cuộn ghi chép Thonis (Ai Cập) và Heracleion (Hy Lạp); khối đất sụt, hóa lỏng, cột nghiêng, tượng đổ, chìm tới thế kỷ VIII; năm 2000 thuyền khảo sát + thợ lặn + sonar; tấm bia khắc chữ; bóng thành phố xưa hiện trên phế tích | Bản đồ Địa Trung Hải và chữ trên bia chỉ là minh họa | 142,3s · 82 |
 | **27** | Trí nhớ là biên tập viên | **Phòng dựng phim của trí nhớ**: màn hình ký ức chiếu xe qua biển NHƯỜNG ĐƯỜNG, dòng thời gian các đoạn phim; câu hỏi gài chữ DỪNG → ổng biên tập cắt đoạn cũ, dán đoạn DỪNG; so sánh lúc đầu / trong trí nhớ; nguồn đã thấy / đã nghe / biết thêm + đoạn sai lệch chen vô; đồng hồ "nhớ rõ" 100% vs độ chính xác ???; hai người cãi nhau; cách giữ "bản gốc"; dấu BẢN GỐC + ổng giơ ngón cái | Câu hỏi gài, câu hỏi trung lập và lời cãi nhau là tự viết | 119,4s · 65 |
 | **28** | Một ngày không tiền mặt | **Con phố + mạng thanh toán**: ví bay hết tiền; số dư 2.000.000đ nhưng không mua được bánh mì; quét mã ở quán cơm, shop; pin tụt về 0; mã QR mọc mắt nhìn lại; bà xài điện thoại bấm số, cột sóng yếu, sạp rau ghi sổ, phòng máy báo đỏ; chuỗi người mua – kết nối – người bán đứt một mắt xích; cân bằng tiền mặt/điện thoại; Tết nhà ông bà, bao lì xì in mã QR | Tên tiệm, giá 20.000đ, số dư, lời bà là tự bịa | 116,6s · 75 |
+| **29** | Siêu xe chạy lộn ngược | **Đấu trường biểu diễn**: một đường chạy liền (mặt đất → tường → trần lộn ngược → vách trái → dốc phóng), xe chạy theo đường bằng getPointAtLength, camera bám xe; bay, xoay 360°, đáp; mũi tên TRỌNG LỰC khi xe treo ngược; chế độ soi xuyên: quạt dưới gầm + mũi tên lực hút, bình khí nén + 4 vòi phụt; tên lửa minh họa lực đẩy ngược; lửa bị gạch vs đồng hồ áp suất; 2028; đồng hồ tốc độ; xe hơi/máy bay/tên lửa + P; phố Sài Gòn kẹt xe, xe bay mà bãi xe HẾT CHỖ | Không vẽ logo Tesla/SpaceX: roadster đỏ không huy hiệu, tên chỉ hiện bằng chữ theo lời voice | 111,4s · 63 |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

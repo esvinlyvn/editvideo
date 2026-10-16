@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Siêu xe chạy lộn ngược</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Đấu trường biểu diễn": một đường đua cao như nhà, camera bám theo xe =====
+         Đường chạy: mặt đất → cong lên tường → vách đứng → lộn ngược trên trần → xuống vách trái → dốc phóng → bay, xoay, đáp.
+         Giải thích bằng chế độ "soi xuyên" ngay trên chiếc xe: quạt hút dưới gầm (lực hút), bình khí nén + vòi phụt (lực đẩy ngược).
+         Kết ở con phố Sài Gòn kẹt xe: xe bay lơ lửng mà bãi xe vẫn HẾT CHỖ.
+         KHÔNG vẽ logo thương hiệu: xe là roadster đỏ dáng thấp, kính trùm, không huy hiệu; tên chỉ xuất hiện bằng chữ theo lời voice.
+         2 font: Exo 2 (tiêu đề, chất khoa học viễn tưởng) · Be Vietnam Pro (phụ đề). Chữ trắng + nhấn cam lửa #ff5a1f. */
+      :root { --disp: "Exo 2", sans-serif; --body: "Be Vietnam Pro", sans-serif; --fg: #f8fafc; --acc: #ff5a1f; --bg: #0b1020; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--fg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(8,11,24,.92) 0, rgba(8,11,24,.65) 300px, rgba(8,11,24,0) 560px); }
+      #dim { position: absolute; inset: 0; background: rgba(8,11,24,.84); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 800; font-style: italic; line-height: 1.04; text-shadow: 0 4px 20px rgba(0,0,0,.55); }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 200px; font-size: 74px; }
+      .lab { font-family: var(--body); font-weight: 700; font-size: 26px; letter-spacing: .2em; text-transform: uppercase; color: rgba(248,250,252,.75); white-space: nowrap; }
+      .card { background: rgba(13,19,38,.9); border: 3px solid rgba(248,250,252,.25); border-radius: 22px; }
+      .chip { display: flex; align-items: center; gap: 18px; padding: 16px 24px; margin-top: 16px; border-radius: 20px; background: rgba(13,19,38,.9); border: 3px solid var(--acc); font-family: var(--disp); font-weight: 700; font-size: 40px; white-space: nowrap; opacity: 0; }
+      .chip i { font-style: normal; width: 58px; height: 58px; border-radius: 50%; background: var(--acc); display: flex; align-items: center; justify-content: center; font-size: 32px; flex: none; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 20px 12px; border-radius: 14px; background: rgba(13,19,38,.92); border: 3px solid var(--acc); font-family: var(--disp); font-weight: 700; font-size: 32px; white-space: nowrap; opacity: 0; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(5, 8, 16, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post29" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgLow">Áp suất thấp</div>
+        <div class="tag" id="tgPush">Lực đẩy</div>
+        <div class="tag" id="tgGas">Khí phụt ra</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Chạy ngược lên tường,</span><span class="blk a">lộn ngược trên cao</span></div>
+        <div class="safe h c tt o0" id="t0b"><span class="blk">Phóng lên, xoay mình</span><span class="blk a">rồi đáp xuống đất</span></div>
+        <div class="safe c o0" id="film" style="top:200px"><div class="lab">như cảnh trong</div><div class="h" style="font-size:84px;margin-top:6px"><span class="blk">Phim</span><span class="blk a">viễn tưởng</span></div></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Thắng nổi</span><span class="blk a">trọng lực?</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <div class="safe c o0" id="t2" style="top:200px"><div class="lab">màn ra mắt của Tesla</div><div class="h" style="font-size:96px;margin-top:8px"><span class="blk">Roadster</span><span class="blk a">thế hệ mới</span></div></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Công nghệ phía sau</span><span class="blk a">còn hay hơn</span></div>
+        <div class="safe o0" id="two" style="top:200px"><div class="h c" style="font-size:66px"><span class="blk">Hai hệ thống</span><span class="blk a">đặc biệt</span></div>
+          <div class="chip" id="tw1"><i>1</i>Quạt hút dưới gầm</div><div class="chip" id="tw2"><i>2</i>Vòi phụt khí nén</div></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">① Quạt lớn</span><span class="blk a">dưới gầm xe</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Lực hút</span><span class="blk a">ghì xe xuống đường</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Lộn ngược</span><span class="blk a">vẫn bám đường</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Còn lúc</span><span class="blk a">bật lên không trung?</span></div>
+        <div class="safe c o0" id="t8" style="top:200px"><div class="h" style="font-size:74px"><span class="blk">② Vòi phụt khí nén</span></div><div class="lab" style="margin-top:12px">phát triển cùng SpaceX</div></div>
+        <div class="safe o0" id="rocket" style="top:200px"><div class="h c" style="font-size:62px"><span class="blk">Giống tên lửa</span><span class="blk a">tạo lực đẩy</span></div>
+          <svg width="864" height="560" viewBox="0 0 864 560" style="margin-top:10px"><g transform="translate(432 300)"><path d="M0-230c60 60 70 150 50 230h-100c-20-80-10-170 50-230z" fill="#e2e8f0" stroke="#0b1020" stroke-width="6"/><circle cy="-120" r="26" fill="#38bdf8" stroke="#0b1020" stroke-width="6"/><path d="M-50-40l-50 70 50-10zM50-40l50 70-50-10z" fill="#ff5a1f" stroke="#0b1020" stroke-width="6"/>
+            <g id="rFlame"><path d="M-36 4c0 60 20 110 36 150 16-40 36-90 36-150z" fill="#fbbf24"/><path d="M-18 4c0 40 10 70 18 100 8-30 18-60 18-100z" fill="#fff7ed"/></g>
+            <path d="M-170 40v150M-186 170l16 26 16-26" stroke="#fbbf24" stroke-width="10" fill="none" stroke-linecap="round"/><text x="-170" y="240" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#fbbf24">KHÍ ĐI XUỐNG</text>
+            <path d="M170 60v-170M154-90l16-26 16 26" stroke="#4ade80" stroke-width="10" fill="none" stroke-linecap="round"/><text x="170" y="100" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#4ade80">XE ĐI LÊN</text></g></svg></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Nâng mình, xoay</span><span class="blk a">rồi tiếp đất</span></div>
+        <div class="safe o0" id="noFuel" style="top:200px"><div class="h c" style="font-size:62px"><span class="blk">Không đốt</span><span class="blk a">nhiên liệu tên lửa</span></div>
+          <div style="display:flex;gap:22px;margin-top:22px"><div class="card c" style="flex:1;padding:20px 10px;position:relative"><svg width="220" height="230" viewBox="0 0 220 230"><path d="M110 20c40 50 70 80 70 130a70 70 0 0 1-140 0c0-30 20-50 30-70 10 30 20 40 30 40-10-40 0-70 10-100z" fill="#f97316" stroke="#0b1020" stroke-width="6"/><path id="fireX" d="M20 210L200 20" stroke="#ef4444" stroke-width="16" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg><div class="lab">Đốt nhiên liệu</div></div>
+            <div class="card c" style="flex:1;padding:20px 10px;border-color:var(--acc)"><svg width="220" height="230" viewBox="0 0 220 230"><rect x="60" y="40" width="100" height="180" rx="40" fill="#94a3b8" stroke="#0b1020" stroke-width="6"/><circle cx="110" cy="110" r="44" fill="#fff" stroke="#0b1020" stroke-width="6"/><path d="M80 120a32 32 0 0 1 60 0" stroke="#e2e8f0" stroke-width="8" fill="none"/><g id="needle"><path d="M110 112L84 92" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/></g><circle cx="110" cy="112" r="7" fill="#0b1020"/><rect x="96" y="20" width="28" height="26" rx="6" fill="#64748b" stroke="#0b1020" stroke-width="5"/></svg><div class="lab a">Khí nén áp suất cao</div></div></div></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Nhưng có chuyện</span><span class="blk a">mấy bạn cần biết</span></div>
+        <div class="safe c o0" id="proto" style="top:200px"><div class="h" style="font-size:80px"><span class="blk">Xe thử nghiệm</span></div><div class="h a" style="font-size:52px;margin-top:12px"><span class="blk">chưa mua về chạy</span><span class="blk">lộn ngược ngoài đường</span></div></div>
+        <div class="safe c o0" id="y2028" style="top:200px"><div class="lab">dự kiến sản xuất</div><div class="h a" style="font-size:150px"><span class="blk" id="yr">2026</span></div></div>
+        <div class="safe o0" id="qs" style="top:200px"><div class="h c" style="font-size:62px"><span class="blk">Còn cả đống</span><span class="blk a">câu hỏi</span></div>
+          <div class="chip" id="q1"><i>?</i>An toàn</div><div class="chip" id="q2"><i>?</i>Luật giao thông</div><div class="chip" id="q3"><i>?</i>Vận hành ngoài đời</div></div>
+        <div class="safe o0" id="race" style="top:200px"><div class="h c" style="font-size:62px"><span class="blk">Hồi trước:</span><span class="blk a">xe nào nhanh nhất</span></div>
+          <svg width="864" height="480" viewBox="0 0 864 480" style="margin-top:20px"><path d="M152 420a280 280 0 0 1 560 0" stroke="#334155" stroke-width="40" fill="none"/><path id="spdArc" d="M152 420a280 280 0 0 1 560 0" stroke="#ff5a1f" stroke-width="40" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><g id="spdN"><path d="M432 420L232 420" stroke="#f8fafc" stroke-width="12" stroke-linecap="round"/></g><circle cx="432" cy="420" r="24" fill="#f8fafc"/><text x="432" y="330" text-anchor="middle" font-family="Exo 2" font-weight="800" font-style="italic" font-size="72" fill="#f8fafc" id="spdV">0</text><text x="432" y="370" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="24" fill="#94a3b8">KM/H</text></svg></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Giờ:</span><span class="blk a">biểu diễn tới mức…</span></div>
+        <div class="safe o0" id="tri" style="top:200px"><div class="h c" style="font-size:60px"><span class="blk">Xe hơi, máy bay</span><span class="blk a">hay tên lửa?</span></div>
+          <div style="display:flex;justify-content:space-between;margin-top:30px" id="triI">
+            <div class="card c" style="width:250px;padding:20px 0"><svg width="200" height="140" viewBox="0 0 200 140"><path d="M10 100c0-20 20-30 40-32l30-30h60l30 30c16 2 22 12 22 32z" fill="#d91c2a" stroke="#0b1020" stroke-width="5"/><circle cx="55" cy="104" r="18" fill="#0b1020"/><circle cx="150" cy="104" r="18" fill="#0b1020"/></svg><div class="lab">xe hơi?</div></div>
+            <div class="card c" style="width:250px;padding:20px 0"><svg width="200" height="140" viewBox="0 0 200 140"><path d="M20 76h150c20 0 24 16 0 16H20z" fill="#e2e8f0" stroke="#0b1020" stroke-width="5"/><path d="M80 80l-30-60h20l50 60zM80 88l-20 40h18l40-40zM30 76l-14-30h12l20 30z" fill="#94a3b8" stroke="#0b1020" stroke-width="5"/></svg><div class="lab">máy bay?</div></div>
+            <div class="card c" style="width:250px;padding:20px 0"><svg width="200" height="140" viewBox="0 0 200 140"><g transform="translate(100 70) rotate(45)"><path d="M0-60c24 24 28 60 20 92h-40c-8-32-4-68 20-92z" fill="#e2e8f0" stroke="#0b1020" stroke-width="5"/><path d="M-12 34c0 20 6 34 12 46 6-12 12-26 12-46z" fill="#fbbf24"/></g></svg><div class="lab">tên lửa?</div></div></div>
+          <div class="c" style="margin-top:30px"><span style="display:inline-flex;align-items:center;gap:16px;padding:14px 26px;border-radius:18px;background:#1d4ed8;border:4px solid #fff;font-family:var(--disp);font-weight:800;font-size:44px;opacity:0" id="parkQ"><b style="font-size:60px">P</b>đang kiếm chỗ đậu?</span></div></div>
+        <div class="safe h c tt o0" id="t12"><span class="blk">Kẹt xe Sài Gòn,</span><span class="blk a">bay qua được không?</span></div>
+        <div class="safe h c tt o0" id="t13"><span class="blk">Bay được</span><span class="blk a">mà vẫn kiếm chỗ đậu</span></div>
+        <div class="safe h c tt o0" id="t14"><span class="blk">Công nghệ lên trời,</span><span class="blk a">nỗi khổ dưới đất</span></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const FG = "#f8fafc", ACC = "#ff5a1f", RED = "#d91c2a", DK = "#0b1020", STEEL = "#334155", GY = 3000;
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      let seed = 3; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+      // ---------- chiếc roadster (không logo) — gốc tọa độ: giữa gầm, mặt đường y=0, "trên" là -y ----------
+      const wheel = (x) => `<g class="wh" transform="translate(${x} -34)"><circle r="34" fill="#111827"/><circle r="20" fill="#9ca3af"/><g class="spin"><path d="M0-18V18M-18 0H18M-13-13l26 26M13-13l-26 26" stroke="#4b5563" stroke-width="4"/></g></g>`;
+      const car = `<g id="carBody"><path d="M-232-26C-232-52-210-64-160-70L-70-80C-30-122 70-124 112-96L206-72C228-66 236-52 236-38V-22H-232z" fill="${RED}" stroke="${DK}" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M-58-82C-24-112 60-114 98-94L60-80H-50z" fill="#1e293b" stroke="${DK}" stroke-width="4"/><path d="M-40-86C-10-104 40-106 70-96" stroke="#94a3b8" stroke-width="4" fill="none" opacity=".7"/>
+          <path d="M150-70h60" stroke="#fde68a" stroke-width="5" stroke-linecap="round"/><path d="M-226-46h40" stroke="#fca5a5" stroke-width="6" stroke-linecap="round"/><path d="M-120-40H120" stroke="#9b111e" stroke-width="4"/></g>
+        <g id="xr" opacity="0"><g id="fan"><rect x="-70" y="-30" width="140" height="22" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="4"/>${[-36, 0, 36].map((x) => `<g transform="translate(${x} -19)"><g class="fb"><path d="M-14-4l28 8M-14 4l28-8" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/></g></g>`).join("")}</g>
+          <g id="tanks"><rect x="-200" y="-66" width="90" height="32" rx="16" fill="#cbd5e1" stroke="#38bdf8" stroke-width="4"/><rect x="120" y="-62" width="80" height="28" rx="14" fill="#cbd5e1" stroke="#38bdf8" stroke-width="4"/><path d="M-110-50H120" stroke="#38bdf8" stroke-width="4" stroke-dasharray="10 8"/></g>
+          <g id="nozzles" fill="${ACC}" stroke="${DK}" stroke-width="3"><rect class="nz" x="-224" y="-26" width="22" height="14" rx="3"/><rect class="nz" x="200" y="-26" width="22" height="14" rx="3"/><rect class="nz" x="-150" y="-26" width="18" height="14" rx="3"/><rect class="nz" x="132" y="-26" width="18" height="14" rx="3"/></g></g>
+        ${wheel(-140)}${wheel(150)}
+        <g id="suck" opacity="0" stroke="#38bdf8" stroke-width="6" fill="none" stroke-linecap="round">${[-150, -90, 90, 150].map((x) => `<path class="sk" d="M${x} 20Q${x * 0.5} 0 ${x * 0.25} -12" pathLength="1" stroke-dasharray=".3 .7"/>`).join("")}<path d="M0-30v-90M-14-104l14-20 14 20" opacity=".9"/></g>
+        <g id="press" opacity="0" stroke="#4ade80" stroke-width="8" fill="none" stroke-linecap="round">${[-150, 0, 150].map((x) => `<path d="M${x}-230v80M${x - 16}-168l16 22 16-22"/>`).join("")}</g>
+        <g id="puffs">${[[-213, -6], [211, -6], [-141, -6], [141, -6]].map(([x, y], i) => `<g class="pf pf${i}" opacity="0"><circle cx="${x}" cy="${y + 26}" r="26" fill="#f1f5f9"/><circle cx="${x - 18}" cy="${y + 54}" r="20" fill="#e2e8f0"/><circle cx="${x + 16}" cy="${y + 62}" r="16" fill="#cbd5e1"/></g>`).join("")}</g>`;
+      const carG = `<g id="carW"><g id="carT">${car}</g></g>`;
+
+      // ---------- đấu trường: đường chạy liền mạch ----------
+      const TRACK = "M-1400 3000H300A400 400 0 0 0 700 2600V1500A400 400 0 0 0 300 1100H-500A400 400 0 0 0 -900 1500V1900A400 400 0 0 0 -500 2300L-150 2150";
+      let lamps = ""; for (let k = 0; k < 14; k++) lamps += `<circle cx="${-1500 + k * 220}" cy="${640 + (k % 2) * 40}" r="12" fill="#fde68a"/><path d="M${-1500 + k * 220} 650l-120 500h240z" fill="#fde68a" opacity=".05"/>`;
+      let crowd = ""; for (let k = 0; k < 120; k++) crowd += `<circle cx="${-1700 + k * 28 + rnd() * 10}" cy="${2860 + (k % 3) * 18 - rnd() * 10}" r="12" fill="${["#475569", "#64748b", "#334155"][k % 3]}"/>`;
+      const arena = `<rect x="-6000" y="-4000" width="16000" height="${4000 + GY}" fill="url(#gSky)"/>${[...Array(60)].map(() => `<circle cx="${-3000 + rnd() * 9000}" cy="${-800 + rnd() * 1800}" r="${2 + rnd() * 3}" fill="#fff" opacity="${0.3 + rnd() * 0.5}"/>`).join("")}
+        <g id="arena"><path d="M-1700 3000V700h2700v2300" fill="#111a2e" stroke="#1e293b" stroke-width="16"/>${[...Array(12)].map((_, k) => `<path d="M${-1700 + k * 230} 700v2300" stroke="#18223a" stroke-width="10"/>`).join("")}${lamps}
+          <path d="M-1000 2400H-150V3000H-1000z" fill="#0f172a" opacity=".7"/>
+          <path d="${TRACK}" stroke="#0f172a" stroke-width="150" fill="none" transform="translate(0 0)"/>
+          <path id="trackP" d="${TRACK}" stroke="#4b5563" stroke-width="40" fill="none"/>
+          <path d="${TRACK}" stroke="#fde68a" stroke-width="5" stroke-dasharray="40 40" fill="none" opacity=".7"/>
+          <path d="M-150 2150L-100 2380H-600" fill="#1f2937" stroke="#4b5563" stroke-width="10"/>
+          <g>${crowd}</g><g id="grav" opacity="0"><path d="M-100 1290v260M-140 1500l40 60 40-60" stroke="#ef4444" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="-60" y="1440" font-family="Exo 2" font-weight="800" font-style="italic" font-size="48" fill="#ef4444">TRỌNG LỰC</text></g><rect x="-1700" y="2900" width="2900" height="20" fill="#0b1020"/></g>`;
+      // ---------- phố Sài Gòn kẹt xe (bên phải) ----------
+      const house = (x, w, h, c, sign) => `<g><rect x="${x}" y="${GY - h}" width="${w}" height="${h}" fill="${c}" stroke="${DK}" stroke-width="5"/>${[...Array(Math.floor(h / 170))].map((_, k) => `<rect x="${x + 20}" y="${GY - h + 30 + k * 170}" width="${w - 40}" height="90" rx="6" fill="#1e293b" opacity=".85"/><path d="M${x + 10} ${GY - h + 140 + k * 170}h${w - 20}" stroke="${DK}" stroke-width="6"/>`).join("")}<rect x="${x + 16}" y="${GY - 230}" width="${w - 32}" height="60" rx="8" fill="#fff" stroke="${DK}" stroke-width="4"/><text x="${x + w / 2}" y="${GY - 188}" text-anchor="middle" font-family="Exo 2" font-weight="800" font-size="34" fill="${DK}">${sign}</text></g>`;
+      const moto = (x, y, c) => `<g transform="translate(${x} ${y})"><circle cx="-34" cy="-16" r="16" fill="${DK}"/><circle cx="34" cy="-16" r="16" fill="${DK}"/><path d="M-40-30h60l20 14h-80z" fill="${c}" stroke="${DK}" stroke-width="3"/><path d="M-6-30l-4-46h20l4 46z" fill="#64748b"/><circle cx="2" cy="-88" r="15" fill="${["#ef4444", "#facc15", "#22c55e", "#3b82f6"][Math.floor(x) % 4 < 0 ? 0 : Math.floor(x / 7) % 4]}" stroke="${DK}" stroke-width="3"/></g>`;
+      let motos = ""; for (let r = 0; r < 4; r++) for (let k = 0; k < 18; k++) motos += moto(2500 + k * 105 + (r % 2) * 50 + rnd() * 20, GY - 4 - r * 0 + r * 10, ["#ef4444", "#3b82f6", "#f59e0b", "#a855f7", "#14b8a6"][Math.floor(rnd() * 5)]);
+      const street = `<g id="street"><rect x="2300" y="${GY}" width="2400" height="900" fill="#374151"/>${house(2380, 300, 900, "#fca5a5", "PHỞ")}${house(2690, 260, 1100, "#fde68a", "CÀ PHÊ")}${house(2960, 300, 820, "#93c5fd", "SỬA XE")}${house(3270, 280, 1200, "#c4b5fd", "TẠP HÓA")}${house(3560, 300, 950, "#86efac", "BÁNH MÌ")}${house(3870, 280, 1050, "#fdba74", "NHÀ THUỐC")}
+          <path d="M2300 1500C2600 1440 3000 1560 4300 1480" stroke="#111827" stroke-width="5" fill="none"/><path d="M2300 1560C2700 1500 3200 1620 4300 1540" stroke="#111827" stroke-width="4" fill="none"/>
+          <g id="jam">${motos}<g transform="translate(3300 ${GY - 6})"><rect x="-200" y="-190" width="400" height="180" rx="20" fill="#16a34a" stroke="${DK}" stroke-width="5"/>${[0, 1, 2, 3].map((k) => `<rect x="${-180 + k * 92}" y="-170" width="76" height="60" rx="6" fill="#bae6fd"/>`).join("")}<circle cx="-120" r="26" fill="${DK}"/><circle cx="120" r="26" fill="${DK}"/></g></g>
+          <g id="park" opacity="0"><path d="M4200 ${GY}v-520" stroke="#94a3b8" stroke-width="16"/><rect x="4040" y="${GY - 760}" width="320" height="250" rx="20" fill="#1d4ed8" stroke="#fff" stroke-width="8"/><text x="4200" y="${GY - 620}" text-anchor="middle" font-family="Exo 2" font-weight="800" font-size="120" fill="#fff">P</text><rect x="4060" y="${GY - 590}" width="280" height="60" rx="10" fill="#ef4444"/><text x="4200" y="${GY - 548}" text-anchor="middle" font-family="Exo 2" font-weight="800" font-size="38" fill="#fff">HẾT CHỖ</text></g></g>`;
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="-600" x2="0" y2="${GY}"><stop offset="0" stop-color="#0b1020"/><stop offset=".55" stop-color="#2a2f5a"/><stop offset=".85" stop-color="#b4536b"/><stop offset="1" stop-color="#ff9a5a"/></linearGradient></defs>${arena}${street}${carG}`;
+
+      // ---------- đặt xe theo quãng đường s trên đường chạy ----------
+      const TP = document.getElementById("trackP"), TL = TP.getTotalLength();
+      const OFF = 20; // nửa bề dày mặt đường
+      let follow = null; // {w, sy} khi camera bám xe
+      const W = document.getElementById("W"), CT = document.getElementById("carT");
+      const setCar = (x, y, a) => { CT.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(2)})`); if (follow) W.setAttribute("viewBox", vbs(CAM(x * follow.k + follow.cx * (1 - follow.k), y * follow.k + follow.cy * (1 - follow.k), follow.w, follow.sy))); };
+      const carAt = (s) => { s = Math.max(0, Math.min(TL, s)); const p = TP.getPointAtLength(s), q = TP.getPointAtLength(Math.min(TL, s + 1)), r = TP.getPointAtLength(Math.max(0, s - 1)); const tx = q.x - r.x, ty = q.y - r.y, n = Math.hypot(tx, ty) || 1; const ux = ty / n, uy = -tx / n; return [p.x + ux * OFF, p.y + uy * OFF, (Math.atan2(ty, tx) * 180) / Math.PI]; };
+      const RAMP = carAt(TL), LAND = [200, GY - OFF];
+      const jumpAt = (t) => { const x = RAMP[0] + (LAND[0] - RAMP[0]) * t, y = RAMP[1] + (LAND[1] - RAMP[1]) * t - 1500 * t * (1 - t); const a = RAMP[2] * (1 - t) + 360 * Math.min(1, Math.max(0, (t - 0.12) / 0.76)) * 1; return [x, y, a % 360 === 0 && t > 0.9 ? 0 : a]; };
+      const S_CEIL = 1700 + 628 + 1100 + 628, S_CEIL_END = S_CEIL + 800;
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.6)";
+      let lastCam = CAM(-1400 * 0.85 - 100 * 0.15, 2980 * 0.85 + 2050 * 0.15, 1150, 1000);
+      W.setAttribute("viewBox", vbs(lastCam));
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo(W, { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      // chạy trên đường: s0 → s1; nếu f thì camera bám xe
+      const drive = (s0, s1, at, d, ease = "none", f = null) => { const o = { s: s0 }; tl.fromTo(o, { s: s0 }, { s: s1, duration: d, ease, immediateRender: false, onStart: () => (follow = f), onUpdate: () => { follow = f; setCar(...carAt(o.s)); } }, at); if (f) lastCam = CAM(carAt(s1)[0] * f.k + f.cx * (1 - f.k), carAt(s1)[1] * f.k + f.cy * (1 - f.k), f.w, f.sy); };
+      const jump = (at, d, f = null) => { const o = { t: 0 }; tl.fromTo(o, { t: 0 }, { t: 1, duration: d, ease: "none", immediateRender: false, onUpdate: () => { follow = f; setCar(...jumpAt(o.t)); } }, at); if (f) lastCam = CAM(LAND[0] * f.k + f.cx * (1 - f.k), LAND[1] * f.k + f.cy * (1 - f.k), f.w, f.sy); };
+      const roll = (x0, x1, at, d, f = null) => { const o = { x: x0 }; tl.fromTo(o, { x: x0 }, { x: x1, duration: d, ease: "power2.out", immediateRender: false, onUpdate: () => { follow = f; setCar(o.x, GY - OFF, 0); } }, at); if (f) lastCam = CAM(x1 * f.k + f.cx * (1 - f.k), (GY - OFF) * f.k + f.cy * (1 - f.k), f.w, f.sy); };
+      const puff = (sel, at, n = 3, gap = 0.22) => { for (let k = 0; k < n; k++) tl.fromTo(sel, { opacity: 0.95, scale: 0.4, transformOrigin: "50% 0%" }, { opacity: 0, scale: 1.6, duration: 0.4, ease: "power1.out", immediateRender: false }, at + k * gap); };
+      const spinW = (at, d) => tl.fromTo(".spin", { rotation: 0, transformOrigin: "50% 50%" }, { rotation: 360 * d * 3, duration: d, ease: "none", immediateRender: false }, at);
+      const FOLLOW = { w: 1150, sy: 1000, k: 0.85, cx: -100, cy: 2050 };
+      setCar(...carAt(0));
+
+      // ---- 0–8.5 · lên tường → lộn ngược → phóng dốc → xoay giữa không trung → đáp đất
+      T("#t0", 0.15, 5.0);
+      drive(0, S_CEIL, 0.2, 3.3, "power1.in", FOLLOW); spinW(0.2, 8.4);
+      drive(S_CEIL, S_CEIL_END, 3.5, 1.2, "none", FOLLOW);
+      drive(S_CEIL_END, TL, 4.7, 1.2, "none", FOLLOW);
+      T("#t0b", 5.0, 9.0);
+      jump(5.9, 2.0, { w: 1700, sy: 1000, k: 0.6, cx: 0, cy: 2300 });
+      puff(".pf2", 5.95, 2); puff(".pf0", 6.5, 2); puff(".pf1", 7.1, 2); puff(".pf3", 7.6, 2);
+      roll(200, 0, 7.9, 0.9);
+
+      // ---- 9.3–11.5 · như phim viễn tưởng (toàn cảnh đấu trường)
+      cam(CAM(-150, 2000, 2700, 1050), 8.6, 1.4);
+      fadeUp("#film", 9.3, 0.45); out("#film", 12.0, 0.28);
+
+      // ---- 12.4–15.6 · làm sao thắng nổi trọng lực? (xe treo ngược trên trần)
+      roll(0, 0, 12.0, 0.01);
+      drive(S_CEIL + 400, S_CEIL + 400, 12.2, 0.01);
+      cam(CAM(-100, 1150, 1100, 900), 12.1, 0.9);
+      T("#t1", 12.4, 16.2);
+      tl.fromTo("#grav", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: E, immediateRender: false }, 13.4);
+      tl.to("#grav", { opacity: 0, duration: 0.25 }, 16.0);
+
+      // ---- 16.5–23.5 · Sáu · màn ra mắt Roadster thế hệ mới · công nghệ phía sau
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 16.3);
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 16.5);
+      out("#sauBox", 17.6, 0.25); tl.to("#dim", { opacity: 0, duration: 0.35 }, 17.7);
+      roll(-600, -600, 17.6, 0.01); cam(CAM(-600, 2900, 900, 1150), 17.6, 0.01);
+      fadeUp("#t2", 17.9, 0.5); out("#t2", 20.7, 0.28);
+      tl.fromTo("#carW", { scale: 1 }, { scale: 1.0, duration: 0.1, immediateRender: false }, 17.9);
+      cam(CAM(-600, 2900, 760, 1150), 17.9, 5.0, "sine.inOut");
+      T("#t3", 20.9, 24.4);
+      tl.to("#carBody", { opacity: 0.25, duration: 0.6 }, 21.6); tl.to("#xr", { opacity: 1, duration: 0.6 }, 21.6);
+      tl.to("#carBody", { opacity: 1, duration: 0.4 }, 23.6); tl.to("#xr", { opacity: 0, duration: 0.4 }, 23.6);
+
+      // ---- 24.7–26.3 · hai hệ thống đặc biệt
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 24.5);
+      tl.to("#two", { opacity: 1, duration: 0.2 }, 24.6); fadeUp("#tw1", 25.2, 0.35, 12); fadeUp("#tw2", 25.7, 0.35, 12);
+      out("#two", 26.8, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 26.8);
+
+      // ---- 27–33.4 · quạt dưới gầm → lực hút ghì xe xuống mặt đường
+      cam(CAM(-600, 2900, 620, 1150), 26.8, 0.8);
+      T("#t4", 27.06, 30.7);
+      tl.to("#carBody", { opacity: 0.25, duration: 0.4 }, 27.5); tl.to("#xr", { opacity: 1, duration: 0.4 }, 27.5);
+      tl.fromTo(".fb", { rotation: 0, transformOrigin: "50% 50%" }, { rotation: 360 * 12, duration: 12, ease: "none", immediateRender: false }, 28.0);
+      tl.to("#suck", { opacity: 1, duration: 0.3 }, 28.6);
+      tl.fromTo(".sk", { strokeDashoffset: 0 }, { strokeDashoffset: -3, duration: 6, ease: "none", immediateRender: false }, 28.6);
+      place("tgLow", CAM(-600, 2900, 620, 1150), -600, 3070); fadeUp("#tgLow", 29.4, 0.35);
+      T("#t5", 30.86, 34.1);
+      tl.to("#press", { opacity: 1, duration: 0.3 }, 31.0);
+      tl.fromTo("#press", { y: -20 }, { y: 20, duration: 0.5, yoyo: true, repeat: 4, ease: "sine.inOut", immediateRender: false }, 31.0);
+      out(["#press", "#tgLow"], 33.9, 0.25);
+
+      // ---- 34.25–38.34 · lên đường cong, lộn ngược vẫn bám đường (vẫn soi xuyên)
+      roll(-600, -600, 34.0, 0.01);
+      drive(800, S_CEIL_END - 100, 34.2, 4.3, "power1.inOut", { w: 1300, sy: 960, k: 0.8, cx: -100, cy: 2000 });
+      T("#t6", 34.25, 39.2);
+      tl.to("#press", { opacity: 1, duration: 0.3 }, 36.0); out("#press", 39.0, 0.25);
+      tl.to("#suck", { opacity: 0, duration: 0.3 }, 39.0);
+
+      // ---- 39.56–41 · còn lúc bật lên không trung?
+      drive(S_CEIL_END - 100, TL, 39.3, 0.9, "power1.in", { w: 1400, sy: 960, k: 0.8, cx: -400, cy: 2100 });
+      T("#t7", 39.56, 41.9);
+      (() => { const o = { t: 0 }; tl.fromTo(o, { t: 0 }, { t: 0.12, duration: 1.2, ease: "power2.out", immediateRender: false, onUpdate: () => { follow = null; setCar(...jumpAt(o.t)); } }, 40.2); })();
+
+      // ---- 42–45.1 · vòi phụt khí nén (cùng SpaceX) — soi bình khí và vòi
+      cam(CAM(jumpAt(0.12)[0], jumpAt(0.12)[1], 700, 1050), 41.8, 0.9);
+      fadeUp("#t8", 42.06, 0.45); out("#t8", 45.4, 0.28);
+      tl.fromTo(".nz", { fill: ACC }, { fill: "#fde047", duration: 0.2, yoyo: true, repeat: 5, immediateRender: false }, 43.0);
+      tl.fromTo("#tanks", { opacity: 0.6 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 43.0);
+
+      // ---- 45.7–47.5 · giống tên lửa tạo lực đẩy
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 45.5);
+      fadeUp("#rocket", 45.7, 0.4);
+      tl.fromTo("#rFlame", { scaleY: 0.8, transformOrigin: "50% 0%" }, { scaleY: 1.15, duration: 0.12, yoyo: true, repeat: 15, ease: "none", immediateRender: false }, 45.8);
+      out("#rocket", 48.1, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 48.1);
+
+      // ---- 48.3–51.5 · khí đẩy một hướng → xe nhận lực hướng ngược lại (trên chính chiếc xe)
+      puff(".pf2", 48.5, 4, 0.3); puff(".pf3", 48.6, 4, 0.3);
+      place("tgGas", CAM(jumpAt(0.12)[0], jumpAt(0.12)[1], 700, 1050), jumpAt(0.12)[0] - 40, jumpAt(0.12)[1] + 150);
+      place("tgPush", CAM(jumpAt(0.12)[0], jumpAt(0.12)[1], 700, 1050), jumpAt(0.12)[0], jumpAt(0.12)[1] - 250);
+      fadeUp("#tgGas", 48.6, 0.35); fadeUp("#tgPush", 50.0, 0.35);
+      tl.to("#press", { opacity: 0, duration: 0.01 }, 48.0);
+      out(["#tgGas", "#tgPush"], 52.2, 0.25);
+
+      // ---- 52.5–56.5 · nâng mình, xoay tư thế, tiếp đất
+      T("#t9", 52.54, 57.4);
+      (() => { const o = { t: 0.12 }; tl.fromTo(o, { t: 0.12 }, { t: 1, duration: 3.2, ease: "none", immediateRender: false, onUpdate: () => { follow = null; setCar(...jumpAt(o.t)); } }, 52.7); })();
+      cam(CAM(0, 2450, 1800, 1000), 52.4, 1.2);
+      puff(".pf0", 53.0, 2); puff(".pf1", 53.8, 2); puff(".pf2", 54.6, 2); puff(".pf3", 55.3, 2);
+      roll(200, 60, 55.9, 0.8);
+      tl.to("#carBody", { opacity: 1, duration: 0.4 }, 56.6); tl.to("#xr", { opacity: 0, duration: 0.4 }, 56.6);
+
+      // ---- 57.7–64.1 · không đốt nhiên liệu, xài khí nén áp suất rất cao
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 57.5);
+      fadeUp("#noFuel", 57.72, 0.45);
+      tl.fromTo("#fireX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, immediateRender: false }, 59.0);
+      tl.fromTo("#needle", { rotation: 0, svgOrigin: "110 112" }, { rotation: 150, svgOrigin: "110 112", duration: 1.2, ease: "power3.out", immediateRender: false }, 62.0);
+      tl.fromTo("#needle", { x: 0 }, { x: 2, duration: 0.05, repeat: 15, yoyo: true, immediateRender: false }, 63.2);
+      out("#noFuel", 64.4, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 64.4);
+
+      // ---- 64.3–73 · có chuyện cần biết: mới là xe thử nghiệm
+      cam(CAM(60, 2850, 900, 1100), 64.2, 0.9);
+      T("#t10", 64.4, 67.6);
+      fadeUp("#proto", 67.87, 0.45); out("#proto", 73.5, 0.28);
+      tl.fromTo("#carW", { y: 0 }, { y: -6, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 70.0);
+
+      // ---- 73.8–81.2 · 2028 · còn cả đống câu hỏi
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 73.6);
+      fadeUp("#y2028", 73.81, 0.4);
+      (() => { const o = { v: 2026 }; tl.fromTo(o, { v: 2026 }, { v: 2028, duration: 1.2, ease: "power1.out", immediateRender: false, onUpdate: () => (document.getElementById("yr").textContent = Math.round(o.v)) }, 74.5); })();
+      out("#y2028", 76.6, 0.25);
+      tl.to("#qs", { opacity: 1, duration: 0.2 }, 76.8);
+      fadeUp("#q1", 77.2, 0.3, 12); fadeUp("#q2", 77.9, 0.3, 12); fadeUp("#q3", 79.0, 0.3, 12);
+      out("#qs", 82.2, 0.25);
+
+      // ---- 82.6–89.7 · hồi trước đua nhanh nhất · giờ đem ra biểu diễn
+      fadeUp("#race", 84.5, 0.4);
+      tl.fromTo("#spdArc", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.0, ease: "power2.out", immediateRender: false }, 85.0);
+      tl.fromTo("#spdN", { rotation: 0, svgOrigin: "432 420" }, { rotation: 180, svgOrigin: "432 420", duration: 2.0, ease: "power2.out", immediateRender: false }, 85.0);
+      (() => { const o = { v: 0 }; tl.fromTo(o, { v: 0 }, { v: 400, duration: 2.0, ease: "power2.out", immediateRender: false, onUpdate: () => (document.getElementById("spdV").textContent = Math.round(o.v)) }, 85.0); })();
+      out("#race", 87.7, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 87.7);
+      T("#t11", 87.87, 91.5);
+      roll(0, 0, 87.6, 0.01);
+      drive(0, S_CEIL + 300, 87.8, 3.0, "power1.in", FOLLOW);
+
+      // ---- 91.7–95.5 · xe hơi, máy bay hay tên lửa đang kiếm chỗ đậu?
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 91.5);
+      tl.to("#tri", { opacity: 1, duration: 0.2 }, 91.6);
+      tl.fromTo("#triI > div", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.8, ease: B, immediateRender: false }, 91.8);
+      tl.fromTo("#parkQ", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 94.6);
+      out("#tri", 96.4, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 96.4);
+
+      // ---- 96.7–101.1 · kẹt xe Sài Gòn: bay qua được không?
+      tl.call(() => (follow = null), null, 96.3);
+      (() => { const o = { t: 0 }; tl.fromTo(o, { t: 0 }, { t: 1, duration: 5.0, ease: "sine.inOut", immediateRender: false, onUpdate: () => { follow = null; setCar(2600 + 1200 * o.t, GY - 520 - 60 * Math.sin(o.t * Math.PI * 2), 4 * Math.sin(o.t * 12)); } }, 96.4); })();
+      lastCam = CAM(3200, 2700, 1400, 1150);
+      tl.fromTo(W, { attr: { viewBox: vbs(CAM(3000, 2700, 1400, 1150)) } }, { attr: { viewBox: vbs(CAM(3400, 2700, 1400, 1150)) }, duration: 5.4, ease: "sine.inOut", immediateRender: false }, 96.4);
+      tl.to("#xr", { opacity: 0, duration: 0.01 }, 96.4);
+      for (let k = 0; k < 9; k++) puff([".pf2", ".pf3"], 96.6 + k * 0.6, 1);
+      T("#t12", 96.7, 101.9);
+      tl.fromTo("#jam", { x: 0 }, { x: 6, duration: 0.25, repeat: 21, yoyo: true, ease: "none", immediateRender: false }, 96.6);
+
+      // ---- 102.2–end · bay được mà vẫn kiếm chỗ đậu · công nghệ lên trời, nỗi khổ dưới đất
+      T("#t13", 102.18, 103.75);
+      tl.to("#park", { opacity: 1, duration: 0.4 }, 102.2);
+      (() => { const o = { t: 0 }; tl.fromTo(o, { t: 0 }, { t: 1, duration: 6.5, ease: "none", immediateRender: false, onUpdate: () => { follow = null; const a = o.t * Math.PI * 2.4; setCar(4000 + 260 * Math.cos(a), GY - 1050 - 80 * Math.sin(a), 6 * Math.sin(a)); } }, 102.2); })();
+      tl.fromTo(W, { attr: { viewBox: vbs(CAM(3400, 2700, 1400, 1150)) } }, { attr: { viewBox: vbs(CAM(3900, 2600, 1300, 1100)) }, duration: 1.4, ease: "power2.inOut", immediateRender: false }, 102.0);
+      for (let k = 0; k < 10; k++) puff([".pf2", ".pf3"], 102.4 + k * 0.6, 1);
+      T("#t14", 103.75, 999);
+      tl.fromTo(W, { attr: { viewBox: vbs(CAM(3900, 2600, 1300, 1100)) } }, { attr: { viewBox: vbs(CAM(3700, 2500, 1700, 1050)) }, duration: 4.6, ease: "sine.inOut", immediateRender: false }, 104.2);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post29"] = tl;
+    </script>
+  </body>
+</html>

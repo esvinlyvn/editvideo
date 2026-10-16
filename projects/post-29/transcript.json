@@ -1,0 +1,264 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 3.147,
+   "speaker": "B",
+   "text": "Tesla vừa cho một chiếc siêu xe chạy ngược lên tường,"
+  },
+  {
+   "i": 1,
+   "start": 3.575,
+   "end": 4.617,
+   "speaker": "B",
+   "text": "lộn ngược trên cao,"
+  },
+  {
+   "i": 2,
+   "start": 5.063,
+   "end": 5.806,
+   "speaker": "B",
+   "text": "phóng khỏi đường dốc,"
+  },
+  {
+   "i": 3,
+   "start": 6.059,
+   "end": 8.525,
+   "speaker": "B",
+   "text": "xoay mình giữa không trung rồi đáp xuống đất!"
+  },
+  {
+   "i": 4,
+   "start": 9.295,
+   "end": 11.523,
+   "speaker": "B",
+   "text": "Nhìn cứ như cảnh trong phim khoa học viễn tưởng vậy đó!"
+  },
+  {
+   "i": 5,
+   "start": 12.395,
+   "end": 12.783,
+   "speaker": "B",
+   "text": "Nhưng khoan,"
+  },
+  {
+   "i": 6,
+   "start": 13.349,
+   "end": 15.633,
+   "speaker": "B",
+   "text": "cái xe này làm kiểu gì mà thắng nổi trọng lực?"
+  },
+  {
+   "i": 7,
+   "start": 16.562,
+   "end": 17.228,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây!"
+  },
+  {
+   "i": 8,
+   "start": 17.877,
+   "end": 20.463,
+   "speaker": "B",
+   "text": "Tui mới tìm hiểu màn ra mắt Roadster thế hệ mới của Tesla,"
+  },
+  {
+   "i": 9,
+   "start": 20.914,
+   "end": 23.523,
+   "speaker": "B",
+   "text": "và công nghệ phía sau còn thú vị hơn cả màn biểu diễn!"
+  },
+  {
+   "i": 10,
+   "start": 24.707,
+   "end": 26.314,
+   "speaker": "B",
+   "text": "Chiếc xe sử dụng hai hệ thống đặc biệt."
+  },
+  {
+   "i": 11,
+   "start": 27.059,
+   "end": 30.121,
+   "speaker": "B",
+   "text": "Đầu tiên là hệ thống quạt công suất lớn đặt dưới gầm xe."
+  },
+  {
+   "i": 13,
+   "start": 30.864,
+   "end": 33.395,
+   "speaker": "B",
+   "text": "Nó tạo ra lực hút giúp xe bám chặt vô bề mặt đường."
+  },
+  {
+   "i": 15,
+   "start": 34.246,
+   "end": 36.777,
+   "speaker": "B",
+   "text": "Bởi vậy, khi chiếc xe chạy lên đoạn đường cong rồi lộn ngược,"
+  },
+  {
+   "i": 16,
+   "start": 37.009,
+   "end": 38.342,
+   "speaker": "B",
+   "text": "nó vẫn có thể bám theo đường chạy."
+  },
+  {
+   "i": 17,
+   "start": 39.556,
+   "end": 41.005,
+   "speaker": "B",
+   "text": "Còn lúc bật lên không trung thì sao?"
+  },
+  {
+   "i": 18,
+   "start": 42.06,
+   "end": 43.798,
+   "speaker": "B",
+   "text": "Tesla sử dụng các vòi phụt khí nén"
+  },
+  {
+   "i": 19,
+   "start": 43.998,
+   "end": 45.123,
+   "speaker": "B",
+   "text": "phát triển cùng Space X."
+  },
+  {
+   "i": 20,
+   "start": 45.698,
+   "end": 47.478,
+   "speaker": "B",
+   "text": "Nguyên lý giống cách tên lửa tạo lực đẩy."
+  },
+  {
+   "i": 22,
+   "start": 48.33,
+   "end": 51.485,
+   "speaker": "B",
+   "text": "Khí bị đẩy mạnh về một hướng thì chiếc xe nhận lực theo hướng ngược lại."
+  },
+  {
+   "i": 24,
+   "start": 52.543,
+   "end": 54.587,
+   "speaker": "B",
+   "text": "Nhờ vậy, nó có thể nâng mình trong thời gian ngắn,"
+  },
+  {
+   "i": 26,
+   "start": 54.866,
+   "end": 56.468,
+   "speaker": "B",
+   "text": "xoay chuyển tư thế rồi tiếp đất."
+  },
+  {
+   "i": 28,
+   "start": 57.72,
+   "end": 61.38,
+   "speaker": "B",
+   "text": "Điều bất ngờ là hệ thống này không cần đốt nhiên liệu tên lửa để tạo ra các cú phụt đó."
+  },
+  {
+   "i": 29,
+   "start": 61.911,
+   "end": 64.076,
+   "speaker": "B",
+   "text": "Nó sử dụng khí được nén ở áp suất rất cao!"
+  },
+  {
+   "i": 30,
+   "start": 64.265,
+   "end": 66.971,
+   "speaker": "B",
+   "text": "Nhưng có một chuyện mấy bạn cần biết."
+  },
+  {
+   "i": 32,
+   "start": 67.874,
+   "end": 69.162,
+   "speaker": "B",
+   "text": "Đây mới là xe thử nghiệm,"
+  },
+  {
+   "i": 34,
+   "start": 69.623,
+   "end": 72.97,
+   "speaker": "B",
+   "text": "chưa phải chiếc xe mà mình có thể mua về rồi thoải mái chạy lộn ngược ngoài đường."
+  },
+  {
+   "i": 35,
+   "start": 73.811,
+   "end": 76.345,
+   "speaker": "B",
+   "text": "Tesla đang nhắm tới năm 2028 mới sản xuất."
+  },
+  {
+   "i": 36,
+   "start": 76.855,
+   "end": 81.204,
+   "speaker": "B",
+   "text": "Và chuyện an toàn, luật giao thông, khả năng vận hành ngoài đời vẫn còn cả đống câu hỏi."
+  },
+  {
+   "i": 39,
+   "start": 82.64,
+   "end": 83.772,
+   "speaker": "B",
+   "text": "Dù vậy, phải công nhận một điều."
+  },
+  {
+   "i": 40,
+   "start": 84.506,
+   "end": 87.475,
+   "speaker": "B",
+   "text": "Hồi trước, người ta cạnh tranh coi siêu xe nào chạy nhanh nhất."
+  },
+  {
+   "i": 41,
+   "start": 87.872,
+   "end": 91.191,
+   "speaker": "B",
+   "text": "Giờ Tesla đem xe ra biểu diễn tới mức người coi phải tự hỏi..."
+  },
+  {
+   "i": 43,
+   "start": 91.71,
+   "end": 95.437,
+   "speaker": "B",
+   "text": "Ủa, rốt cuộc đây là xe hơi, máy bay, hay tên lửa đang kiếm chỗ đậu?"
+  },
+  {
+   "i": 46,
+   "start": 96.674,
+   "end": 97.979,
+   "speaker": "B",
+   "text": "Mà tui chỉ thắc mắc một chuyện thôi."
+  },
+  {
+   "i": 47,
+   "start": 98.804,
+   "end": 101.119,
+   "speaker": "B",
+   "text": "Mai mốt kẹt xe ở Sài Gòn, mấy chiếc này có bay qua được không?"
+  },
+  {
+   "i": 48,
+   "start": 102.178,
+   "end": 103.558,
+   "speaker": "B",
+   "text": "Chứ nếu bay được mà vẫn phải kiếm chỗ đậu..."
+  },
+  {
+   "i": 49,
+   "start": 103.747,
+   "end": 108.052,
+   "speaker": "B",
+   "text": "Thì công nghệ lên tới trời, còn nỗi khổ vẫn nằm dưới đất!"
+  }
+ ]
+}
