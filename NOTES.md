@@ -139,6 +139,11 @@ node projects/post-11/build.mjs
 | 27 | Chakra Petch | Phòng dựng tối `#14161b` | Xanh đầu đọc `#22d3ee` (đỏ chỉ ở biển DỪNG) | Phòng dựng phim của trí nhớ |
 | 28 | Archivo | Kem `#fbf3e4`, phố ban ngày | Xanh bạc hà `#00a884` (đỏ cho lỗi) | Con phố + dây mạng thanh toán dưới đất |
 | 29 | Exo 2 (nghiêng) | Đấu trường đêm `#0b1020`, trời hoàng hôn | Cam lửa `#ff5a1f` (xe đỏ `#d91c2a`) | Không logo thương hiệu |
+| 30 | Pacifico | Kem giấy `#fbf1e3` | Cam cà phê `#e4572e` | Lịch-đường + quán Chỗ Cũ |
+| 31 | Comfortaa | Đêm mưa `#15172e` | Tím nhạc `#b197fc` | Căn phòng mưa |
+| 32 | Big Shoulders Display | Than `#16181d` | Vàng tải `#ffd60a` | Phòng xưa / phòng nay |
+| 33 | Mali | Trắng xanh `#f1f6fb` | Đỏ cờ `#e63946` | Sân trường (trường hư cấu) |
+| 34 | Josefin Sans | Xám bê tông `#e9ecef` | Xanh rêu mọc lại `#6a9b14` | Thành phố tua nhanh |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
@@ -221,6 +226,11 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **27** | Trí nhớ là biên tập viên | **Phòng dựng phim của trí nhớ**: màn hình ký ức chiếu xe qua biển NHƯỜNG ĐƯỜNG, dòng thời gian các đoạn phim; câu hỏi gài chữ DỪNG → ổng biên tập cắt đoạn cũ, dán đoạn DỪNG; so sánh lúc đầu / trong trí nhớ; nguồn đã thấy / đã nghe / biết thêm + đoạn sai lệch chen vô; đồng hồ "nhớ rõ" 100% vs độ chính xác ???; hai người cãi nhau; cách giữ "bản gốc"; dấu BẢN GỐC + ổng giơ ngón cái | Câu hỏi gài, câu hỏi trung lập và lời cãi nhau là tự viết | 119,4s · 65 |
 | **28** | Một ngày không tiền mặt | **Con phố + mạng thanh toán**: ví bay hết tiền; số dư 2.000.000đ nhưng không mua được bánh mì; quét mã ở quán cơm, shop; pin tụt về 0; mã QR mọc mắt nhìn lại; bà xài điện thoại bấm số, cột sóng yếu, sạp rau ghi sổ, phòng máy báo đỏ; chuỗi người mua – kết nối – người bán đứt một mắt xích; cân bằng tiền mặt/điện thoại; Tết nhà ông bà, bao lì xì in mã QR | Tên tiệm, giá 20.000đ, số dư, lời bà là tự bịa | 116,6s · 75 |
 | **29** | Siêu xe chạy lộn ngược | **Đấu trường biểu diễn**: một đường chạy liền (mặt đất → tường → trần lộn ngược → vách trái → dốc phóng), xe chạy theo đường bằng getPointAtLength, camera bám xe; bay, xoay 360°, đáp; mũi tên TRỌNG LỰC khi xe treo ngược; chế độ soi xuyên: quạt dưới gầm + mũi tên lực hút, bình khí nén + 4 vòi phụt; tên lửa minh họa lực đẩy ngược; lửa bị gạch vs đồng hồ áp suất; 2028; đồng hồ tốc độ; xe hơi/máy bay/tên lửa + P; phố Sài Gòn kẹt xe, xe bay mà bãi xe HẾT CHỖ | Không vẽ logo Tesla/SpaceX: roadster đỏ không huy hiệu, tên chỉ hiện bằng chữ theo lời voice | 111,4s · 63 |
+| **30** | Bữa nào cà phê | **Con đường lịch** 2022→2026: mỗi năm một bàn cà phê, hai người bạn hẹn "bữa nào", cây trong chậu lớn dần; thẻ lời mời có ô trống → điền Thứ Bảy/3 giờ/chỗ cũ + mộc CHỐT; lịch tuần; bảo tàng "di sản phi vật thể" | Lời bạn, quán "Chỗ Cũ", tấm biển bảo tàng là tự bịa | 77,2s |
+| **31** | Nghe nhạc buồn khi buồn | **Căn phòng mưa**: cửa sổ mưa, đèn bàn, máy hát, người đeo tai nghe; mây mưa riêng; khảo sát 772 người (chấm); biểu đồ minh họa buồn/hoài niệm; polaroid kỷ niệm; cảnh kết cửa sổ nắng | Biểu đồ là minh họa, không phải số liệu thật | 97,9s |
+| **32** | Chờ đợi và tốc độ | **Hai căn phòng** xưa/nay + thanh tiến trình vàng xuyên suốt; CRT tải chậm vs điện thoại xoay vòng; HUD đồ thị tốc độ/kiên nhẫn (minh họa), thước 1 NGÀY → 1 GIÂY, đồng hồ 10 giây, chữ CHỜ ĐỢI bị xóa | Đồ thị, cột thế hệ là minh họa | 99,2s |
+| **33** | Phù hiệu | **Sân trường** THCS Hoa Phượng (hư cấu): cổng, cờ đỏ, cây phượng, lớp 9A2, căng tin; hộp kỷ niệm; phù hiệu SVG; đường điện tim; ảnh lớp dưới cây phượng | Tên trường/lớp, tin nhắn "Ê, dạo này sao rồi?" tự bịa | 110,7s |
+| **34** | Nếu loài người biến mất | **Một mặt cắt thành phố** có camera + đồng hồ "Con người biến mất · vài ngày → hàng ngàn năm" (chỉ ước lượng): nhà máy điện tắt đèn, trạm bơm rỉ sét, cống tắc, cao ốc nứt + dây leo + đỉnh gãy, nhà vùng ẩm mọc rêu vs khối đá sa mạc, chai nhựa vỡ mảnh; tàu thăm dò khoan trúng lớp vật liệu nhân tạo; hóa thạch lớp sâu; tua lại thành phố sống, thợ bảo trì | Tàu thăm dò, mốc thời gian là minh họa | 124,2s |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

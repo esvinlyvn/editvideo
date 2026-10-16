@@ -1,0 +1,243 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 3.414,
+   "speaker": "B",
+   "text": "Hồi trước tải một bài nhạc, ngồi chờ cả buổi vẫn thấy bình thường."
+  },
+  {
+   "i": 3,
+   "start": 4.075,
+   "end": 6.882,
+   "speaker": "B",
+   "text": "Giờ video đứng hình ba giây là muốn đổi luôn nhà mạng!"
+  },
+  {
+   "i": 5,
+   "start": 7.716,
+   "end": 9.165,
+   "speaker": "B",
+   "text": "Tại sao công nghệ càng nhanh,"
+  },
+  {
+   "i": 6,
+   "start": 9.446,
+   "end": 11.077,
+   "speaker": "B",
+   "text": "mình lại càng khó chịu khi phải chờ?"
+  },
+  {
+   "i": 7,
+   "start": 11.801,
+   "end": 12.167,
+   "speaker": "B",
+   "text": "Sáu đây."
+  },
+  {
+   "i": 8,
+   "start": 12.695,
+   "end": 14.225,
+   "speaker": "B",
+   "text": "Có một góc nhìn tui thấy đáng suy nghĩ."
+  },
+  {
+   "i": 9,
+   "start": 14.956,
+   "end": 18.322,
+   "speaker": "B",
+   "text": "Không hẳn là con người bây giờ thiếu kiên nhẫn hơn tất cả những thế hệ trước."
+  },
+  {
+   "i": 11,
+   "start": 19.07,
+   "end": 21.416,
+   "speaker": "B",
+   "text": "Mà là tiêu chuẩn về tốc độ của mình đã thay đổi."
+  },
+  {
+   "i": 13,
+   "start": 22.441,
+   "end": 24.375,
+   "speaker": "B",
+   "text": "Ví dụ, hồi trước muốn mua một món đồ,"
+  },
+  {
+   "i": 15,
+   "start": 24.817,
+   "end": 27.942,
+   "speaker": "B",
+   "text": "phải ra cửa hàng, lựa, trả tiền rồi đem về."
+  },
+  {
+   "i": 19,
+   "start": 28.746,
+   "end": 30.463,
+   "speaker": "B",
+   "text": "Bây giờ đặt hàng vài thao tác là xong."
+  },
+  {
+   "i": 20,
+   "start": 31.064,
+   "end": 33.844,
+   "speaker": "B",
+   "text": "Vậy nên khi một ứng dụng mất tới mười giây mới phản hồi,"
+  },
+  {
+   "i": 21,
+   "start": 34.422,
+   "end": 35.477,
+   "speaker": "B",
+   "text": "mình cảm thấy nó đang chậm."
+  },
+  {
+   "i": 22,
+   "start": 36.349,
+   "end": 39.093,
+   "speaker": "B",
+   "text": "Dù mười giây thật ra chẳng phải khoảng thời gian dài."
+  },
+  {
+   "i": 24,
+   "start": 40.195,
+   "end": 41.191,
+   "speaker": "B",
+   "text": "Nhưng có một nghịch lý."
+  },
+  {
+   "i": 25,
+   "start": 42.05,
+   "end": 43.788,
+   "speaker": "B",
+   "text": "Công nghệ đã giúp tiết kiệm rất nhiều thời gian,"
+  },
+  {
+   "i": 26,
+   "start": 44.335,
+   "end": 47.164,
+   "speaker": "B",
+   "text": "mà thời gian dư ra chưa chắc khiến mình thấy thảnh thơi hơn."
+  },
+  {
+   "i": 28,
+   "start": 48.614,
+   "end": 49.848,
+   "speaker": "B",
+   "text": "Vì khi việc này nhanh hơn,"
+  },
+  {
+   "i": 29,
+   "start": 50.156,
+   "end": 51.638,
+   "speaker": "B",
+   "text": "mình thường có xu hướng làm thêm việc khác."
+  },
+  {
+   "i": 30,
+   "start": 52.403,
+   "end": 53.591,
+   "speaker": "B",
+   "text": "Nhắn một người chưa trả lời,"
+  },
+  {
+   "i": 31,
+   "start": 53.918,
+   "end": 54.821,
+   "speaker": "B",
+   "text": "mình mở thêm ứng dụng."
+  },
+  {
+   "i": 32,
+   "start": 55.378,
+   "end": 57.172,
+   "speaker": "B",
+   "text": "Đang coi phim, thấy đoạn hơi chậm thì tua."
+  },
+  {
+   "i": 33,
+   "start": 57.817,
+   "end": 60.443,
+   "speaker": "B",
+   "text": "Đọc một bài dài, chưa hết trang đầu đã tìm nút tóm tắt."
+  },
+  {
+   "i": 36,
+   "start": 61.445,
+   "end": 64.525,
+   "speaker": "B",
+   "text": "Dần dần, chuyện chờ đợi trở thành thứ mình muốn loại bỏ."
+  },
+  {
+   "i": 38,
+   "start": 65.647,
+   "end": 67.546,
+   "speaker": "B",
+   "text": "Nhưng có những việc không thể tăng tốc mãi được."
+  },
+  {
+   "i": 39,
+   "start": 68.528,
+   "end": 69.911,
+   "speaker": "B",
+   "text": "Học một kỹ năng cần luyện tập."
+  },
+  {
+   "i": 41,
+   "start": 70.664,
+   "end": 72.245,
+   "speaker": "B",
+   "text": "Xây dựng lòng tin cần thời gian."
+  },
+  {
+   "i": 42,
+   "start": 73.131,
+   "end": 76.248,
+   "speaker": "B",
+   "text": "Ngủ đủ giấc cũng không thể tải bản cập nhật rồi hoàn thành trong năm phút!"
+  },
+  {
+   "i": 44,
+   "start": 77.397,
+   "end": 80.337,
+   "speaker": "B",
+   "text": "Nên tui nghĩ, không phải cái gì nhanh hơn cũng làm cuộc sống tốt hơn."
+  },
+  {
+   "i": 46,
+   "start": 81.058,
+   "end": 83.279,
+   "speaker": "B",
+   "text": "Quan trọng là biết lúc nào tốc độ thật sự có ích,"
+  },
+  {
+   "i": 47,
+   "start": 83.854,
+   "end": 85.229,
+   "speaker": "B",
+   "text": "lúc nào mình cần kiên nhẫn."
+  },
+  {
+   "i": 49,
+   "start": 86.047,
+   "end": 88.583,
+   "speaker": "B",
+   "text": "Chứ một cái điện thoại có thể xử lý hàng tỷ phép tính..."
+  },
+  {
+   "i": 50,
+   "start": 89.195,
+   "end": 91.86,
+   "speaker": "B",
+   "text": "Mà chủ nhân của nó không chịu nổi ba giây chờ tải hình."
+  },
+  {
+   "i": 51,
+   "start": 92.311,
+   "end": 95.698,
+   "speaker": "B",
+   "text": "Nghe cũng hơi quê cho nền văn minh nhân loại ha!"
+  }
+ ]
+}

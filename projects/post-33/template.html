@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Cái phù hiệu học sinh</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Sân trường cây phượng": một ngôi trường có camera =====
+         Cổng trường (bạn cờ đỏ đứng kiểm tra) · cây phượng · dãy lớp học · căn tin. Cái phù hiệu là "nhân vật chính":
+         sáng quên phù hiệu → lục cặp, lục túi, đồng hồ còn 3 phút; lớn lên tìm lại trong hộp kỷ niệm → phù hiệu phát tín hiệu
+         nối tới bạn ngồi kế bên, giờ ra chơi chạy xuống căn tin, buổi chiều chụp hình chung dưới gốc phượng.
+         Tên trường/lớp trên phù hiệu là tự đặt (không phải trường thật).
+         2 font: Mali (chữ học trò) · Be Vietnam Pro. Chữ xanh mực #1d3557 + nhấn đỏ phượng #e63946. */
+      :root { --disp: "Mali", cursive; --body: "Be Vietnam Pro", sans-serif; --ink: #1d3557; --acc: #e63946; --bg: #f1f6fb; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: linear-gradient(rgba(241,246,251,.95) 0, rgba(241,246,251,.75) 280px, rgba(241,246,251,0) 520px); }
+      #dim { position: absolute; inset: 0; background: rgba(241,246,251,.9); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.2; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 64px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #5c7393; white-space: nowrap; }
+      .card { background: #fff; border: 5px solid var(--ink); border-radius: 26px; box-shadow: 8px 8px 0 var(--ink); }
+      .chk { display: flex; align-items: center; gap: 18px; margin-top: 18px; font-family: var(--disp); font-weight: 700; font-size: 44px; white-space: nowrap; opacity: 0; position: relative; }
+      .chk i { width: 50px; height: 50px; border: 5px solid var(--ink); border-radius: 10px; flex: none; }
+      .chk s { position: absolute; left: 70px; right: 0; top: 50%; height: 6px; background: var(--acc); transform-origin: 0 50%; transform: scaleX(0); }
+      .bub { position: absolute; padding: 16px 26px 20px; border-radius: 26px 26px 26px 8px; background: #fff; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(16, 28, 48, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post33" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe c o0" id="mystery" style="top:420px"><div class="h" style="font-size:60px"><span class="blk">Quên đem là</span><span class="blk a">muốn đứng tim</span></div>
+          <svg width="760" height="360" viewBox="0 0 760 360" style="margin-top:30px"><path id="ekg" d="M0 200H200l30-80 40 160 30-120 20 40H460l30-80 40 160 30-120 20 40H760" stroke="#e63946" stroke-width="10" fill="none" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path id="ekgFlat" d="M0 200H760" stroke="#e63946" stroke-width="10" opacity="0"/></svg></div>
+        <div class="safe c o0" id="found" style="top:200px"><div class="h" style="font-size:58px"><span class="blk">Mười mấy năm sau</span><span class="blk a">tìm lại được</span></div><div class="lab" style="margin-top:8px">mừng còn hơn nhặt được tiền</div></div>
+        <div class="safe c o0" id="badgeBig" style="top:560px"></div>
+        <div class="safe c o0" id="badgeLab" style="top:200px"><div class="h" style="font-size:72px"><span class="blk">Cái phù hiệu</span><span class="blk a">học sinh</span></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:100px"><span class="blk">Sáu</span></div></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Món đồ nhỏ xíu</span><span class="blk a">giữ cả thời tuổi trẻ</span></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Sáng quên phù hiệu</span><span class="blk a">là xanh mặt</span></div>
+        <div class="safe c o0" id="clock" style="top:200px"><div class="lab">còn</div><div class="h a" style="font-size:150px"><span class="blk"><span id="clk">3</span> phút</span></div><div class="lab">là vô lớp</div></div>
+        <div class="safe o0" id="wish" style="top:200px"><div class="h c" style="font-size:60px"><span class="blk">Hồi đó chỉ mong</span><span class="blk a">mau ra trường</span></div>
+          <div class="chk" id="w1"><i></i>Khỏi đồng phục<s></s></div><div class="chk" id="w2"><i></i>Khỏi kiểm tra đầu tóc<s></s></div><div class="chk" id="w3"><i></i>Khỏi kiểm tra 15 phút<s></s></div></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Vậy mà lớn lên</span><span class="blk a">vẫn giữ lại</span></div>
+        <div class="safe c o0" id="why" style="top:200px"><div class="h a" style="font-size:110px"><span class="blk">Tại sao?</span></div></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Đồ vật là</span><span class="blk a">tín hiệu gợi nhớ</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Đâu chỉ có</span><span class="blk a">tên trường, lớp học</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Hồi đó bình thường,</span><span class="blk a">giờ là ký ức rất riêng</span></div>
+        <div class="safe o0" id="two" style="top:200px"><div class="h c" style="font-size:58px"><span class="blk">Ký ức mỗi người</span><span class="blk a">đâu có giống nhau</span></div>
+          <div style="display:flex;gap:20px;margin-top:30px"><div class="card c" id="tw1" style="flex:1;padding:26px 10px;opacity:0"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" fill="#ffd166" stroke="#1d3557" stroke-width="6"/><circle cx="56" cy="66" r="8" fill="#1d3557"/><circle cx="104" cy="66" r="8" fill="#1d3557"/><path d="M48 100q32 30 64 0" stroke="#1d3557" stroke-width="7" fill="none" stroke-linecap="round"/></svg><div class="h" style="font-size:40px;margin-top:10px"><span class="blk">Nhớ vì vui</span></div></div>
+          <div class="card c" id="tw2" style="flex:1;padding:26px 10px;opacity:0"><svg width="160" height="160" viewBox="0 0 160 160"><rect x="30" y="20" width="100" height="130" rx="6" fill="#a8dadc" stroke="#1d3557" stroke-width="6"/><circle cx="110" cy="88" r="7" fill="#1d3557"/></svg><div class="h" style="font-size:40px;margin-top:10px"><span class="blk">Chẳng muốn về</span></div></div></div></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Lâu lâu lấy ra</span><span class="blk a">coi thử</span></div>
+        <div class="bub" id="msg" style="left:250px;top:880px">“Ê, dạo này sao rồi?”</div>
+        <div class="safe c o0" id="tongket" style="top:200px"><div class="lab">quay về một ngày</div><div class="h a" style="font-size:96px"><span class="blk">Ngày tổng kết!</span></div></div>
+        <div class="safe c o0" id="quiz" style="top:520px"><div class="card" style="display:inline-block;padding:30px 40px 40px"><div class="lab">đề kiểm tra</div><div class="h a" style="font-size:72px"><span class="blk">Đột xuất</span></div><div style="margin-top:14px;text-align:left;font-family:var(--disp);font-weight:700;font-size:34px;line-height:1.7">Câu 1: ……………<br>Câu 2: ……………</div></div><div class="h" style="font-size:66px;margin-top:40px"><span class="blk">Thôi, cảm ơn!</span></div></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const INK = "#1d3557", ACC = "#e63946", GY = 1400, SKIN = "#f4c7a1", NAVY = "#1d3557";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      let seed = 8; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      // ---------- phù hiệu (tên trường tự đặt) ----------
+      const badge = (w = 700) => `<svg width="${w}" height="${w * 0.42}" viewBox="0 0 700 294"><rect x="8" y="8" width="684" height="278" rx="22" fill="#fff" stroke="${NAVY}" stroke-width="12"/><rect x="28" y="28" width="644" height="238" rx="14" fill="none" stroke="${NAVY}" stroke-width="4" stroke-dasharray="14 10"/>
+        <circle cx="110" cy="147" r="62" fill="${ACC}"/><path d="M110 105l12 26 28 3-21 19 6 28-25-14-25 14 6-28-21-19 28-3z" fill="#ffd166"/>
+        <text x="410" y="120" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="42" fill="${NAVY}">TRƯỜNG THCS</text><text x="410" y="176" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="48" fill="${NAVY}">HOA PHƯỢNG</text><text x="410" y="236" text-anchor="middle" font-family="Mali" font-weight="700" font-size="44" fill="${ACC}">Lớp 9A2</text></svg>`;
+      document.getElementById("badgeBig").innerHTML = `<div style="display:inline-block;filter:drop-shadow(0 20px 30px rgba(29,53,87,.3))">${badge(820)}</div>`;
+      // ---------- học sinh ----------
+      const kid = (x, y, s, shirt = "#fff", extra = "", hair = "#2b2d42") => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-18 0v-70M18 0v-70" stroke="${NAVY}" stroke-width="20" stroke-linecap="round"/><path d="M-44-66l8-96c16-18 56-18 72 0l8 96z" fill="${shirt}" stroke="${INK}" stroke-width="5"/><rect x="14" y="-140" width="26" height="12" rx="3" fill="#fff" stroke="${INK}" stroke-width="2" class="pocket"/><circle cy="-196" r="40" fill="${SKIN}" stroke="${INK}" stroke-width="5"/><path d="M-40-202c2-44 78-46 80 0-22-16-58-16-80 0z" fill="${hair}"/><circle cx="-14" cy="-194" r="5" fill="${INK}"/><circle cx="14" cy="-194" r="5" fill="${INK}"/>${extra}</g>`;
+      const smile = `<path d="M-12-176q12 10 24 0" stroke="${INK}" stroke-width="4" fill="none"/>`;
+      // ---------- ngôi trường ----------
+      const phuong = (x, s = 1) => `<g transform="translate(${x} ${GY}) scale(${s})"><path d="M0 0c-6-120 4-220-10-300M-6-200c-60-40-120-40-170-30M0-250c60-40 140-50 190-40" stroke="#6b4423" stroke-width="30" fill="none" stroke-linecap="round"/>${[...Array(26)].map(() => `<circle cx="${-260 + rnd() * 520}" cy="${-260 - rnd() * 220}" r="${40 + rnd() * 40}" fill="${["#e63946", "#f25c54", "#d62828", "#2a9d8f"][Math.floor(rnd() * 4)]}"/>`).join("")}</g>`;
+      const windows = (x0, y0, n) => [...Array(n)].map((_, k) => `<rect x="${x0 + k * 170}" y="${y0}" width="120" height="140" rx="8" fill="#a8dadc" stroke="${INK}" stroke-width="5"/><path d="M${x0 + k * 170 + 60} ${y0}v140" stroke="${INK}" stroke-width="4"/>`).join("");
+      let petals = ""; for (let k = 0; k < 40; k++) petals += `<ellipse class="pt" cx="${-300 + rnd() * 1300}" cy="${700 + rnd() * 600}" rx="10" ry="6" fill="${ACC}" opacity=".8"/>`;
+      const school = `<rect x="-4000" y="-4000" width="12000" height="${4000 + GY}" fill="url(#gSky)"/><rect x="-4000" y="${GY}" width="12000" height="3000" fill="#e9d8a6"/><rect x="-4000" y="${GY}" width="12000" height="24" fill="#c9b37a"/>
+        <g id="gate"><rect x="-900" y="${GY - 520}" width="60" height="520" fill="#457b9d" stroke="${INK}" stroke-width="6"/><rect x="-300" y="${GY - 520}" width="60" height="520" fill="#457b9d" stroke="${INK}" stroke-width="6"/><rect x="-940" y="${GY - 620}" width="740" height="110" rx="16" fill="#fff" stroke="${INK}" stroke-width="7"/><text x="-570" y="${GY - 547}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="52" fill="${INK}">TRƯỜNG THCS HOA PHƯỢNG</text><path d="M-840 ${GY - 40}H-300" stroke="#8d99ae" stroke-width="10"/>${[...Array(9)].map((_, k) => `<path d="M${-820 + k * 60} ${GY}V${GY - 300}" stroke="#8d99ae" stroke-width="8"/>`).join("")}</g>
+        <g id="redstar">${kid(-130, GY, 1, "#fff", smile + `<rect x="-46" y="-130" width="20" height="40" fill="${ACC}"/><rect x="40" y="-140" width="70" height="90" rx="6" fill="#ffd166" stroke="${INK}" stroke-width="4" transform="rotate(8 70 -95)"/>`)}<text x="-130" y="${GY - 290}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="30" fill="${ACC}">CỜ ĐỎ</text></g>
+        ${phuong(450, 1.15)}
+        <g id="bld"><rect x="900" y="${GY - 760}" width="1300" height="760" fill="#fbe3a9" stroke="${INK}" stroke-width="8"/><rect x="880" y="${GY - 800}" width="1340" height="60" fill="${ACC}" stroke="${INK}" stroke-width="6"/>${windows(960, GY - 700, 7)}${windows(960, GY - 340, 7)}<path d="M900 ${GY - 380}h1300" stroke="${INK}" stroke-width="8"/>
+          <g id="classIn"><rect x="1300" y="${GY - 340}" width="460" height="300" fill="#fff8e1" stroke="${INK}" stroke-width="6"/><rect x="1320" y="${GY - 320}" width="420" height="120" rx="6" fill="#2a9d8f" stroke="${INK}" stroke-width="5"/><text x="1530" y="${GY - 250}" text-anchor="middle" font-family="Mali" font-weight="700" font-size="44" fill="#fff">Lớp 9A2</text><rect x="1360" y="${GY - 110}" width="340" height="20" fill="#bc6c25" stroke="${INK}" stroke-width="4"/></g></g>
+        <g id="canteen"><rect x="2400" y="${GY - 420}" width="520" height="420" fill="#ffafcc" stroke="${INK}" stroke-width="7"/><rect x="2380" y="${GY - 480}" width="560" height="80" rx="12" fill="#fff" stroke="${INK}" stroke-width="6"/><text x="2660" y="${GY - 426}" text-anchor="middle" font-family="Mali" font-weight="700" font-size="54" fill="${INK}">Căn tin</text><rect x="2460" y="${GY - 300}" width="400" height="160" fill="#fff8e1" stroke="${INK}" stroke-width="5"/>${[0, 1, 2, 3].map((k) => `<circle cx="${2510 + k * 100}" cy="${GY - 240}" r="30" fill="${["#ffd166", "#f4a261", "#90be6d", "#e76f51"][k]}" stroke="${INK}" stroke-width="4"/>`).join("")}</g>
+        <g id="me"><g id="meM">${kid(-560, GY, 1.05, "#fff", `<g class="calm">${smile}</g><g class="blue" opacity="0"><circle cy="-196" r="40" fill="#74c0fc" opacity=".55"/><path d="M-12-172q12-10 24 0" stroke="${INK}" stroke-width="4" fill="none"/></g><rect x="-110" y="-150" width="70" height="110" rx="14" fill="#e76f51" stroke="${INK}" stroke-width="5"/>`)}</g></g>
+        <g id="deskmate" opacity="0">${kid(1440, GY - 40, 0.75, "#fff", smile)}${kid(1620, GY - 40, 0.75, "#fff", smile, "#6b3d2a")}</g>
+        <g id="runners" opacity="0"><g id="runM">${[0, 1, 2].map((k) => kid(2000 + k * 90, GY, 0.8, "#fff", smile, ["#2b2d42", "#6b3d2a", "#3d405b"][k])).join("")}</g></g>
+        <g id="classPhoto" opacity="0">${[...Array(9)].map((_, k) => kid(160 + k * 70 + (k % 2) * 10, GY - (k % 2) * 30, 0.6, "#fff", smile, ["#2b2d42", "#6b3d2a", "#3d405b"][k % 3])).join("")}</g>
+        <g id="petals">${petals}</g>
+        <g id="box" opacity="0"><g transform="translate(3400 ${GY})"><g id="boxGlow"><circle cx="0" cy="-300" r="240" fill="#ffd166" opacity=".45"/></g><path d="M-300 0v-260h600V0z" fill="#d4a373" stroke="${INK}" stroke-width="8"/><path d="M-320-260l40-90h560l40 90z" fill="#e9c46a" stroke="${INK}" stroke-width="8"/>
+          <g id="keep" opacity="0"><g><g transform="translate(-250 -420) rotate(-6)"><rect width="200" height="150" rx="8" fill="#b5838d" stroke="${INK}" stroke-width="5"/><text x="100" y="86" text-anchor="middle" font-family="Mali" font-weight="700" font-size="34" fill="#fff">Lưu bút</text></g></g><g><g transform="translate(60 -470) rotate(5)"><path d="M0 0l50-30h100l50 30-30 40v140H30V40z" fill="#e7ecef" stroke="${INK}" stroke-width="5"/><rect x="120" y="40" width="40" height="18" fill="#fff" stroke="${INK}" stroke-width="2"/></g></g></g></g></g>
+        <g id="frame" opacity="0"><g transform="translate(3400 960)"><rect x="-380" y="-250" width="760" height="500" rx="10" fill="#fff" stroke="${INK}" stroke-width="12"/><rect x="-350" y="-220" width="700" height="400" fill="#f4e1c1"/><g transform="translate(-540 -1220)">${phuong(540, 0.6)}${[...Array(9)].map((_, k) => kid(270 + k * 66, GY - 40 - (k % 2) * 24, 0.5, "#fff", smile)).join("")}</g><text x="0" y="230" text-anchor="middle" font-family="Mali" font-weight="700" font-size="34" fill="${INK}">Buổi chiều cuối cùng · 9A2</text></g></g>`;
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${GY}"><stop offset="0" stop-color="#bde0fe"/><stop offset="1" stop-color="#f1f6fb"/></linearGradient></defs>${school}`;
+
+      const P = { gate: CAM(-520, GY - 300, 1000, 1150), me: CAM(-560, GY - 250, 640, 1150), yard: CAM(500, GY - 400, 1200, 1150), class: CAM(1530, GY - 220, 760, 1150), canteen: CAM(2450, GY - 250, 1100, 1150), photo: CAM(450, GY - 300, 1000, 1150), wide: CAM(1000, GY - 400, 3600, 1150), box: CAM(3400, GY - 300, 1100, 1150) };
+      let lastCam = P.yard; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.6)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      tl.fromTo(".pt", { y: 0, x: 0, rotation: 0 }, { y: 300, x: 60, rotation: 180, duration: 6, repeat: 18, ease: "none", stagger: 0.12, immediateRender: false }, 0);
+
+      // ---- 0–3.6 · quên đem là muốn đứng tim
+      dimIn(0); fadeUp("#mystery", 0.1, 0.4);
+      tl.fromTo("#ekg", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: "none", immediateRender: false }, 0.3);
+      tl.to("#ekg", { opacity: 0, duration: 0.1 }, 2.6); tl.to("#ekgFlat", { opacity: 1, duration: 0.1 }, 2.6);
+      out("#mystery", 4.2, 0.25);
+
+      // ---- 4.5–8.4 · mười mấy năm sau tìm lại → mừng hơn nhặt tiền (hộp kỷ niệm)
+      dimOut(4.2); cam(P.box, 4.2, 0.01); tl.to("#box", { opacity: 1, duration: 0.4 }, 4.3);
+      T("#found", 4.5, 8.9);
+      tl.fromTo("#boxGlow", { opacity: 0, scale: 0.4, svgOrigin: "0 -300" }, { opacity: 1, scale: 1.2, svgOrigin: "0 -300", duration: 1.2, ease: E, immediateRender: false }, 6.2);
+
+      // ---- 9.3–10.4 · đó là cái phù hiệu học sinh
+      dimIn(8.9);
+      tl.fromTo("#badgeBig", { opacity: 0, scale: 0.4, rotation: -10 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.6, ease: B, immediateRender: false }, 9.3);
+      fadeUp("#badgeLab", 9.4, 0.4);
+      out(["#badgeBig", "#badgeLab"], 11.4, 0.25);
+
+      // ---- 11.66–17.5 · Sáu · món đồ nhỏ xíu giữ cả thời tuổi trẻ
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 11.6);
+      out("#sauBox", 12.9, 0.25); dimOut(12.9); tl.to("#box", { opacity: 0, duration: 0.3 }, 12.9);
+      cam(P.wide, 12.9, 0.01); cam(P.yard, 13.0, 4.4, "sine.inOut");
+      T("#t1", 13.1, 18.6);
+
+      // ---- 19–31 · sáng quên phù hiệu: xanh mặt · lục cặp · lục túi · còn 3 phút
+      cam(P.gate, 18.6, 1.0);
+      T("#t2", 19.0, 23.0);
+      tl.to("#me .calm", { opacity: 0, duration: 0.2 }, 21.6); tl.to("#me .blue", { opacity: 1, duration: 0.3 }, 21.6);
+      cam(P.me, 23.0, 0.8);
+      tl.fromTo("#meM", { x: 0 }, { x: 10, duration: 0.07, repeat: 23, yoyo: true, immediateRender: false }, 23.3);
+      tl.fromTo("#meM", { rotation: 0, svgOrigin: "-560 1400" }, { rotation: -8, svgOrigin: "-560 1400", duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 24.9);
+      cam(P.gate, 26.6, 0.8);
+      fadeUp("#clock", 26.79, 0.4);
+      (() => { const o = { v: 3 }; tl.fromTo(o, { v: 3 }, { v: 2, duration: 3.2, ease: "none", immediateRender: false, onUpdate: () => (document.getElementById("clk").textContent = Math.ceil(o.v)) }, 27.4); })();
+      tl.fromTo("#redstar", { x: 0 }, { x: -80, duration: 0.8, ease: E, immediateRender: false }, 29.0);
+      out("#clock", 31.6, 0.25);
+
+      // ---- 32.4–38 · chỉ mong mau ra trường: khỏi đồng phục, khỏi kiểm tra…
+      dimIn(32.2); tl.to("#wish", { opacity: 1, duration: 0.2 }, 32.4);
+      [["#w1", 34.38], ["#w2", 35.43], ["#w3", 36.75]].forEach(([w, at]) => { fadeUp(w, at, 0.3, 12); tl.to(`${w} s`, { scaleX: 1, duration: 0.3 }, at + 0.35); });
+      out("#wish", 38.7, 0.25); dimOut(38.7);
+
+      // ---- 39–45.4 · lớn lên vẫn giữ: phù hiệu cũ, lưu bút, áo đồng phục bạc màu
+      cam(P.box, 38.6, 0.01); tl.to("#box", { opacity: 1, duration: 0.3 }, 38.7);
+      T("#t3", 39.0, 46.3);
+      tl.to("#keep", { opacity: 1, duration: 0.01 }, 40.4);
+      tl.fromTo("#keep > g", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.5, ease: B, stagger: 1.5, immediateRender: false }, 42.6);
+
+      // ---- 46.5–58.3 · tại sao? đồ vật là tín hiệu gợi nhớ → người, nơi chốn, cảm xúc
+      dimIn(46.3); fadeUp("#why", 46.5, 0.35); out("#why", 47.9, 0.25);
+      tl.fromTo("#badgeBig", { opacity: 0, scale: 0.6, rotation: 0 }, { opacity: 1, scale: 0.8, rotation: -3, duration: 0.5, ease: B, immediateRender: false }, 48.0);
+      T("#t4", 48.09, 59.2);
+      tl.fromTo("#badgeBig", { y: 0 }, { y: -10, duration: 0.6, yoyo: true, repeat: 9, ease: "sine.inOut", immediateRender: false }, 49.0);
+      out("#badgeBig", 59.1, 0.25); dimOut(59.1); tl.to("#box", { opacity: 0, duration: 0.3 }, 59.1);
+
+      // ---- 59.4–70.4 · đâu chỉ tên trường: bạn ngồi kế bên · ra chơi xuống căn tin · chiều cuối chụp hình chung
+      cam(P.class, 59.2, 1.0);
+      T("#t5", 59.44, 62.5);
+      tl.to("#deskmate", { opacity: 1, duration: 0.4 }, 62.8);
+      cam(P.canteen, 65.7, 1.0);
+      tl.to("#runners", { opacity: 1, duration: 0.2 }, 65.9); tl.fromTo("#runM", { x: -300 }, { x: 200, duration: 1.6, ease: "power1.inOut", immediateRender: false }, 65.96);
+      tl.fromTo("#runM", { y: 0 }, { y: -14, duration: 0.15, repeat: 9, yoyo: true, immediateRender: false }, 65.96);
+      cam(P.photo, 67.8, 1.2);
+      tl.to("#classPhoto", { opacity: 1, duration: 0.4 }, 68.2);
+
+      // ---- 71.45–74.8 · bình thường → ký ức rất riêng (thành tấm ảnh lồng khung)
+      cam(CAM(3400, 1000, 1100, 1000), 71.3, 0.01);
+      tl.fromTo("#frame", { opacity: 0, scale: 0.6, svgOrigin: "3400 960" }, { opacity: 1, scale: 1, svgOrigin: "3400 960", duration: 0.6, ease: B, immediateRender: false }, 71.45);
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 75.9);
+      T("#t6", 71.45, 76.0);
+      out("#frame", 75.9, 0.3);
+
+      // ---- 76.3–85 · không phải ai cũng yêu thời học sinh · ký ức mỗi người khác nhau
+      tl.to("#two", { opacity: 1, duration: 0.2 }, 76.3);
+      fadeUp("#tw1", 79.33, 0.35); fadeUp("#tw2", 81.16, 0.35);
+      out("#two", 85.7, 0.25);
+
+      // ---- 86–97.8 · ai còn giữ phù hiệu: lấy ra coi → nhớ người bạn lâu chưa hỏi thăm
+      tl.fromTo("#badgeBig", { opacity: 0, scale: 0.6, rotation: 0 }, { opacity: 1, scale: 0.8, rotation: 3, duration: 0.5, ease: B, immediateRender: false }, 86.3);
+      T("#t7", 89.51, 93.6);
+      out("#badgeBig", 93.7, 0.25); dimOut(93.7);
+      cam(P.class, 93.6, 0.01); tl.to("#deskmate", { opacity: 1, duration: 0.01 }, 93.6);
+      tl.fromTo("#msg", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 95.9);
+      out("#msg", 98.2, 0.25);
+
+      // ---- 98.3–103.1 · quay về một ngày… chọn ngày tổng kết
+      cam(P.yard, 98.1, 1.2);
+      fadeUp("#tongket", 101.9, 0.4);
+      tl.fromTo(".pt", { scale: 1 }, { scale: 2.2, duration: 0.5, immediateRender: false }, 101.9);
+      out("#tongket", 103.6, 0.25);
+
+      // ---- 103.75–end · còn gặp kiểm tra đột xuất thì thôi, cảm ơn!
+      dimIn(103.7);
+      tl.fromTo("#quiz", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 103.9);
+      tl.fromTo("#quiz .card", { rotation: -4 }, { rotation: 4, duration: 0.1, repeat: 5, yoyo: true, immediateRender: false }, 104.4);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post33"] = tl;
+    </script>
+  </body>
+</html>

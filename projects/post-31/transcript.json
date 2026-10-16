@@ -1,0 +1,208 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.244,
+   "end": 1.032,
+   "speaker": "B",
+   "text": "Tâm trạng đang buồn,"
+  },
+  {
+   "i": 1,
+   "start": 1.587,
+   "end": 4.008,
+   "speaker": "B",
+   "text": "mở nhạc lên lại chọn đúng bài buồn nhất."
+  },
+  {
+   "i": 3,
+   "start": 4.953,
+   "end": 6.295,
+   "speaker": "B",
+   "text": "Bộ cuộc đời chưa đủ buồn,"
+  },
+  {
+   "i": 4,
+   "start": 6.544,
+   "end": 8.357,
+   "speaker": "B",
+   "text": "phải thuê thêm nhạc nền cho đúng không khí hả?"
+  },
+  {
+   "i": 5,
+   "start": 9.326,
+   "end": 11.83,
+   "speaker": "B",
+   "text": "Nhưng chuyện này có một lời giải thích khoa học khá thú vị."
+  },
+  {
+   "i": 6,
+   "start": 12.61,
+   "end": 13.915,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ."
+  },
+  {
+   "i": 8,
+   "start": 14.34,
+   "end": 16.478,
+   "speaker": "B",
+   "text": "Hôm nay mình nói về một nghịch lý của âm nhạc."
+  },
+  {
+   "i": 9,
+   "start": 18.043,
+   "end": 24.784,
+   "speaker": "B",
+   "text": "Năm 2014, hai nhà nghiên cứu Taruffi và Koelsch khảo sát 772 người về trải nghiệm nghe nhạc buồn."
+  },
+  {
+   "i": 13,
+   "start": 25.779,
+   "end": 29.421,
+   "speaker": "B",
+   "text": "Kết quả bất ngờ là cảm xúc được nhắc tới nhiều nhất không phải nỗi buồn."
+  },
+  {
+   "i": 16,
+   "start": 30.12,
+   "end": 31.59,
+   "speaker": "B",
+   "text": "Mà là sự hoài niệm."
+  },
+  {
+   "i": 18,
+   "start": 32.594,
+   "end": 36.13,
+   "speaker": "B",
+   "text": "Nghĩa là một bài nhạc buồn có thể khiến người ta nhớ về một khoảng thời gian,"
+  },
+  {
+   "i": 20,
+   "start": 36.452,
+   "end": 38.315,
+   "speaker": "B",
+   "text": "một con người hay một kỷ niệm nào đó."
+  },
+  {
+   "i": 22,
+   "start": 39.529,
+   "end": 44.046,
+   "speaker": "B",
+   "text": "Nghiên cứu còn chỉ ra những trải nghiệm như được an ủi, đồng cảm và điều chỉnh cảm xúc."
+  },
+  {
+   "i": 25,
+   "start": 45.226,
+   "end": 47.268,
+   "speaker": "B",
+   "text": "Ví dụ, bạn vừa trải qua một ngày không vui."
+  },
+  {
+   "i": 27,
+   "start": 47.869,
+   "end": 50.759,
+   "speaker": "B",
+   "text": "Nghe một bài hát diễn tả đúng tâm trạng, tự nhiên có cảm giác:"
+  },
+  {
+   "i": 29,
+   "start": 51.153,
+   "end": 54.042,
+   "speaker": "B",
+   "text": "“À, hóa ra có người cũng từng cảm thấy giống mình.”"
+  },
+  {
+   "i": 31,
+   "start": 55.308,
+   "end": 57.485,
+   "speaker": "B",
+   "text": "Cảm giác được thấu hiểu đó đôi khi lại dễ chịu."
+  },
+  {
+   "i": 33,
+   "start": 58.699,
+   "end": 61.667,
+   "speaker": "B",
+   "text": "Thành ra nghe nhạc buồn không đồng nghĩa với việc mình muốn buồn thêm."
+  },
+  {
+   "i": 35,
+   "start": 62.325,
+   "end": 65.183,
+   "speaker": "B",
+   "text": "Có người đang tìm một cách để hiểu và chấp nhận cảm xúc của mình."
+  },
+  {
+   "i": 36,
+   "start": 66.298,
+   "end": 67.583,
+   "speaker": "B",
+   "text": "Nhưng không phải ai cũng giống nhau nha!"
+  },
+  {
+   "i": 37,
+   "start": 68.256,
+   "end": 70.055,
+   "speaker": "B",
+   "text": "Nếu nghe xong thấy nhẹ lòng hơn thì được."
+  },
+  {
+   "i": 38,
+   "start": 70.71,
+   "end": 75.681,
+   "speaker": "B",
+   "text": "Còn nếu càng nghe càng nặng nề, cứ đổi nhạc, đi làm chuyện khác hoặc trò chuyện với người mình tin tưởng."
+  },
+  {
+   "i": 42,
+   "start": 76.491,
+   "end": 79.78,
+   "speaker": "B",
+   "text": "Âm nhạc là thứ để mình trải nghiệm, đâu phải bài kiểm tra sức chịu đựng!"
+  },
+  {
+   "i": 44,
+   "start": 81.108,
+   "end": 82.403,
+   "speaker": "B",
+   "text": "Mà công nhận có cái này mắc cười."
+  },
+  {
+   "i": 45,
+   "start": 83.423,
+   "end": 84.146,
+   "speaker": "B",
+   "text": "Cũng một bài hát đó,"
+  },
+  {
+   "i": 46,
+   "start": 84.691,
+   "end": 86.048,
+   "speaker": "B",
+   "text": "lúc vui nghe thấy giai điệu hay."
+  },
+  {
+   "i": 47,
+   "start": 86.782,
+   "end": 88.09,
+   "speaker": "B",
+   "text": "Tới lúc tâm trạng xuống một cái..."
+  },
+  {
+   "i": 48,
+   "start": 88.732,
+   "end": 92.472,
+   "speaker": "B",
+   "text": "Tự nhiên từng câu trong bài hát nghe như nhạc sĩ đã nghiên cứu hồ sơ cá nhân của mình!"
+  },
+  {
+   "i": 49,
+   "start": 92.76,
+   "end": 94.72,
+   "speaker": "B",
+   "text": "Ủa, sao người ta biết dữ vậy trời?"
+  }
+ ]
+}

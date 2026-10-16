@@ -1,0 +1,215 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.096,
+   "speaker": "B",
+   "text": "“Bữa nào cà phê nha!”"
+  },
+  {
+   "i": 1,
+   "start": 2.25,
+   "end": 5.751,
+   "speaker": "B",
+   "text": "Đây có lẽ là lời mời có thời hạn thực hiện lâu nhất lịch sử nhân loại!"
+  },
+  {
+   "i": 2,
+   "start": 6.705,
+   "end": 7.497,
+   "speaker": "B",
+   "text": "Tui có mấy người bạn,"
+  },
+  {
+   "i": 3,
+   "start": 8.343,
+   "end": 10.444,
+   "speaker": "B",
+   "text": "năm 2022 hẹn cà phê."
+  },
+  {
+   "i": 5,
+   "start": 11.344,
+   "end": 13.434,
+   "speaker": "B",
+   "text": "Năm 2023 gặp lại, hẹn tiếp."
+  },
+  {
+   "i": 7,
+   "start": 14.209,
+   "end": 15.835,
+   "speaker": "B",
+   "text": "Năm 2024 vẫn hẹn."
+  },
+  {
+   "i": 9,
+   "start": 16.475,
+   "end": 17.854,
+   "speaker": "B",
+   "text": "Tới năm 2026,"
+  },
+  {
+   "i": 10,
+   "start": 18.18,
+   "end": 21.509,
+   "speaker": "B",
+   "text": "hai bên chính thức bước sang nhiệm kỳ thứ hai của cuộc hẹn!"
+  },
+  {
+   "i": 11,
+   "start": 22.272,
+   "end": 22.944,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây."
+  },
+  {
+   "i": 12,
+   "start": 23.697,
+   "end": 24.469,
+   "speaker": "B",
+   "text": "Tui mới phát hiện"
+  },
+  {
+   "i": 13,
+   "start": 24.731,
+   "end": 26.838,
+   "speaker": "B",
+   "text": "trong cuộc sống có một loại lịch hẹn rất đặc biệt."
+  },
+  {
+   "i": 14,
+   "start": 27.611,
+   "end": 28.214,
+   "speaker": "B",
+   "text": "Không ngày."
+  },
+  {
+   "i": 15,
+   "start": 28.593,
+   "end": 29.283,
+   "speaker": "B",
+   "text": "Không giờ."
+  },
+  {
+   "i": 16,
+   "start": 29.599,
+   "end": 30.185,
+   "speaker": "B",
+   "text": "Không địa điểm."
+  },
+  {
+   "i": 17,
+   "start": 30.897,
+   "end": 32.948,
+   "speaker": "B",
+   "text": "Nhưng mức độ quyết tâm thì cực kỳ cao!"
+  },
+  {
+   "i": 19,
+   "start": 33.985,
+   "end": 34.745,
+   "speaker": "B",
+   "text": "“Nhất định phải gặp nha!”"
+  },
+  {
+   "i": 20,
+   "start": 35.363,
+   "end": 36.241,
+   "speaker": "B",
+   "text": "“Ừ, chốt luôn!”"
+  },
+  {
+   "i": 22,
+   "start": 37.048,
+   "end": 37.883,
+   "speaker": "B",
+   "text": "Chốt cái gì thì chưa biết,"
+  },
+  {
+   "i": 23,
+   "start": 38.203,
+   "end": 39.528,
+   "speaker": "B",
+   "text": "nhưng tinh thần rất đáng ghi nhận."
+  },
+  {
+   "i": 24,
+   "start": 40.53,
+   "end": 46.347,
+   "speaker": "B",
+   "text": "Thiệt ra, câu “bữa nào cà phê” nhiều khi chỉ là một cách bày tỏ thiện chí, chứ chưa phải lời hẹn cụ thể."
+  },
+  {
+   "i": 27,
+   "start": 47.226,
+   "end": 48.774,
+   "speaker": "B",
+   "text": "Vậy muốn gặp nhau thiệt thì sao?"
+  },
+  {
+   "i": 28,
+   "start": 49.636,
+   "end": 51.623,
+   "speaker": "B",
+   "text": "Thay vì nói “bữa nào”, thử hỏi:"
+  },
+  {
+   "i": 30,
+   "start": 52.523,
+   "end": 55.03,
+   "speaker": "B",
+   "text": "“Chiều thứ Bảy này, ba giờ, cà phê chỗ cũ được không?”"
+  },
+  {
+   "i": 33,
+   "start": 56.008,
+   "end": 57.769,
+   "speaker": "B",
+   "text": "Nếu người ta bận, mình có thể tìm ngày khác."
+  },
+  {
+   "i": 34,
+   "start": 58.342,
+   "end": 60.856,
+   "speaker": "B",
+   "text": "Còn nếu hẹn hoài mà không ra được ngày nào,"
+  },
+  {
+   "i": 35,
+   "start": 61.207,
+   "end": 63.645,
+   "speaker": "B",
+   "text": "thì ít nhất cũng biết cuộc hẹn vẫn chưa thành hình."
+  },
+  {
+   "i": 36,
+   "start": 64.592,
+   "end": 65.988,
+   "speaker": "B",
+   "text": "Chứ cái hội cà phê của tui,"
+  },
+  {
+   "i": 37,
+   "start": 66.431,
+   "end": 68.132,
+   "speaker": "B",
+   "text": "tới giờ đã lên kế hoạch sáu năm."
+  },
+  {
+   "i": 38,
+   "start": 68.821,
+   "end": 69.969,
+   "speaker": "B",
+   "text": "Dự kiến khi hoàn thành,"
+  },
+  {
+   "i": 39,
+   "start": 70.327,
+   "end": 73.69,
+   "speaker": "B",
+   "text": "cả nhóm sẽ được công nhận là di sản văn hóa phi vật thể!"
+  }
+ ]
+}

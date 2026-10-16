@@ -1,0 +1,299 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.247,
+   "end": 1.446,
+   "speaker": "B",
+   "text": "Có một món đồ hồi đi học,"
+  },
+  {
+   "i": 1,
+   "start": 1.972,
+   "end": 3.535,
+   "speaker": "B",
+   "text": "quên đem là muốn đứng tim."
+  },
+  {
+   "i": 2,
+   "start": 4.483,
+   "end": 5.533,
+   "speaker": "B",
+   "text": "Nhưng mười mấy năm sau,"
+  },
+  {
+   "i": 3,
+   "start": 6.143,
+   "end": 8.352,
+   "speaker": "B",
+   "text": "tìm lại được nó thì mừng còn hơn nhặt được tiền!"
+  },
+  {
+   "i": 4,
+   "start": 9.334,
+   "end": 10.38,
+   "speaker": "B",
+   "text": "Đó là cái phù hiệu học sinh."
+  },
+  {
+   "i": 5,
+   "start": 11.66,
+   "end": 12.31,
+   "speaker": "B",
+   "text": "Tui là Sáu."
+  },
+  {
+   "i": 6,
+   "start": 13.037,
+   "end": 17.479,
+   "speaker": "B",
+   "text": "Hôm nay tự nhiên muốn nói về mấy món đồ nhỏ xíu mà giữ được cả một thời tuổi trẻ."
+  },
+  {
+   "i": 7,
+   "start": 18.996,
+   "end": 22.426,
+   "speaker": "B",
+   "text": "Ngày xưa, sáng đi học mà quên phù hiệu là bắt đầu xanh mặt."
+  },
+  {
+   "i": 10,
+   "start": 23.276,
+   "end": 24.231,
+   "speaker": "B",
+   "text": "Lục cặp không thấy."
+  },
+  {
+   "i": 11,
+   "start": 24.86,
+   "end": 26.027,
+   "speaker": "B",
+   "text": "Lục túi cũng không."
+  },
+  {
+   "i": 12,
+   "start": 26.785,
+   "end": 28.251,
+   "speaker": "B",
+   "text": "Nhìn đồng hồ còn ba phút vô lớp,"
+  },
+  {
+   "i": 13,
+   "start": 28.916,
+   "end": 30.981,
+   "speaker": "B",
+   "text": "tự nhiên thấy cuộc đời quá nhiều thử thách!"
+  },
+  {
+   "i": 15,
+   "start": 32.422,
+   "end": 33.857,
+   "speaker": "B",
+   "text": "Hồi đó chỉ mong mau ra trường."
+  },
+  {
+   "i": 16,
+   "start": 34.383,
+   "end": 37.97,
+   "speaker": "B",
+   "text": "Khỏi đồng phục, khỏi kiểm tra đầu tóc, khỏi lo bài kiểm tra mười lăm phút."
+  },
+  {
+   "i": 19,
+   "start": 39.005,
+   "end": 39.877,
+   "speaker": "B",
+   "text": "Vậy mà lớn lên,"
+  },
+  {
+   "i": 20,
+   "start": 40.471,
+   "end": 42.064,
+   "speaker": "B",
+   "text": "có người vẫn giữ cái phù hiệu cũ,"
+  },
+  {
+   "i": 21,
+   "start": 42.705,
+   "end": 43.337,
+   "speaker": "B",
+   "text": "một cuốn lưu bút,"
+  },
+  {
+   "i": 22,
+   "start": 43.905,
+   "end": 45.425,
+   "speaker": "B",
+   "text": "hay chiếc áo đồng phục đã bạc màu."
+  },
+  {
+   "i": 23,
+   "start": 46.52,
+   "end": 46.88,
+   "speaker": "B",
+   "text": "Tại sao?"
+  },
+  {
+   "i": 24,
+   "start": 48.086,
+   "end": 50.955,
+   "speaker": "B",
+   "text": "Vì đồ vật có thể trở thành tín hiệu gợi nhớ."
+  },
+  {
+   "i": 26,
+   "start": 51.912,
+   "end": 53.155,
+   "speaker": "B",
+   "text": "Mình nhìn một món đồ quen thuộc,"
+  },
+  {
+   "i": 27,
+   "start": 53.788,
+   "end": 55.882,
+   "speaker": "B",
+   "text": "não có thể liên tưởng tới những con người,"
+  },
+  {
+   "i": 28,
+   "start": 56.144,
+   "end": 58.246,
+   "speaker": "B",
+   "text": "địa điểm và cảm xúc từng gắn với nó."
+  },
+  {
+   "i": 30,
+   "start": 59.444,
+   "end": 61.581,
+   "speaker": "B",
+   "text": "Một cái phù hiệu đâu chỉ có tên trường với lớp học."
+  },
+  {
+   "i": 31,
+   "start": 62.63,
+   "end": 65.233,
+   "speaker": "B",
+   "text": "Nó có thể làm bạn nhớ lại thằng bạn ngồi kế bên,"
+  },
+  {
+   "i": 32,
+   "start": 65.956,
+   "end": 67.332,
+   "speaker": "B",
+   "text": "giờ ra chơi chạy xuống căn tin,"
+  },
+  {
+   "i": 33,
+   "start": 67.961,
+   "end": 70.336,
+   "speaker": "B",
+   "text": "hay buổi chiều cuối cùng cả lớp đứng chụp hình chung."
+  },
+  {
+   "i": 35,
+   "start": 71.455,
+   "end": 72.925,
+   "speaker": "B",
+   "text": "Những chuyện hồi đó thấy bình thường,"
+  },
+  {
+   "i": 36,
+   "start": 73.369,
+   "end": 74.805,
+   "speaker": "B",
+   "text": "giờ lại thành ký ức rất riêng."
+  },
+  {
+   "i": 38,
+   "start": 76.256,
+   "end": 78.445,
+   "speaker": "B",
+   "text": "Nhưng tui cũng không nghĩ ai cũng phải yêu thời học sinh."
+  },
+  {
+   "i": 39,
+   "start": 79.328,
+   "end": 80.52,
+   "speaker": "B",
+   "text": "Có người nhớ vì vui,"
+  },
+  {
+   "i": 40,
+   "start": 81.156,
+   "end": 82.665,
+   "speaker": "B",
+   "text": "có người lại chẳng muốn quay về."
+  },
+  {
+   "i": 41,
+   "start": 83.539,
+   "end": 85.046,
+   "speaker": "B",
+   "text": "Ký ức của mỗi người đâu có giống nhau."
+  },
+  {
+   "i": 42,
+   "start": 86.161,
+   "end": 88.553,
+   "speaker": "B",
+   "text": "Còn với những ai từng có một thời đi học đáng nhớ..."
+  },
+  {
+   "i": 43,
+   "start": 89.513,
+   "end": 91.035,
+   "speaker": "B",
+   "text": "Nếu vẫn giữ chiếc phù hiệu cũ,"
+  },
+  {
+   "i": 44,
+   "start": 91.669,
+   "end": 92.971,
+   "speaker": "B",
+   "text": "lâu lâu lấy ra coi thử."
+  },
+  {
+   "i": 45,
+   "start": 93.96,
+   "end": 95.469,
+   "speaker": "B",
+   "text": "Biết đâu bạn sẽ nhớ một người bạn"
+  },
+  {
+   "i": 46,
+   "start": 95.929,
+   "end": 97.804,
+   "speaker": "B",
+   "text": "mà đã lâu lắm rồi mình chưa hỏi thăm."
+  },
+  {
+   "i": 47,
+   "start": 98.295,
+   "end": 98.921,
+   "speaker": "B",
+   "text": "Mà nói thiệt,"
+  },
+  {
+   "i": 48,
+   "start": 99.599,
+   "end": 101.223,
+   "speaker": "B",
+   "text": "nếu được quay về thời học sinh một ngày..."
+  },
+  {
+   "i": 49,
+   "start": 101.901,
+   "end": 103.126,
+   "speaker": "B",
+   "text": "Tui xin chọn ngày tổng kết!"
+  },
+  {
+   "i": 50,
+   "start": 103.745,
+   "end": 107.257,
+   "speaker": "B",
+   "text": "Chứ đã trở về tuổi thơ mà còn gặp kiểm tra đột xuất thì thôi, cảm ơn!"
+  }
+ ]
+}

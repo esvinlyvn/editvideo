@@ -1,0 +1,313 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.286,
+   "end": 2.284,
+   "speaker": "B",
+   "text": "Nếu ngày mai toàn bộ loài người biến mất,"
+  },
+  {
+   "i": 1,
+   "start": 2.976,
+   "end": 4.669,
+   "speaker": "B",
+   "text": "mấy bạn nghĩ thứ nào tồn tại lâu hơn?"
+  },
+  {
+   "i": 2,
+   "start": 5.419,
+   "end": 6.438,
+   "speaker": "B",
+   "text": "Một tòa nhà chọc trời,"
+  },
+  {
+   "i": 3,
+   "start": 6.946,
+   "end": 7.771,
+   "speaker": "B",
+   "text": "một bức tượng đá"
+  },
+  {
+   "i": 4,
+   "start": 8.339,
+   "end": 9.277,
+   "speaker": "B",
+   "text": "hay cái chai nhựa?"
+  },
+  {
+   "i": 5,
+   "start": 10.258,
+   "end": 11.897,
+   "speaker": "B",
+   "text": "Câu trả lời không đơn giản như mình tưởng."
+  },
+  {
+   "i": 6,
+   "start": 12.863,
+   "end": 14.014,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ."
+  },
+  {
+   "i": 7,
+   "start": 14.705,
+   "end": 16.294,
+   "speaker": "B",
+   "text": "Thử làm một thí nghiệm tưởng tượng nha."
+  },
+  {
+   "i": 8,
+   "start": 17.394,
+   "end": 20.778,
+   "speaker": "B",
+   "text": "Ngay khi con người biến mất, Trái Đất không lập tức trở thành một khu rừng hoang."
+  },
+  {
+   "i": 11,
+   "start": 21.649,
+   "end": 24.111,
+   "speaker": "B",
+   "text": "Nhưng nhiều hệ thống hiện đại sẽ bắt đầu gặp vấn đề"
+  },
+  {
+   "i": 12,
+   "start": 24.458,
+   "end": 25.668,
+   "speaker": "B",
+   "text": "vì không còn ai vận hành."
+  },
+  {
+   "i": 13,
+   "start": 26.469,
+   "end": 27.995,
+   "speaker": "B",
+   "text": "Nhà máy điện có thể phải ngừng hoạt động."
+  },
+  {
+   "i": 14,
+   "start": 28.497,
+   "end": 30.134,
+   "speaker": "B",
+   "text": "Hệ thống bơm nước không được bảo trì."
+  },
+  {
+   "i": 15,
+   "start": 30.622,
+   "end": 32.843,
+   "speaker": "B",
+   "text": "Đường cống không còn ai kiểm tra, sửa chữa."
+  },
+  {
+   "i": 16,
+   "start": 33.63,
+   "end": 35.088,
+   "speaker": "B",
+   "text": "Rồi tới chuyện các tòa nhà."
+  },
+  {
+   "i": 17,
+   "start": 35.691,
+   "end": 37.523,
+   "speaker": "B",
+   "text": "Một tòa cao ốc nhìn rất kiên cố,"
+  },
+  {
+   "i": 18,
+   "start": 37.936,
+   "end": 39.827,
+   "speaker": "B",
+   "text": "nhưng vẫn phải chống chọi với nước mưa,"
+  },
+  {
+   "i": 19,
+   "start": 40.034,
+   "end": 43.058,
+   "speaker": "B",
+   "text": "độ ẩm, sự ăn mòn và những thay đổi nhiệt độ."
+  },
+  {
+   "i": 22,
+   "start": 43.924,
+   "end": 45.286,
+   "speaker": "B",
+   "text": "Khi không còn ai sửa chữa,"
+  },
+  {
+   "i": 23,
+   "start": 45.567,
+   "end": 47.7,
+   "speaker": "B",
+   "text": "những hư hại nhỏ sẽ tích tụ theo thời gian."
+  },
+  {
+   "i": 24,
+   "start": 48.405,
+   "end": 49.862,
+   "speaker": "B",
+   "text": "Cây cối có thể mọc vô khe nứt,"
+  },
+  {
+   "i": 25,
+   "start": 50.461,
+   "end": 51.79,
+   "speaker": "B",
+   "text": "nước làm xuống cấp kết cấu,"
+  },
+  {
+   "i": 26,
+   "start": 52.116,
+   "end": 54.366,
+   "speaker": "B",
+   "text": "và nhiều công trình dần mất khả năng sử dụng."
+  },
+  {
+   "i": 27,
+   "start": 55.387,
+   "end": 56.893,
+   "speaker": "B",
+   "text": "Nhưng tốc độ hư hại không giống nhau."
+  },
+  {
+   "i": 28,
+   "start": 57.484,
+   "end": 62.683,
+   "speaker": "B",
+   "text": "Một ngôi nhà ở vùng khí hậu ẩm có thể xuống cấp rất khác một công trình đá nằm trong sa mạc khô."
+  },
+  {
+   "i": 31,
+   "start": 63.732,
+   "end": 64.609,
+   "speaker": "B",
+   "text": "Còn chai nhựa thì sao?"
+  },
+  {
+   "i": 32,
+   "start": 65.191,
+   "end": 69.124,
+   "speaker": "B",
+   "text": "Nó có thể tồn tại rất lâu dưới dạng vật liệu hoặc những mảnh nhựa nhỏ,"
+  },
+  {
+   "i": 33,
+   "start": 69.616,
+   "end": 72.67,
+   "speaker": "B",
+   "text": "nhưng điều đó không có nghĩa cái chai vẫn nguyên hình sau hàng ngàn năm."
+  },
+  {
+   "i": 34,
+   "start": 73.666,
+   "end": 75.293,
+   "speaker": "B",
+   "text": "Và thứ thú vị nhất nằm ở chỗ này."
+  },
+  {
+   "i": 35,
+   "start": 76.068,
+   "end": 79.332,
+   "speaker": "B",
+   "text": "Nếu một nền văn minh khác tới Trái Đất rất lâu sau khi con người biến mất,"
+  },
+  {
+   "i": 36,
+   "start": 79.809,
+   "end": 81.992,
+   "speaker": "B",
+   "text": "họ có thể không tìm thấy những thành phố nguyên vẹn."
+  },
+  {
+   "i": 37,
+   "start": 82.675,
+   "end": 84.874,
+   "speaker": "B",
+   "text": "Nhưng có thể tìm được dấu tích vật liệu nhân tạo"
+  },
+  {
+   "i": 38,
+   "start": 85.229,
+   "end": 86.103,
+   "speaker": "B",
+   "text": "trong các lớp đất đá."
+  },
+  {
+   "i": 39,
+   "start": 86.511,
+   "end": 87.191,
+   "speaker": "B",
+   "text": "Nói cách khác,"
+  },
+  {
+   "i": 40,
+   "start": 87.646,
+   "end": 89.225,
+   "speaker": "B",
+   "text": "ngay cả khi công trình sụp đổ,"
+  },
+  {
+   "i": 41,
+   "start": 89.704,
+   "end": 92.231,
+   "speaker": "B",
+   "text": "dấu vết hoạt động của con người vẫn có thể còn lại."
+  },
+  {
+   "i": 42,
+   "start": 93.408,
+   "end": 96.375,
+   "speaker": "B",
+   "text": "Tui thấy câu chuyện này khiến mình nhìn thành phố khác hẳn."
+  },
+  {
+   "i": 43,
+   "start": 97.057,
+   "end": 99.962,
+   "speaker": "B",
+   "text": "Một cây cầu đứng vững không chỉ nhờ kỹ sư đã thiết kế nó."
+  },
+  {
+   "i": 44,
+   "start": 100.2,
+   "end": 104.155,
+   "speaker": "B",
+   "text": "Mà còn nhờ những người kiểm tra, sửa chữa, bảo trì qua năm tháng."
+  },
+  {
+   "i": 47,
+   "start": 104.659,
+   "end": 107.147,
+   "speaker": "B",
+   "text": "Một thành phố không phải xây xong là tồn tại mãi."
+  },
+  {
+   "i": 48,
+   "start": 107.784,
+   "end": 110.74,
+   "speaker": "B",
+   "text": "Nó là một hệ thống khổng lồ được con người duy trì từng ngày."
+  },
+  {
+   "i": 50,
+   "start": 111.701,
+   "end": 114.268,
+   "speaker": "B",
+   "text": "Còn nếu hỏi thứ gì sẽ nhớ con người lâu nhất..."
+  },
+  {
+   "i": 51,
+   "start": 114.661,
+   "end": 117.166,
+   "speaker": "B",
+   "text": "Có lẽ không phải những tấm hình tụi mình đăng lên mạng."
+  },
+  {
+   "i": 52,
+   "start": 117.746,
+   "end": 120.687,
+   "speaker": "B",
+   "text": "Mà là những dấu vết vật chất mình để lại trên hành tinh này."
+  }
+ ]
+}
