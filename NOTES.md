@@ -157,7 +157,7 @@ node projects/post-11/build.mjs
 ### Âm thanh
 
 - Voice chuẩn hóa về -14 LUFS (loudnorm trong `build.mjs`). Không có nhạc nền.
-- Thư viện `sfx/`: 53 âm gốc, 89 file kể cả phiên bản (đã xóa `scribble-2` theo yêu cầu, cấm dùng lại) (`pop`, `pop-2`…). Đã chuẩn hóa:
+- Thư viện `sfx/`: 120 âm gốc, 169 file kể cả phiên bản (đã xóa `scribble-2` theo yêu cầu, cấm dùng lại) (`pop`, `pop-2`…). Đã chuẩn hóa:
   - Cắt lặng đầu và cuối, lọc tần số dưới 40 Hz, giới hạn độ dài theo nhóm.
   - Âm lượng trung bình khoảng -30 dB, có limiter chặn đỉnh.
   - Các phiên bản cùng tên chênh nhau ≤ khoảng 2,5 dB.
@@ -255,4 +255,4 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 
 - Bộ màu: xanh rêu và kem, đen và hồng neon, xanh navy và vàng mù tạt, trắng và đỏ cờ.
 - Concept: bản đồ thành phố có camera, game board / thẻ bài, bảng tin TV, timeline lịch sử, mô phỏng web trình duyệt.
-- SFX còn thiếu trong thư viện: `camera-shutter`, `glitch`, `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`.
+- SFX còn thiếu trong thư viện: `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`. (Đã có `shutter`, `glitch`, `beep` từ bộ "BASIC SFX QUẠ HD".)
