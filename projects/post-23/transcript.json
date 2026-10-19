@@ -1,0 +1,257 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.143,
+   "speaker": "B",
+   "text": "Ngày này năm ngoái,"
+  },
+  {
+   "i": 1,
+   "start": 1.7,
+   "end": 2.284,
+   "speaker": "B",
+   "text": "mày đang ở đâu?"
+  },
+  {
+   "i": 2,
+   "start": 3.025,
+   "end": 3.437,
+   "speaker": "B",
+   "text": "Đi làm,"
+  },
+  {
+   "i": 3,
+   "start": 3.825,
+   "end": 4.248,
+   "speaker": "B",
+   "text": "đi chơi,"
+  },
+  {
+   "i": 4,
+   "start": 4.63,
+   "end": 7.906,
+   "speaker": "B",
+   "text": "hay đang ngồi cà phê với một người mà giờ lâu rồi chưa gặp?"
+  },
+  {
+   "i": 5,
+   "start": 8.686,
+   "end": 9.954,
+   "speaker": "B",
+   "text": "Có thể mày quên rồi."
+  },
+  {
+   "i": 6,
+   "start": 10.514,
+   "end": 13.164,
+   "speaker": "B",
+   "text": "Nhưng nếu trước đây có bật một tính năng trên điện thoại,"
+  },
+  {
+   "i": 7,
+   "start": 13.59,
+   "end": 14.912,
+   "speaker": "B",
+   "text": "biết đâu mày coi lại được đó."
+  },
+  {
+   "i": 8,
+   "start": 16.039,
+   "end": 16.536,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 9,
+   "start": 16.783,
+   "end": 17.768,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 10,
+   "start": 17.977,
+   "end": 18.894,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 11,
+   "start": 19.963,
+   "end": 22.948,
+   "speaker": "B",
+   "text": "Trong Google Maps có một tính năng tên là Dòng thời gian."
+  },
+  {
+   "i": 13,
+   "start": 23.391,
+   "end": 27.185,
+   "speaker": "B",
+   "text": "Nó có thể lưu lại những nơi mày từng ghé và những tuyến đường đã đi,"
+  },
+  {
+   "i": 15,
+   "start": 27.753,
+   "end": 29.659,
+   "speaker": "B",
+   "text": "nếu mày chủ động bật tính năng này từ trước."
+  },
+  {
+   "i": 16,
+   "start": 30.358,
+   "end": 33.358,
+   "speaker": "B",
+   "text": "Muốn kiểm tra thì mở Google Maps, bấm vô hình đại diện,"
+  },
+  {
+   "i": 17,
+   "start": 33.663,
+   "end": 35.222,
+   "speaker": "B",
+   "text": "rồi tìm mục Dòng thời gian."
+  },
+  {
+   "i": 18,
+   "start": 35.968,
+   "end": 38.746,
+   "speaker": "B",
+   "text": "Nếu máy có dữ liệu đã lưu, mày chọn một ngày cũ để coi lại."
+  },
+  {
+   "i": 19,
+   "start": 39.673,
+   "end": 42.546,
+   "speaker": "B",
+   "text": "Có khi hiện ra một quán cà phê mà mày quên mất tên."
+  },
+  {
+   "i": 20,
+   "start": 43.391,
+   "end": 44.273,
+   "speaker": "B",
+   "text": "Một chuyến đi bất chợt."
+  },
+  {
+   "i": 21,
+   "start": 44.944,
+   "end": 47.788,
+   "speaker": "B",
+   "text": "Hay một con đường hồi xưa ngày nào cũng chạy ngang."
+  },
+  {
+   "i": 22,
+   "start": 48.675,
+   "end": 50.107,
+   "speaker": "B",
+   "text": "Nhìn mấy dấu chấm nhỏ trên bản đồ,"
+  },
+  {
+   "i": 23,
+   "start": 50.542,
+   "end": 52.19,
+   "speaker": "B",
+   "text": "tự nhiên nhớ lại cả một câu chuyện."
+  },
+  {
+   "i": 24,
+   "start": 53.228,
+   "end": 54.355,
+   "speaker": "B",
+   "text": "Nhưng tao nhắc luôn:"
+  },
+  {
+   "i": 26,
+   "start": 54.558,
+   "end": 56.011,
+   "speaker": "B",
+   "text": "tính năng này mặc định không bật,"
+  },
+  {
+   "i": 27,
+   "start": 56.427,
+   "end": 58.215,
+   "speaker": "B",
+   "text": "dữ liệu cũng không phải lúc nào cũng chính xác."
+  },
+  {
+   "i": 28,
+   "start": 58.854,
+   "end": 60.785,
+   "speaker": "B",
+   "text": "Và vì đây là thông tin vị trí cá nhân,"
+  },
+  {
+   "i": 29,
+   "start": 61.263,
+   "end": 62.903,
+   "speaker": "B",
+   "text": "mày nên tự kiểm tra cài đặt riêng tư."
+  },
+  {
+   "i": 30,
+   "start": 63.66,
+   "end": 66.14,
+   "speaker": "B",
+   "text": "Không muốn lưu nữa thì có thể tắt hoặc xóa lịch sử."
+  },
+  {
+   "i": 32,
+   "start": 67.132,
+   "end": 68.584,
+   "speaker": "B",
+   "text": "Còn tao thấy cái thú vị là..."
+  },
+  {
+   "i": 34,
+   "start": 69.242,
+   "end": 70.379,
+   "speaker": "B",
+   "text": "Có những nơi mình từng đi qua,"
+  },
+  {
+   "i": 35,
+   "start": 70.812,
+   "end": 71.969,
+   "speaker": "B",
+   "text": "tưởng quên sạch rồi."
+  },
+  {
+   "i": 36,
+   "start": 72.354,
+   "end": 73.869,
+   "speaker": "B",
+   "text": "Vậy mà chỉ cần nhìn lại cái tên,"
+  },
+  {
+   "i": 37,
+   "start": 74.385,
+   "end": 76.414,
+   "speaker": "B",
+   "text": "trong đầu đã hiện lên cả một khoảng thời gian."
+  },
+  {
+   "i": 38,
+   "start": 77.487,
+   "end": 78.95,
+   "speaker": "B",
+   "text": "Điện thoại có thể lưu lại địa điểm."
+  },
+  {
+   "i": 39,
+   "start": 79.719,
+   "end": 80.872,
+   "speaker": "B",
+   "text": "Nhưng cảm giác của ngày hôm đó,"
+  },
+  {
+   "i": 40,
+   "start": 81.227,
+   "end": 82.339,
+   "speaker": "B",
+   "text": "chỉ có mình mới nhớ được."
+  }
+ ]
+}

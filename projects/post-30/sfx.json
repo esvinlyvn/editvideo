@@ -1,0 +1,232 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  6.4,
+  18.1,
+  22.0,
+  27.3,
+  33.7,
+  36.8,
+  40.5,
+  47.3,
+  52.2,
+  55.8,
+  58.1,
+  64.3,
+  68.5
+ ],
+ "cues": [
+  {
+   "at": 0.05,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 0.9,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 2.3,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 6.4,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 8.4,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 11.2,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 11.8,
+   "name": "pop",
+   "vol": 0.4
+  },
+  {
+   "at": 14.0,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 16.3,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 18.1,
+   "name": "cymbal",
+   "vol": 0.5
+  },
+  {
+   "at": 18.8,
+   "name": "success",
+   "vol": 0.6
+  },
+  {
+   "at": 22.2,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 23.7,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 27.4,
+   "name": "paper-rustle",
+   "vol": 0.5
+  },
+  {
+   "at": 28.0,
+   "name": "wrong-buzzer",
+   "vol": 0.35
+  },
+  {
+   "at": 28.8,
+   "name": "wrong-buzzer",
+   "vol": 0.35
+  },
+  {
+   "at": 29.7,
+   "name": "wrong-buzzer",
+   "vol": 0.35
+  },
+  {
+   "at": 31.0,
+   "name": "riser",
+   "vol": 0.45
+  },
+  {
+   "at": 32.4,
+   "name": "hit",
+   "vol": 0.55
+  },
+  {
+   "at": 33.9,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 35.3,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 37.2,
+   "name": "stamp",
+   "vol": 0.85
+  },
+  {
+   "at": 38.2,
+   "name": "ding-idea",
+   "vol": 0.6
+  },
+  {
+   "at": 40.5,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 42.6,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 47.3,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 49.8,
+   "name": "scribble",
+   "vol": 0.55
+  },
+  {
+   "at": 52.3,
+   "name": "paper-rustle",
+   "vol": 0.45
+  },
+  {
+   "at": 52.9,
+   "name": "type",
+   "vol": 0.4
+  },
+  {
+   "at": 53.6,
+   "name": "type",
+   "vol": 0.4
+  },
+  {
+   "at": 54.4,
+   "name": "type",
+   "vol": 0.4
+  },
+  {
+   "at": 55.8,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 56.9,
+   "name": "wrong-buzzer",
+   "vol": 0.35
+  },
+  {
+   "at": 57.5,
+   "name": "success",
+   "vol": 0.5
+  },
+  {
+   "at": 58.1,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 59.0,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 61.3,
+   "name": "lose",
+   "vol": 0.45
+  },
+  {
+   "at": 64.3,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 65.4,
+   "name": "tick",
+   "vol": 0.45
+  },
+  {
+   "at": 68.5,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 71.0,
+   "name": "cymbal",
+   "vol": 0.55
+  },
+  {
+   "at": 71.7,
+   "name": "crowd-chatter",
+   "vol": 0.3
+  }
+ ]
+}

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Ăn gì cũng được</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "giấy kiểm tra" =====
+         2 font: Paytone One (chữ lớn, tên món) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền giấy thi có dòng kẻ xanh + lề đỏ. Chữ chính mực bút bi xanh, 1 màu nhấn: mực đỏ chấm bài
+         "Ăn gì cũng được" = một bài kiểm tra: đề trắc nghiệm, gạch đỏ, khoanh đáp án, chấm 10, giấy báo trúng tuyển
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Paytone One", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --paper: #fbf8ef;
+        --ink: #23339a;
+        --red: #e0352b;
+        --muted: rgba(35, 51, 154, 0.62);
+      }
+      body { margin: 0; background: var(--paper); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background-color: var(--paper);
+        background-image: linear-gradient(90deg, transparent 84px, rgba(224,53,43,.45) 84px 88px, transparent 88px),
+                          repeating-linear-gradient(180deg, transparent 0 58px, rgba(35,51,154,.13) 58px 61px); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 400; line-height: 1.12; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .r { color: var(--red); }
+      .tt { top: 214px; font-size: 72px; }
+      .lab { font-weight: 700; font-size: 28px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+      .sheet { background: #ffffff; border-radius: 18px; box-shadow: 0 2px 0 rgba(35,51,154,.08), 0 22px 40px rgba(35,51,154,.16); }
+      .draw { fill: none; stroke: var(--red); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+      .pen { font-family: var(--disp); color: var(--red); }
+
+      /* bong bóng thoại */
+      .bub { position: absolute; display: flex; align-items: flex-end; gap: 18px; opacity: 0; }
+      .bub .av { width: 92px; height: 92px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 44px; color: #fff; }
+      .bub .tx { padding: 22px 32px 26px; border-radius: 34px; font-family: var(--disp); font-size: 54px; line-height: 1.1; white-space: nowrap; }
+      .bub small { display: block; font-family: var(--body); font-weight: 700; font-size: 24px; margin-bottom: 6px; opacity: .7; }
+      .bub.B { left: 108px; } .bub.B .av { background: var(--ink); } .bub.B .tx { background: #e6e9f8; color: var(--ink); border-bottom-left-radius: 8px; }
+      .bub.A { right: 108px; flex-direction: row-reverse; } .bub.A .av { background: var(--red); } .bub.A .tx { background: #fde3e0; color: var(--red); border-bottom-right-radius: 8px; text-align: right; }
+      #big1 { position: absolute; left: 108px; right: 108px; top: 1110px; text-align: center; font-family: var(--disp); font-size: 112px; color: var(--red); transform: rotate(-4deg); opacity: 0; white-space: nowrap; }
+      #big1 svg { position: absolute; left: 60px; bottom: -40px; }
+
+      /* phiếu trắc nghiệm */
+      .quiz { position: absolute; left: 108px; right: 108px; padding: 30px 40px 20px; box-sizing: border-box; }
+      .quiz .qh { font-family: var(--disp); font-size: 50px; line-height: 1.15; margin: 8px 0 10px; }
+      .qr { position: relative; display: flex; align-items: center; gap: 26px; height: 236px; border-top: 3px dashed rgba(35,51,154,.16); opacity: 0; }
+      .qr .l { position: relative; width: 78px; height: 78px; border-radius: 50%; border: 5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 40px; flex: none; box-sizing: border-box; }
+      .qr .ic { width: 150px; height: 150px; flex: none; display: flex; align-items: center; justify-content: center; }
+      .qr .ic svg { width: 150px; height: 150px; }
+      .qr .n { font-family: var(--disp); font-size: 70px; white-space: nowrap; }
+      .qr .note { display: block; font-family: var(--disp); font-size: 46px; color: var(--red); transform: rotate(-3deg); transform-origin: 0 50%; opacity: 0; white-space: nowrap; margin-top: 2px; }
+      .qr .x { position: absolute; left: -12px; top: 50%; margin-top: -55px; width: 110px; height: 110px; }
+      #q1 { top: 400px; height: 1060px; }
+      #q2 { top: 400px; height: 900px; }
+
+      /* về */
+      #ve { position: absolute; left: 108px; right: 108px; top: 380px; text-align: center; font-family: var(--disp); font-size: 230px; line-height: 1; opacity: 0; }
+      #door { position: absolute; left: 400px; top: 640px; opacity: 0; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 100px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 48px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* phát hiện */
+      #bulb { position: absolute; left: 430px; top: 420px; opacity: 0; }
+      #quote { position: absolute; left: 108px; right: 108px; top: 760px; padding: 44px 40px; text-align: center; opacity: 0; }
+      #quote .q { font-family: var(--disp); font-size: 84px; line-height: 1.1; white-space: nowrap; }
+      #quote .eq { font-family: var(--disp); font-size: 60px; margin-top: 20px; white-space: nowrap; }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -10px; right: -10px; top: 52%; height: 10px; border-radius: 5px; background: var(--red); transform-origin: 0 50%; transform: scaleX(0); }
+
+      /* bài kiểm tra */
+      #exam { position: absolute; left: 108px; right: 108px; top: 380px; padding: 40px 44px; }
+      #exam .row { display: flex; gap: 16px; font-weight: 700; font-size: 32px; color: var(--muted); margin-top: 14px; white-space: nowrap; }
+      #exam .row b { color: var(--ink); }
+      #stamp { position: absolute; left: 50%; top: 640px; width: 640px; margin-left: -320px; padding: 6px 0 14px; border: 10px solid var(--red); border-radius: 20px; text-align: center; color: var(--red);
+        font-family: var(--disp); font-size: 96px; background: rgba(251,248,239,.9); transform: rotate(-6deg); opacity: 0; white-space: nowrap; }
+      #head { position: absolute; left: 150px; top: 840px; opacity: 0; }
+      #cloud { position: absolute; left: 470px; top: 760px; width: 470px; height: 380px; opacity: 0; }
+      .food { position: absolute; left: 155px; top: 100px; opacity: 0; }
+
+      /* đề / đáp án / chiến thuật */
+      .pair { position: absolute; top: 420px; width: 400px; height: 560px; padding: 34px; box-sizing: border-box; text-align: center; opacity: 0; }
+      #pa { left: 108px; } #pb { right: 108px; }
+      .pair .k { font-family: var(--disp); font-size: 58px; }
+      .pair .pen { font-size: 46px; margin-top: 14px; opacity: 0; transform: rotate(-4deg); white-space: nowrap; }
+      #tactic { position: absolute; left: 108px; right: 108px; top: 1040px; padding: 34px 40px; opacity: 0; }
+      #tactic .k { font-family: var(--disp); font-size: 54px; line-height: 1.15; }
+      #tactic .k .blk { white-space: nowrap; }
+
+      /* điểm 10 */
+      #ten { position: absolute; left: 50%; top: 440px; width: 520px; margin-left: -260px; height: 520px; opacity: 0; }
+      #ten b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 300px; color: var(--red); transform: rotate(-6deg); }
+      #s9-sub { top: 1040px; font-size: 80px; opacity: 0; }
+
+      /* giấy báo trúng tuyển */
+      #cert { position: absolute; left: 108px; right: 108px; top: 380px; padding: 50px 50px 60px; text-align: center; opacity: 0; border: 6px double var(--ink); }
+      #cert .t { font-family: var(--disp); font-size: 60px; line-height: 1.15; }
+      #cert .line { margin-top: 30px; font-weight: 600; font-size: 34px; color: var(--muted); }
+      #cert .v { font-family: var(--disp); font-size: 70px; margin-top: 6px; white-space: nowrap; }
+      #dau { position: absolute; left: 50%; top: 1040px; width: 380px; margin-left: -190px; padding: 6px 0 16px; border: 12px solid var(--red); border-radius: 24px; color: var(--red); text-align: center;
+        font-family: var(--disp); font-size: 120px; transform: rotate(-10deg); opacity: 0; background: rgba(251,248,239,.85); }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(23, 31, 92, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.3); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post14" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- S1 · Tối nay đi ăn? Ăn gì? Gì cũng được! -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="5.3" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe h c tt" id="s1-h"><span class="blk">Tối nay</span><span class="blk r">ăn gì?</span></div>
+        <div class="bub B" id="b1" style="top:470px"><div class="av">6</div><div class="tx"><small>Sáu</small>Ê, tối nay đi ăn không?</div></div>
+        <div class="bub A" id="b2" style="top:660px"><div class="av">?</div><div class="tx"><small>Bạn</small>Đi!</div></div>
+        <div class="bub B" id="b3" style="top:850px"><div class="av">6</div><div class="tx">Ăn gì?</div></div>
+        <div id="big1">Gì cũng được!<svg width="700" height="40" viewBox="0 0 700 40"><path class="draw" pathLength="1" d="M10 25C150 5 300 35 450 15S640 20 690 18"/></svg></div>
+      </div></div>
+
+      <!-- S2 · Câu 1: Ăn gì? — gợi ý nào cũng bị gạch -->
+      <div class="clip scene" id="s2" data-start="5.25" data-duration="10.05" data-track-index="1"><div class="in" id="s2-in">
+        <div class="safe h c tt" id="s2-h"><span class="blk">Gợi ý nào</span><span class="blk r">cũng bị gạch</span></div>
+        <div class="quiz sheet" id="q1">
+          <div class="lab">Câu 1 · chọn một món</div>
+          <div class="qr" id="r1"><div class="l">A</div><div class="ic">{{F_COMTAM}}</div><div><span class="n">Cơm tấm</span><span class="note">Trưa mới ăn.</span></div><svg class="x" viewBox="0 0 110 110"><path class="draw" pathLength="1" d="M20 20L90 90M90 20L20 90"/></svg></div>
+          <div class="qr" id="r2"><div class="l">B</div><div class="ic">{{F_BUNBO}}</div><div><span class="n">Bún bò</span><span class="note">Nóng quá!</span></div><svg class="x" viewBox="0 0 110 110"><path class="draw" pathLength="1" d="M20 20L90 90M90 20L20 90"/></svg></div>
+          <div class="qr" id="r3"><div class="l">C</div><div class="ic">{{F_SUSHI}}</div><div><span class="n">Sushi</span><span class="note">Mắc!</span></div><svg class="x" viewBox="0 0 110 110"><path class="draw" pathLength="1" d="M20 20L90 90M90 20L20 90"/></svg></div>
+          <div class="qr" id="r4"><div class="l">D</div><div class="ic">{{F_LAU}}</div><div><span class="n">Lẩu</span><span class="note">Hai đứa ăn sao hết?</span></div><svg class="x" viewBox="0 0 110 110"><path class="draw" pathLength="1" d="M20 20L90 90M90 20L20 90"/></svg></div>
+        </div>
+      </div></div>
+
+      <!-- S3 · Thôi! Vậy về! — Ủa? Đi ăn mà? -->
+      <div class="clip scene" id="s3" data-start="15.25" data-duration="3.15" data-track-index="1"><div class="in" id="s3-in">
+        <div class="bub B" id="b4" style="top:420px"><div class="av">6</div><div class="tx">Thôi! Vậy về!</div></div>
+        <svg id="door" width="280" height="380" viewBox="0 0 70 95" fill="none" stroke="#23339a" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"><path d="M10 92V6h40v86"/><path d="M10 6l28 8v80l-28-2" fill="#e6e9f8"/><circle cx="32" cy="52" r="2.6" fill="#23339a"/><path d="M52 50h14M60 44l6 6-6 6" stroke="#e0352b"/></svg>
+        <div class="bub A" id="b5" style="top:1080px"><div class="av">?</div><div class="tx">Ủa? Đi ăn mà?</div></div>
+      </div></div>
+
+      <!-- S4 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s4" data-start="18.3" data-duration="5.55" data-track-index="1"><div class="in" id="s4-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S5 · Phát hiện: "ăn gì cũng được" không phải câu trả lời -->
+      <div class="clip scene" id="s5" data-start="23.8" data-duration="4.0" data-track-index="1"><div class="in" id="s5-in">
+        <div class="safe h c tt" id="s5-h"><span class="blk">Tao mới</span><span class="blk r">phát hiện ra…</span></div>
+        <svg id="bulb" width="220" height="280" viewBox="0 0 44 56" fill="none" stroke="#23339a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4a15 15 0 0 0-9 27c2 2 3 4 3 7h12c0-3 1-5 3-7a15 15 0 0 0-9-27z" fill="#fde3e0"/><path d="M16 44h12M17 49h10M22 15v10M18 21h8" /><path d="M4 8l4 3M40 8l-4 3M2 22h5M42 22h-5" stroke="#e0352b"/></svg>
+        <div class="sheet" id="quote"><div class="q">“Ăn gì cũng được”</div><div class="eq">= <span class="strike" id="qs">câu trả lời<i></i></span> <span class="r">✗</span></div></div>
+      </div></div>
+
+      <!-- S6 · Nó là bài kiểm tra: đoán đúng món trong đầu -->
+      <div class="clip scene" id="s6" data-start="27.75" data-duration="4.3" data-track-index="1"><div class="in" id="s6-in">
+        <div class="sheet" id="exam"><div class="lab">Đề kiểm tra</div>
+          <div class="row"><span>Môn:</span><b>Đọc suy nghĩ</b></div><div class="row"><span>Thời gian:</span><b>trước khi đói xỉu</b></div></div>
+        <div id="stamp">BÀI KIỂM TRA</div>
+        <svg id="head" width="360" height="420" viewBox="0 0 90 105"><path d="M45 6c-20 0-34 15-34 33 0 11 5 19 12 25v36h34V88h10c5 0 8-4 8-8v-9l7-3-6-12c0-28-12-50-31-50z" fill="#23339a"/></svg>
+        <svg id="cloud" viewBox="0 0 470 380"><path d="M90 300c-50 0-80-40-60-80-30-30-10-90 40-90 10-50 80-80 130-40 40-40 120-30 140 30 60 0 90 60 60 100 30 40 0 90-50 85-20 30-90 40-120 10-30 20-110 20-140-15z" fill="#fff" stroke="#23339a" stroke-width="7"/><circle cx="70" cy="345" r="16" fill="#fff" stroke="#23339a" stroke-width="6"/><circle cx="34" cy="370" r="9" fill="#fff" stroke="#23339a" stroke-width="5"/></svg>
+        <div class="food" id="fd1" style="left:643px;top:885px">{{F_COMTAM}}</div><div class="food" id="fd2" style="left:643px;top:885px">{{F_BUNBO}}</div>
+        <div class="food" id="fd3" style="left:643px;top:885px">{{F_SUSHI}}</div><div class="food" id="fd4" style="left:643px;top:885px">{{F_LAU}}</div>
+        <div class="food pen" id="fdq" style="left:668px;top:840px;font-size:170px">?</div>
+      </div></div>
+
+      <!-- S7 · Đề không phát, đáp án không cho coi → đổi chiến thuật -->
+      <div class="clip scene" id="s7" data-start="32.0" data-duration="5.65" data-track-index="1"><div class="in" id="s7-in">
+        <div class="safe h c tt"><span class="blk">Thi gì kỳ vậy?</span></div>
+        <div class="sheet pair" id="pa"><svg width="200" height="240" viewBox="0 0 40 48" fill="none" stroke="#23339a" stroke-width="2.4" stroke-linejoin="round"><path d="M6 2h20l8 8v36H6z" fill="#fff"/><path d="M26 2v8h8"/><path d="M11 20h18M11 27h18M11 34h12" stroke-dasharray="2 3" opacity=".5"/></svg><div class="k">Đề thi</div><div class="pen">không phát</div></div>
+        <div class="sheet pair" id="pb"><svg width="220" height="240" viewBox="0 0 44 48" fill="none" stroke="#23339a" stroke-width="2.4" stroke-linejoin="round"><rect x="3" y="12" width="38" height="28" rx="3" fill="#fff"/><path d="M3 14l19 13 19-13"/><rect x="15" y="26" width="14" height="12" rx="2" fill="#e0352b" stroke="#e0352b"/><path d="M18 26v-4a4 4 0 0 1 8 0v4" stroke="#e0352b"/></svg><div class="k">Đáp án</div><div class="pen">không cho coi</div></div>
+        <div class="sheet" id="tactic"><div class="lab">Chiến thuật mới</div><div class="k"><span class="blk">Khỏi hỏi tự luận,</span><span class="blk r">hỏi trắc nghiệm!</span></div></div>
+      </div></div>
+
+      <!-- S8 · Câu 2: Cơm tấm hay bún bò? -->
+      <div class="clip scene" id="s8" data-start="37.6" data-duration="8.75" data-track-index="1"><div class="in" id="s8-in">
+        <div class="quiz sheet" id="q2">
+          <div class="lab">Câu 2 · trắc nghiệm</div>
+          <div class="qh"><span class="blk nw">Giữa cơm tấm với bún bò,</span><span class="blk nw r">mày chọn món nào?</span></div>
+          <div class="qr" id="o1"><div class="l">A</div><div class="ic">{{F_COMTAM}}</div><span class="n">Cơm tấm</span>
+            <svg style="position:absolute;left:-20px;top:20px" width="560" height="160" viewBox="0 0 560 160"><ellipse class="draw" pathLength="1" cx="280" cy="80" rx="268" ry="68"/></svg></div>
+          <div class="qr" id="o2"><div class="l">B</div><div class="ic">{{F_BUNBO}}</div><span class="n">Bún bò</span></div>
+          <div class="qr" id="o3"><div class="l" style="border-color:#e0352b;color:#e0352b">C</div><div class="ic">{{F_HOME}}</div><span class="n r">Cơm nhà mày</span></div>
+        </div>
+        <div class="bub A" id="b6" style="top:1340px"><div class="av">?</div><div class="tx">Có món thứ ba không?</div></div>
+        <div class="bub A" id="b7" style="top:1340px"><div class="av">?</div><div class="tx">Thôi cơm tấm đi!</div></div>
+      </div></div>
+
+      <!-- S9 · Đó! Quyết đoán hẳn — 10 điểm -->
+      <div class="clip scene" id="s9" data-start="46.25" data-duration="3.05" data-track-index="1"><div class="in" id="s9-in">
+        <div id="ten"><svg width="520" height="520" viewBox="0 0 520 520"><ellipse class="draw" pathLength="1" cx="260" cy="260" rx="230" ry="210" transform="rotate(-8 260 260)"/></svg><b>10</b></div>
+        <div class="safe h c" id="s9-sub"><span class="blk">Quyết đoán</span><span class="blk r">liền!</span></div>
+      </div></div>
+
+      <!-- Kết · Giấy báo trúng tuyển trợ lý giám đốc -->
+      <div class="clip scene" id="s10" data-start="49.2" data-duration="{{END_DUR}}" data-track-index="1"><div class="in" id="s10-in">
+        <div class="sheet" id="cert">
+          <div class="lab">Kết quả kỳ thi</div>
+          <div class="t">GIẤY BÁO<br><span class="r">TRÚNG TUYỂN</span></div>
+          <div class="line">Vị trí</div><div class="v">Trợ lý giám đốc</div>
+          <div class="line">Nhiệm vụ chính</div><div class="v" style="font-size:52px">Đoán món ăn tối</div>
+        </div>
+        <div id="dau">ĐẬU</div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      // nét bút đỏ tự vẽ (pathLength=1 → dashoffset 1→0)
+      const draw = (sel, at, d = 0.35) => tl.fromTo(sel, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+      const bub = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+
+      // ---------- Cảnh: hiện lên, mờ đi cuối cảnh ----------
+      [["#s1-in", 0, 5.3], ["#s2-in", 5.25, 15.3], ["#s3-in", 15.25, 18.4], ["#s4-in", 18.3, 23.85], ["#s5-in", 23.8, 27.8], ["#s6-in", 27.75, 32.05],
+       ["#s7-in", 32.0, 37.65], ["#s8-in", 37.6, 46.35], ["#s9-in", 46.25, 49.3], ["#s10-in", 49.2, 99]]
+        .forEach(([s, a, b], i) => {
+          if (i) tl.fromTo(s, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.32, ease: E }, a + 0.02);
+          if (b < 99) tl.to(s, { opacity: 0, x: -80, duration: 0.16, ease: "power2.in" }, b - 0.18);
+        });
+
+      // ===== S1 =====
+      up("#s1-h", 0.05, 0.4, 24);
+      bub("#b1", 1.15); bub("#b2", 2.3); bub("#b3", 2.92);
+      tl.fromTo("#big1", { opacity: 0, scale: 1.6, rotation: -12 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.3, ease: "power4.in" }, 3.98);
+      draw("#big1 .draw", 4.35, 0.4);
+
+      // ===== S2 · Câu 1 =====
+      up("#s2-h", 5.35, 0.4, 24);
+      tl.fromTo("#q1", { opacity: 0, y: 80, rotation: 2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.45, ease: E }, 5.3);
+      [[5.4, 6.68], [8.24, 9.52], [10.73, 11.87], [12.96, 13.75]].forEach(([a, b], k) => {
+        tl.fromTo(`#r${k + 1}`, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.3, ease: "back.out(1.8)" }, a);
+        draw(`#r${k + 1} .x .draw`, b, 0.28);
+        tl.fromTo(`#r${k + 1} .note`, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.2 }, b + 0.1);
+        tl.to(`#r${k + 1} .n, #r${k + 1} .ic`, { opacity: 0.35, duration: 0.25 }, b + 0.15);
+      });
+
+      // ===== S3 · Thôi! Vậy về! =====
+      bub("#b4", 15.35);
+      tl.fromTo("#door", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 16.0);
+      tl.fromTo("#door path:last-child", { x: 0 }, { x: 8, duration: 0.15, yoyo: true, repeat: 3, immediateRender: false }, 16.4);
+      bub("#b5", 16.95);
+
+      // ===== S4 · Sáu Suy Nghĩ =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 18.4);
+      up("#s4-name", 19.4, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 20.6); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 20.6);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 20.65);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 21.15); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 21.15);
+      pop("#follow", 22.3, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 22.85);
+      swapTxt("#f1", "#f2", 22.95); tl.to("#follow", { backgroundColor: "#23339a", duration: 0.2 }, 22.95);
+
+      // ===== S5 · Phát hiện =====
+      up("#s5-h", 23.95, 0.4, 24);
+      tl.fromTo("#bulb", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 24.4);
+      tl.to("#bulb", { scale: 0.7, y: -40, duration: 0.3 }, 25.75);
+      tl.fromTo("#quote", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 25.85);
+      tl.fromTo("#qs > i", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, 26.9);
+
+      // ===== S6 · Bài kiểm tra · đoán món trong đầu =====
+      tl.fromTo("#exam", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 27.8);
+      stampIn("#stamp", 28.25, -6);
+      tl.to("#stamp", { scale: 0.5, x: 190, y: -150, duration: 0.35, ease: "power2.inOut" }, 29.3);
+      up("#head", 29.4, 0.4, 40);
+      tl.fromTo("#cloud", { opacity: 0, scale: 0.5, transformOrigin: "10% 90%" }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 29.7);
+      ["#fd1", "#fd2", "#fd3", "#fd4", "#fd1", "#fd2", "#fd3", "#fd4"].forEach((f, k) => {
+        tl.fromTo(f, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.08, immediateRender: false }, 30.0 + k * 0.2);
+        tl.to(f, { opacity: 0, duration: 0.06 }, 30.16 + k * 0.2);
+      });
+      pop("#fdq", 31.55, 0.4);
+
+      // ===== S7 · Đề không phát · đáp án không cho coi · đổi chiến thuật =====
+      tl.fromTo("#pa", { opacity: 0, y: 60, rotation: -3 }, { opacity: 1, y: 0, rotation: -2, duration: 0.4, ease: "back.out(1.6)" }, 32.15);
+      tl.fromTo("#pa .pen", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25 }, 32.75);
+      tl.fromTo("#pb", { opacity: 0, y: 60, rotation: 3 }, { opacity: 1, y: 0, rotation: 2, duration: 0.4, ease: "back.out(1.6)" }, 33.75);
+      tl.fromTo("#pb .pen", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25 }, 34.35);
+      tl.fromTo("#tactic", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 35.6);
+
+      // ===== S8 · Câu 2 trắc nghiệm =====
+      tl.fromTo("#q2", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 37.65);
+      tl.fromTo("#o1", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.3, ease: "back.out(1.8)" }, 38.2);
+      tl.fromTo("#o2", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.3, ease: "back.out(1.8)" }, 38.8);
+      bub("#b6", 41.2);
+      out("#b6", 42.55, 0.15);
+      tl.fromTo("#o3", { opacity: 0, x: 60, rotation: -3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.35, ease: "back.out(2)" }, 42.65);
+      tl.fromTo("#o3", { scale: 1 }, { scale: 1.05, duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 43.55);
+      bub("#b7", 44.85);
+      draw("#o1 .draw", 45.0, 0.45);
+      tl.to(["#o2", "#o3"], { opacity: 0.35, duration: 0.3 }, 45.3);
+
+      // ===== S9 · 10 điểm =====
+      draw("#ten .draw", 46.4, 0.45);
+      tl.fromTo("#ten", { opacity: 0 }, { opacity: 1, duration: 0.1 }, 46.35);
+      tl.fromTo("#ten b", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power4.in" }, 46.4);
+      up("#s9-sub", 47.25, 0.4, 24);
+
+      // ===== Kết · Giấy báo trúng tuyển =====
+      tl.fromTo("#cert", { opacity: 0, y: 60, rotation: -2 }, { opacity: 1, y: 0, rotation: -1, duration: 0.5, ease: "back.out(1.4)" }, 49.3);
+      stampIn("#dau", 51.6, -10);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post14"] = tl;
+    </script>
+  </body>
+</html>

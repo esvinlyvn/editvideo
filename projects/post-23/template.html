@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Ngày này năm ngoái</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "bản đồ ký ức" =====
+         2 font: Plus Jakarta Sans (tiêu đề) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền sáng xám bản đồ, chữ chính than đậm, 1 màu nhấn: tím (ghim, dấu chấm đường đi)
+         Thế giới: bản đồ thành phố có camera (viewBox), ghim địa điểm + dấu chấm. Giữa video: hướng dẫn trên điện thoại mô phỏng
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Plus Jakarta Sans", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #f1f2f6;
+        --ink: #18202b;
+        --vio: #5b3df5;
+        --muted: rgba(24, 32, 43, 0.58);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .nw { white-space: nowrap; }
+      .c { text-align: center; }
+      .v { color: var(--vio); }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; }
+      .h .blk { white-space: nowrap; }
+      .tt { position: absolute; left: 108px; right: 108px; top: 206px; text-align: center; font-family: var(--disp); font-weight: 800; font-size: 74px; line-height: 1.06; letter-spacing: -0.02em; opacity: 0; }
+      .tt .blk { white-space: nowrap; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+      .card { background: #fff; border-radius: 26px; box-shadow: 0 18px 40px rgba(24,32,43,.14); }
+      .tap { position: absolute; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 8px solid var(--vio); box-sizing: border-box; opacity: 0; pointer-events: none; z-index: 20; }
+      .tap::after { content: ""; position: absolute; left: 42px; top: 42px; width: 40px; height: 40px; border-radius: 50%; background: rgba(91,61,245,.6); }
+
+      /* thế giới: bản đồ */
+      #frame { position: absolute; left: 108px; top: 400px; width: 864px; height: 1060px; border-radius: 34px; overflow: hidden; box-shadow: 0 20px 50px rgba(24,32,43,.18); background: #e6e9ee; }
+      #frame svg { display: block; }
+      .mtag { position: absolute; padding: 12px 22px 14px; border-radius: 18px; background: #fff; font-family: var(--disp); font-weight: 800; font-size: 40px; white-space: nowrap; box-shadow: 0 10px 24px rgba(24,32,43,.18); opacity: 0; z-index: 4; }
+      .mtag small { display: block; font-family: var(--body); font-weight: 700; font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: var(--vio); }
+      #dateChip { position: absolute; left: 140px; top: 430px; padding: 14px 24px; border-radius: 40px; background: var(--ink); color: #fff; font-weight: 700; font-size: 32px; white-space: nowrap; opacity: 0; z-index: 4; }
+      #mini { position: absolute; left: 660px; top: 1060px; width: 260px; height: 360px; border-radius: 40px; background: var(--ink); border: 8px solid #2b3442; box-sizing: border-box; opacity: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #fff; font-weight: 700; font-size: 28px; }
+      .sw { width: 120px; height: 66px; border-radius: 33px; background: #4a5566; position: relative; }
+      .sw i { position: absolute; left: 7px; top: 7px; width: 52px; height: 52px; border-radius: 50%; background: #fff; }
+
+      /* thẻ tính năng */
+      #feat { position: absolute; left: 108px; right: 108px; top: 1140px; padding: 30px 34px; display: flex; align-items: center; gap: 26px; opacity: 0; z-index: 5; }
+      #feat .k { font-family: var(--disp); font-weight: 800; font-size: 56px; }
+      #feat .s { font-weight: 600; font-size: 28px; color: var(--muted); margin-top: 4px; }
+      #need { position: absolute; left: 108px; right: 108px; top: 1140px; padding: 30px 34px; display: flex; align-items: center; gap: 26px; opacity: 0; z-index: 5; }
+      #need .k { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1.1; }
+      #need .k .blk { white-space: nowrap; }
+      #need .sw { background: var(--vio); flex: none; }
+      #need .sw i { left: 61px; }
+
+      /* điện thoại hướng dẫn */
+      #step { position: absolute; left: 108px; right: 108px; top: 214px; text-align: center; }
+      #step span { position: absolute; left: 0; right: 0; font-family: var(--disp); font-weight: 800; font-size: 54px; line-height: 1.12; opacity: 0; white-space: nowrap; }
+      #step span small { display: block; font-family: var(--body); font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: var(--vio); }
+      #phone { position: absolute; left: 270px; top: 380px; width: 540px; height: 1080px; border-radius: 64px; background: #11161e; padding: 20px; box-sizing: border-box; box-shadow: 0 24px 50px rgba(24,32,43,.3); }
+      #scr { position: relative; width: 500px; height: 1040px; border-radius: 46px; overflow: hidden; background: #fff; }
+      .pg { position: absolute; inset: 0; background: #fff; }
+      #pA { background: linear-gradient(180deg, #c9c3ff, #eef0ff); }
+      #pA .ap { position: absolute; width: 100px; height: 100px; border-radius: 26px; background: rgba(255,255,255,.75); }
+      #pA .ap b { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-weight: 700; font-size: 22px; color: var(--ink); }
+      #maps { background: #fff !important; display: flex; align-items: center; justify-content: center; }
+      #pB .sb { position: absolute; left: 24px; right: 110px; top: 40px; height: 72px; border-radius: 36px; background: #fff; box-shadow: 0 6px 16px rgba(24,32,43,.18); display: flex; align-items: center; padding-left: 28px; font-weight: 600; font-size: 26px; color: var(--muted); }
+      #pB .av { position: absolute; right: 30px; top: 40px; width: 72px; height: 72px; border-radius: 50%; background: var(--vio); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 800; font-size: 34px; box-shadow: 0 6px 16px rgba(24,32,43,.18); }
+      #pC { background: rgba(24,32,43,.0); }
+      #pC .sheet { position: absolute; left: 0; right: 0; top: 140px; bottom: 0; border-radius: 34px 34px 0 0; background: #fff; box-shadow: 0 -10px 30px rgba(24,32,43,.18); }
+      #pC .who { display: flex; align-items: center; gap: 18px; padding: 30px 30px 20px; font-weight: 700; font-size: 30px; border-bottom: 2px solid #eef0f4; }
+      #pC .who i { width: 70px; height: 70px; border-radius: 50%; background: var(--vio); }
+      .mi { height: 110px; display: flex; align-items: center; gap: 22px; padding: 0 34px; font-weight: 600; font-size: 32px; border-bottom: 2px solid #eef0f4; }
+      .mi i { width: 44px; height: 44px; border-radius: 12px; background: #e9e6ff; flex: none; }
+      .mi.hl { color: var(--vio); font-weight: 700; }
+      .mi.hl i { background: var(--vio); }
+      #pD .hd { padding: 40px 30px 10px; font-family: var(--disp); font-weight: 800; font-size: 40px; }
+      #pD .dbar { margin: 0 30px; height: 70px; border-radius: 20px; background: #f1f2f6; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-weight: 700; font-size: 26px; }
+      #cal { position: absolute; left: 30px; right: 30px; top: 210px; display: grid; grid-template-columns: repeat(7, 1fr); }
+      #cal b { height: 64px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px; color: var(--muted); }
+      #cal b.d { color: var(--ink); }
+      #cal b.sel { background: var(--vio); color: #fff; border-radius: 50%; }
+      #visits { position: absolute; left: 30px; right: 30px; top: 560px; opacity: 0; }
+      .vs { position: relative; display: flex; align-items: center; gap: 20px; height: 120px; padding-left: 70px; }
+      .vs::before { content: ""; position: absolute; left: 24px; top: 0; bottom: 0; border-left: 6px dotted var(--vio); }
+      .vs i { position: absolute; left: 10px; width: 34px; height: 34px; border-radius: 50%; background: var(--vio); border: 6px solid #fff; box-shadow: 0 0 0 3px var(--vio); }
+      .vs b { font-weight: 700; font-size: 30px; display: block; }
+      .vs small { font-weight: 600; font-size: 22px; color: var(--muted); }
+
+      /* lưu ý */
+      .note { position: absolute; left: 108px; right: 108px; height: 210px; display: flex; align-items: center; gap: 28px; padding: 0 36px; box-sizing: border-box; opacity: 0; }
+      .note .k { font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1.1; }
+      .note .k .blk { white-space: nowrap; }
+      .note .ico { width: 110px; height: 110px; border-radius: 28px; background: #ece8ff; display: flex; align-items: center; justify-content: center; flex: none; }
+      #n1 { top: 420px; } #n2 { top: 660px; } #n3 { top: 900px; } #n4 { top: 1140px; }
+      .pill { padding: 8px 18px; border-radius: 20px; background: var(--ink); color: #fff; font-weight: 700; font-size: 26px; margin-left: auto; white-space: nowrap; }
+      .pill.v2 { background: var(--vio); }
+
+      /* ký ức */
+      #memo { position: absolute; left: 160px; right: 160px; top: 700px; padding: 26px; opacity: 0; z-index: 6; }
+      #memo .ph { height: 420px; border-radius: 16px; overflow: hidden; }
+      #memo b { display: block; margin-top: 18px; font-family: var(--disp); font-weight: 800; font-size: 44px; text-align: center; white-space: nowrap; }
+      #duo { position: absolute; left: 108px; right: 108px; top: 440px; display: flex; gap: 30px; }
+      .duo { flex: 1; height: 600px; padding: 40px 26px; box-sizing: border-box; text-align: center; opacity: 0; }
+      .duo .k { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1.1; margin-top: 30px; }
+      .duo .k .blk { white-space: nowrap; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 104px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--vio); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 48px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(24, 32, 43, 0.9); text-shadow: 0 2px 6px rgba(0,0,0,.3); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post23" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- ===== THẾ GIỚI: bản đồ thành phố ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1"><div class="in" id="w-in">
+        <div class="tt" id="t1"><span class="blk">Ngày này năm ngoái,</span><span class="blk v">mày ở đâu?</span></div>
+        <div class="tt" id="t2"><span class="blk">Có thể</span><span class="blk v">mày quên rồi…</span></div>
+        <div class="tt" id="t3"><span class="blk">Google Maps:</span><span class="blk v">Dòng thời gian</span></div>
+        <div class="tt" id="t4"><span class="blk">Coi lại</span><span class="blk v">một ngày cũ</span></div>
+        <div class="tt" id="t5"><span class="blk">Mấy dấu chấm nhỏ,</span><span class="blk v">cả một câu chuyện</span></div>
+        <div class="tt" id="t6"><span class="blk">Chỉ cần</span><span class="blk v">nhìn lại cái tên</span></div>
+        <div id="frame">
+          <svg id="map" width="864" height="1060" viewBox="0 0 1200 1472">
+            <rect x="-800" y="-800" width="2800" height="3200" fill="#e6e9ee"/>
+            <path d="M-800 820C-300 760 100 900 500 860S1300 700 2000 780V900C1300 830 900 990 500 990S-300 900-800 950z" fill="#cfdcf2"/>
+            <g id="blocks"></g>
+            <g id="roads" stroke="#ffffff" stroke-linecap="round" fill="none"></g>
+            <rect x="160" y="380" width="300" height="240" rx="30" fill="#d4ead1"/>
+            <rect x="1500" y="-300" width="420" height="300" rx="30" fill="#f6e6c4"/>
+            <path id="oldroad" d="M240 1300V1080H900V480" stroke="#5b3df5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/>
+            <path id="trail" d="M240 1300V1080H760V1000M760 1000H900V480M900 480H330V500" stroke="#5b3df5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 30" fill="none" opacity="0"/>
+            <path id="trip" d="M900 480C1000 300 1300 200 1700 -150" stroke="#5b3df5" stroke-width="12" stroke-linecap="round" stroke-dasharray="1 30" fill="none" opacity="0"/>
+            <g id="pins"></g>
+            <g id="qpin" opacity="0" transform="translate(600 700)"><path d="M0 0c-40-50-60-80-60-110a60 60 0 0 1 120 0c0 30-20 60-60 110z" fill="#18202b"/><text x="0" y="-88" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="70" fill="#fff">?</text></g>
+          </svg>
+        </div>
+        <div id="dateChip">Ngày này · năm ngoái</div>
+        <div class="mtag" id="tg1" style="left:620px;top:600px"><small>đi làm</small>Công ty</div>
+        <div class="mtag" id="tg2" style="left:150px;top:780px"><small>đi chơi</small>Công viên</div>
+        <div class="mtag" id="tg3" style="left:470px;top:1020px"><small>cà phê với</small>người lâu rồi chưa gặp</div>
+        <div id="mini">Lưu vị trí<div class="sw"><i></i></div></div>
+        <div class="card" id="feat">{{IC_TIMELINE}}<div><div class="k">Dòng thời gian</div><div class="s">Lưu nơi đã ghé + tuyến đường đã đi</div></div></div>
+        <div class="card" id="need"><div class="sw"><i></i></div><div class="k"><span class="blk">Chỉ có dữ liệu nếu</span><span class="blk v">mày tự bật từ trước</span></div></div>
+        <div class="mtag" id="tg4" style="left:520px;top:960px"><small>quán cà phê</small>Quán… tên gì ta?</div>
+        <div class="mtag" id="tg5" style="left:520px;top:440px"><small>chuyến đi</small>Đi bất chợt</div>
+        <div class="mtag" id="tg6" style="left:150px;top:1200px"><small>ngày nào cũng chạy</small>Con đường quen</div>
+        <div class="card" id="memo"><div class="ph">{{MEMORY}}</div><b>Quán cà phê Góc Phố</b></div>
+      </div></div>
+
+      <!-- S2 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s2" data-start="15.8" data-duration="3.75" data-track-index="2"><div class="in" id="s2-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S4 · Hướng dẫn trên điện thoại (mô phỏng) -->
+      <div class="clip scene" id="s4" data-start="30.1" data-duration="9.2" data-track-index="2"><div class="in" id="s4-in">
+        <div id="step">
+          <span id="st1"><small>Bước 1</small>Mở Google Maps</span>
+          <span id="st2"><small>Bước 2</small>Bấm hình đại diện</span>
+          <span id="st3"><small>Bước 3</small>Tìm “Dòng thời gian”</span>
+          <span id="st4"><small>Bước 4</small>Chọn một ngày cũ</span>
+        </div>
+        <div id="phone"><div id="scr">
+          <div class="pg" id="pA">
+            <i class="ap" style="left:40px;top:120px"></i><i class="ap" style="left:160px;top:120px"></i><i class="ap" style="left:280px;top:120px"></i><i class="ap" style="left:400px;top:120px;width:70px"></i>
+            <i class="ap" style="left:40px;top:300px"></i><i class="ap" id="maps" style="left:160px;top:300px">{{IC_MAPAPP}}<b>Maps</b></i><i class="ap" style="left:280px;top:300px"></i>
+          </div>
+          <div class="pg" id="pB">{{MAPBG}}<div class="sb">Tìm ở đây</div><div class="av">T</div></div>
+          <div class="pg" id="pC">{{MAPBG}}<div class="sheet"><div class="who"><i></i>Tài khoản của mày</div>
+            <div class="mi"><i></i>Hồ sơ của mày</div><div class="mi hl" id="miTL"><i></i>Dòng thời gian</div><div class="mi"><i></i>Địa điểm đã lưu</div><div class="mi"><i></i>Cài đặt</div></div></div>
+          <div class="pg" id="pD"><div class="hd">Dòng thời gian</div><div class="dbar"><span>‹</span><span>Tháng 10 · năm ngoái</span><span>›</span></div>
+            <div id="cal"></div>
+            <div id="visits"><div class="vs"><i></i><div><b>Quán cà phê</b><small>8:30 – 9:40</small></div></div><div class="vs"><i></i><div><b>Công ty</b><small>10:05 – 17:30</small></div></div><div class="vs"><i></i><div><b>Nhà</b><small>18:20</small></div></div></div></div>
+        </div></div>
+        <div class="tap" id="tp1" style="left:500px;top:750px"></div>
+        <div class="tap" id="tp2" style="left:726px;top:476px"></div>
+        <div class="tap" id="tp3" style="left:540px;top:827px"></div>
+        <div class="tap" id="tp4" style="left:477px;top:770px"></div>
+      </div></div>
+
+      <!-- S6 · Lưu ý -->
+      <div class="clip scene" id="s6" data-start="53.0" data-duration="13.85" data-track-index="2"><div class="in" id="s6-in">
+        <div class="safe h c" style="top:214px;font-size:70px"><span class="blk">Tao nhắc luôn</span></div>
+        <div class="card note" id="n1"><div class="ico">{{IC_TOGGLE}}</div><div class="k"><span class="blk">Mặc định</span><span class="blk v">không bật</span></div><span class="pill">TẮT</span></div>
+        <div class="card note" id="n2"><div class="ico">{{IC_PIN}}</div><div class="k"><span class="blk">Dữ liệu không phải</span><span class="blk v">lúc nào cũng đúng</span></div></div>
+        <div class="card note" id="n3"><div class="ico">{{IC_LOCK}}</div><div class="k"><span class="blk">Vị trí cá nhân:</span><span class="blk v">tự kiểm tra riêng tư</span></div></div>
+        <div class="card note" id="n4"><div class="ico">{{IC_TRASH}}</div><div class="k"><span class="blk">Không muốn lưu?</span><span class="blk v">Tắt hoặc xóa</span></div><span class="pill v2">Xóa lịch sử</span></div>
+      </div></div>
+
+      <!-- S8 · Điện thoại lưu địa điểm, mình nhớ cảm giác -->
+      <div class="clip scene" id="s8" data-start="77.3" data-duration="{{END_DUR}}" data-track-index="2"><div class="in" id="s8-in">
+        <div class="safe h c" style="top:214px;font-size:70px"><span class="blk">Địa điểm thì lưu được,</span><span class="blk v">cảm giác thì không</span></div>
+        <div id="duo">
+          <div class="card duo" id="dA">{{IC_PHONEPIN}}<div class="k"><span class="blk">Điện thoại</span><span class="blk v">lưu địa điểm</span></div></div>
+          <div class="card duo" id="dB">{{IC_HEART}}<div class="k"><span class="blk">Còn mình</span><span class="blk v">nhớ cảm giác</span></div></div>
+        </div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // ---------- Bản đồ ----------
+      const blocks = document.getElementById("blocks");
+      for (let x = -800; x < 2000; x += 220) for (let y = -800; y < 2400; y += 220) if (!(y > 760 && y < 960))
+        blocks.insertAdjacentHTML("beforeend", `<rect x="${x + 20}" y="${y + 20}" width="180" height="180" rx="18" fill="#f7f8fa"/>`);
+      const roads = document.getElementById("roads");
+      for (let x = -800; x < 2000; x += 220) roads.insertAdjacentHTML("beforeend", `<path d="M${x + 10} -800V2400" stroke-width="${(x / 220) % 3 ? 14 : 26}"/>`);
+      for (let y = -800; y < 2400; y += 220) roads.insertAdjacentHTML("beforeend", `<path d="M-800 ${y + 10}H2000" stroke-width="${(y / 220) % 3 ? 14 : 26}"/>`);
+      // ghim: nhà, công ty, công viên, quán cà phê, chuyến đi
+      const PIN = (id, x, y, icon) => `<g class="pin" id="${id}" transform="translate(${x} ${y})"><g class="pi"><path d="M0 0c-34-42-50-66-50-92a50 50 0 0 1 100 0c0 26-16 50-50 92z" fill="#5b3df5" stroke="#fff" stroke-width="6"/><g transform="translate(-22 -114)" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${icon}</g></g></g>`;
+      const IC = { home: '<path d="M4 22L22 8l18 14v18H4z"/>', work: '<rect x="4" y="12" width="36" height="26" rx="4"/><path d="M16 12V6h12v6"/>', park: '<path d="M22 6l14 22H8z"/><path d="M22 28v12"/>', cafe: '<path d="M6 14h26v10a12 12 0 0 1-12 12h-2A12 12 0 0 1 6 24z"/><path d="M32 18h4a5 5 0 0 1 0 10h-4"/>', trip: '<path d="M4 30h36M10 30l4-12h16l4 12M12 36h0M32 36h0"/>' };
+      document.getElementById("pins").innerHTML = PIN("pHome", 240, 1300, IC.home) + PIN("pWork", 900, 480, IC.work) + PIN("pPark", 330, 500, IC.park) + PIN("pCafe", 760, 1000, IC.cafe) + PIN("pTrip", 1700, -150, IC.trip);
+      // lịch tháng (điện thoại)
+      const cal = document.getElementById("cal");
+      "T2 T3 T4 T5 T6 T7 CN".split(" ").forEach((d) => cal.insertAdjacentHTML("beforeend", `<b>${d}</b>`));
+      for (let k = 1; k <= 28; k++) cal.insertAdjacentHTML("beforeend", `<b class="d${k === 10 ? " " : ""}" id="dd${k}">${k}</b>`);
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.2); up(sel, at, 0.45, 24); };
+      const cam = (vb, at, d = 1.2) => tl.to("#map", { attr: { viewBox: vb }, duration: d, ease: "power2.inOut" }, at);
+      const pinIn = (sel, at) => tl.fromTo(sel + " .pi", { y: -120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "bounce.out" }, at);
+      const tag = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 16, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: "back.out(2)" }, at);
+      const tap = (sel, at) => tl.fromTo(sel, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.5, duration: 0.45, ease: "power2.out", immediateRender: false }, at);
+      const step = (sel, at, prev) => { if (prev) tl.to(prev, { opacity: 0, duration: 0.15 }, at - 0.05); tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, at); };
+      const page = (sel, at) => tl.fromTo(sel, { x: 520 }, { x: 0, duration: 0.4, ease: "power3.inOut" }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+      gsap.set(".pin .pi", { opacity: 0 });
+      gsap.set(["#pB", "#pC", "#pD"], { x: 520 });
+
+      // ---------- Lớp phủ che bản đồ ----------
+      [["#s2-in", 15.8, 19.55], ["#s4-in", 30.1, 39.3], ["#s6-in", 53.0, 66.85], ["#s8-in", 77.3, 99]].forEach(([s, a, b]) => {
+        tl.fromTo(s, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.38, ease: E }, a + 0.02);
+        if (b < 99) tl.to(s, { opacity: 0, duration: 0.18 }, b - 0.2);
+        tl.to("#w-in", { opacity: 0, duration: 0.25 }, a);
+        if (b < 99) tl.to("#w-in", { opacity: 1, duration: 0.35 }, b - 0.15);
+      });
+
+      // ===== S1 · Ngày này năm ngoái, mày ở đâu? =====
+      cam("0 0 1200 1472", 0, 0.01);
+      tl.fromTo("#frame", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, 0);
+      up("#t1", 0.15, 0.45, 24);
+      tag("#dateChip", 0.5);
+      tl.fromTo("#qpin", { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out" }, 1.7);
+      out("#qpin", 2.9, 0.2);
+      pinIn("#pWork", 3.0); tag("#tg1", 3.1);
+      pinIn("#pPark", 3.8); tag("#tg2", 3.9);
+      pinIn("#pCafe", 4.65); tag("#tg3", 5.0);
+      // quên: ghim mờ đi
+      title("#t2", 8.7, "#t1"); out(["#dateChip", "#tg1", "#tg2", "#tg3"], 8.6, 0.25);
+      tl.to(".pin .pi", { opacity: 0.25, filter: "grayscale(1)", duration: 0.6 }, 8.8);
+      tl.fromTo("#mini", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.6)" }, 10.6);
+      tl.to("#mini .sw", { backgroundColor: "#5b3df5", duration: 0.25 }, 11.6); tl.to("#mini .sw i", { x: 54, duration: 0.25 }, 11.6);
+      // coi lại được: ghim sáng lại + dấu chấm
+      tl.to(".pin .pi", { opacity: 1, filter: "grayscale(0)", duration: 0.5 }, 13.6);
+      tl.to("#trail", { opacity: 1, duration: 0.2 }, 13.8);
+      tl.fromTo("#trail", { strokeDashoffset: 0 }, { strokeDashoffset: -400, duration: 2.0, ease: "none" }, 13.8);
+      out("#mini", 15.4, 0.2);
+
+      // ===== S2 · Sáu =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 15.95);
+      up("#s4-name", 16.8, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 17.0); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 17.0);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 17.05);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 17.5); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 17.5);
+      pop("#follow", 18.0, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 18.5);
+      swapTxt("#f1", "#f2", 18.6); tl.to("#follow", { backgroundColor: "#18202b", duration: 0.2 }, 18.6);
+
+      // ===== S6 · Lưu ý =====
+      [["#n1", 54.55], ["#n2", 56.45], ["#n3", 58.85], ["#n4", 63.65]].forEach(([n, at]) => tl.fromTo(n, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.6)" }, at));
+      tl.fromTo("#n4 .pill", { scale: 1 }, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1, immediateRender: false }, 65.2);
+
+      // ===== S3 · Google Maps: Dòng thời gian (lưu nơi ghé + tuyến đường; cần bật từ trước) =====
+      title("#t3", 19.95, "#t2");
+      tl.fromTo("#feat", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 21.1);
+      tl.to(".pin .pi", { scale: 1.2, transformOrigin: "50% 100%", duration: 0.2, yoyo: true, repeat: 1, stagger: 0.15 }, 23.6);
+      tl.fromTo("#trail", { strokeDashoffset: -400 }, { strokeDashoffset: -800, duration: 2.6, ease: "none", immediateRender: false }, 24.6);
+      out("#feat", 27.6, 0.2);
+      tl.fromTo("#need", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 27.75);
+      tl.fromTo("#need .sw i", { x: -54 }, { x: 0, duration: 0.3, ease: "back.out(2)" }, 28.6);
+      out("#need", 29.9, 0.2);
+
+      // ===== S4 · Hướng dẫn (điện thoại mô phỏng) =====
+      step("#st1", 30.35);
+      tap("#tp1", 31.35);
+      page("#pB", 31.6);
+      step("#st2", 32.5, "#st1");
+      tap("#tp2", 32.9);
+      tl.fromTo("#pC", { x: 0, y: 900 }, { x: 0, y: 0, duration: 0.45, ease: "power3.out" }, 33.2);
+      step("#st3", 33.7, "#st2");
+      tap("#tp3", 34.6);
+      tl.fromTo("#miTL", { backgroundColor: "rgba(91,61,245,0)" }, { backgroundColor: "rgba(91,61,245,.12)", duration: 0.2 }, 34.6);
+      page("#pD", 35.0);
+      step("#st4", 36.0, "#st3");
+      tap("#tp4", 37.1);
+      tl.set("#dd10", { backgroundColor: "#5b3df5", color: "#ffffff", borderRadius: "50%" }, 37.2);
+      tl.fromTo("#visits", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 37.5);
+
+      // ===== S5 · Ký ức hiện ra: quán cà phê quên tên, chuyến đi bất chợt, con đường quen =====
+      title("#t4", 39.4, "#t3");
+      cam("380 700 760 932", 39.4, 1.2);
+      tag("#tg4", 40.6);
+      out("#tg4", 43.1, 0.2);
+      cam("700 -500 1200 1472", 43.2, 1.2);
+      tl.to("#trip", { opacity: 1, duration: 0.2 }, 43.4);
+      tl.fromTo("#trip", { strokeDashoffset: 0 }, { strokeDashoffset: -300, duration: 1.6, ease: "none" }, 43.4);
+      tag("#tg5", 43.8);
+      out("#tg5", 44.85, 0.2);
+      cam("0 300 1200 1472", 44.9, 1.2);
+      tl.to("#oldroad", { opacity: 0.35, duration: 0.3 }, 45.4);
+      tl.fromTo("#oldroad", { opacity: 0.35 }, { opacity: 0.8, duration: 0.25, yoyo: true, repeat: 5, immediateRender: false }, 45.8);
+      tag("#tg6", 45.6);
+      out("#tg6", 48.5, 0.2);
+      title("#t5", 48.7, "#t4");
+      cam("-100 0 1400 1717", 48.6, 1.4);
+      tl.fromTo("#trail", { opacity: 1 }, { opacity: 0.4, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 49.2);
+
+      // ===== S7 · Nhìn lại cái tên → cả một khoảng thời gian =====
+      tl.set("#t5", { opacity: 0 }, 66.9);
+      title("#t6", 67.2);
+      cam("500 700 520 638", 67.0, 1.4);
+      tl.fromTo("#memo", { opacity: 0, scale: 0.5, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.4)" }, 72.4);
+      tl.fromTo("#memo .ph svg", { scale: 1.15 }, { scale: 1, duration: 4.0, ease: "power1.out" }, 72.4);
+
+      // ===== S8 · Điện thoại lưu địa điểm · mình nhớ cảm giác =====
+      tl.fromTo("#dA", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 77.6);
+      tl.fromTo("#dB", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 79.8);
+      tl.fromTo("#dB svg", { scale: 1 }, { scale: 1.12, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false, transformOrigin: "50% 50%" }, 81.3);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post23"] = tl;
+    </script>
+  </body>
+</html>

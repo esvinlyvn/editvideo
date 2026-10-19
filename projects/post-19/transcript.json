@@ -1,0 +1,271 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.272,
+   "end": 0.904,
+   "speaker": "B",
+   "text": "Ở Việt Nam"
+  },
+  {
+   "i": 1,
+   "start": 1.461,
+   "end": 4.199,
+   "speaker": "B",
+   "text": "có một khu rừng nằm sâu hơn 200 mét dưới lòng đất."
+  },
+  {
+   "i": 2,
+   "start": 5.193,
+   "end": 7.509,
+   "speaker": "B",
+   "text": "Cây trong đó có cây cao tới 50 mét!"
+  },
+  {
+   "i": 3,
+   "start": 8.392,
+   "end": 9.963,
+   "speaker": "B",
+   "text": "Nghe giống bối cảnh phim viễn tưởng ha?"
+  },
+  {
+   "i": 4,
+   "start": 10.698,
+   "end": 11.355,
+   "speaker": "B",
+   "text": "Nhưng nơi này có thiệt."
+  },
+  {
+   "i": 5,
+   "start": 12.15,
+   "end": 12.701,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 6,
+   "start": 13.074,
+   "end": 14.142,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 7,
+   "start": 14.444,
+   "end": 15.189,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 8,
+   "start": 16.52,
+   "end": 18.086,
+   "speaker": "B",
+   "text": "Nó nằm bên trong hang Sơn Đoòng,"
+  },
+  {
+   "i": 9,
+   "start": 18.499,
+   "end": 19.377,
+   "speaker": "B",
+   "text": "ở khu vực Phong Nha."
+  },
+  {
+   "i": 10,
+   "start": 20.554,
+   "end": 21.836,
+   "speaker": "B",
+   "text": "Hồi năm 2009,"
+  },
+  {
+   "i": 11,
+   "start": 22.491,
+   "end": 23.907,
+   "speaker": "B",
+   "text": "đoàn thám hiểm đi sâu vô hang,"
+  },
+  {
+   "i": 12,
+   "start": 24.223,
+   "end": 27.962,
+   "speaker": "B",
+   "text": "phát hiện một khu rừng lớn tới mức tưởng mình đã tìm được đường ra ngoài."
+  },
+  {
+   "i": 14,
+   "start": 28.97,
+   "end": 29.327,
+   "speaker": "B",
+   "text": "Nhưng không!"
+  },
+  {
+   "i": 15,
+   "start": 29.958,
+   "end": 31.152,
+   "speaker": "B",
+   "text": "Đi xuyên qua khu rừng đó,"
+  },
+  {
+   "i": 16,
+   "start": 31.568,
+   "end": 33.86,
+   "speaker": "B",
+   "text": "họ mới nhận ra mình vẫn đang ở trong hang."
+  },
+  {
+   "i": 17,
+   "start": 35.022,
+   "end": 36.985,
+   "speaker": "B",
+   "text": "Ủa rồi cây cối sống kiểu gì?"
+  },
+  {
+   "i": 18,
+   "start": 37.634,
+   "end": 38.886,
+   "speaker": "B",
+   "text": "Ở dưới đất lấy đâu ra nắng?"
+  },
+  {
+   "i": 19,
+   "start": 40.208,
+   "end": 42.119,
+   "speaker": "B",
+   "text": "Chuyện là từ rất lâu trước đây,"
+  },
+  {
+   "i": 21,
+   "start": 42.777,
+   "end": 44.263,
+   "speaker": "B",
+   "text": "một phần mái hang bị sụp xuống,"
+  },
+  {
+   "i": 22,
+   "start": 44.814,
+   "end": 46.398,
+   "speaker": "B",
+   "text": "tạo thành một khoảng trống khổng lồ."
+  },
+  {
+   "i": 23,
+   "start": 47.387,
+   "end": 48.589,
+   "speaker": "B",
+   "text": "Ánh sáng mặt trời lọt vô,"
+  },
+  {
+   "i": 24,
+   "start": 48.953,
+   "end": 50.226,
+   "speaker": "B",
+   "text": "cây cối dần phát triển,"
+  },
+  {
+   "i": 25,
+   "start": 50.737,
+   "end": 52.942,
+   "speaker": "B",
+   "text": "rồi hình thành cả một khu rừng ngay trong lòng hang."
+  },
+  {
+   "i": 26,
+   "start": 53.73,
+   "end": 55.992,
+   "speaker": "B",
+   "text": "Người ta gọi khu vực này là Vườn Địa Đàng."
+  },
+  {
+   "i": 28,
+   "start": 57.118,
+   "end": 58.262,
+   "speaker": "B",
+   "text": "Mà tao khoái nhất một chi tiết."
+  },
+  {
+   "i": 29,
+   "start": 59.148,
+   "end": 60.061,
+   "speaker": "B",
+   "text": "Để vươn tới ánh sáng,"
+  },
+  {
+   "i": 30,
+   "start": 60.579,
+   "end": 61.988,
+   "speaker": "B",
+   "text": "nhiều cây trong đó mọc rất cao,"
+  },
+  {
+   "i": 31,
+   "start": 62.616,
+   "end": 65.103,
+   "speaker": "B",
+   "text": "nhưng thân lại khá nhỏ so với chiều cao của nó."
+  },
+  {
+   "i": 32,
+   "start": 66.102,
+   "end": 68.281,
+   "speaker": "B",
+   "text": "Tưởng tượng mày đứng giữa một khu rừng,"
+  },
+  {
+   "i": 34,
+   "start": 68.829,
+   "end": 71.695,
+   "speaker": "B",
+   "text": "ngước lên thấy ánh nắng xuyên qua miệng hố khổng lồ."
+  },
+  {
+   "i": 36,
+   "start": 72.655,
+   "end": 76.047,
+   "speaker": "B",
+   "text": "Rồi nhìn quanh mới nhớ ra mình đang ở sâu trong lòng một ngọn núi."
+  },
+  {
+   "i": 38,
+   "start": 77.102,
+   "end": 79.793,
+   "speaker": "B",
+   "text": "Thế giới này đúng là còn nhiều chuyện khó tin thiệt."
+  },
+  {
+   "i": 40,
+   "start": 80.915,
+   "end": 81.512,
+   "speaker": "B",
+   "text": "Mà đôi khi,"
+  },
+  {
+   "i": 41,
+   "start": 81.737,
+   "end": 82.761,
+   "speaker": "B",
+   "text": "những nơi kỳ lạ nhất"
+  },
+  {
+   "i": 42,
+   "start": 83.116,
+   "end": 85.122,
+   "speaker": "B",
+   "text": "không nằm ở một hành tinh xa xôi nào hết."
+  },
+  {
+   "i": 43,
+   "start": 85.731,
+   "end": 86.693,
+   "speaker": "B",
+   "text": "Nó nằm ngay dưới chân mình."
+  },
+  {
+   "i": 44,
+   "start": 87.279,
+   "end": 88.96,
+   "speaker": "B",
+   "text": "Chỉ là mình chưa biết tới thôi."
+  }
+ ]
+}

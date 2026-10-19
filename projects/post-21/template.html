@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Nhạc kẹt trong đầu</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "cái đầu là máy cát-xét" (in Riso) =====
+         2 font: Bricolage Grotesque (tiêu đề) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền bạc hà, chữ chính xanh than, 1 màu nhấn: hồng huỳnh quang — bóng chữ lệch kiểu in Riso
+         Hình xuyên suốt: đầu người có máy cát-xét bên trong; đoạn 10 giây lặp hoài; cuối cùng cất vô két sắt
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Bricolage Grotesque", sans-serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #e7f3ec;
+        --ink: #1d1b3a;
+        --pink: #ff4f9a;
+        --muted: rgba(29, 27, 58, 0.6);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg);
+        background-image: radial-gradient(rgba(29,27,58,.08) 1.6px, transparent 1.8px); background-size: 22px 22px; }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .nw { white-space: nowrap; }
+      .c { text-align: center; }
+      .p { color: var(--pink); }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em; text-shadow: 6px 6px 0 rgba(255,79,154,.55); }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 206px; font-size: 80px; }
+      .card { background: #fff; border: 5px solid var(--ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--pink); }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+      .note { position: absolute; opacity: 0; }
+      .head { display: block; }
+      .chip { position: absolute; padding: 14px 26px 16px; border-radius: 40px; background: var(--ink); color: #fff; font-family: var(--disp); font-weight: 800; font-size: 44px; white-space: nowrap; opacity: 0; }
+      .chip.pk { background: var(--pink); color: var(--ink); }
+      .stamp { position: absolute; padding: 6px 26px 12px; border: 9px solid var(--pink); border-radius: 18px; color: var(--pink); font-family: var(--disp); font-weight: 800; font-size: 76px; background: rgba(231,243,236,.92); opacity: 0; white-space: nowrap; }
+
+      /* S1 */
+      #h1 { position: absolute; left: 160px; top: 520px; }
+      #play1 { left: 600px; top: 520px; } #play2 { left: 560px; top: 520px; }
+
+      /* S2 ngày dài */
+      .act { position: absolute; left: 108px; right: 108px; height: 220px; display: flex; align-items: center; gap: 30px; padding: 0 34px; box-sizing: border-box; opacity: 0; }
+      .act .k { font-family: var(--disp); font-weight: 800; font-size: 54px; white-space: nowrap; }
+      .act .sing { margin-left: auto; padding: 12px 22px 14px; border-radius: 30px 30px 30px 6px; background: var(--pink); font-family: var(--disp); font-weight: 800; font-size: 40px; white-space: nowrap; opacity: 0; }
+      #a1 { top: 420px; } #a2 { top: 680px; } #a3 { top: 940px; }
+      #stage { position: absolute; left: 108px; right: 108px; top: 420px; height: 760px; border-radius: 30px; background: var(--ink); overflow: hidden; opacity: 0; }
+      .spot { position: absolute; top: -40px; width: 260px; height: 820px; background: linear-gradient(180deg, rgba(255,79,154,.55), rgba(255,79,154,0)); transform-origin: 50% 0; clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%); }
+      #stage b { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: var(--disp); font-weight: 800; font-size: 120px; color: #fff; letter-spacing: .02em; }
+      #stage .mic { position: absolute; left: 50%; top: 300px; margin-left: -110px; }
+      #power { position: absolute; left: 50%; top: 1230px; width: 170px; height: 170px; margin-left: -85px; border-radius: 50%; background: #fff; border: 6px solid var(--ink); display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .tap { position: absolute; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; border: 8px solid var(--pink); box-sizing: border-box; opacity: 0; }
+      #still { left: 640px; top: 1270px; }
+
+      /* Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 110px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--pink); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 48px; border: 5px solid var(--ink); box-sizing: border-box; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* S4 earworm */
+      #ew { position: absolute; left: 108px; right: 108px; top: 420px; text-align: center; font-family: var(--disp); font-weight: 800; font-size: 190px; line-height: 1; opacity: 0; text-shadow: 10px 10px 0 var(--pink); }
+      #ew small { display: block; font-family: var(--body); font-weight: 700; font-size: 36px; text-shadow: none; color: var(--muted); margin-top: 18px; letter-spacing: .02em; }
+      #worm { position: absolute; left: 330px; top: 760px; opacity: 0; }
+      #loop1 { position: absolute; left: 140px; right: 140px; top: 1150px; padding: 26px 30px; display: flex; align-items: center; gap: 24px; opacity: 0; }
+      #loop1 .k { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1.08; }
+      #loop1 .k .blk { white-space: nowrap; }
+
+      /* S5 */
+      #song { position: absolute; left: 108px; right: 108px; top: 420px; padding: 28px 32px; display: flex; align-items: center; gap: 26px; opacity: 0; }
+      #song .k { font-family: var(--disp); font-weight: 800; font-size: 50px; }
+      #song .s { font-weight: 600; font-size: 30px; color: var(--muted); }
+      #song .cnt { margin-left: auto; text-align: right; font-family: var(--disp); font-weight: 800; font-size: 40px; white-space: nowrap; }
+      #song .cnt b { display: block; font-size: 80px; color: var(--pink); line-height: 1; }
+      #street { position: absolute; left: 108px; right: 108px; top: 720px; height: 540px; opacity: 0; }
+
+      /* S6 sóng nhạc */
+      #wave { position: absolute; left: 108px; right: 108px; top: 470px; height: 300px; opacity: 0; }
+      #wave .bars { position: absolute; left: 0; right: 0; top: 0; height: 240px; display: flex; align-items: center; gap: 4px; }
+      #wave .bars i { flex: 1; background: var(--ink); border-radius: 4px; opacity: .3; }
+      #wave .bars i.on { opacity: 1; background: var(--pink); }
+      #wave .t { position: absolute; left: 0; right: 0; top: 256px; display: flex; justify-content: space-between; font-weight: 700; font-size: 28px; color: var(--muted); }
+      #win10 { position: absolute; top: -20px; height: 280px; border: 6px solid var(--ink); border-radius: 16px; box-sizing: border-box; opacity: 0; }
+      #win10 b { position: absolute; left: 50%; top: -64px; transform: translateX(-50%); padding: 6px 18px 8px; border-radius: 12px; background: var(--ink); color: #fff; font-family: var(--disp); font-weight: 800; font-size: 34px; white-space: nowrap; }
+      #rep { position: absolute; left: 160px; right: 108px; top: 830px; text-align: left; font-family: var(--disp); font-weight: 800; font-size: 120px; line-height: 1; opacity: 0; }
+      #flag { position: absolute; left: 720px; top: 760px; opacity: 0; }
+      #dj { position: absolute; left: 108px; right: 108px; top: 470px; height: 760px; opacity: 0; }
+      #dj .pl { position: absolute; right: 0; top: 380px; width: 400px; padding: 26px 28px; }
+      #dj .pl .k { font-family: var(--disp); font-weight: 800; font-size: 42px; }
+      #dj .pl .e { margin-top: 12px; height: 46px; border-radius: 10px; border: 4px dashed rgba(29,27,58,.3); }
+
+      /* S7 nghiên cứu */
+      #study { position: absolute; left: 108px; right: 108px; top: 420px; padding: 30px 36px; opacity: 0; }
+      #study .k { font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1.05; margin-top: 6px; }
+      #gum { position: absolute; left: 140px; top: 780px; opacity: 0; }
+      #chart { position: absolute; left: 470px; right: 140px; top: 760px; height: 480px; display: flex; align-items: flex-end; gap: 40px; opacity: 0; }
+      #chart .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; height: 100%; justify-content: flex-end; }
+      #chart .bar { width: 100%; border: 5px solid var(--ink); border-radius: 14px 14px 0 0; box-sizing: border-box; transform-origin: 50% 100%; }
+      #chart .col span { font-weight: 700; font-size: 28px; text-align: center; white-space: nowrap; }
+      #chart .lb { position: absolute; left: 0; right: 0; top: -60px; text-align: center; font-weight: 700; font-size: 26px; color: var(--muted); }
+
+      /* S8 nhai → băng khựng */
+      #h8 { position: absolute; left: 160px; top: 480px; }
+      #chew { position: absolute; left: 690px; top: 900px; opacity: 0; }
+      #glitch { left: 300px; top: 1220px; }
+
+      /* S9 */
+      #tip { position: absolute; left: 108px; right: 108px; top: 760px; padding: 36px 40px; opacity: 0; }
+      #tip .k { font-family: var(--disp); font-weight: 800; font-size: 58px; line-height: 1.06; margin-top: 8px; }
+      #tip .k .blk { white-space: nowrap; }
+      #notInst { position: absolute; left: 108px; right: 108px; top: 440px; padding: 28px 34px; display: flex; align-items: center; gap: 24px; opacity: 0; }
+      #notInst .k { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1.08; }
+      #notInst .k .blk { white-space: nowrap; }
+
+      /* S10 bộ nhớ */
+      .mem { position: absolute; left: 108px; right: 108px; height: 200px; display: flex; align-items: center; gap: 28px; padding: 0 34px; box-sizing: border-box; opacity: 0; }
+      .mem .k { font-family: var(--disp); font-weight: 800; font-size: 50px; white-space: nowrap; }
+      .mem .s { font-weight: 600; font-size: 28px; color: var(--muted); }
+      #m1 { top: 420px; } #m2 { top: 650px; }
+      #m1 .stamp, #m2 .stamp { position: static; margin-left: auto; font-size: 50px; padding: 2px 18px 6px; border-width: 7px; transform: rotate(-8deg); }
+      #safe { position: absolute; left: 108px; right: 108px; top: 900px; height: 420px; display: flex; align-items: center; gap: 34px; padding: 0 40px; box-sizing: border-box; opacity: 0; }
+      #safe .k { font-family: var(--disp); font-weight: 800; font-size: 50px; line-height: 1.06; }
+      #safe .k .blk { white-space: nowrap; }
+      #keep { left: 250px; top: 1250px; transform: rotate(-6deg); font-size: 50px; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(29, 27, 58, 0.9); text-shadow: 0 2px 6px rgba(0,0,0,.3); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post21" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+
+      <!-- S1 · Nghe 1 lần, não bật lại cả ngày -->
+      <div class="clip scene" id="s1" data-start="0" data-duration="4.6" data-track-index="1"><div class="in" id="s1-in">
+        <div class="safe h c tt"><span class="blk">Nghe đúng</span><span class="blk p">một lần…</span></div>
+        <div id="h1">{{HEAD}}</div>
+        <div id="notes1"></div>
+        <div class="chip" id="play1">▶ 1 lần</div>
+        <div class="chip pk" id="play2">↻ cả ngày</div>
+      </div></div>
+
+      <!-- S2 · Làm việc, ăn cơm, đi ngủ — nó hát -->
+      <div class="clip scene" id="s2" data-start="4.55" data-duration="10.15" data-track-index="1"><div class="in" id="s2-in">
+        <div class="card act" id="a1">{{IC_LAPTOP}}<span class="k">Đang làm việc</span><span class="sing">♪ la la</span></div>
+        <div class="card act" id="a2">{{IC_BOWL}}<span class="k">Đang ăn cơm</span><span class="sing">♪ la la</span></div>
+        <div class="card act" id="a3">{{IC_BED}}<span class="k">Chuẩn bị ngủ</span><span class="sing">♪ la la</span></div>
+        <div id="stage"><i class="spot" style="left:60px;transform:rotate(-14deg)"></i><i class="spot" style="right:60px;transform:rotate(14deg)"></i><b>LIVESHOW</b>
+          <svg class="mic" width="220" height="380" viewBox="0 0 44 76" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><rect x="12" y="4" width="20" height="32" rx="10" fill="#ff4f9a" stroke="#ff4f9a"/><path d="M6 28a16 16 0 0 0 32 0M22 44v28M12 72h20"/></svg></div>
+        <div id="power">{{IC_POWER}}</div>
+        <div class="tap" id="tp1" style="left:540px;top:1315px"></div>
+        <div class="chip pk" id="still">vẫn hát ♪</div>
+      </div></div>
+
+      <!-- S3 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s3" data-start="14.65" data-duration="3.95" data-track-index="1"><div class="in" id="s3-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S4 · Earworm -->
+      <div class="clip scene" id="s4" data-start="18.55" data-duration="5.95" data-track-index="1"><div class="in" id="s4-in">
+        <div class="safe lab c" style="top:300px">Hiện tượng này tên là</div>
+        <div id="ew">earworm<small>dịch sát: “con sâu trong tai”</small></div>
+        <svg id="worm" width="420" height="300" viewBox="0 0 140 100" fill="none" stroke-linecap="round">
+          <path d="M20 70c0-30 30-50 55-45 20 4 30 22 22 36-6 10-20 10-24 2" stroke="#1d1b3a" stroke-width="7"/>
+          <path d="M60 78c10 8 30 8 42-4 10-10 22-12 30-6" stroke="#ff4f9a" stroke-width="16"/>
+          <circle cx="132" cy="68" r="3" fill="#1d1b3a"/><path d="M118 52a16 16 0 0 1 26 4" stroke="#1d1b3a" stroke-width="4"/><rect x="114" y="54" width="8" height="12" rx="3" fill="#1d1b3a"/><rect x="140" y="58" width="8" height="12" rx="3" fill="#1d1b3a"/>
+        </svg>
+        <div class="card" id="loop1">{{IC_LOOP}}<div class="k"><span class="blk">Một đoạn nhạc</span><span class="blk p">tự lặp trong đầu</span></div></div>
+      </div></div>
+
+      <!-- S5 · Đâu cần thích · nghe trúng ngoài đường -->
+      <div class="clip scene" id="s5" data-start="24.45" data-duration="7.2" data-track-index="1"><div class="in" id="s5-in">
+        <div class="card" id="song">{{IC_THUMB}}<div><div class="k">Bài này</div><div class="s">mày: hổng thích</div></div><div class="cnt">đã lặp<b id="cnt">1</b></div></div>
+        <svg id="street" viewBox="0 0 864 540" fill="none" stroke="#1d1b3a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M0 500H864" />
+          <path d="M40 500V230l120-70 120 70v270" fill="#fff"/><rect x="80" y="300" width="160" height="120" rx="8" fill="#ff4f9a"/><path d="M60 230h200" />
+          <g transform="translate(250 300)"><rect x="-26" y="-50" width="52" height="90" rx="10" fill="#1d1b3a"/><circle cy="-18" r="14" fill="#e7f3ec"/><circle cy="20" r="9" fill="#e7f3ec"/></g>
+          <g id="snotes" fill="#ff4f9a" stroke="none" font-family="Bricolage Grotesque" font-weight="800" font-size="60"><text x="300" y="250">♪</text><text x="380" y="210">♫</text><text x="460" y="260">♪</text></g>
+          <g id="walker" transform="translate(540 500)"><circle cy="-130" r="20" fill="#1d1b3a" stroke="none"/><path d="M0 -110V-50M0 -50l-20 50M0 -50l20 50M0 -95l-22 30M0 -95l22 30"/></g>
+          <path d="M680 500V300l90-60 90 60v200" fill="#fff"/><rect x="745" y="400" width="50" height="100" fill="#1d1b3a"/>
+        </svg>
+      </div></div>
+
+      <!-- S6 · Chọn đúng 10 giây · lặp tới khi đầu hàng · DJ quên danh sách nhạc -->
+      <div class="clip scene" id="s6" data-start="31.6" data-duration="9.65" data-track-index="1"><div class="in" id="s6-in">
+        <div class="safe h c tt" id="s6-h"><span class="blk">Không phát</span><span class="blk p">nguyên bài</span></div>
+        <div id="wave"><div class="bars" id="bars"></div><div class="t"><span>0:00</span><span>3:30</span></div><div id="win10"><b>10 giây</b></div></div>
+        <div id="rep">↻ <span id="repn">x1</span></div>
+        <svg id="flag" width="220" height="300" viewBox="0 0 44 60" fill="none" stroke="#1d1b3a" stroke-width="3" stroke-linejoin="round"><path d="M6 4v54"/><path d="M6 6c10-4 18 4 30 0v20c-12 4-20-4-30 0z" fill="#fff"/></svg>
+        <div id="dj">
+          <svg width="480" height="420" viewBox="0 0 120 105" fill="none" stroke="#1d1b3a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" style="position:absolute;left:0;top:300px">
+            <rect x="4" y="60" width="112" height="40" rx="6" fill="#fff"/><circle id="vinyl" cx="38" cy="58" r="26" fill="#1d1b3a"/><circle cx="38" cy="58" r="7" fill="#ff4f9a" stroke="none"/><path d="M80 70h24M80 82h16"/>
+            <circle cx="60" cy="18" r="11" fill="#1d1b3a"/><path d="M48 16a12 12 0 0 1 24 0" stroke="#ff4f9a" stroke-width="5"/><path d="M60 30v20M60 36l-14 14M60 36l14 10"/></svg>
+          <div class="card pl"><div class="lab">Danh sách nhạc</div><div class="k">(trống trơn)</div><div class="e"></div><div class="e"></div></div>
+        </div>
+      </div></div>
+
+      <!-- S7 · Có cách giảm? Nghiên cứu: nhai kẹo cao su -->
+      <div class="clip scene" id="s7" data-start="41.2" data-duration="8.75" data-track-index="1"><div class="in" id="s7-in">
+        <div class="card" id="study"><div class="lab">Có một nghiên cứu</div><div class="k">Nhai kẹo cao su →<br><span class="p">nhạc tự lặp giảm đi</span></div></div>
+        <svg id="gum" width="280" height="380" viewBox="0 0 56 76" fill="none" stroke="#1d1b3a" stroke-width="3" stroke-linejoin="round"><rect x="6" y="6" width="44" height="64" rx="6" fill="#ff4f9a"/><path d="M6 26h44M6 50h44"/><rect x="14" y="32" width="28" height="12" rx="3" fill="#fff"/></svg>
+        <div id="chart"><div class="lb">mức nhạc tự lặp (minh họa)</div>
+          <div class="col"><div class="bar" id="bA" style="height:330px;background:#1d1b3a"></div><span>Không nhai</span></div>
+          <div class="col"><div class="bar" id="bB" style="height:170px;background:#ff4f9a"></div><span>Có nhai</span></div></div>
+      </div></div>
+
+      <!-- S8 · Nhai làm gián đoạn quá trình "tưởng tượng lại" âm thanh -->
+      <div class="clip scene" id="s8" data-start="49.9" data-duration="7.75" data-track-index="1"><div class="in" id="s8-in">
+        <div class="safe h c tt"><span class="blk">Nhai =</span><span class="blk p">chen ngang băng nhạc</span></div>
+        <div id="h8">{{HEAD}}</div>
+        <svg id="chew" width="200" height="140" viewBox="0 0 50 35" fill="none" stroke="#ff4f9a" stroke-width="4" stroke-linecap="round"><path d="M6 10l8 4M4 20h10M6 30l8-4"/><circle cx="34" cy="18" r="12" fill="#ff4f9a" stroke="#1d1b3a" stroke-width="3"/></svg>
+        <div class="chip" id="glitch">băng khựng lại!</div>
+      </div></div>
+
+      <!-- S9 · Không phải nhai là hết liền · thử coi sao -->
+      <div class="clip scene" id="s9" data-start="57.6" data-duration="8.0" data-track-index="1"><div class="in" id="s9-in">
+        <div class="card" id="notInst">{{IC_WARN}}<div class="k"><span class="blk">Không phải nhai</span><span class="blk p">là hết liền nha</span></div></div>
+        <div class="card" id="tip"><div class="lab">Mẹo nhỏ</div><div class="k"><span class="blk">Bị nhạc chiếm đầu?</span><span class="blk p">Thử nhai kẹo coi sao</span></div></div>
+      </div></div>
+
+      <!-- S10 · Não ngộ: quên bài học, quên mật khẩu, giữ kỹ đoạn nhạc -->
+      <div class="clip scene" id="s10" data-start="65.55" data-duration="{{END_DUR}}" data-track-index="1"><div class="in" id="s10-in">
+        <div class="safe h c tt" id="s10-h"><span class="blk">Não người</span><span class="blk p">ngộ thiệt</span></div>
+        <div class="card mem" id="m1">{{IC_BOOK}}<div><div class="k">Bài học cần nhớ</div></div><span class="stamp">QUÊN</span></div>
+        <div class="card mem" id="m2">{{IC_KEY}}<div><div class="k">Mật khẩu mới đổi</div><div class="s">••••••••</div></div><span class="stamp">QUÊN</span></div>
+        <div class="card" id="safe">{{IC_SAFE}}<div class="k"><span class="blk">Đoạn nhạc nghe ké</span><span class="blk p">ngoài tiệm</span></div></div>
+        <div class="stamp" id="keep">GIỮ KỸ · tài sản thừa kế</div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // nốt nhạc bay vô tai (S1)
+      const n1 = document.getElementById("notes1");
+      ["♪", "♫", "♪", "♫"].forEach((ch, k) => n1.insertAdjacentHTML("beforeend", `<span class="note h" id="nn${k}" style="left:${860 - k * 10}px;top:${640 + k * 30}px;font-size:90px;color:#ff4f9a;text-shadow:none">${ch}</span>`));
+      // sóng nhạc 60 vạch; đoạn 10 giây = vạch 12–15 (≈ 0:42–0:52)
+      const bars = document.getElementById("bars");
+      for (let k = 0; k < 60; k++) bars.insertAdjacentHTML("beforeend", `<i id="bb${k}" style="height:${30 + Math.abs(Math.sin(k * 1.7) * 150) + (k % 5) * 12}px"></i>`);
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.2, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const spin = (sel, at, d, turns = 6) => tl.fromTo(sel, { rotation: 0 }, { rotation: 360 * turns, duration: d, ease: "none", transformOrigin: "50% 50%" }, at);
+      const tap = (sel, at) => tl.fromTo(sel, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.5, duration: 0.45, ease: "power2.out", immediateRender: false }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+
+      // ---------- Cảnh: lướt ngang như đổi bài ----------
+      [["#s1-in", 0, 4.6], ["#s2-in", 4.55, 14.7], ["#s3-in", 14.65, 18.6], ["#s4-in", 18.55, 24.5], ["#s5-in", 24.45, 31.65], ["#s6-in", 31.6, 41.25],
+       ["#s7-in", 41.2, 49.95], ["#s8-in", 49.9, 57.65], ["#s9-in", 57.6, 65.6], ["#s10-in", 65.55, 99]].forEach(([s, a, b], i) => {
+        if (i) tl.fromTo(s, { opacity: 0, x: 90 }, { opacity: 1, x: 0, duration: 0.32, ease: E }, a + 0.02);
+        if (b < 99) tl.to(s, { opacity: 0, x: -90, duration: 0.16, ease: "power2.in" }, b - 0.18);
+      });
+
+      // ===== S1 =====
+      up("#s1-in .tt", 0.1, 0.45, 24);
+      tl.fromTo("#h1", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 0.15);
+      [0, 1, 2, 3].forEach((k) => tl.fromTo("#nn" + k, { opacity: 1, x: 0, y: 0 }, { opacity: 0, x: -480, y: -60 + k * 20, duration: 1.0, ease: "power1.in", immediateRender: false }, 0.6 + k * 0.25));
+      pop("#play1", 0.9, 0.6);
+      swapTxt("#play1", "#play2", 2.6);
+      spin("#h1 .reel", 2.65, 2.0, 5);
+      tl.fromTo("#h1 .deck", { scale: 1 }, { scale: 1.06, transformOrigin: "50% 50%", duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 2.7);
+
+      // ===== S2 =====
+      [["#a1", 5.15, 6.0], ["#a2", 7.35, 8.2]].forEach(([a, at, s]) => { tl.fromTo(a, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.6)" }, at); pop(a + " .sing", s, 0.5); });
+      tl.fromTo("#a3", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.6)" }, 9.45);
+      tl.to(["#a1", "#a2", "#a3"], { opacity: 0, duration: 0.2 }, 10.6);
+      tl.fromTo("#stage", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 10.7);
+      tl.fromTo("#stage .spot", { rotation: (i) => (i ? 14 : -14) }, { rotation: (i) => (i ? -10 : 10), duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 10.9);
+      pop("#power", 12.5, 0.6);
+      [12.75, 13.25, 13.75].forEach((t) => { tap("#tp1", t); tl.fromTo("#power", { scale: 1 }, { scale: 0.9, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, t); });
+      pop("#still", 13.95, 0.5);
+
+      // ===== S3 · Sáu =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 14.8);
+      up("#s4-name", 16.0, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 16.55); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 16.55);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 16.6);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 17.05); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 17.05);
+      pop("#follow", 17.3, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 17.85);
+      swapTxt("#f1", "#f2", 17.95); tl.to("#follow", { backgroundColor: "#ffffff", duration: 0.2 }, 17.95);
+
+      // ===== S4 · earworm =====
+      tl.fromTo("#ew", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 19.9);
+      tl.fromTo("#worm", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 20.4);
+      tl.fromTo("#worm", { rotation: 0 }, { rotation: 6, duration: 0.25, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 20.8);
+      tl.fromTo("#loop1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 21.5);
+      spin("#loop1 svg", 21.9, 2.0, 2);
+
+      // ===== S5 · Đâu cần thích · nghe trúng ngoài đường =====
+      tl.fromTo("#song", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 24.7);
+      const c5 = { v: 1 };
+      tl.fromTo(c5, { v: 1 }, { v: 37, duration: 6.5, ease: "power1.in", onUpdate: () => (document.getElementById("cnt").textContent = Math.round(c5.v)) }, 25.0);
+      tl.fromTo("#street", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 27.6);
+      tl.fromTo("#snotes text", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.15 }, 27.9);
+      tl.fromTo("#walker", { x: 0 }, { x: 140, duration: 1.4, ease: "none" }, 28.2);
+      tl.to("#snotes", { x: 260, duration: 1.4, ease: "none" }, 28.2);
+      tl.fromTo("#walker", { y: 0 }, { y: -6, duration: 0.15, repeat: 9, yoyo: true, immediateRender: false }, 28.2);
+
+      // ===== S6 · 10 giây lặp · đầu hàng · DJ =====
+      up("#s6-h", 32.0, 0.4, 24);
+      tl.fromTo("#wave", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 32.3);
+      tl.fromTo("#bars i", { scaleY: 0.1 }, { scaleY: 1, duration: 0.25, stagger: 0.01, ease: "power2.out" }, 32.3);
+      tl.set("#win10", { left: 12 * 14.4 - 6, width: 4 * 14.4 + 12 }, 33.8);
+      tl.fromTo("#win10", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 33.9);
+      for (let k = 12; k < 16; k++) tl.set("#bb" + k, { opacity: 1, backgroundColor: "#ff4f9a" }, 34.0);
+      tl.fromTo("#rep", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 35.3);
+      const r6 = { v: 1 };
+      tl.fromTo(r6, { v: 1 }, { v: 99, duration: 1.8, ease: "power2.in", onUpdate: () => (document.getElementById("repn").textContent = "x" + Math.round(r6.v)) }, 35.3);
+      tl.fromTo("#flag", { opacity: 0, rotation: -20, transformOrigin: "10% 100%" }, { opacity: 1, rotation: 0, duration: 0.4, ease: "back.out(2)" }, 36.4);
+      tl.to(["#wave", "#rep", "#flag", "#s6-h"], { opacity: 0, duration: 0.2 }, 37.7);
+      tl.fromTo("#dj", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 37.85);
+      tl.fromTo("#vinyl", { rotation: 0 }, { rotation: 720, svgOrigin: "38 58", duration: 3.0, ease: "none" }, 38.0);
+      tl.fromTo("#dj .pl", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2)" }, 39.2);
+
+      // ===== S7 · Nghiên cứu =====
+      tl.fromTo("#study", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 43.85);
+      tl.fromTo("#gum", { opacity: 0, y: 40, rotation: -10 }, { opacity: 1, y: 0, rotation: -4, duration: 0.45, ease: "back.out(2)" }, 45.7);
+      tl.fromTo("#chart", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 47.3);
+      tl.fromTo("#bA", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: E }, 47.4);
+      tl.fromTo("#bB", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: E }, 48.3);
+
+      // ===== S8 · Nhai làm băng khựng =====
+      tl.fromTo("#h8", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.45, ease: E }, 50.0);
+      spin("#h8 .reel", 50.0, 3.4, 6);
+      tl.fromTo("#chew", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 53.6);
+      tl.fromTo("#h8 .mouth", { y: 0 }, { y: 6, duration: 0.18, yoyo: true, repeat: 11, immediateRender: false }, 53.6);
+      tl.fromTo("#h8 .deck", { x: 0 }, { x: 5, duration: 0.05, yoyo: true, repeat: 19, immediateRender: false }, 54.4);
+      tl.fromTo("#h8 .tape", { y: 0 }, { y: 28, duration: 0.6, ease: "bounce.out" }, 54.6);
+      pop("#glitch", 55.0, 0.5);
+
+      // ===== S9 =====
+      tl.fromTo("#notInst", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 58.3);
+      tl.fromTo("#tip", { opacity: 0, y: 40, rotation: 2 }, { opacity: 1, y: 0, rotation: -1, duration: 0.45, ease: "back.out(1.6)" }, 61.2);
+
+      // ===== S10 · ngộ thiệt =====
+      up("#s10-h", 65.8, 0.4, 24);
+      tl.fromTo("#m1", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.6)" }, 68.1);
+      stampIn("#m1 .stamp", 69.2, -8);
+      tl.fromTo("#m2", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.6)" }, 70.5);
+      stampIn("#m2 .stamp", 71.75, -8);
+      tl.fromTo("#safe", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.4)" }, 73.0);
+      stampIn("#keep", 75.3, -6);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post21"] = tl;
+    </script>
+  </body>
+</html>

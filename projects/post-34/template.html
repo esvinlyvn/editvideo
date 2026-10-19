@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Nếu loài người biến mất</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Một thành phố tua nhanh": một mặt cắt thành phố có camera + thanh thời gian =====
+         Trái → phải: nhà máy điện · trạm bơm nước · nhà ở vùng ẩm · cao ốc · cây cầu qua sông · công trình đá trong sa mạc.
+         Dưới đất: đường cống, rồi các lớp đất đá (có một lớp "dấu vết con người").
+         Thời gian chỉ ghi ước lượng (vài ngày → hàng ngàn năm), không đưa mốc năm cụ thể.
+         2 font: Josefin Sans (tiêu đề) · Be Vietnam Pro. Chữ đá #212529 + nhấn xanh lá mọc lại #6a9b14. */
+      :root { --disp: "Josefin Sans", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #212529; --acc: #6a9b14; --bg: #e9ecef; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(233,236,239,.95) 0, rgba(233,236,239,.75) 300px, rgba(233,236,239,0) 560px); }
+      #dim { position: absolute; inset: 0; background: rgba(233,236,239,.9); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.1; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 66px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #6c757d; white-space: nowrap; }
+      .card { background: #fff; border: 4px solid var(--ink); border-radius: 22px; }
+      #clock { position: absolute; left: 108px; right: 108px; top: 400px; display: flex; justify-content: center; opacity: 0; }
+      #clock div { padding: 12px 26px 14px; border-radius: 30px; background: var(--ink); color: #fff; font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; }
+      #clock b { color: #b5e48c; }
+      .pick { display: inline-block; width: 262px; padding: 26px 0 20px; margin: 0 4px; opacity: 0; } .pick svg { width: 210px; height: 266px; } .pick .h { font-size: 40px !important; margin-top: 8px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 20px 12px; border-radius: 16px; background: #fff; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 34px; white-space: nowrap; opacity: 0; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(20, 22, 26, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post34" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgPower">Nhà máy điện</div><div class="tag" id="tgPump">Trạm bơm nước</div><div class="tag" id="tgSewer">Đường cống</div>
+        <div class="tag" id="tgLayer">Lớp dấu vết con người</div>
+        <div id="dim"></div>
+        <div id="clock"><div>Con người biến mất · <b id="clockT">ngày đầu</b></div></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Nếu mai loài người</span><span class="blk a">biến mất…</span></div>
+        <div class="safe c o0" id="picks" style="top:560px"><div class="h" style="font-size:60px"><span class="blk">Thứ nào</span><span class="blk a">tồn tại lâu hơn?</span></div>
+          <div style="margin-top:30px"><div class="card pick" id="pk1"><svg width="150" height="190" viewBox="0 0 150 190"><rect x="35" y="10" width="80" height="170" fill="#adb5bd" stroke="#212529" stroke-width="5"/><path d="M50 30h20M80 30h20M50 60h20M80 60h20M50 90h20M80 90h20M50 120h20M80 120h20" stroke="#212529" stroke-width="5"/></svg><div class="h" style="font-size:30px"><span class="blk">Tòa nhà</span></div></div><div class="card pick" id="pk2"><svg width="150" height="190" viewBox="0 0 150 190"><rect x="40" y="150" width="70" height="30" fill="#ced4da" stroke="#212529" stroke-width="5"/><path d="M55 150v-80h40v80z" fill="#dee2e6" stroke="#212529" stroke-width="5"/><circle cx="75" cy="50" r="22" fill="#dee2e6" stroke="#212529" stroke-width="5"/></svg><div class="h" style="font-size:30px"><span class="blk">Tượng đá</span></div></div><div class="card pick" id="pk3"><svg width="150" height="190" viewBox="0 0 150 190"><path d="M60 20h30v20c20 10 24 30 24 50v80c0 8-6 12-14 12H50c-8 0-14-4-14-12V90c0-20 4-40 24-50z" fill="#a5d8ff" stroke="#212529" stroke-width="5"/><rect x="58" y="8" width="34" height="16" rx="4" fill="#4dabf7" stroke="#212529" stroke-width="4"/></svg><div class="h" style="font-size:30px"><span class="blk">Chai nhựa</span></div></div></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Một thí nghiệm</span><span class="blk a">tưởng tượng</span></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Chưa thành</span><span class="blk a">rừng hoang ngay</span></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Không còn ai</span><span class="blk a">vận hành</span></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Cao ốc chống chọi</span><span class="blk a">mưa, ẩm và ăn mòn</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Hư hại nhỏ</span><span class="blk a">tích tụ dần</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Cây mọc vô khe nứt</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Tốc độ hư hại</span><span class="blk a">không giống nhau</span></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Còn</span><span class="blk a">chai nhựa?</span></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Còn lâu</span><span class="blk a">nhưng không nguyên hình</span></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Một nền văn minh khác</span><span class="blk a">ghé Trái Đất</span></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Dấu vết vẫn còn</span><span class="blk a">trong lớp đất đá</span></div>
+        <div class="safe h c tt o0" id="t12"><span class="blk">Nhìn thành phố</span><span class="blk a">khác hẳn</span></div>
+        <div class="safe h c tt o0" id="t13"><span class="blk">Cây cầu đứng vững</span><span class="blk a">nhờ người bảo trì</span></div>
+        <div class="safe c o0" id="days" style="top:196px"><div class="lab">thành phố được duy trì</div><div class="h a" style="font-size:110px"><span class="blk">từng ngày</span></div></div>
+        <div class="safe h c tt o0" id="t14"><span class="blk">Thứ nhớ con người</span><span class="blk a">lâu nhất?</span></div>
+        <div class="safe c o0" id="photos" style="top:420px"><div class="card" style="display:inline-block;padding:24px 30px;position:relative"><div style="display:grid;grid-template-columns:repeat(3,150px);gap:12px"><i class="ph"></i><i class="ph"></i><i class="ph"></i><i class="ph"></i><i class="ph"></i><i class="ph"></i></div><div class="lab" style="margin-top:14px">hình đăng lên mạng</div></div></div>
+        <style>.ph { display: block; height: 150px; border-radius: 12px; background: linear-gradient(#a5d8ff 0 55%, #b2f2bb 55%); border: 3px solid #212529; }</style>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const INK = "#212529", ACC = "#6a9b14", GY = 1300, LIT = "#ffd43b";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      let seed = 6; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const win = (x, y, w, h, nx, ny) => { let s = ""; for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) s += `<rect class="wn" x="${x + 14 + i * ((w - 28) / nx)}" y="${y + 20 + j * ((h - 40) / ny)}" width="${(w - 28) / nx - 14}" height="${(h - 40) / ny - 16}" fill="${LIT}"/>`; return s; };
+      const vine = (x, y, h, id) => `<g class="vine" id="${id}"><path d="M${x} ${y}c-20-${h * 0.2} 20-${h * 0.4} 0-${h * 0.6}s20-${h * 0.3} 0-${h * 0.4}" stroke="#40916c" stroke-width="10" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>${[...Array(6)].map((_, k) => `<ellipse class="leaf" cx="${x + (k % 2 ? 16 : -16)}" cy="${y - (k + 1) * h / 7}" rx="18" ry="10" fill="${ACC}" opacity="0"/>`).join("")}</g>`;
+      const person = (x, c) => `<g class="ppl"><g transform="translate(${x} ${GY})"><circle cy="-56" r="12" fill="#f1c7a3" stroke="${INK}" stroke-width="3"/><path d="M-12 0l3-42h18l3 42z" fill="${c}" stroke="${INK}" stroke-width="3"/></g></g>`;
+      const worker = (x, y, s = 1) => `<g class="wk"><g transform="translate(${x} ${y}) scale(${s})"><circle cy="-58" r="13" fill="#f1c7a3" stroke="${INK}" stroke-width="3"/><path d="M-16-64a16 12 0 0 1 32 0z" fill="#ffd43b" stroke="${INK}" stroke-width="3"/><path d="M-14 0l3-44h22l3 44z" fill="#f76707" stroke="${INK}" stroke-width="3"/><path d="M12-30l24-16" stroke="${INK}" stroke-width="5"/></g></g>`;
+
+      const sky = `<rect x="-5000" y="-5000" width="14000" height="${5000 + GY}" fill="url(#gSky)"/><g id="sunG"><circle cx="400" cy="350" r="70" fill="#ffd8a8"/></g>`;
+      const power = `<g id="power"><rect x="-1150" y="${GY - 380}" width="420" height="380" fill="#868e96" stroke="${INK}" stroke-width="6"/>${[-1100, -960].map((x) => `<path d="M${x} ${GY - 380}l20-320h60l20 320z" fill="#adb5bd" stroke="${INK}" stroke-width="6"/><g class="smoke"><circle cx="${x + 50}" cy="${GY - 740}" r="40" fill="#dee2e6"/><circle cx="${x + 80}" cy="${GY - 800}" r="50" fill="#e9ecef"/></g>`).join("")}<g class="pwrLit">${win(-1150, GY - 360, 420, 300, 5, 3)}</g><path d="M-730 ${GY - 300}H600" stroke="${INK}" stroke-width="4" id="wire"/></g>`;
+      const pump = `<g id="pump"><rect x="-600" y="${GY - 260}" width="300" height="260" fill="#74c0fc" stroke="${INK}" stroke-width="6"/><circle cx="-450" cy="${GY - 140}" r="60" fill="#fff" stroke="${INK}" stroke-width="6"/><g id="pumpWheel"><path d="M-450 ${GY - 196}v112M-506 ${GY - 140}h112" stroke="${INK}" stroke-width="8"/></g><g id="rust" opacity="0">${[...Array(10)].map(() => `<circle cx="${-590 + rnd() * 280}" cy="${GY - 250 + rnd() * 240}" r="${8 + rnd() * 14}" fill="#c2410c" opacity=".7"/>`).join("")}</g><g id="leak" opacity="0"><path d="M-300 ${GY - 60}c40 0 50 60 120 60" stroke="#4dabf7" stroke-width="16" fill="none"/></g></g>`;
+      const house = `<g id="house"><g id="roofW"><g id="roof"><path d="M-160 ${GY - 260}l200-150 200 150z" fill="#e8590c" stroke="${INK}" stroke-width="6"/></g></g><rect x="-140" y="${GY - 260}" width="360" height="260" fill="#fff3bf" stroke="${INK}" stroke-width="6"/><g class="hLit">${win(-140, GY - 250, 360, 220, 3, 1)}</g><g id="moss" opacity="0">${[...Array(14)].map(() => `<circle cx="${-140 + rnd() * 360}" cy="${GY - rnd() * 260}" r="${14 + rnd() * 18}" fill="#52b788" opacity=".75"/>`).join("")}</g></g>`;
+      const tower = `<g id="tower"><g id="topW"><g id="towerTop"><rect x="420" y="250" width="320" height="250" fill="#ced4da" stroke="${INK}" stroke-width="7"/><g class="tLit">${win(420, 250, 320, 250, 4, 2)}</g><path d="M580 250v-120" stroke="${INK}" stroke-width="8"/></g></g><rect x="420" y="500" width="320" height="${GY - 500}" fill="#ced4da" stroke="${INK}" stroke-width="7"/><g class="tLit">${win(420, 500, 320, GY - 500, 4, 8)}</g>
+        <g id="cracks" fill="none" stroke="${INK}" stroke-width="5">${["M470 620l30 60-20 40 30 60", "M690 880l-30 50 20 40-30 60", "M520 1050l40 40-10 50", "M660 420l-20 50 30 30"].map((d) => `<path class="ck" d="${d}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>`).join("")}</g>
+        <g id="towerRust" opacity="0">${[...Array(16)].map(() => `<circle cx="${430 + rnd() * 300}" cy="${520 + rnd() * 740}" r="${6 + rnd() * 10}" fill="#c2410c" opacity=".6"/>`).join("")}</g>
+        ${vine(440, GY, 700, "v1")}${vine(720, GY, 900, "v2")}${vine(600, GY, 500, "v3")}</g>`;
+      const bottle = `<g id="bottle"><g transform="translate(240 ${GY})"><g id="bottleWhole"><path d="M-14-90h28v18c18 8 22 26 22 44v22c0 6-4 6-10 6h-52c-6 0-10 0-10-6v-22c0-18 4-36 22-44z" fill="#a5d8ff" stroke="${INK}" stroke-width="4"/><rect x="-16" y="-100" width="32" height="12" rx="3" fill="#4dabf7" stroke="${INK}" stroke-width="3"/></g><g id="frags" opacity="0">${[...Array(26)].map(() => `<rect class="fg" x="${-60 + rnd() * 120}" y="${-10 - rnd() * 40}" width="${4 + rnd() * 10}" height="${4 + rnd() * 8}" fill="#74c0fc" stroke="${INK}" stroke-width="1"/>`).join("")}</g></g></g>`;
+      const river = `<rect x="900" y="${GY}" width="1000" height="200" fill="#74c0fc"/>`;
+      const bridge = `<g id="bridge"><path d="M850 ${GY - 120}H1950" stroke="${INK}" stroke-width="22"/><path d="M900 ${GY - 110}C1150 ${GY - 400} 1650 ${GY - 400} 1900 ${GY - 110}" stroke="#e03131" stroke-width="16" fill="none"/>${[...Array(9)].map((_, k) => `<path d="M${1000 + k * 100} ${GY - 120}V${GY - 120 - Math.sin((k + 1) / 10 * Math.PI) * 240}" stroke="#e03131" stroke-width="5"/>`).join("")}<rect x="1360" y="${GY - 120}" width="80" height="320" fill="#868e96" stroke="${INK}" stroke-width="5"/>
+        <g id="bWorkers" opacity="0">${worker(1100, GY - 132, 0.9)}${worker(1500, GY - 132, 0.9)}${worker(1395, GY + 60, 0.8)}<g transform="translate(1750 ${GY - 132})"><rect x="-20" y="-80" width="40" height="80" fill="none" stroke="#ffd43b" stroke-width="5"/></g></g></g>`;
+      const desert = `<g id="desert"><path d="M2000 ${GY}C2300 ${GY - 80} 2600 ${GY - 40} 3600 ${GY - 60}V${GY + 30}H2000z" fill="#f4d58d"/><g id="stone"><path d="M2700 ${GY - 40}L2900 ${GY - 520}L3100 ${GY - 40}z" fill="#e9c46a" stroke="${INK}" stroke-width="7"/><path d="M2780 ${GY - 230}h240M2830 ${GY - 360}h140" stroke="#b08968" stroke-width="5"/></g><circle cx="3300" cy="420" r="80" fill="#ffd43b"/></g>`;
+      let strata = ""; [[1500, "#c9b08a"], [1700, "#b08968"], [1950, "#9c6644"], [2250, "#7f5539"], [2550, "#6b4423"]].forEach(([y, c]) => (strata += `<path d="M-5000 ${y}C-2000 ${y - 30} 1000 ${y + 30} 9000 ${y}V8000H-5000z" fill="${c}"/>`));
+      const techno = `<g id="techno"><path d="M-5000 1640C-2000 1620 1000 1660 9000 1640V1700C1000 1720 -2000 1680 -5000 1700z" fill="#8d6e63"/>${[...Array(90)].map(() => { const x = -1400 + rnd() * 5000, y = 1648 + rnd() * 40; const c = ["#74c0fc", "#adb5bd", "#e03131", "#ffd43b"][Math.floor(rnd() * 4)]; return `<rect x="${x}" y="${y}" width="${6 + rnd() * 16}" height="${4 + rnd() * 8}" fill="${c}" transform="rotate(${rnd() * 60 - 30} ${x} ${y})"/>`; }).join("")}<path id="layerGlow" d="M-5000 1640C-2000 1620 1000 1660 9000 1640V1700C1000 1720 -2000 1680 -5000 1700z" fill="none" stroke="#b5e48c" stroke-width="8" opacity="0"/></g>`;
+      const fossils = `<g id="fossils" fill="none" stroke="#f1e3c8" stroke-width="6" opacity=".85">${[[700, 1900, 46], [1520, 2080, 60], [420, 2230, 38]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/><path d="M${x} ${y}m${r * 0.62} 0a${r * 0.62} ${r * 0.62} 0 1 0 -${r * 0.31} ${r * 0.54}a${r * 0.32} ${r * 0.32} 0 1 0 0 -${r * 0.6}"/>`).join("")}<g transform="translate(1100 2030)"><path d="M-130 0H110M110 0l40-30M110 0l40 30"/>${[...Array(8)].map((_, k) => `<path d="M${-110 + k * 28} -34V34"/>`).join("")}<circle cx="-150" cy="0" r="22"/></g><g transform="translate(900 2210) rotate(-12)"><path d="M-70 0H70"/><circle cx="-80" cy="-10" r="12"/><circle cx="-80" cy="10" r="12"/><circle cx="80" cy="-10" r="12"/><circle cx="80" cy="10" r="12"/></g></g>`;
+      const cworkers = [[-450, GY], [300, GY], [620, GY], [-860, GY]].map(([x, y]) => `<g class="cw" opacity="0"><g transform="translate(${x} ${y}) scale(1.3)"><circle cy="-58" r="13" fill="#f1c7a3" stroke="${INK}" stroke-width="3"/><path d="M-16-64a16 12 0 0 1 32 0z" fill="#ffd43b" stroke="${INK}" stroke-width="3"/><path d="M-14 0l3-44h22l3 44z" fill="#f76707" stroke="${INK}" stroke-width="3"/><g class="wr"><path d="M12-34l26-22" stroke="${INK}" stroke-width="6"/><circle cx="40" cy="-58" r="7" fill="none" stroke="${INK}" stroke-width="4"/></g></g></g>`).join("");
+      const ground = `<rect x="-5000" y="${GY}" width="14000" height="200" fill="#ced4da"/>${strata}${techno}${fossils}${river}<g id="sewer"><path d="M-650 1420H1300" stroke="#495057" stroke-width="60"/><path id="sewWater" d="M-650 1432H1300" stroke="#4dabf7" stroke-width="20" opacity=".8"/><g id="clog" opacity="0"><circle cx="300" cy="1420" r="34" fill="#6b4423"/><circle cx="340" cy="1410" r="22" fill="#40916c"/></g></g>`;
+      const people = `<g id="people">${[-650, -250, 100, 330, 800, 1300, 1700].map((x, i) => person(x, ["#e03131", "#1971c2", "#2f9e44", "#f08c00"][i % 4])).join("")}</g>`;
+      const trees = `<g id="wild">${[-850, -50, 360, 830, 1250, 2050].map((x, i) => `<g class="wt"><g transform="translate(${x} ${GY})"><path d="M0 0v-110" stroke="#6b4423" stroke-width="12"/><circle cy="-150" r="${50 + (i % 3) * 14}" fill="${i % 2 ? "#40916c" : "#52b788"}" stroke="${INK}" stroke-width="4"/></g></g>`).join("")}</g>`;
+      const probe = `<g id="probe" opacity="0"><g transform="translate(1100 1000)"><ellipse rx="170" ry="44" fill="#adb5bd" stroke="${INK}" stroke-width="6"/><path d="M-80-20a80 60 0 0 1 160 0" fill="#d0ebff" stroke="${INK}" stroke-width="6"/><path id="beamP" d="M-60 40L-200 640H200L60 40z" fill="#b5e48c" opacity=".25"/></g></g><g id="drill" opacity="0"><path d="M1100 1040V1690" stroke="#495057" stroke-width="18" stroke-dasharray="30 12"/><circle cx="1100" cy="1680" r="26" fill="#ffd43b" stroke="${INK}" stroke-width="5"/></g>`;
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${GY}"><stop offset="0" stop-color="#a5d8ff"/><stop offset="1" stop-color="#f1f3f5"/></linearGradient></defs>${sky}${ground}${desert}${power}${pump}${house}${tower}${bridge}${bottle}${trees}${people}${cworkers}${probe}`;
+
+      const P = { city: CAM(300, 1100, 2100, 1150), cityZ: CAM(250, 1150, 1700, 1150), tower: CAM(580, 1300, 1200, 1533), power: CAM(-860, 1060, 900, 1000), pump: CAM(-450, 1150, 700, 1050), sewer: CAM(300, 1400, 1100, 960), house: CAM(40, 1150, 760, 1050), split: CAM(1350, 1000, 3800, 1000), bottle: CAM(240, 1250, 420, 1000), strata: CAM(1100, 1700, 1300, 1050), bridge: CAM(1400, 1150, 1300, 1000), desert: CAM(2900, 1050, 1100, 1000) };
+      let lastCam = P.city; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgPower", P.power, -940, GY - 400); place("tgPump", P.pump, -450, GY - 280); place("tgSewer", P.sewer, 300, 1380); place("tgLayer", P.strata, 1100, 1620);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.6)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const clock = (txt, at) => { tl.call(() => (document.getElementById("clockT").textContent = txt), null, at); tl.fromTo("#clock div", { scale: 1.12 }, { scale: 1, duration: 0.3, immediateRender: false }, at); };
+      tl.fromTo(".smoke", { y: 0, opacity: 0.9 }, { y: -40, opacity: 0.4, duration: 1.4, repeat: 17, yoyo: true, ease: "sine.inOut", immediateRender: false }, 0);
+      tl.fromTo("#pumpWheel", { rotation: 0, svgOrigin: "-450 1160" }, { rotation: 360 * 14, svgOrigin: "-450 1160", duration: 28, ease: "none", immediateRender: false }, 0);
+
+      // ---- 0–4.7 · nếu mai loài người biến mất
+      T("#t0", 0.2, 5.0);
+      tl.to(".wn", { fill: "#fff3bf", duration: 0.3, stagger: { each: 0.01, from: "center" }, yoyo: true, repeat: 1 }, 2.0);
+
+      // ---- 5.4–11.9 · tòa nhà chọc trời, tượng đá hay chai nhựa?
+      dimIn(5.0); tl.to("#picks", { opacity: 1, duration: 0.2 }, 5.1);
+      fadeUp("#pk1", 5.42, 0.35); fadeUp("#pk2", 6.95, 0.35); fadeUp("#pk3", 8.34, 0.35);
+      tl.fromTo(".pick", { rotation: 0 }, { rotation: 3, duration: 0.15, yoyo: true, repeat: 5, stagger: 0.1, immediateRender: false }, 10.3);
+      out("#picks", 12.4, 0.25);
+
+      // ---- 12.86–16.3 · Sáu · thí nghiệm tưởng tượng
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 12.8);
+      out("#sauBox", 14.4, 0.25);
+      T("#t1", 14.6, 17.1); dimOut(14.4); cam(P.cityZ, 14.4, 1.4);
+      tl.to(".ppl", { opacity: 0, scale: 0.4, transformOrigin: "50% 100%", duration: 0.3, stagger: 0.22 }, 15.0);
+
+      // ---- 17.4–25.7 · chưa thành rừng hoang ngay · không còn ai vận hành
+      tl.to("#clock", { opacity: 1, duration: 0.3 }, 17.3); clock("vài ngày sau", 17.4);
+      T("#t2", 17.4, 21.4);
+      T("#t3", 21.65, 26.2);
+
+      // ---- 26.5–32.9 · nhà máy điện ngừng · trạm bơm không bảo trì · cống không ai sửa
+      cam(P.power, 26.2, 0.8); fadeUp("#tgPower", 26.6, 0.3);
+      tl.to(".smoke", { opacity: 0, duration: 0.6 }, 27.2); tl.to(".wn", { fill: "#343a40", duration: 0.5, stagger: 0.004 }, 27.3);
+      out("#tgPower", 28.2, 0.2);
+      cam(P.pump, 28.3, 0.7); fadeUp("#tgPump", 28.6, 0.3); clock("vài tháng sau", 28.5);
+      tl.to("#rust", { opacity: 1, duration: 0.8 }, 29.0); tl.to("#leak", { opacity: 1, duration: 0.4 }, 29.6);
+      tl.to("#pumpWheel", { opacity: 0.4, duration: 0.3 }, 29.0);
+      out("#tgPump", 30.4, 0.2);
+      cam(P.sewer, 30.4, 0.8); fadeUp("#tgSewer", 30.8, 0.3);
+      tl.to("#clog", { opacity: 1, duration: 0.4 }, 31.3); tl.to("#sewWater", { stroke: "#6b4423", strokeWidth: 44, duration: 1.0 }, 31.5);
+      out("#tgSewer", 33.3, 0.2);
+
+      // ---- 33.6–47.7 · cao ốc: mưa, ẩm, ăn mòn, nhiệt độ → hư hại nhỏ tích tụ
+      cam(P.tower, 33.4, 1.0); clock("vài năm sau", 33.8);
+      T("#t4", 35.69, 43.8);
+      tl.to("#towerRust", { opacity: 1, duration: 2.5 }, 40.8);
+      T("#t5", 43.92, 48.3);
+      tl.to(".ck", { strokeDashoffset: 0, duration: 1.0, stagger: 0.7 }, 45.6);
+
+      // ---- 48.4–54.4 · cây mọc vô khe nứt · nước làm hư kết cấu · công trình mất khả năng sử dụng
+      T("#t6", 48.41, 54.9); clock("vài chục năm sau", 48.5);
+      tl.to(".vine path", { strokeDashoffset: 0, duration: 2.0, stagger: 0.4 }, 48.6); tl.to(".leaf", { opacity: 1, duration: 0.3, stagger: 0.08 }, 49.4);
+      tl.fromTo(".wt", { scale: 0.3, transformOrigin: "50% 100%" }, { scale: 1.4, duration: 3, ease: E, immediateRender: false }, 48.6);
+      tl.to("#towerTop", { rotation: 14, svgOrigin: "740 500", y: 30, duration: 1.4, ease: "power2.in" }, 52.2);
+
+      // ---- 55.4–62.7 · tốc độ khác nhau: nhà vùng ẩm vs công trình đá sa mạc khô
+      cam(P.house, 55.2, 0.9); T("#t7", 55.39, 63.2); clock("hàng trăm năm sau", 55.6);
+      tl.to("#moss", { opacity: 1, duration: 1.0 }, 57.6); tl.to("#roof", { rotation: -18, svgOrigin: "240 1040", y: 40, duration: 1.2, ease: "power2.in" }, 58.6);
+      cam(P.desert, 60.6, 1.0);
+      tl.fromTo("#stone", { x: 0 }, { x: 0, duration: 0.1, immediateRender: false }, 61.6);
+
+      // ---- 63.7–72.7 · chai nhựa: tồn tại rất lâu nhưng vỡ thành mảnh nhỏ
+      cam(P.bottle, 63.4, 1.0); T("#t8", 63.73, 65.2);
+      T("#t9", 65.2, 73.3); clock("hàng ngàn năm sau", 67.5);
+      tl.to("#bottleWhole", { opacity: 0, duration: 0.6 }, 69.6); tl.to("#frags", { opacity: 1, duration: 0.4 }, 69.6);
+      tl.fromTo(".fg", { x: 0, y: 0 }, { x: (i) => (i % 2 ? 1 : -1) * (20 + (i % 7) * 12), y: (i) => (i % 5) * 6, duration: 1.4, ease: E, immediateRender: false }, 69.8);
+
+      // ---- 73.67–92.2 · nền văn minh khác: không thấy thành phố nguyên vẹn nhưng thấy lớp vật liệu nhân tạo
+      cam(P.strata, 73.4, 1.2);
+      tl.to(["#tower", "#house", "#power", "#pump", "#bridge"], { opacity: 0.15, duration: 1.2 }, 73.6);
+      T("#t10", 76.07, 82.5);
+      tl.to("#probe", { opacity: 1, duration: 0.5 }, 76.6); tl.fromTo("#probe", { y: -400 }, { y: 0, duration: 1.6, ease: E, immediateRender: false }, 76.6);
+      tl.fromTo("#beamP", { opacity: 0.1 }, { opacity: 0.35, duration: 0.5, yoyo: true, repeat: 5, immediateRender: false }, 79.0);
+      tl.to("#drill", { opacity: 1, duration: 0.5 }, 82.7);
+      T("#t11", 82.67, 92.8);
+      tl.to("#layerGlow", { opacity: 1, duration: 0.5 }, 84.6); fadeUp("#tgLayer", 85.0, 0.35);
+      tl.fromTo("#layerGlow", { strokeWidth: 8 }, { strokeWidth: 16, duration: 0.5, yoyo: true, repeat: 7, immediateRender: false }, 85.4);
+      out(["#tgLayer", "#probe", "#drill"], 92.6, 0.3);
+
+      // ---- 93.4–96.4 · nhìn thành phố khác hẳn (tua lại: thành phố sống)
+      tl.to("#clock", { opacity: 0, duration: 0.3 }, 93.0);
+      cam(P.city, 93.0, 1.2);
+      tl.to(["#tower", "#house", "#power", "#pump", "#bridge"], { opacity: 1, duration: 0.6 }, 93.3);
+      tl.set(["#towerTop", "#roof"], { rotation: 0, y: 0 }, 93.3); tl.set([".vine path"], { strokeDashoffset: 1 }, 93.3); tl.set(".leaf", { opacity: 0 }, 93.3);
+      tl.set(["#towerRust", "#moss", "#rust", "#leak", "#clog"], { opacity: 0 }, 93.3); tl.set(".ck", { strokeDashoffset: 1 }, 93.3);
+      tl.to(".wn", { fill: LIT, duration: 0.6, stagger: 0.003 }, 93.6); tl.to(".smoke", { opacity: 0.9, duration: 0.6 }, 93.6); tl.to(".ppl", { opacity: 1, duration: 0.4, stagger: 0.1 }, 93.8);
+      tl.set(".wt", { scale: 1 }, 93.3);
+      T("#t12", 93.41, 96.9);
+
+      // ---- 97–104.2 · cây cầu đứng vững: kỹ sư + người kiểm tra, sửa chữa, bảo trì
+      cam(P.bridge, 96.8, 1.0); T("#t13", 97.06, 104.5);
+      tl.to("#bWorkers", { opacity: 1, duration: 0.4 }, 100.2);
+      tl.fromTo("#bWorkers .wk", { y: 0 }, { y: -8, duration: 0.3, yoyo: true, repeat: 9, stagger: 0.12, immediateRender: false }, 100.4);
+
+      // ---- 104.7–110.7 · thành phố là hệ thống được duy trì từng ngày
+      cam(P.city, 104.5, 1.2); fadeUp("#days", 104.66, 0.4); out("#days", 111.2, 0.25);
+      tl.fromTo(".cw", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: B, stagger: 0.45, immediateRender: false }, 107.8);
+      tl.fromTo(".cw .wr", { rotation: -25 }, { rotation: 25, duration: 0.25, yoyo: true, repeat: 11, transformOrigin: "0% 100%", immediateRender: false }, 108.4);
+
+      // ---- 111.7–end · thứ nhớ con người lâu nhất: không phải hình trên mạng mà là dấu vết vật chất
+      T("#t14", 111.7, 114.6);
+      dimIn(114.5); fadeUp("#photos", 114.66, 0.4);
+      tl.to(".ph", { opacity: 0, scale: 0.6, duration: 0.4, stagger: 0.2 }, 116.0);
+      out("#photos", 117.6, 0.25); dimOut(117.6);
+      cam(P.strata, 117.5, 1.4);
+      tl.to("#layerGlow", { opacity: 1, duration: 0.5 }, 118.0); fadeUp("#tgLayer", 118.2, 0.35);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post34"] = tl;
+    </script>
+  </body>
+</html>

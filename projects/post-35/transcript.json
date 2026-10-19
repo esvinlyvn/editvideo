@@ -1,0 +1,264 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 3.558,
+   "speaker": "B",
+   "text": "Ở Nhật Bản có một nhà ga xe lửa bị một cái cây mọc xuyên qua mái!"
+  },
+  {
+   "i": 1,
+   "start": 4.103,
+   "end": 6.032,
+   "speaker": "B",
+   "text": "Mà chuyện lạ không phải cái cây mọc sai chỗ."
+  },
+  {
+   "i": 2,
+   "start": 6.507,
+   "end": 8.674,
+   "speaker": "B",
+   "text": "Là người ta cố tình xây nhà ga bao quanh nó!"
+  },
+  {
+   "i": 3,
+   "start": 9.455,
+   "end": 10.396,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ đây."
+  },
+  {
+   "i": 4,
+   "start": 11.5,
+   "end": 13.8,
+   "speaker": "B",
+   "text": "Câu chuyện này xảy ra ở ga Kayashima,"
+  },
+  {
+   "i": 5,
+   "start": 14.354,
+   "end": 16.213,
+   "speaker": "B",
+   "text": "thuộc thành phố Neyagawa, Osaka."
+  },
+  {
+   "i": 6,
+   "start": 17.152,
+   "end": 20.076,
+   "speaker": "B",
+   "text": "Giữa nhà ga có một cây long não khoảng 700 năm tuổi,"
+  },
+  {
+   "i": 7,
+   "start": 20.616,
+   "end": 21.696,
+   "speaker": "B",
+   "text": "cao chừng 20 mét,"
+  },
+  {
+   "i": 8,
+   "start": 22.121,
+   "end": 24.384,
+   "speaker": "B",
+   "text": "thân cây to tới mức phải nhiều người mới ôm hết."
+  },
+  {
+   "i": 9,
+   "start": 25.408,
+   "end": 26.853,
+   "speaker": "B",
+   "text": "Hồi thập niên 1970,"
+  },
+  {
+   "i": 10,
+   "start": 27.225,
+   "end": 28.428,
+   "speaker": "B",
+   "text": "khi tuyến đường sắt được nâng cấp"
+  },
+  {
+   "i": 11,
+   "start": 28.687,
+   "end": 29.489,
+   "speaker": "B",
+   "text": "và xây trên cao,"
+  },
+  {
+   "i": 12,
+   "start": 30.151,
+   "end": 32.093,
+   "speaker": "B",
+   "text": "cái cây cổ thụ này nằm ngay khu vực thi công."
+  },
+  {
+   "i": 13,
+   "start": 32.844,
+   "end": 33.478,
+   "speaker": "B",
+   "text": "Nếu chặt đi,"
+  },
+  {
+   "i": 14,
+   "start": 33.804,
+   "end": 35.112,
+   "speaker": "B",
+   "text": "mọi chuyện chắc sẽ dễ hơn nhiều."
+  },
+  {
+   "i": 15,
+   "start": 35.92,
+   "end": 39.691,
+   "speaker": "B",
+   "text": "Nhưng người dân địa phương không muốn mất cái cây đã gắn bó với khu vực suốt nhiều thế hệ."
+  },
+  {
+   "i": 16,
+   "start": 40.747,
+   "end": 42.595,
+   "speaker": "B",
+   "text": "Và thay vì bắt cái cây nhường đường cho công trình,"
+  },
+  {
+   "i": 17,
+   "start": 43.246,
+   "end": 44.269,
+   "speaker": "B",
+   "text": "người ta đổi thiết kế"
+  },
+  {
+   "i": 18,
+   "start": 44.541,
+   "end": 45.239,
+   "speaker": "B",
+   "text": "để giữ nó lại."
+  },
+  {
+   "i": 19,
+   "start": 46.253,
+   "end": 47.686,
+   "speaker": "B",
+   "text": "Nhà ga được xây bao quanh thân cây."
+  },
+  {
+   "i": 20,
+   "start": 48.281,
+   "end": 49.709,
+   "speaker": "B",
+   "text": "Tán cây vươn lên khỏi mái,"
+  },
+  {
+   "i": 21,
+   "start": 50.091,
+   "end": 51.752,
+   "speaker": "B",
+   "text": "còn bên dưới vẫn có một ngôi đền nhỏ."
+  },
+  {
+   "i": 22,
+   "start": 52.89,
+   "end": 53.907,
+   "speaker": "B",
+   "text": "Nghĩ tới đây tui mới thấy hay."
+  },
+  {
+   "i": 23,
+   "start": 54.835,
+   "end": 57.28,
+   "speaker": "B",
+   "text": "Một bên là công trình giao thông phục vụ hàng ngàn người."
+  },
+  {
+   "i": 24,
+   "start": 58.145,
+   "end": 61.679,
+   "speaker": "B",
+   "text": "Một bên là cái cây đã đứng đó từ trước khi rất nhiều thành phố hiện đại ra đời."
+  },
+  {
+   "i": 25,
+   "start": 62.348,
+   "end": 64.64,
+   "speaker": "B",
+   "text": "Và người ta không nhất thiết phải chọn bỏ một trong hai."
+  },
+  {
+   "i": 26,
+   "start": 65.682,
+   "end": 69.49,
+   "speaker": "B",
+   "text": "Công trình sau này còn được ghi nhận bằng một giải thưởng về cảnh quan đô thị tại Osaka."
+  },
+  {
+   "i": 27,
+   "start": 70.534,
+   "end": 72.803,
+   "speaker": "B",
+   "text": "Tui tưởng tượng nếu cái cây biết nói, chắc nó sẽ nói:"
+  },
+  {
+   "i": 29,
+   "start": 73.492,
+   "end": 74.916,
+   "speaker": "B",
+   "text": "“Mấy cháu cứ xây nhà ga đi,"
+  },
+  {
+   "i": 30,
+   "start": 75.241,
+   "end": 77.804,
+   "speaker": "B",
+   "text": "ông đứng đây được 700 năm rồi, ông không chuyển nhà đâu!”"
+  },
+  {
+   "i": 31,
+   "start": 78.893,
+   "end": 79.844,
+   "speaker": "B",
+   "text": "Nhưng điều tui thích nhất"
+  },
+  {
+   "i": 32,
+   "start": 80.155,
+   "end": 81.706,
+   "speaker": "B",
+   "text": "không phải là cái cây sống lâu cỡ nào."
+  },
+  {
+   "i": 33,
+   "start": 82.616,
+   "end": 85.238,
+   "speaker": "B",
+   "text": "Mà là cách người ta giải một bài toán tưởng chỉ có hai đáp án:"
+  },
+  {
+   "i": 34,
+   "start": 85.84,
+   "end": 87.362,
+   "speaker": "B",
+   "text": "chặt cây hoặc bỏ công trình."
+  },
+  {
+   "i": 36,
+   "start": 88.222,
+   "end": 89.767,
+   "speaker": "B",
+   "text": "Hóa ra vẫn còn một đáp án thứ ba."
+  },
+  {
+   "i": 37,
+   "start": 90.547,
+   "end": 91.173,
+   "speaker": "B",
+   "text": "Xây nhà ga,"
+  },
+  {
+   "i": 38,
+   "start": 91.626,
+   "end": 92.502,
+   "speaker": "B",
+   "text": "nhưng để cái cây ở lại."
+  }
+ ]
+}

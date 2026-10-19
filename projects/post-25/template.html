@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Tập đoàn 7 dự án ma</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Tập đoàn trong đầu": một tòa nhà 7 tầng = 7 dự án, camera đi dọc tòa nhà =====
+         Mỗi tầng một dự án, đồ đã mua chất đầy nhưng đèn tắt. Ban lãnh đạo = nhân sự duy nhất (người mặc vest).
+         Mở ra: cả tòa nhà nằm trong một cái đầu. Kế hoạch "nếu – thì" = dây nối công tắc tự bật đèn tầng 01.
+         Sảnh có bảng KPI "ĐÃ MUA / ĐÃ LÀM". Kết: 6 tầng treo bảng TẠM NGHỈ, ông lãnh đạo ngồi họp một mình.
+         2 font: Unbounded (tiêu đề) · Be Vietnam Pro (phụ đề, chữ phụ). Chữ mực #26303d + nhấn xanh "đang hoạt động" #16a34a. */
+      :root { --disp: "Unbounded", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #26303d; --acc: #16a34a; --bg: #f3efe7; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(243,239,231,.96) 0, rgba(243,239,231,.82) 300px, rgba(243,239,231,0) 560px); }
+      #dim { position: absolute; inset: 0; background: rgba(243,239,231,.86); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.16; letter-spacing: -0.01em; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 206px; font-size: 52px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: #5d6876; white-space: nowrap; }
+      .card { background: #fff; border: 4px solid var(--ink); border-radius: 26px; box-shadow: 8px 8px 0 var(--ink); }
+      .pill { display: inline-block; padding: 14px 30px 16px; border-radius: 44px; font-family: var(--disp); font-weight: 700; font-size: 40px; white-space: nowrap; }
+      .chk { display: flex; align-items: center; gap: 16px; font-family: var(--disp); font-weight: 600; font-size: 32px; white-space: nowrap; margin-top: 14px; opacity: 0; }
+      .chk i { width: 44px; height: 44px; border-radius: 12px; background: var(--acc); color: #fff; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 28px; flex: none; }
+      .note { position: absolute; padding: 18px 24px 20px; background: #fff7a8; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); font-family: var(--disp); font-weight: 600; font-size: 32px; white-space: nowrap; opacity: 0; }
+      .bub { position: absolute; translate: -50% -100%; padding: 14px 24px 16px; border-radius: 26px 26px 26px 6px; background: #fff; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 800; font-size: 40px; white-space: nowrap; opacity: 0; }
+      #docs { display: grid; grid-template-columns: repeat(14, 1fr); gap: 8px; margin-top: 18px; }
+      #docs i { display: block; aspect-ratio: 3/4; border-radius: 4px; background: #fff; border: 3px solid var(--ink); opacity: 0; }
+      .slot { flex: 1; border: 4px solid var(--ink); border-radius: 20px; padding: 18px 20px; background: #fff; }
+      .slot b { display: block; font-family: var(--disp); font-weight: 800; font-size: 34px; }
+      .slot span { display: block; margin-top: 8px; font-family: var(--disp); font-weight: 600; font-size: 30px; line-height: 1.3; white-space: nowrap; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(20, 26, 34, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post25" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="bub" id="hello" style="left:420px;top:780px">Hello!</div>
+        <div class="bub" id="zzz" style="left:780px;top:860px;font-size:34px">Zzz…</div>
+        <div id="dim"></div>
+
+        <!-- HUD -->
+        <div class="safe c o0" id="hudTitle" style="top:206px"><div class="lab">Tập đoàn của tui</div><div class="h" style="font-size:64px;margin-top:10px"><span class="blk">7 dự án lớn</span></div></div>
+        <div class="safe c o0" id="hud07" style="top:206px"><div class="h" style="font-size:120px"><span class="blk">0<span class="a">/7</span></span></div><div class="lab" style="margin-top:6px">dự án đang hoạt động</div></div>
+        <div class="safe o0" id="ck1" style="top:206px"><div class="lab">Dự án 01 · Học tiếng Anh</div>
+          <div class="chk" id="ck1a"><i>✓</i>Mua khóa học</div><div class="chk" id="ck1b"><i>✓</i>Mua sách</div><div class="chk" id="ck1c"><i>✓</i>Tải ứng dụng</div></div>
+        <div class="safe o0" id="ck2" style="top:206px"><div class="lab">Dự án 02 · Tập thể dục</div>
+          <div class="chk" id="ck2a"><i>✓</i>Mua giày</div><div class="chk" id="ck2b"><i>✓</i>Mua đồ</div><div class="chk" id="ck2c"><i>✓</i>Báo thức 5:00</div></div>
+        <div class="safe o0" id="memo" style="top:220px"><div class="card" style="padding:26px 30px 30px;transform:rotate(-2deg)"><div class="lab">Quyết định của ban lãnh đạo</div>
+          <div class="h" style="font-size:46px;margin-top:12px"><span class="blk">Ngủ thêm</span><span class="blk a">vì sức khỏe</span></div></div></div>
+        <div class="safe o0" id="sav" style="top:206px"><div class="lab">Dự án 03 · Tiết kiệm tiền</div>
+          <div style="display:flex;gap:24px;margin-top:16px;font-family:var(--disp);font-weight:800;font-size:40px"><div class="card" style="flex:1;padding:16px 20px">Heo đất<br><span class="a" id="pigV">0đ</span></div><div class="card" style="flex:1;padding:16px 20px">Túi đồ<br><span id="bagV">0</span> túi</div></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1030px;font-size:72px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <div class="safe h c tt o0" id="tHead"><span class="blk">Tập đoàn</span><span class="blk a">nằm trong đầu</span></div>
+        <div class="safe c o0" id="wantDo" style="top:206px"><div style="display:flex;justify-content:center;gap:20px;align-items:center"><span class="pill" style="border:4px solid var(--ink)">Muốn làm</span><span class="h" style="font-size:52px">≠</span><span class="pill" style="background:var(--acc);color:#fff;border:4px solid var(--ink)">Làm được</span></div></div>
+        <div class="safe o0" id="research" style="top:206px"><div class="card" style="padding:26px 28px 28px"><div class="lab">2006 · Gollwitzer &amp; Sheeran</div>
+          <div class="h" style="font-size:46px;margin-top:10px"><span class="blk">Tổng hợp <span class="a" id="docN">0</span></span><span class="blk">nghiên cứu thực nghiệm</span></div><div id="docs"></div></div></div>
+        <div class="safe o0" id="ifthen" style="top:560px"><div class="h c" style="font-size:52px"><span class="blk">Kế hoạch</span><span class="blk a">“nếu – thì”</span></div>
+          <div style="display:flex;gap:18px;margin-top:30px;align-items:stretch"><div class="slot" style="padding:30px 26px"><b style="font-size:48px">NẾU</b><span style="font-size:36px">gặp tình huống…</span></div><div class="slot" style="border-color:var(--acc);padding:30px 26px"><b class="a" style="font-size:48px">THÌ</b><span style="font-size:36px">làm việc này</span></div></div></div>
+        <div class="note" id="vague" style="left:150px;top:300px;transform:rotate(-3deg)">“Từ mai tui sẽ học tiếng Anh!”</div>
+        <div class="safe c o0" id="mai" style="top:420px"><div class="card" style="display:inline-block;padding:14px 34px 18px"><div class="lab">Bắt đầu</div><div class="h" style="font-size:60px"><span class="blk" id="maiT">mai</span></div></div></div>
+        <div class="safe o0" id="spec" style="top:206px"><div style="display:flex;gap:18px;align-items:stretch">
+          <div class="slot"><b>NẾU</b><span>ăn cơm tối xong<br>lúc 8 giờ</span></div><div class="slot" style="border-color:var(--acc)"><b class="a">THÌ</b><span>ngồi vô bàn học<br>10 phút</span></div></div>
+          <div class="lab c" style="margin-top:14px">…trước khi cầm điện thoại</div></div>
+        <div class="safe o0" id="when" style="top:206px"><div style="display:flex;gap:18px"><div class="slot c"><b>KHI NÀO</b><span>8 giờ tối</span></div><div class="slot c" style="border-color:var(--acc)"><b class="a">LÀM GÌ</b><span>học 10 phút</span></div></div></div>
+        <div class="safe c o0" id="noNeg" style="top:206px"><div class="card" style="display:inline-block;padding:20px 30px 24px;position:relative"><div class="h" style="font-size:40px"><span class="blk">Thương lượng</span><span class="blk">với bản thân</span></div>
+          <svg width="420" height="140" viewBox="0 0 420 140" style="position:absolute;left:50%;top:50%;margin:-70px 0 0 -210px"><path id="negX" d="M20 120L400 20" stroke="#e5484d" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div><div class="lab" style="margin-top:16px">khỏi cần nữa</div></div>
+        <div class="safe h c tt o0" id="tKpi"><span class="blk">Đừng đo tiến độ</span><span class="blk a">bằng đồ đã mua</span></div>
+        <div class="safe h c tt o0" id="tAct"><span class="blk">Thành tích</span><span class="blk a">= hành động</span></div>
+        <div class="safe h c tt o0" id="tGhost"><span class="blk">7 dự án ma</span></div>
+        <div class="safe h c tt o0" id="tOne"><span class="blk">Chọn đúng</span><span class="blk a">một dự án</span></div>
+        <div class="safe o0" id="sched" style="top:360px"><div class="card" style="display:flex;align-items:center;gap:22px;padding:18px 24px"><div class="h" style="font-size:52px;color:var(--acc)">20:00</div><div><div class="lab">Lịch mỗi tối</div><div class="h" style="font-size:34px;margin-top:4px"><span class="blk">Học tiếng Anh 10 phút</span></div></div></div></div>
+        <div class="safe h c tt o0" id="tRest"><span class="blk">6 dự án kia</span><span class="blk a">tạm nghỉ</span></div>
+        <div class="safe c o0" id="staff" style="top:420px"><div class="card" style="display:inline-block;padding:16px 30px 20px"><div class="lab">Nhân sự toàn tập đoàn</div><div class="h" style="font-size:64px;margin-top:4px"><span class="blk">1 người</span></div></div></div>
+        <div class="safe h c tt o0" id="tMeet"><span class="blk">Đang họp</span><span class="blk a">bàn chiến lược</span></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const INK = "#26303d", ACC = "#16a34a", WALL = "#f7f3eb", FAC = "#cdd6e0", SLAB = "#8f9aa8", SKIN = "#f2c9a5";
+      const TOP = (k) => 3100 - (k - 1) * 400; // k = 1..7 tầng dự án, 8 = phòng họp
+      // camera: điểm thế giới (cx, cy) đặt ở (540, sy) trên màn hình
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const FL = (k, w = 800, sy = 880) => CAM(540, TOP(k) + 210, w, sy);
+
+      // ---------- ông "ban lãnh đạo" (nhân sự duy nhất) ----------
+      const boss = (x, y, s = 1, pose = "stand") => {
+        const head = `<circle cx="0" cy="-118" r="24" fill="${SKIN}" stroke="${INK}" stroke-width="4"/><path d="M-22-126c4-18 40-20 44 0" fill="${INK}"/><circle cx="-8" cy="-116" r="3" fill="${INK}"/><circle cx="8" cy="-116" r="3" fill="${INK}"/>`;
+        const suit = `<path d="M-26-92h52l6 62h-64z" fill="#3b4a63" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M0-92l-6 10 6 34 6-34z" fill="${ACC}"/>`;
+        const legs = `<path d="M-14-30v30M14-30v30" stroke="${INK}" stroke-width="10" stroke-linecap="round"/>`;
+        let body = "";
+        if (pose === "stand") body = legs + suit + `<path d="M-26-84l-14 44M26-84l14 44" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>` + head;
+        if (pose === "press") body = legs + suit + `<path d="M-26-84l-14 44M26-84l40-20" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>` + head;
+        if (pose === "bags") body = legs + suit + `<path d="M-26-84l-20 40M26-84l20 40" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>` + head + `<g stroke="${INK}" stroke-width="4"><rect x="-74" y="-46" width="44" height="52" rx="6" fill="#f59e0b"/><rect x="30" y="-46" width="44" height="52" rx="6" fill="#ec4899"/><rect x="40" y="-30" width="40" height="44" rx="6" fill="#60a5fa"/></g>`;
+        if (pose === "sit") body = `<path d="M-14-30h34v30M8-30v30" stroke="${INK}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>` + suit + `<path d="M26-84l36 18M-26-84l-10 40" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>` + head;
+        return `<g transform="translate(${x} ${y}) scale(${s})">${body}</g>`;
+      };
+      const sleeper = `<g><rect x="0" y="-60" width="270" height="60" rx="10" fill="#93c5fd" stroke="${INK}" stroke-width="5"/><rect x="0" y="-90" width="26" height="90" rx="6" fill="#64748b" stroke="${INK}" stroke-width="4"/><rect x="34" y="-84" width="70" height="30" rx="12" fill="#fff" stroke="${INK}" stroke-width="4"/>
+        <circle cx="70" cy="-80" r="22" fill="${SKIN}" stroke="${INK}" stroke-width="4"/><path d="M60-80h8M74-80h8" stroke="${INK}" stroke-width="4" stroke-linecap="round"/><path d="M80-70c40-14 120-14 186 0v14H80z" fill="#3b4a63" stroke="${INK}" stroke-width="4"/></g>`;
+
+      // ---------- đồ đạc từng tầng (tọa độ trong tầng: 0..720 × 0..380, sàn ở y=380) ----------
+      const tag = (x, y, t) => `<g transform="translate(${x} ${y}) rotate(-8)"><path d="M0 0h70l12 14-12 14H0z" fill="#fff" stroke="${INK}" stroke-width="3"/><text x="34" y="20" text-anchor="middle" font-family="Unbounded" font-weight="600" font-size="14" fill="${INK}">${t}</text></g>`;
+      const web = `<path d="M720 0l-70 0M720 0l0 70M720 0l-60 60M690 0q8 22 30 30M670 0q10 40 50 50" stroke="#9aa3ae" stroke-width="2" fill="none"/>`;
+      const desk = (x, w) => `<rect x="${x}" y="250" width="${w}" height="16" rx="4" fill="#b98a5e" stroke="${INK}" stroke-width="4"/><path d="M${x + 14} 266v114M${x + w - 14} 266v114" stroke="${INK}" stroke-width="7"/>`;
+      const F = {
+        1: `${desk(60, 360)}<g id="f1c"><rect x="120" y="178" width="130" height="80" rx="6" fill="#1f2937" stroke="${INK}" stroke-width="4"/><rect x="132" y="190" width="106" height="56" fill="#dbeafe"/><rect x="164" y="198" width="42" height="40" rx="10" fill="${ACC}"/><text x="185" y="225" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="14" fill="#fff">ABC</text><path d="M104 258h162" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>${tag(250, 160, "APP")}</g>
+           <g id="f1b"><rect x="300" y="226" width="96" height="24" rx="3" fill="#ef4444" stroke="${INK}" stroke-width="3"/><rect x="306" y="202" width="90" height="24" rx="3" fill="#3b82f6" stroke="${INK}" stroke-width="3"/><rect x="298" y="178" width="94" height="24" rx="3" fill="#f59e0b" stroke="${INK}" stroke-width="3"/>${tag(360, 140, "SÁCH")}</g>
+           <g id="f1a"><rect x="470" y="282" width="150" height="98" rx="6" fill="#fde68a" stroke="${INK}" stroke-width="4"/><path d="M545 282v98M470 330h150" stroke="${ACC}" stroke-width="8"/><text x="545" y="316" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="16" fill="${INK}">KHÓA HỌC</text>${tag(590, 250, "MỚI")}</g>
+           <g id="f1clock" opacity="0"><circle cx="560" cy="110" r="46" fill="#fff" stroke="${INK}" stroke-width="5"/><path d="M560 110v-30M560 110l-24 0" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><text x="560" y="182" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="22" fill="${INK}">8:00</text></g>
+           <g id="f1bowl" opacity="0"><path d="M60 236h60a30 22 0 0 1-60 0z" fill="#fff" stroke="${INK}" stroke-width="4"/></g>
+           <g id="f1phone" opacity="0"><rect x="400" y="238" width="44" height="14" rx="4" fill="#111827"/></g>
+           <g id="f1timer" opacity="0"><rect x="250" y="80" width="150" height="66" rx="14" fill="${ACC}" stroke="${INK}" stroke-width="4"/><text id="f1timerT" x="325" y="126" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="30" fill="#fff">10:00</text></g>`,
+        2: `<g id="f2a"><rect x="40" y="320" width="150" height="60" rx="6" fill="#fb923c" stroke="${INK}" stroke-width="4"/><path d="M60 320c10-30 50-30 60-6h40c10 0 14 6 14 6" fill="#fff" stroke="${INK}" stroke-width="4"/>${tag(110, 290, "GIÀY")}</g>
+           <g id="f2b"><path d="M230 100h150M250 100v280M360 100v280" stroke="${INK}" stroke-width="6"/><path d="M260 110h44l14 20-10 6v70h-52v-70l-10-6z" fill="#22d3ee" stroke="${INK}" stroke-width="4"/><path d="M310 120h40v60l-10 10h-20l-10-10z" fill="#a78bfa" stroke="${INK}" stroke-width="4"/>${tag(300, 210, "ĐỒ TẬP")}</g>
+           <g id="f2win"><rect x="430" y="50" width="170" height="120" rx="6" fill="#1e293b" stroke="${INK}" stroke-width="5"/><rect id="f2sky" x="436" y="56" width="158" height="108" fill="#fbbf24" opacity="0"/><circle id="f2sun" cx="515" cy="170" r="26" fill="#f97316" opacity="0"/><path d="M515 50v120M430 110h170" stroke="${INK}" stroke-width="5"/></g>
+           <g id="f2c"><rect x="400" y="300" width="60" height="80" fill="#cbd5e1" stroke="${INK}" stroke-width="4"/><g id="alarm"><circle cx="430" cy="270" r="30" fill="#fff" stroke="${INK}" stroke-width="5"/><text x="430" y="278" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="16" fill="#e5484d">5:00</text><circle cx="410" cy="242" r="9" fill="#e5484d"/><circle cx="450" cy="242" r="9" fill="#e5484d"/></g></g>
+           <g id="f2bed" transform="translate(470 380)">${sleeper}</g>`,
+        3: `<g id="pig"><rect x="40" y="250" width="200" height="14" fill="#b98a5e" stroke="${INK}" stroke-width="4"/><path d="M80 250c-30 0-40-60 0-80h80c40 0 50 40 40 60l-10 20z" fill="#f9a8d4" stroke="${INK}" stroke-width="5"/><circle cx="182" cy="196" r="5" fill="${INK}"/><path d="M110 168h30" stroke="${INK}" stroke-width="5"/><text x="130" y="236" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="22" fill="${INK}">0đ</text></g>
+           <g id="bags">${[[300, "#f59e0b"], [360, "#ec4899"], [420, "#60a5fa"], [480, "#a3e635"], [540, "#f97316"], [600, "#c084fc"], [330, "#22d3ee"], [400, "#fb7185"], [470, "#fde047"], [545, "#34d399"]].map(([x, c], i) => `<g class="bag"><rect x="${x}" y="${i < 6 ? 300 : 230}" width="58" height="${i < 6 ? 80 : 70}" rx="6" fill="${c}" stroke="${INK}" stroke-width="4"/><path d="M${x + 16} ${i < 6 ? 300 : 230}c0-22 26-22 26 0" fill="none" stroke="${INK}" stroke-width="4"/></g>`).join("")}</g>
+           <g id="f3boss" opacity="0">${boss(220, 380, 1, "bags")}</g>`,
+        4: `<path d="M120 380l60-110M240 380l-60-110" stroke="${INK}" stroke-width="6"/><g transform="translate(180 270) rotate(-12)"><rect x="-10" y="-200" width="20" height="150" fill="#92400e" stroke="${INK}" stroke-width="4"/><path d="M0-60c-60 0-70 40-50 70 10 16 0 34 10 50 20 30 80 30 80 0 10-16 0-34 10-50 20-30 10-70-50-70z" fill="#f59e0b" stroke="${INK}" stroke-width="5"/><circle cx="0" cy="10" r="18" fill="${INK}"/></g>${tag(240, 120, "ĐÀN")}<rect x="420" y="160" width="160" height="110" fill="#fff" stroke="${INK}" stroke-width="4"/><path d="M440 190h120M440 210h120M440 230h120" stroke="#9aa3ae" stroke-width="3"/><path d="M500 270v110" stroke="${INK}" stroke-width="6"/>`,
+        5: `${desk(140, 420)}<rect x="250" y="196" width="150" height="56" rx="6" fill="#0ea5e9" stroke="${INK}" stroke-width="4"/><path d="M250 206h150" stroke="#e0f2fe" stroke-width="4" opacity=".8"/><text x="325" y="235" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="16" fill="#fff">NHẬT KÝ</text><path d="M430 240l80-14" stroke="${INK}" stroke-width="8" stroke-linecap="round"/>${tag(360, 160, "CÒN SEAL")}`,
+        6: `<rect x="300" y="300" width="330" height="80" rx="12" fill="#c4b5fd" stroke="${INK}" stroke-width="5"/><rect x="300" y="260" width="34" height="120" rx="6" fill="#64748b" stroke="${INK}" stroke-width="4"/><rect x="350" y="276" width="90" height="34" rx="14" fill="#fff" stroke="${INK}" stroke-width="4"/><rect x="450" y="282" width="40" height="22" rx="4" fill="#38bdf8" stroke="${INK}" stroke-width="3"/><circle cx="470" cy="293" r="40" fill="#38bdf8" opacity=".25"/>
+           <rect x="80" y="90" width="150" height="70" rx="12" fill="#111827" stroke="${INK}" stroke-width="4"/><text x="155" y="138" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="30" fill="#f87171">01:30</text>`,
+        7: `<rect x="60" y="250" width="260" height="130" fill="#e5e7eb" stroke="${INK}" stroke-width="5"/><circle cx="130" cy="250" r="22" fill="#9ca3af" stroke="${INK}" stroke-width="4"/><circle cx="230" cy="250" r="22" fill="#9ca3af" stroke="${INK}" stroke-width="4"/><rect x="380" y="290" width="150" height="90" rx="6" fill="#fde68a" stroke="${INK}" stroke-width="4"/><text x="455" y="342" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="15" fill="${INK}">BỘ NỒI</text>${tag(470, 260, "MỚI")}
+           ${[0, 1, 2, 3].map((k) => `<path d="M${560 + (k % 2) * 60} ${380 - Math.floor(k / 2) * 56}l8-52h44l8 52z" fill="#fff" stroke="${INK}" stroke-width="4"/><path d="M${562 + (k % 2) * 60} ${352 - Math.floor(k / 2) * 56}h56" stroke="#ef4444" stroke-width="6"/>`).join("")}`,
+      };
+      const NAMES = { 1: "Học tiếng Anh", 2: "Tập thể dục", 3: "Tiết kiệm tiền", 4: "Học đàn", 5: "Viết nhật ký", 6: "Ngủ sớm", 7: "Học nấu ăn" };
+      const floor = (k) => { const t = TOP(k); return `<g id="fl${k}" transform="translate(140 ${t})"><rect width="720" height="380" fill="${WALL}"/>${web}
+          <g class="props" id="p${k}">${F[k]}</g>
+          <rect id="dark${k}" width="720" height="380" fill="#1d2633" opacity=".5"/>
+          <g id="ghost${k}" opacity="0"><g class="gh" transform="translate(-300 -80) scale(1.7)"><path d="M560 140c0-50 70-50 70 0v80l-12-12-12 12-12-12-12 12-10-12-12 12z" fill="#fff" stroke="${INK}" stroke-width="4" opacity=".92"/><circle cx="584" cy="150" r="5" fill="${INK}"/><circle cx="604" cy="150" r="5" fill="${INK}"/></g></g>
+          <g transform="translate(18 18)"><rect width="${120 + NAMES[k].length * 17}" height="48" rx="24" fill="#fff" stroke="${INK}" stroke-width="4"/><text x="22" y="33" font-family="Unbounded" font-weight="800" font-size="20" fill="${INK}">0${k} · ${NAMES[k].toUpperCase()}</text><circle id="lamp${k}" cx="${120 + NAMES[k].length * 17 - 26}" cy="24" r="11" fill="#9aa3ae" stroke="${INK}" stroke-width="3"/></g>
+          <g id="rest${k}" opacity="0"><path d="M300 0v50M420 0v50" stroke="${INK}" stroke-width="4"/><rect x="270" y="50" width="180" height="64" rx="10" fill="#fde047" stroke="${INK}" stroke-width="5"/><text x="360" y="92" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="22" fill="${INK}">TẠM NGHỈ</text></g></g>`; };
+
+      // phòng họp (trên cùng) & sảnh KPI (dưới cùng)
+      const meet = `<g id="meet" transform="translate(140 300)"><rect width="720" height="380" fill="#eef2f7"/><rect x="40" y="40" width="300" height="170" rx="8" fill="#fff" stroke="${INK}" stroke-width="5"/><text x="190" y="80" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="20" fill="${INK}">CHIẾN LƯỢC</text><path d="M70 180l60-40 50 20 70-60" stroke="${ACC}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M230 100h20v20" stroke="${ACC}" stroke-width="7" fill="none"/>
+        <g transform="translate(18 228)"><rect width="250" height="48" rx="24" fill="#fff" stroke="${INK}" stroke-width="4"/><text x="22" y="33" font-family="Unbounded" font-weight="800" font-size="20" fill="${INK}">PHÒNG HỌP</text></g>
+        ${[400, 470, 540, 610].map((x) => `<path d="M${x} 300v-50h40v50" fill="none" stroke="#94a3b8" stroke-width="7"/>`).join("")}<rect x="300" y="296" width="400" height="18" rx="6" fill="#b98a5e" stroke="${INK}" stroke-width="4"/><path d="M330 314v66M670 314v66" stroke="${INK}" stroke-width="7"/>
+        <g id="meetBoss" opacity="0">${boss(330, 380, 1, "sit")}</g></g>`;
+      const kpiRow = (y, icon, a, b, id) => `<g id="${id}" opacity="0">${icon}<text x="150" y="${y + 12}" font-family="Unbounded" font-weight="600" font-size="24" fill="${INK}">${a}</text><text x="520" y="${y + 12}" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="30" fill="#e5484d">${b}</text></g>`;
+      const lobby = `<g id="lobby" transform="translate(140 3500)"><rect width="720" height="380" fill="#eef2f7"/>
+        <rect x="30" y="20" width="660" height="330" rx="14" fill="#fff" stroke="${INK}" stroke-width="6"/><rect x="30" y="20" width="660" height="66" rx="14" fill="${INK}"/>
+        <g id="colBuy"><text x="190" y="64" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="24" fill="#fff">ĐÃ MUA</text></g><text id="colDo" x="520" y="64" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="24" fill="#fff">ĐÃ LÀM</text><path d="M380 86v264" stroke="${INK}" stroke-width="4"/>
+        ${kpiRow(140, `<path d="M70 150c6-24 34-24 40-6h20c6 0 8 6 8 6v8H70z" fill="#fb923c" stroke="${INK}" stroke-width="3"/>`, "Giày", "0 km", "kr1")}
+        ${kpiRow(220, `<rect x="76" y="200" width="54" height="36" rx="3" fill="#3b82f6" stroke="${INK}" stroke-width="3"/>`, "Sách", "0 trang", "kr2")}
+        ${kpiRow(300, `<rect x="84" y="276" width="34" height="50" rx="6" fill="#111827"/><rect x="92" y="288" width="18" height="18" rx="4" fill="${ACC}"/>`, "App", "0 bài", "kr3")}
+        <path id="buyX" d="M60 110L360 330" stroke="#e5484d" stroke-width="10" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <g transform="translate(18 352)"><rect width="270" height="40" rx="20" fill="#fff" stroke="${INK}" stroke-width="4"/><text x="20" y="28" font-family="Unbounded" font-weight="800" font-size="17" fill="${INK}">SẢNH · BẢNG KPI</text></g></g>`;
+      // thang máy (cột phải)
+      const elev = `<g id="elev"><rect x="866" y="300" width="84" height="3600" fill="#c3ccd7" stroke="${INK}" stroke-width="5"/><g id="cab"><rect x="872" y="3326" width="72" height="150" rx="6" fill="#e2e8f0" stroke="${INK}" stroke-width="5"/><path d="M908 3326v150" stroke="${INK}" stroke-width="3"/></g>
+        <g id="panel"><rect x="796" y="3270" width="56" height="96" rx="10" fill="#fff" stroke="${INK}" stroke-width="4"/><circle id="btnUp" cx="824" cy="3300" r="13" fill="#e2e8f0" stroke="${INK}" stroke-width="3"/><circle cx="824" cy="3336" r="13" fill="#e2e8f0" stroke="${INK}" stroke-width="3"/></g>
+        <g id="wire" opacity="0"><path id="wireP" d="M700 3210C760 3210 760 3300 796 3300" stroke="${ACC}" stroke-width="7" fill="none" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></g></g>`;
+      // cả tòa nhà
+      const building = `<g id="bld"><rect x="120" y="290" width="840" height="3610" fill="${FAC}" stroke="${INK}" stroke-width="8"/>
+        ${meet}${[1, 2, 3, 4, 5, 6, 7].map(floor).join("")}${lobby}
+        ${[...Array(10)].map((_, k) => `<rect x="120" y="${680 + k * 400}" width="840" height="20" fill="${SLAB}" stroke="${INK}" stroke-width="4"/>`).join("")}${elev}<g id="f1boss" opacity="0">${boss(752, 3480, 1, "press")}</g><g id="f1study" opacity="0">${boss(330, 3480, 1, "sit")}</g>
+        <g transform="translate(540 160)"><path d="M-240 130v-40M240 130v-40" stroke="${INK}" stroke-width="10"/><rect x="-330" y="-40" width="660" height="140" rx="16" fill="${INK}"/><text x="0" y="16" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="40" fill="#fff">TẬP ĐOÀN</text><text x="0" y="70" text-anchor="middle" font-family="Unbounded" font-weight="800" font-size="40" fill="#4ade80">7 DỰ ÁN</text></g></g>`;
+      // trong đầu: trời, mây, mặt đất; viền đầu nhìn nghiêng
+      const HEAD = "M-900 2200C-900 300 300-700 900-700C1700-700 2150 300 2080 1600C2060 2000 2320 2350 2260 2560C2220 2700 2060 2680 2070 2840C2090 3000 2010 3100 1960 3300C1900 3600 1720 3720 1420 3720L1360 4700H-260C-320 4000-900 3400-900 2200Z";
+      const clouds = [[-500, 500], [1500, 300], [-300, 1700], [1600, 1500], [-550, 2900], [1450, 2700], [300, -300]].map(([x, y]) => `<g transform="translate(${x} ${y})" fill="#fff" opacity=".85"><circle r="70"/><circle cx="80" cy="10" r="56"/><circle cx="-80" cy="14" r="50"/><rect x="-130" y="10" width="260" height="56" rx="28"/></g>`).join("");
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" x1="0" y1="-800" x2="0" y2="4700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd3f5"/><stop offset=".8" stop-color="#d9efff"/><stop offset="1" stop-color="#fff4dc"/></linearGradient><clipPath id="hc"><path d="${HEAD}"/></clipPath></defs>
+        <rect x="-4000" y="-4000" width="12000" height="14000" fill="#f3efe7"/>
+        <path d="${HEAD}" fill="url(#gSky)"/>
+        <g clip-path="url(#hc)">${clouds}<rect x="-1200" y="3900" width="4000" height="1000" fill="#86c46d"/><rect x="-1200" y="3900" width="4000" height="22" fill="#5f9e4a"/>${building}</g>
+        <path d="${HEAD}" fill="none" stroke="${INK}" stroke-width="34" stroke-linejoin="round"/><g id="eye"><circle cx="1760" cy="1900" r="52" fill="#fff" stroke="${INK}" stroke-width="14"/><circle cx="1780" cy="1906" r="22" fill="${INK}"/></g><path d="M1860 3080c-60 30-120 30-170 0" stroke="${INK}" stroke-width="16" fill="none" stroke-linecap="round"/>`;
+      document.getElementById("docs").innerHTML = "<i></i>".repeat(94);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const W = "#W";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => tl.to(W, { attr: { viewBox: vbs(v) }, duration: d, ease }, at);
+      const fadeUp = (sel, at, d = 0.5, y = 24) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const pop = (sel, at, st = 0) => tl.fromTo(sel, { opacity: 0, scale: 0.4, transformOrigin: "50% 100%" }, { opacity: 1, scale: 1, duration: 0.45, ease: B, stagger: st, immediateRender: false }, at);
+      const lightOn = (k, at) => { tl.to(`#dark${k}`, { opacity: 0, duration: 0.5 }, at); tl.to(`#lamp${k}`, { fill: ACC, duration: 0.3 }, at); };
+      const counter = (id, from, to, at, d, fmt = (v) => Math.round(v)) => { const o = { v: from }; tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power1.out", immediateRender: false, onUpdate: () => (document.getElementById(id).textContent = fmt(o.v)) }, at); };
+      const P_ROOF = CAM(540, 230, 900, 800), P_ALL = CAM(540, 2100, 2300, 1000), P_HEAD = CAM(650, 2000, 3600, 980);
+      document.getElementById("W").setAttribute("viewBox", vbs(P_ROOF));
+      // các thứ ẩn lúc đầu
+      gsap.set(["#f1a", "#f1b", "#f1c", "#f2a", "#f2b", "#f2c", "#f2bed", ".bag"], { opacity: 0 });
+
+      // ---- 0–7.3 · tập đoàn 7 dự án, đầu tư bài bản, chưa dự án nào hoạt động
+      fadeUp("#hudTitle", 0.15, 0.5); out("#hudTitle", 2.9, 0.3);
+      cam(P_ALL, 0.6, 2.2, "power2.inOut");
+      [1, 2, 3, 4, 5, 6, 7].forEach((k) => tl.fromTo(`#lamp${k}`, { scale: 1 }, { scale: 1.6, transformOrigin: "50% 50%", duration: 0.18, yoyo: true, repeat: 1, immediateRender: false }, 1.0 + (7 - k) * 0.22));
+      tl.fromTo(".props", { scale: 0.6, opacity: 0, transformOrigin: "50% 100%" }, { scale: 1, opacity: 1, duration: 0.4, ease: B, stagger: 0.12, immediateRender: false }, 3.2);
+      tl.to(["#f1a", "#f1b", "#f1c", "#f2a", "#f2b", "#f2c", ".bag"], { opacity: 1, duration: 0.3 }, 3.6);
+      fadeUp("#hud07", 5.6, 0.4); tl.fromTo("#hud07", { scale: 1 }, { scale: 1.08, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 6.4); out("#hud07", 7.7, 0.25);
+      tl.to(".props", { opacity: 1, duration: 0.01 }, 7.75);
+
+      // ---- 7.98–13.2 · dự án 01 học tiếng Anh
+      tl.set(["#f1a", "#f1b", "#f1c"], { opacity: 0 }, 7.8);
+      cam(FL(1), 7.8, 1.0);
+      fadeUp("#ck1", 8.0, 0.4);
+      pop("#f1a", 9.15); fadeUp("#ck1a", 9.15, 0.3, 10);
+      pop("#f1b", 10.14); fadeUp("#ck1b", 10.14, 0.3, 10);
+      pop("#f1c", 10.72); fadeUp("#ck1c", 10.72, 0.3, 10);
+      tl.fromTo("#hello", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 12.0);
+      out(["#hello", "#ck1"], 13.45, 0.25);
+
+      // ---- 13.8–21.3 · dự án 02 tập thể dục: báo thức 5 giờ → ngủ thêm
+      tl.set(["#f2a", "#f2b", "#f2c"], { opacity: 0 }, 13.5);
+      cam(FL(2), 13.5, 1.0);
+      fadeUp("#ck2", 13.9, 0.4);
+      pop("#f2a", 14.95); fadeUp("#ck2a", 14.95, 0.3, 10);
+      pop("#f2b", 15.5); fadeUp("#ck2b", 15.5, 0.3, 10);
+      pop("#f2c", 16.36); fadeUp("#ck2c", 16.36, 0.3, 10);
+      tl.to("#f2bed", { opacity: 1, duration: 0.4 }, 17.6);
+      tl.to(["#f2sky", "#f2sun"], { opacity: 1, duration: 0.8 }, 18.0); tl.fromTo("#f2sun", { y: 40 }, { y: -40, duration: 1.4, ease: E, immediateRender: false }, 18.0);
+      tl.fromTo("#alarm", { rotation: -10, transformOrigin: "50% 50%" }, { rotation: 10, duration: 0.07, repeat: 11, yoyo: true, ease: "none", immediateRender: false }, 18.1);
+      out("#ck2", 18.6, 0.25);
+      fadeUp("#memo", 19.0, 0.45); tl.fromTo("#zzz", { opacity: 0, y: 10 }, { opacity: 1, y: -10, duration: 0.6, immediateRender: false }, 20.1);
+      out(["#memo", "#zzz"], 21.6, 0.25);
+
+      // ---- 21.97–26.9 · dự án 03 tiết kiệm: túi đồ chất đống
+      tl.set(".bag", { opacity: 0 }, 21.6);
+      cam(FL(3), 21.6, 1.0);
+      fadeUp("#sav", 22.0, 0.4);
+      tl.to("#f3boss", { opacity: 1, duration: 0.3 }, 24.0); tl.fromTo("#f3boss", { x: -200 }, { x: 0, duration: 0.8, ease: E, immediateRender: false }, 24.0);
+      pop(".bag", 24.4, 0.22); counter("bagV", 0, 10, 24.4, 2.4);
+      tl.fromTo("#pig", { rotation: 0, transformOrigin: "50% 100%" }, { rotation: -6, duration: 0.12, yoyo: true, repeat: 5, immediateRender: false }, 26.0);
+      out(["#sav", "#f3boss"], 27.5, 0.25);
+
+      // ---- 27.9–29.4 · Sáu chào
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 27.6);
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 27.8);
+      out("#sauBox", 29.3, 0.25); tl.to("#dim", { opacity: 0, duration: 0.4 }, 29.3);
+
+      // ---- 29.46–32.83 · cái tập đoàn nằm trong đầu
+      tl.set(W, { attr: { viewBox: vbs(FL(4, 900)) } }, 29.3);
+      cam(P_HEAD, 29.6, 2.6, "power2.inOut");
+      T("#tHead", 30.4, 33.6);
+      tl.fromTo("#eye", { scaleY: 1, transformOrigin: "50% 50%" }, { scaleY: 0.1, duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 32.4);
+
+      // ---- 33.9–39.8 · muốn làm ≠ làm được: bấm thang máy hoài mà buồng không lên
+      cam(CAM(700, 3300, 760, 900), 33.5, 1.4);
+      tl.to("#f1boss", { opacity: 1, duration: 0.3 }, 34.6); out("#f1boss", 40.2, 0.2);
+      fadeUp("#wantDo", 36.1, 0.45);
+      tl.fromTo("#btnUp", { fill: "#e2e8f0" }, { fill: "#fbbf24", duration: 0.12, yoyo: true, repeat: 7, immediateRender: false }, 36.3);
+      out("#wantDo", 40.2, 0.25);
+
+      // ---- 40.47–45.3 · 2006 · 94 nghiên cứu
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 40.2);
+      fadeUp("#research", 40.5, 0.45);
+      tl.to("#docs i", { opacity: 1, duration: 0.15, stagger: 0.025 }, 42.3); counter("docN", 0, 94, 42.3, 2.35);
+      out("#research", 45.5, 0.25);
+
+      // ---- 45.73–51.4 · kế hoạch "nếu – thì"
+      fadeUp("#ifthen", 45.8, 0.45);
+      tl.fromTo("#ifthen .slot", { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 1, stagger: 0.35, immediateRender: false }, 48.0);
+      out("#ifthen", 51.6, 0.25); tl.to("#dim", { opacity: 0, duration: 0.4 }, 51.6);
+
+      // ---- 52–55.4 · "từ mai…" → mai, mai, mai
+      cam(FL(1), 51.6, 0.9);
+      tl.fromTo("#vague", { opacity: 0, rotation: -12, scale: 0.6 }, { opacity: 1, rotation: -3, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 53.9);
+      fadeUp("#mai", 54.4, 0.3);
+      ["mai", "mốt", "tuần sau", "tháng sau"].forEach((t, i) => tl.call(() => (document.getElementById("maiT").textContent = t), null, 54.4 + i * 0.3));
+      tl.fromTo("#mai", { rotationX: 0 }, { rotationX: 360, duration: 0.3, repeat: 3, ease: "none", immediateRender: false }, 54.4);
+      out(["#vague", "#mai"], 55.6, 0.25);
+
+      // ---- 55.6–61 · nếu 8 giờ ăn xong → thì ngồi học 10 phút
+      fadeUp("#spec", 56.3, 0.45);
+      tl.to(["#f1clock", "#f1bowl"], { opacity: 1, duration: 0.3 }, 56.6);
+      tl.to("#wire", { opacity: 1, duration: 0.01 }, 58.3);
+      tl.fromTo("#wireP", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut", immediateRender: false }, 58.4);
+      lightOn(1, 59.3);
+      tl.to(["#f1timer", "#f1phone", "#f1study"], { opacity: 1, duration: 0.3 }, 59.6); out("#f1study", 69.3, 0.2);
+      counter("f1timerT", 600, 590, 59.8, 1.4, (v) => `${Math.floor(v / 60)}:${String(Math.round(v) % 60).padStart(2, "0")}`);
+      out("#spec", 61.3, 0.25);
+
+      // ---- 61.6–65.4 · khi nào + làm gì
+      fadeUp("#when", 61.7, 0.4);
+      tl.fromTo("#when .slot", { y: 0 }, { y: -8, duration: 0.18, yoyo: true, repeat: 1, stagger: 1.2, immediateRender: false }, 62.8);
+      out("#when", 65.7, 0.25);
+
+      // ---- 66–68.9 · khỏi thương lượng
+      fadeUp("#noNeg", 66.1, 0.4); tl.fromTo("#negX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, immediateRender: false }, 67.4);
+      out("#noNeg", 69.4, 0.25);
+
+      // ---- 69.8–84 · bảng KPI ở sảnh: đã mua ≠ đã làm
+      cam(CAM(540, 3690, 800, 900), 69.5, 1.4);
+      T("#tKpi", 70.0, 81.9);
+      pop("#kr1", 73.9); pop("#kr2", 76.3); pop("#kr3", 78.6);
+      tl.fromTo("#buyX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.6, immediateRender: false }, 82.1);
+      tl.to("#colDo", { fill: "#4ade80", duration: 0.3 }, 82.6);
+      T("#tAct", 82.1, 84.4);
+
+      // ---- 84.4–91.5 · 7 dự án ma → chọn đúng một cái → lên lịch, làm thiệt
+      cam(P_ALL, 84.1, 1.4);
+      T("#tGhost", 84.4, 87.2);
+      [1, 2, 3, 4, 5, 6, 7].forEach((k) => { tl.to(`#ghost${k}`, { opacity: 1, duration: 0.3 }, 84.6 + k * 0.1); tl.fromTo(`#ghost${k} .gh`, { x: 0, y: 0 }, { x: -380, y: -20, duration: 2.4, ease: "sine.inOut", immediateRender: false }, 84.6 + k * 0.1); });
+      tl.to("[id^=ghost]", { opacity: 0, duration: 0.3 }, 87.2);
+      T("#tOne", 87.3, 92.0);
+      cam(FL(1), 87.6, 1.1);
+      tl.fromTo("#fl1", { scale: 1 }, { scale: 1.03, transformOrigin: "50% 50%", duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, 88.4);
+      fadeUp("#sched", 89.3, 0.4); tl.to("#f1study", { opacity: 1, duration: 0.3 }, 88.9);
+      counter("f1timerT", 600, 420, 89.6, 2.2, (v) => `${Math.floor(v / 60)}:${String(Math.round(v) % 60).padStart(2, "0")}`);
+      out("#sched", 91.8, 0.25);
+
+      // ---- 92–96.3 · sáu dự án kia tạm nghỉ · nhân sự 1 người
+      cam(P_ALL, 91.8, 1.2);
+      T("#tRest", 92.1, 96.6);
+      [2, 3, 4, 5, 6, 7].forEach((k, i) => tl.fromTo(`#rest${k}`, { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.4, ease: "bounce.out", immediateRender: false }, 93.3 + i * 0.14));
+      fadeUp("#staff", 94.6, 0.4); out("#staff", 96.5, 0.25);
+
+      // ---- 96.65–end · nhân sự duy nhất đang họp bàn chiến lược
+      cam(CAM(540, 500, 820, 860), 96.4, 1.3);
+      tl.to("#meetBoss", { opacity: 1, duration: 0.3 }, 96.7);
+      T("#tMeet", 97.6, 999);
+      tl.fromTo("#meetBoss", { rotation: 0, transformOrigin: "50% 100%" }, { rotation: 3, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 98.4);
+      cam(CAM(540, 560, 1100, 900), 99.4, 3.0, "sine.inOut");
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post25"] = tl;
+    </script>
+  </body>
+</html>

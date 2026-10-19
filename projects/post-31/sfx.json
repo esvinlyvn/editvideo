@@ -1,0 +1,215 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  9.0,
+  17.8,
+  25.8,
+  32.3,
+  39.3,
+  45.0,
+  58.4,
+  66.1,
+  76.5,
+  80.6,
+  88.4
+ ],
+ "cues": [
+  {
+   "at": 0.3,
+   "name": "click",
+   "vol": 0.45
+  },
+  {
+   "at": 1.6,
+   "name": "shimmer",
+   "vol": 0.4
+  },
+  {
+   "at": 5.4,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 6.2,
+   "name": "sad-trombone",
+   "vol": 0.4
+  },
+  {
+   "at": 9.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 12.5,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 14.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 18.0,
+   "name": "paper-rustle",
+   "vol": 0.45
+  },
+  {
+   "at": 21.0,
+   "name": "tick",
+   "vol": 0.4
+  },
+  {
+   "at": 24.4,
+   "name": "ding-idea",
+   "vol": 0.5
+  },
+  {
+   "at": 25.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 27.4,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 30.8,
+   "name": "shimmer",
+   "vol": 0.6
+  },
+  {
+   "at": 32.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 34.3,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 36.4,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 37.3,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 39.5,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 41.5,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 42.5,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 43.1,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 45.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 51.1,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 56.4,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 58.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 66.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 68.3,
+   "name": "success",
+   "vol": 0.5
+  },
+  {
+   "at": 70.7,
+   "name": "alert",
+   "vol": 0.4
+  },
+  {
+   "at": 72.6,
+   "name": "swipe",
+   "vol": 0.45
+  },
+  {
+   "at": 73.4,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 74.3,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 76.5,
+   "name": "paper-rustle",
+   "vol": 0.45
+  },
+  {
+   "at": 78.6,
+   "name": "scribble",
+   "vol": 0.55
+  },
+  {
+   "at": 80.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 83.5,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 86.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 88.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 89.7,
+   "name": "paper-rustle",
+   "vol": 0.5
+  },
+  {
+   "at": 92.8,
+   "name": "oops",
+   "vol": 0.5
+  }
+ ]
+}

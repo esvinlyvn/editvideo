@@ -1,0 +1,39 @@
+<svg width="520" height="520" viewBox="0 0 400 400" fill="none">
+  <!-- nền cam tròn như avatar -->
+  <circle cx="200" cy="200" r="196" fill="#ff7a1a"/>
+  <clipPath id="sau-clip2"><circle cx="200" cy="200" r="196"/></clipPath>
+  <g clip-path="url(#sau-clip2)">
+    <!-- áo thun đen số 6 -->
+    <path d="M70 400c6-74 54-120 140-120s126 46 134 120z" fill="#141414"/>
+    <path transform="translate(-36 -14)" d="M298 318c-22 0-36 20-36 42 0 16 10 28 24 28s24-10 24-24-10-24-22-24-20 8-24 18" stroke="#efe6d6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- cổ -->
+    <path d="M178 250h52v40c-10 10-42 10-52 0z" fill="#e5b48c"/>
+    <g class="head">
+      <!-- mặt -->
+      <path d="M128 150c0-50 34-80 78-80s78 30 78 80c0 62-32 108-78 108s-78-46-78-108z" fill="#f0c49e"/>
+      <ellipse cx="284" cy="168" rx="12" ry="20" fill="#e5b48c"/>
+      <!-- tóc rối -->
+      <path d="M118 150c-14-40 4-80 40-96-6-12 2-26 16-28 10-18 34-22 50-10 20-10 44-2 54 16 22 4 36 22 32 44 18 14 18 40 2 56-2-22-14-36-30-42-8 14-24 20-40 16-12 12-34 14-50 4-12 10-30 12-44 4-10 12-18 24-20 36z" fill="#16110e"/>
+      <path d="M150 60c-4-14 4-26 14-30M238 40c8-10 20-12 30-6M120 112c-10-6-14-16-12-26M294 118c10-4 18-14 18-26" stroke="#16110e" stroke-width="8" stroke-linecap="round"/>
+      <!-- lông mày: 1 bên nhướng -->
+      <path class="brow-l" d="M156 136c10-8 24-10 36-6" stroke="#16110e" stroke-width="7" stroke-linecap="round"/>
+      <path class="brow-r" d="M222 128c12-8 28-8 40 0" stroke="#16110e" stroke-width="7" stroke-linecap="round"/>
+      <!-- mắt lim dim -->
+      <path d="M162 172c8-10 20-10 28 0M228 168c8-10 20-10 28 0" stroke="#16110e" stroke-width="6" stroke-linecap="round"/>
+      <!-- kính tròn gọng mảnh -->
+      <circle cx="174" cy="166" r="27" stroke="#5a5048" stroke-width="4"/>
+      <circle cx="240" cy="162" r="27" stroke="#5a5048" stroke-width="4"/>
+      <path d="M201 164c4-3 8-3 12 0M147 162l-18-4M267 158l16-6" stroke="#5a5048" stroke-width="4" stroke-linecap="round"/>
+      <!-- ria + chòm râu, cười nhếch -->
+      <path d="M182 214c10-6 22-6 30-2 8-4 18-2 26 4" stroke="#2a1d16" stroke-width="6" stroke-linecap="round"/>
+      <path class="smirk" d="M184 222c10 26 44 28 56 0z" fill="#7a3b2a"/><path d="M190 224h44" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      <path d="M196 240c6 12 20 14 30 2" stroke="#2a1d16" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <!-- tay chống cằm -->
+    <g class="fist">
+      <path d="M60 400c10-60 40-120 92-150" stroke="#e5b48c" stroke-width="44" stroke-linecap="round"/>
+      <path d="M140 222c14-12 40-12 54 2 8 10 6 30-8 38-16 8-40 6-50-6-8-10-6-24 4-34z" fill="#f0c49e"/>
+      <path d="M152 232c10 2 18 2 26-2M150 246c10 2 20 2 28-2" stroke="#d9a07a" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

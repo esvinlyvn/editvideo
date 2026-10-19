@@ -1,0 +1,362 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.211,
+   "end": 1.994,
+   "speaker": "B",
+   "text": "Nếu sáng mai toàn bộ tiền mặt biến mất,"
+  },
+  {
+   "i": 1,
+   "start": 2.409,
+   "end": 4.026,
+   "speaker": "B",
+   "text": "có một chuyện rất kỳ sẽ xảy ra."
+  },
+  {
+   "i": 3,
+   "start": 4.682,
+   "end": 5.433,
+   "speaker": "B",
+   "text": "Bạn vẫn có tiền,"
+  },
+  {
+   "i": 4,
+   "start": 5.803,
+   "end": 7.564,
+   "speaker": "B",
+   "text": "nhưng có lúc lại không mua nổi một ổ bánh mì!"
+  },
+  {
+   "i": 5,
+   "start": 8.282,
+   "end": 9.143,
+   "speaker": "B",
+   "text": "Nghe vô lý ha?"
+  },
+  {
+   "i": 6,
+   "start": 9.762,
+   "end": 10.808,
+   "speaker": "B",
+   "text": "Thử tưởng tượng cùng tui một chút."
+  },
+  {
+   "i": 7,
+   "start": 11.456,
+   "end": 11.998,
+   "speaker": "B",
+   "text": "Sáng mai,"
+  },
+  {
+   "i": 8,
+   "start": 12.312,
+   "end": 15.947,
+   "speaker": "B",
+   "text": "tất cả giao dịch đều phải thanh toán bằng điện thoại, thẻ hoặc tài khoản ngân hàng."
+  },
+  {
+   "i": 11,
+   "start": 16.3,
+   "end": 17.719,
+   "speaker": "B",
+   "text": "Không ai còn cầm tiền mặt nữa."
+  },
+  {
+   "i": 12,
+   "start": 18.336,
+   "end": 19.736,
+   "speaker": "B",
+   "text": "Ban đầu, mọi thứ có vẻ rất tiện."
+  },
+  {
+   "i": 13,
+   "start": 20.168,
+   "end": 20.976,
+   "speaker": "B",
+   "text": "Đi ăn quét mã."
+  },
+  {
+   "i": 14,
+   "start": 21.268,
+   "end": 22.138,
+   "speaker": "B",
+   "text": "Mua sắm quét mã."
+  },
+  {
+   "i": 15,
+   "start": 22.406,
+   "end": 23.615,
+   "speaker": "B",
+   "text": "Gửi tiền chỉ cần vài giây."
+  },
+  {
+   "i": 16,
+   "start": 24.294,
+   "end": 24.942,
+   "speaker": "B",
+   "text": "Nhưng tới trưa,"
+  },
+  {
+   "i": 17,
+   "start": 25.241,
+   "end": 26.251,
+   "speaker": "B",
+   "text": "điện thoại bạn hết pin."
+  },
+  {
+   "i": 18,
+   "start": 26.616,
+   "end": 27.702,
+   "speaker": "B",
+   "text": "Bạn ghé vô tiệm mua chai nước."
+  },
+  {
+   "i": 19,
+   "start": 28.252,
+   "end": 29.354,
+   "speaker": "B",
+   "text": "Chủ tiệm đưa mã QR."
+  },
+  {
+   "i": 20,
+   "start": 29.945,
+   "end": 30.999,
+   "speaker": "B",
+   "text": "Bạn nhìn mã QR."
+  },
+  {
+   "i": 21,
+   "start": 31.834,
+   "end": 32.831,
+   "speaker": "B",
+   "text": "Mã QR nhìn bạn."
+  },
+  {
+   "i": 22,
+   "start": 33.323,
+   "end": 34.617,
+   "speaker": "B",
+   "text": "Hai bên nhìn nhau rất lâu,"
+  },
+  {
+   "i": 23,
+   "start": 34.925,
+   "end": 36.577,
+   "speaker": "B",
+   "text": "nhưng chẳng có giao dịch nào xảy ra!"
+  },
+  {
+   "i": 24,
+   "start": 37.376,
+   "end": 39.19,
+   "speaker": "B",
+   "text": "Còn người không có điện thoại thông minh thì sao?"
+  },
+  {
+   "i": 25,
+   "start": 39.754,
+   "end": 41.403,
+   "speaker": "B",
+   "text": "Những nơi không có mạng ổn định thì sao?"
+  },
+  {
+   "i": 26,
+   "start": 42.056,
+   "end": 44.615,
+   "speaker": "B",
+   "text": "Một tiệm nhỏ không có thiết bị nhận thanh toán phù hợp thì sao?"
+  },
+  {
+   "i": 27,
+   "start": 45.081,
+   "end": 46.728,
+   "speaker": "B",
+   "text": "Và nếu hệ thống thanh toán bị gián đoạn?"
+  },
+  {
+   "i": 28,
+   "start": 47.467,
+   "end": 47.91,
+   "speaker": "B",
+   "text": "Lúc đó,"
+  },
+  {
+   "i": 29,
+   "start": 48.178,
+   "end": 52.84,
+   "speaker": "B",
+   "text": "bạn mới thấy tiền trong tài khoản và khả năng sử dụng được số tiền đó là hai chuyện khác nhau."
+  },
+  {
+   "i": 30,
+   "start": 53.756,
+   "end": 55.107,
+   "speaker": "B",
+   "text": "Có một chi tiết rất đáng chú ý."
+  },
+  {
+   "i": 31,
+   "start": 55.724,
+   "end": 57.728,
+   "speaker": "B",
+   "text": "Trong một bài phân tích năm 2026,"
+  },
+  {
+   "i": 32,
+   "start": 58.089,
+   "end": 59.254,
+   "speaker": "B",
+   "text": "Ngân hàng Thế giới chỉ ra"
+  },
+  {
+   "i": 33,
+   "start": 59.67,
+   "end": 62.123,
+   "speaker": "B",
+   "text": "rằng nhiều nơi đã có tài khoản và hạ tầng thanh toán điện tử,"
+  },
+  {
+   "i": 34,
+   "start": 62.565,
+   "end": 65.235,
+   "speaker": "B",
+   "text": "nhưng người dân vẫn chưa dùng được rộng rãi tại các cửa hàng nhỏ."
+  },
+  {
+   "i": 35,
+   "start": 65.795,
+   "end": 67.634,
+   "speaker": "B",
+   "text": "Vì thanh toán số cần cả hai phía."
+  },
+  {
+   "i": 37,
+   "start": 68.115,
+   "end": 69.652,
+   "speaker": "B",
+   "text": "Người mua phải có phương tiện thanh toán."
+  },
+  {
+   "i": 38,
+   "start": 69.989,
+   "end": 71.382,
+   "speaker": "B",
+   "text": "Người bán phải có khả năng nhận."
+  },
+  {
+   "i": 40,
+   "start": 71.723,
+   "end": 73.865,
+   "speaker": "B",
+   "text": "Và hệ thống kết nối giữa hai bên phải hoạt động."
+  },
+  {
+   "i": 41,
+   "start": 74.467,
+   "end": 75.066,
+   "speaker": "B",
+   "text": "Thiếu một mắt xích,"
+  },
+  {
+   "i": 42,
+   "start": 75.399,
+   "end": 76.546,
+   "speaker": "B",
+   "text": "giao dịch có thể bị gián đoạn."
+  },
+  {
+   "i": 43,
+   "start": 77.329,
+   "end": 80.805,
+   "speaker": "B",
+   "text": "Đó là lý do một xã hội thanh toán hiện đại không chỉ cần công nghệ nhanh."
+  },
+  {
+   "i": 44,
+   "start": 81.383,
+   "end": 82.826,
+   "speaker": "B",
+   "text": "Nó còn cần phương án dự phòng"
+  },
+  {
+   "i": 45,
+   "start": 83.087,
+   "end": 85.141,
+   "speaker": "B",
+   "text": "và cách để mọi người đều có thể tham gia."
+  },
+  {
+   "i": 46,
+   "start": 85.845,
+   "end": 88.251,
+   "speaker": "B",
+   "text": "Tui không nói tiền mặt tốt hơn thanh toán điện tử."
+  },
+  {
+   "i": 47,
+   "start": 88.733,
+   "end": 90.587,
+   "speaker": "B",
+   "text": "Càng không nói thế giới sẽ xảy ra chuyện này."
+  },
+  {
+   "i": 48,
+   "start": 91.195,
+   "end": 92.919,
+   "speaker": "B",
+   "text": "Đây chỉ là một giả định để thấy rằng:"
+  },
+  {
+   "i": 49,
+   "start": 93.276,
+   "end": 96.582,
+   "speaker": "B",
+   "text": "tiện lợi và khả năng tiếp cận không phải lúc nào cũng đi chung."
+  },
+  {
+   "i": 50,
+   "start": 97.389,
+   "end": 98.193,
+   "speaker": "B",
+   "text": "Nhưng tui đang thắc mắc..."
+  },
+  {
+   "i": 51,
+   "start": 98.924,
+   "end": 100.599,
+   "speaker": "B",
+   "text": "Nếu một ngày không còn tiền mặt,"
+  },
+  {
+   "i": 52,
+   "start": 101,
+   "end": 102.521,
+   "speaker": "B",
+   "text": "người ta sẽ làm sao với phong tục lì xì?"
+  },
+  {
+   "i": 53,
+   "start": 103.404,
+   "end": 106.354,
+   "speaker": "B",
+   "text": "Chắc con nít mở điện thoại ra, chìa mã QR rồi nói:"
+  },
+  {
+   "i": 54,
+   "start": 106.703,
+   "end": 110.24,
+   "speaker": "B",
+   "text": "“Dạ con chúc ông bà sống lâu trăm tuổi. Ông bà quét mã giúp con nha!”"
+  },
+  {
+   "i": 55,
+   "start": 110.803,
+   "end": 113.36,
+   "speaker": "B",
+   "text": "Mới mùng Một mà công nghệ đã đi thẳng vô truyền thống gia đình!"
+  }
+ ]
+}

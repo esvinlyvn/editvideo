@@ -1,0 +1,216 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  4.2,
+  8.9,
+  12.9,
+  18.6,
+  26.6,
+  32.2,
+  38.6,
+  46.3,
+  59.2,
+  65.7,
+  67.8,
+  71.3,
+  76.3,
+  86.3,
+  93.6,
+  98.1,
+  103.7
+ ],
+ "cues": [
+  {
+   "at": 0.3,
+   "name": "heartbeat",
+   "vol": 0.55
+  },
+  {
+   "at": 2.6,
+   "name": "alert",
+   "vol": 0.45
+  },
+  {
+   "at": 4.3,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 6.2,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 9.3,
+   "name": "pop",
+   "vol": 0.6
+  },
+  {
+   "at": 9.9,
+   "name": "ding-idea",
+   "vol": 0.55
+  },
+  {
+   "at": 11.6,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 13.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 18.6,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 21.6,
+   "name": "oops",
+   "vol": 0.5
+  },
+  {
+   "at": 23.3,
+   "name": "paper-rustle",
+   "vol": 0.55
+  },
+  {
+   "at": 24.9,
+   "name": "swipe",
+   "vol": 0.45
+  },
+  {
+   "at": 26.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 27.4,
+   "name": "tick-tock",
+   "vol": 0.45
+  },
+  {
+   "at": 29.0,
+   "name": "alert",
+   "vol": 0.4
+  },
+  {
+   "at": 32.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 34.7,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 35.8,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 37.1,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 38.7,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 42.6,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 44.1,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 46.5,
+   "name": "boing",
+   "vol": 0.45
+  },
+  {
+   "at": 48.0,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 59.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 62.8,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 65.7,
+   "name": "whoosh-fast",
+   "vol": 0.45
+  },
+  {
+   "at": 67.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 69.0,
+   "name": "snap",
+   "vol": 0.6
+  },
+  {
+   "at": 71.45,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 76.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 79.33,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 81.16,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 86.3,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 95.9,
+   "name": "notify",
+   "vol": 0.55
+  },
+  {
+   "at": 98.1,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 101.9,
+   "name": "cymbal",
+   "vol": 0.5
+  },
+  {
+   "at": 103.9,
+   "name": "record-scratch",
+   "vol": 0.55
+  }
+ ]
+}

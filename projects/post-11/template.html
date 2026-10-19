@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Còn mấy tháng nữa là Tết</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "cuốn lịch xé ngày Tết" =====
+         2 font: Playfair Display (chữ lớn, số ngày trên lịch) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Nền đỏ son → chuyển sang nâu đêm ở nửa sau (đoạn lắng lại) → về đỏ ở câu chốt
+         Chữ chính kem, 1 màu nhấn: vàng kim. Giấy lịch kem, số đỏ (Chủ Nhật / Tết) hoặc mực nâu
+         Cuốn lịch là "thế giới" xuyên suốt: mở đầu xé tới Tết, cảnh kết xé tiếp khi nói "để bữa khác"
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Playfair Display", serif;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #7a1317;
+        --cream: #fff3df;
+        --gold: #f5c242;
+        --ink: #2b1a14;
+        --red: #b3161c;
+        --muted: rgba(43, 26, 20, 0.6);
+        --soft: rgba(255, 243, 223, 0.66);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #glow { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle 620px at 540px 900px, rgba(245,194,66,.22), rgba(245,194,66,0) 70%); }
+      .scene { position: absolute; inset: 0; }
+      .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 900; letter-spacing: -0.01em; line-height: 1.08; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .g { color: var(--gold); }
+      .lab { font-family: var(--body); font-weight: 700; font-size: 28px; letter-spacing: .16em; text-transform: uppercase; }
+      .tt { position: absolute; left: 108px; right: 108px; top: 226px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 74px; line-height: 1.1; opacity: 0; }
+      .tt .blk { white-space: nowrap; }
+      .card { background: var(--cream); color: var(--ink); border-radius: 28px; box-shadow: 0 16px 0 rgba(0,0,0,.28); }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -10px; right: -10px; top: 54%; height: 12px; border-radius: 6px; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+
+      /* ===== Thế giới: cuốn lịch xé ===== */
+      #cal { position: absolute; left: 240px; top: 440px; width: 600px; height: 740px; }
+      #cal .bind { position: absolute; left: 0; right: 0; top: 0; height: 74px; background: var(--ink); border-radius: 18px 18px 6px 6px; z-index: 50; }
+      #cal .bind i { position: absolute; top: -26px; width: 30px; height: 64px; border-radius: 15px; background: var(--gold); border: 6px solid var(--ink); box-sizing: border-box; }
+      #cal .stack { position: absolute; left: 10px; right: 10px; top: 66px; bottom: 0; border-radius: 0 0 18px 18px; background: #e6d6b8;
+        box-shadow: 0 8px 0 #e6d6b8, 0 16px 0 #cdb894, 0 30px 26px rgba(0,0,0,.35); }
+      .pg { position: absolute; inset: 0; background: var(--cream); color: var(--ink); border-radius: 0 0 18px 18px; text-align: center; overflow: hidden; transform-origin: 50% 0%; }
+      .pg .mo { height: 84px; line-height: 84px; background: var(--red); color: var(--cream); font-family: var(--body); font-weight: 700; font-size: 34px; letter-spacing: .12em; }
+      .pg .d { font-family: var(--disp); font-weight: 900; font-size: 330px; line-height: 1; margin-top: 34px; letter-spacing: -0.03em; }
+      .pg .d.r { color: var(--red); }
+      .pg .wd { font-family: var(--disp); font-weight: 700; font-size: 54px; margin-top: 4px; }
+      .pg .ft { position: absolute; left: 40px; right: 40px; bottom: 38px; padding-top: 22px; border-top: 3px dashed rgba(43,26,20,.25); font-weight: 600; font-size: 32px; color: var(--muted); }
+      .pg .ft b { color: var(--red); font-weight: 700; }
+      .pg .rib { position: absolute; left: 40px; right: 40px; bottom: 34px; height: 76px; line-height: 76px; border-radius: 38px; background: var(--gold); color: var(--ink); font-weight: 700; font-size: 32px; letter-spacing: .1em; }
+      #huh { position: absolute; left: 740px; top: 380px; width: 170px; height: 170px; border-radius: 50%; background: var(--gold); color: var(--ink); display: flex; align-items: center; justify-content: center;
+        font-family: var(--disp); font-weight: 900; font-size: 96px; box-shadow: 0 10px 0 rgba(0,0,0,.25); opacity: 0; z-index: 60; }
+      #months { position: absolute; left: 108px; right: 108px; top: 1262px; display: flex; gap: 18px; justify-content: center; align-items: center; }
+      .mchip { width: 150px; height: 86px; border-radius: 18px; border: 4px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 44px; opacity: 0; box-sizing: border-box; }
+      .mchip.tet { background: var(--gold); color: var(--ink); width: 170px; }
+      #mlab, #mlab2 { position: absolute; left: 108px; right: 108px; top: 1376px; text-align: center; font-weight: 700; font-size: 36px; color: var(--gold); opacity: 0; }
+      #debt { position: absolute; left: 130px; right: 130px; top: 940px; padding: 34px 40px 38px; opacity: 0; }
+      #debt .lab { color: var(--red); }
+      .drow { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+      .drow .k { font-family: var(--disp); font-weight: 700; font-size: 42px; white-space: nowrap; }
+      .drow .dots { display: flex; gap: 6px; }
+      .drow .dots i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid rgba(43,26,20,.35); box-sizing: border-box; }
+      .drow .dots i.on { background: var(--ink); border-color: var(--ink); }
+      .drow .n { font-weight: 700; font-size: 28px; color: var(--muted); width: 104px; text-align: right; }
+      #overdue { position: absolute; right: 150px; bottom: -34px; background: var(--cream); padding: 6px 22px 10px; border: 7px solid var(--red); border-radius: 16px; color: var(--red); font-family: var(--disp); font-weight: 900; font-size: 50px; transform: rotate(-9deg); opacity: 0; }
+      #note { position: absolute; left: 330px; top: 900px; width: 420px; padding: 34px 30px 40px; background: var(--gold); color: var(--ink); font-family: var(--disp); font-weight: 900; font-size: 62px; line-height: 1.12; text-align: center;
+        box-shadow: 0 14px 22px rgba(0,0,0,.3); transform: rotate(-6deg); opacity: 0; z-index: 70; }
+      #note::before { content: ""; position: absolute; left: 150px; top: -18px; width: 120px; height: 36px; background: rgba(255,255,255,.55); transform: rotate(3deg); }
+      #note .blk { white-space: nowrap; }
+      #nt2 { opacity: 0; }
+
+      /* S3 Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s3-name { top: 980px; font-size: 108px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--gold); color: var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--body); font-weight: 700; font-size: 50px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* S4 thời gian bay */
+      #clock { position: absolute; left: 290px; top: 560px; width: 500px; height: 500px; }
+      .fly { position: absolute; left: 470px; top: 740px; width: 140px; height: 160px; border-radius: 6px 6px 12px 12px; background: var(--cream); color: var(--ink); text-align: center; overflow: hidden; opacity: 0; box-shadow: 0 8px 14px rgba(0,0,0,.3); }
+      .fly b { display: block; height: 32px; background: var(--red); }
+      .fly span { font-family: var(--disp); font-weight: 900; font-size: 80px; line-height: 110px; }
+
+      /* S5 2020 → 2027 */
+      #s5-lab { top: 300px; color: var(--soft); }
+      #yr { position: absolute; left: 108px; right: 108px; top: 470px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 280px; line-height: 1; color: var(--gold); }
+      #lixi { position: absolute; left: 470px; top: 800px; }
+      #s5-sub { top: 830px; font-size: 64px; opacity: 0; }
+      #ruler { position: absolute; left: 108px; right: 108px; top: 1110px; height: 150px; }
+      #ruler .ln { position: absolute; left: 30px; right: 30px; top: 40px; height: 6px; border-radius: 3px; background: rgba(255,243,223,.3); }
+      #ruler .fl { position: absolute; left: 30px; right: 30px; top: 40px; height: 6px; border-radius: 3px; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+      .tk { position: absolute; top: 24px; width: 38px; height: 38px; margin-left: -19px; border-radius: 50%; background: #5a0e11; border: 5px solid rgba(255,243,223,.4); box-sizing: border-box; }
+      .tk.on { background: var(--gold); border-color: var(--gold); }
+      .ty { position: absolute; top: 82px; width: 100px; margin-left: -50px; text-align: center; font-weight: 700; font-size: 26px; color: var(--soft); }
+      #brk { position: absolute; left: 138px; right: 138px; top: 1060px; height: 30px; border: 6px solid var(--gold); border-bottom: 0; border-radius: 14px 14px 0 0; transform-origin: 0 50%; opacity: 0; }
+      #seven { position: absolute; left: 50%; top: 940px; width: 360px; margin-left: -180px; height: 104px; line-height: 104px; border-radius: 52px; background: var(--gold); color: var(--ink); text-align: center; font-family: var(--disp); font-weight: 900; font-size: 64px; opacity: 0; }
+
+      /* S6 hồi nhỏ */
+      #s6-h { top: 226px; font-size: 76px; }
+      #mini { position: absolute; left: 400px; top: 470px; width: 280px; height: 320px; }
+      #mini .bd { height: 40px; background: var(--ink); border-radius: 12px 12px 4px 4px; }
+      #mini .pp { position: absolute; left: 6px; right: 6px; top: 36px; height: 284px; background: var(--cream); color: var(--ink); border-radius: 0 0 12px 12px; text-align: center; box-shadow: 0 8px 0 #e6d6b8, 0 14px 16px rgba(0,0,0,.3); }
+      #mini .pp small { display: block; margin-top: 22px; font-weight: 700; font-size: 24px; color: var(--muted); letter-spacing: .1em; }
+      #mini .pp span { display: block; font-family: var(--disp); font-weight: 900; font-size: 160px; line-height: 1.1; color: var(--red); }
+      #kids { position: absolute; left: 108px; right: 108px; top: 880px; display: flex; gap: 30px; }
+      .kid { flex: 1; height: 330px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; opacity: 0; }
+      .kid b { font-family: var(--disp); font-weight: 900; font-size: 46px; white-space: nowrap; }
+
+      /* S8 tổng kết năm */
+      #s8-h { top: 226px; font-size: 76px; }
+      #rep { position: absolute; left: 108px; right: 108px; top: 440px; height: 780px; padding: 44px 46px; box-sizing: border-box; }
+      #rep .lab { color: var(--red); }
+      #cur { display: inline-block; width: 6px; height: 64px; background: var(--ink); vertical-align: middle; margin-top: 30px; }
+      .row { display: flex; align-items: center; gap: 30px; margin-top: 46px; opacity: 0; }
+      .row .ic { width: 150px; height: 150px; border-radius: 26px; background: #f3e2c2; display: flex; align-items: center; justify-content: center; flex: none; }
+      .row .k { font-family: var(--disp); font-weight: 900; font-size: 54px; white-space: nowrap; }
+      .row .s { font-weight: 600; font-size: 32px; color: var(--muted); margin-top: 4px; white-space: nowrap; }
+      .row .q { margin-left: auto; width: 96px; height: 96px; border-radius: 50%; background: var(--ink); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 64px; flex: none; }
+
+      /* S9 giày */
+      #s9-h { top: 226px; font-size: 76px; }
+      #shoe { position: absolute; left: 240px; top: 470px; width: 600px; height: 340px; }
+      #case { position: absolute; left: 210px; top: 400px; width: 660px; height: 470px; border: 8px solid var(--gold); border-radius: 16px; box-sizing: border-box;
+        background: linear-gradient(120deg, rgba(255,243,223,.16) 0 18%, rgba(255,243,223,0) 18% 30%, rgba(255,243,223,.1) 30% 36%, rgba(255,243,223,0) 36%); opacity: 0; }
+      #case::after { content: ""; position: absolute; left: -30px; right: -30px; bottom: -40px; height: 32px; border-radius: 8px; background: var(--gold); }
+      #week { position: absolute; left: 108px; right: 108px; top: 960px; display: flex; gap: 12px; }
+      .wk { flex: 1; height: 150px; border-radius: 18px; background: rgba(255,243,223,.1); border: 3px solid rgba(255,243,223,.3); display: flex; flex-direction: column; align-items: center; justify-content: space-around; padding: 10px 0; box-sizing: border-box; }
+      .wk b { font-weight: 700; font-size: 28px; color: var(--soft); }
+      .wk i { width: 54px; height: 54px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .wk i.x { background: none; border: 4px dashed rgba(255,243,223,.35); box-sizing: border-box; }
+      #plaque { position: absolute; left: 190px; right: 190px; top: 1190px; padding: 26px 34px 30px; text-align: center; opacity: 0; }
+      #plaque .lab { color: var(--red); }
+      #plaque .k { font-family: var(--disp); font-weight: 900; font-size: 58px; margin-top: 6px; white-space: nowrap; }
+      #plaque .s { font-weight: 600; font-size: 30px; color: var(--muted); margin-top: 4px; white-space: nowrap; }
+
+      /* S10 nghĩ kỹ */
+      #s10-h { top: 226px; font-size: 76px; }
+      #troph { position: absolute; left: 360px; top: 470px; }
+      #s10-a { top: 880px; font-size: 70px; opacity: 0; }
+      #s10-b { position: absolute; left: 108px; right: 108px; top: 1110px; text-align: center; font-weight: 700; font-size: 40px; color: var(--gold); opacity: 0; }
+
+      /* S11 12 tháng */
+      #s11-h { top: 226px; font-size: 76px; }
+      #grid { position: absolute; left: 108px; right: 108px; top: 470px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+      .mo12 { position: relative; height: 176px; border-radius: 22px; background: var(--cream); color: var(--ink); opacity: 0.12; }
+      .mo12 b { position: absolute; left: 20px; top: 12px; font-family: var(--disp); font-weight: 900; font-size: 44px; }
+      .mo12 .hm { position: absolute; right: 16px; bottom: 14px; opacity: 0; }
+      #home-n { position: absolute; left: 108px; right: 108px; top: 1110px; text-align: center; font-family: var(--disp); font-weight: 900; font-size: 84px; color: var(--gold); opacity: 0; }
+
+      /* S12 hẹn rồi dời */
+      #s12-h { top: 226px; font-size: 76px; }
+      #plan { position: absolute; left: 108px; right: 108px; top: 440px; }
+      .wrow { position: relative; height: 196px; border-top: 3px solid rgba(255,243,223,.22); }
+      .wrow:last-child { border-bottom: 3px solid rgba(255,243,223,.22); }
+      .wrow > b { position: absolute; left: 0; top: 22px; font-family: var(--disp); font-weight: 900; font-size: 46px; color: var(--soft); white-space: nowrap; }
+      .wrow.last > b { color: var(--gold); }
+      .chip { position: absolute; left: 0; display: flex; align-items: center; gap: 14px; padding: 0 26px 0 18px; height: 76px; border-radius: 38px; font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      #chA { top: 470px; background: var(--cream); color: var(--ink); }
+      #chB { top: 556px; background: var(--gold); color: var(--ink); }
+      #chA, #chB { left: 380px; }
+
+      /* S13 thêm một tuổi */
+      #s13-h { top: 226px; font-size: 76px; }
+      .who { position: absolute; top: 520px; width: 400px; text-align: center; opacity: 0; }
+      #who1 { left: 108px; } #who2 { right: 108px; }
+      .who b { display: block; font-family: var(--disp); font-weight: 900; font-size: 60px; margin-top: 20px; }
+      .plus { position: absolute; top: -10px; right: 34px; width: 150px; height: 150px; border-radius: 50%; background: var(--gold); color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+      .plus span { font-family: var(--disp); font-weight: 900; font-size: 60px; line-height: 1; }
+      .plus small { font-weight: 700; font-size: 24px; }
+
+      /* S14 năm thất bại? */
+      #s14-h { top: 226px; font-size: 76px; }
+      #yr26 { position: absolute; left: 190px; right: 190px; top: 480px; height: 640px; text-align: center; }
+      #yr26 .lab { color: var(--red); margin-top: 50px; }
+      #yr26 .y { font-family: var(--disp); font-weight: 900; font-size: 210px; line-height: 1.1; }
+      #yr26 .s { font-weight: 600; font-size: 34px; color: var(--muted); }
+      #fail { position: absolute; left: 50%; top: 860px; width: 520px; margin-left: -260px; padding: 12px 0 18px; border: 10px solid var(--red); border-radius: 22px; color: var(--red); text-align: center;
+        font-family: var(--disp); font-weight: 900; font-size: 104px; background: rgba(255,243,223,.85); opacity: 0; white-space: nowrap; }
+      #fail::after { content: ""; position: absolute; left: -16px; right: -16px; top: 50%; height: 14px; margin-top: -7px; border-radius: 7px; background: var(--gold); transform: scaleX(var(--k, 0)); transform-origin: 0 50%; }
+
+      /* S15 thử vầy nè */
+      #s15-h { top: 226px; font-size: 76px; }
+      .todo { position: absolute; left: 108px; right: 108px; height: 230px; display: flex; align-items: center; gap: 30px; padding: 0 40px 0 0; overflow: hidden; opacity: 0; }
+      #td1 { top: 450px; } #td2 { top: 720px; } #td3 { top: 990px; }
+      .todo .no { width: 140px; align-self: stretch; background: var(--red); color: var(--cream); display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 96px; flex: none;
+        border-right: 6px dashed var(--cream); }
+      .todo .k { font-family: var(--disp); font-weight: 900; font-size: 54px; line-height: 1.12; }
+      .todo .k .blk { white-space: nowrap; }
+      .todo svg { margin-left: auto; flex: none; }
+
+      /* S16 tiếc nhất */
+      #s16-h { top: 226px; font-size: 76px; }
+      #bag { position: absolute; left: 340px; top: 470px; }
+      #bagx { position: absolute; left: 300px; top: 690px; width: 480px; height: 14px; border-radius: 7px; background: var(--gold); transform-origin: 0 50%; }
+      #s16-b { top: 1030px; font-size: 58px; opacity: 0; }
+      #table { position: absolute; left: 108px; top: 470px; width: 864px; height: 760px; opacity: 0; }
+      #lamp { position: absolute; left: 290px; top: 380px; width: 500px; height: 700px; background: radial-gradient(ellipse 250px 360px at 50% 30%, rgba(245,194,66,.35), rgba(245,194,66,0) 75%); opacity: 0; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(28, 8, 9, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post11" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="glow"></div>
+
+      <!-- ===== THẾ GIỚI: cuốn lịch xé (hiện ở mở đầu, giữa video và cảnh kết) ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1"><div class="in" id="w-in">
+        <div class="tt" id="tt1"><span class="blk">Tết năm sau</span><span class="blk g">rơi vào ngày nào?</span></div>
+        <div class="tt" id="tt2"><span class="blk">Mới ăn Tết</span><span class="blk g">hôm qua mà?!</span></div>
+        <div class="tt" id="tt3"><span class="blk">Giờ nghe tới Tết</span><span class="blk g" id="tt3b">là hết hồn!</span></div>
+        <div class="tt" id="tt4"><span class="blk">Còn tới</span><span class="blk g">mấy tháng lận!</span></div>
+        <div class="tt" id="tt5" style="font-size:68px"><span class="blk">Tết này,</span><span class="blk g">đừng để bữa khác nha.</span></div>
+        <div id="cal"><div class="bind"><i style="left:150px"></i><i style="left:420px"></i></div><div class="stack" id="stack"></div></div>
+        <div id="huh">?!</div>
+        <div id="months"><div class="mchip">T10</div><div class="mchip">T11</div><div class="mchip">T12</div><div class="mchip">T1</div><div class="mchip tet">TẾT</div></div>
+        <div id="mlab">Chưa tới 4 tháng nữa</div><div id="mlab2">Vẫn còn kịp nha</div>
+        <div class="card" id="debt">
+          <div class="lab">Sổ trả góp · lời hứa đầu năm</div>
+          <div class="drow"><span class="k">Để dành tiền</span><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="n">2/12</span></div>
+          <div class="drow"><span class="k">Đi du lịch</span><span class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="n">0/12</span></div>
+          <div class="drow"><span class="k">Tập thể dục</span><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="n">1/12</span></div>
+          <div id="overdue">TRỄ HẠN</div>
+        </div>
+        <div id="note"><span class="blk" id="nt1">thôi,</span><span class="blk" id="nt2">để bữa khác.</span></div>
+      </div></div>
+
+      <!-- S3 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s3" data-start="11.55" data-duration="4.45" data-track-index="2"><div class="in" id="s3-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s3-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S4 · Thời gian chạy nhanh -->
+      <div class="clip scene" id="s4" data-start="15.9" data-duration="3.1" data-track-index="2"><div class="in" id="s4-in">
+        <div class="safe h c" id="s4-h" style="top:226px;font-size:76px"><span class="blk">Lịch dạo này</span><span class="blk g">xé hổng kịp!</span></div>
+        <svg id="clock" viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="92" fill="#fff3df"/><circle cx="100" cy="100" r="92" stroke="#f5c242" stroke-width="8"/>
+          <g stroke="#2b1a14" stroke-width="5" stroke-linecap="round"><path d="M100 18v14M100 168v14M18 100h14M168 100h14"/></g>
+          <path id="hh" d="M100 100V58" stroke="#2b1a14" stroke-width="9" stroke-linecap="round"/>
+          <path id="mh" d="M100 100V30" stroke="#b3161c" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="8" fill="#2b1a14"/>
+        </svg>
+        <div class="fly"><b></b><span>3</span></div><div class="fly"><b></b><span>9</span></div><div class="fly"><b></b><span>14</span></div>
+        <div class="fly"><b></b><span>21</span></div><div class="fly"><b></b><span>28</span></div><div class="fly"><b></b><span>5</span></div>
+        <div class="fly"><b></b><span>17</span></div><div class="fly"><b></b><span>30</span></div>
+      </div></div>
+
+      <!-- S5 · Tết 2020 → Tết 2027 -->
+      <div class="clip scene" id="s5" data-start="18.9" data-duration="6.75" data-track-index="2"><div class="in" id="s5-in">
+        <div class="safe lab c" id="s5-lab">Tết đếm lại nè</div>
+        <div id="yr">2020</div>
+        <div id="lixi"><svg width="140" height="186" viewBox="0 0 60 80" fill="none"><rect x="4" y="4" width="52" height="72" rx="6" fill="#c3161c" stroke="#f5c242" stroke-width="4"/><path d="M4 24l26 16 26-16" stroke="#f5c242" stroke-width="4"/><circle cx="30" cy="54" r="10" fill="#f5c242"/></svg></div>
+        <div class="safe h c" id="s5-sub"><span class="blk">Tưởng mới</span><span class="blk g">hôm kia</span></div>
+        <div id="seven">7 năm</div>
+        <div id="brk"></div>
+        <div id="ruler"><div class="ln"></div><div class="fl" id="rfl"></div></div>
+      </div></div>
+
+      <!-- S6 · Hồi nhỏ mong Tết -->
+      <div class="clip scene" id="s6" data-start="25.55" data-duration="5.95" data-track-index="2"><div class="in" id="s6-in">
+        <div class="safe h c" id="s6-h"><span class="blk">Hồi nhỏ</span><span class="blk g">đếm từng ngày</span></div>
+        <div id="mini"><div class="bd"></div><div class="pp"><small>CÒN MẤY NGÀY?</small><span id="cd">9</span></div></div>
+        <div id="kids">
+          <div class="kid card" id="k1"><svg width="140" height="140" viewBox="0 0 64 64" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linejoin="round"><rect x="12" y="20" width="40" height="38" rx="8"/><path d="M24 20v-5a8 8 0 0 1 16 0v5"/><rect x="21" y="34" width="22" height="12" rx="3"/><path d="M6 58L58 8" stroke="#b3161c" stroke-width="5" stroke-linecap="round"/></svg><b>Nghỉ học</b></div>
+          <div class="kid card" id="k2"><svg width="140" height="140" viewBox="0 0 64 64" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linejoin="round"><path d="M22 8L8 16l6 12 6-3v31h24V25l6 3 6-12-14-8c-2 5-6 8-10 8s-8-3-10-8z" fill="#f5c242"/><path d="M50 4l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#b3161c" stroke="none"/></svg><b>Đồ mới</b></div>
+          <div class="kid card" id="k3"><svg width="110" height="146" viewBox="0 0 60 80" fill="none"><rect x="4" y="4" width="52" height="72" rx="6" fill="#c3161c" stroke="#2b1a14" stroke-width="4"/><path d="M4 24l26 16 26-16" stroke="#f5c242" stroke-width="4"/><circle cx="30" cy="54" r="10" fill="#f5c242"/></svg><b>Lì xì</b></div>
+        </div>
+      </div></div>
+
+      <!-- S8 · Năm nay làm được gì? -->
+      <div class="clip scene" id="s8" data-start="34.3" data-duration="8.3" data-track-index="2"><div class="in" id="s8-in">
+        <div class="safe h c" id="s8-h"><span class="blk">Tổng kết</span><span class="blk g">năm nay</span></div>
+        <div class="card" id="rep">
+          <div class="lab">Đã làm được</div>
+          <span id="cur"></span>
+          <div class="row" id="r1"><div class="ic"><svg width="110" height="90" viewBox="0 0 70 56" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linejoin="round"><path d="M10 28c0-12 12-20 26-20s24 8 24 20c0 8-4 13-9 16v8h-9v-5H26v5h-9v-8c-4-3-7-9-7-16z" fill="#f3b8b0"/><path d="M60 24h6v10h-6M30 12h12" /><circle cx="48" cy="22" r="2.5" fill="#2b1a14"/></svg></div><div><div class="k">Tiền để dành</div><div class="s">Heo đất: 0đ</div></div><div class="q">?</div></div>
+          <div class="row" id="r2"><div class="ic"><svg width="100" height="100" viewBox="0 0 64 64" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linejoin="round"><rect x="10" y="18" width="44" height="36" rx="6" fill="#f5c242"/><path d="M24 18v-6h16v6M24 18v36M40 18v36"/><path d="M16 58v2M48 58v2" stroke-linecap="round"/></svg></div><div><div class="k">Đi du lịch</div><div class="s">Vé: chưa đặt</div></div><div class="q">?</div></div>
+          <div class="row" id="r3"><div class="ic"><svg width="100" height="100" viewBox="0 0 64 64" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linejoin="round"><path d="M32 54S8 40 8 24a12 12 0 0 1 24-4 12 12 0 0 1 24 4c0 16-24 30-24 30z" fill="#f3b8b0"/><path d="M14 30h10l4-8 6 16 4-8h12" stroke="#b3161c"/></svg></div><div><div class="k">Sống lành mạnh</div><div class="s">Bắt đầu: để mai</div></div><div class="q">?</div></div>
+        </div>
+      </div></div>
+
+      <!-- S9 · Đôi giày chạy bộ -->
+      <div class="clip scene" id="s9" data-start="42.4" data-duration="6.45" data-track-index="2"><div class="in" id="s9-in">
+        <div class="safe h c" id="s9-h"><span class="blk">Đôi giày</span><span class="blk g">chạy bộ mới mua</span></div>
+        <svg id="shoe" viewBox="0 0 300 170" fill="none" stroke="#2b1a14" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M30 120c0-30 6-62 14-82 22 8 44 10 60 4 10 24 34 38 64 46 40 10 90 14 100 34v12H30z" fill="#fff3df"/>
+          <path d="M30 120h238v14c0 10-6 16-16 16H44c-8 0-14-6-14-14z" fill="#f5c242"/>
+          <path d="M104 42c-6 20-4 40 8 58M120 70l22-12M132 84l22-12M146 96l20-10" />
+          <path d="M44 38c-6-10-4-20 6-24 14-6 40 0 54 6v22" fill="#b3161c"/>
+        </svg>
+        <div id="case"></div>
+        <div id="week">
+          <div class="wk"><b>T2</b><i><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg></i></div>
+          <div class="wk"><b>T3</b><i><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg></i></div>
+          <div class="wk"><b>T4</b><i><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="4" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg></i></div>
+          <div class="wk"><b>T5</b><i class="x"></i></div><div class="wk"><b>T6</b><i class="x"></i></div><div class="wk"><b>T7</b><i class="x"></i></div><div class="wk"><b>CN</b><i class="x"></i></div>
+        </div>
+        <div class="card" id="plaque"><div class="lab">Hiện vật trưng bày</div><div class="k">Giày chạy bộ</div><div class="s">Đã chạy: 3 bữa · Còn mới tinh</div></div>
+      </div></div>
+
+      <!-- S10 · Nghĩ kỹ -->
+      <div class="clip scene" id="s10" data-start="48.75" data-duration="4.3" data-track-index="2"><div class="in" id="s10-in">
+        <div class="safe h c" id="s10-h"><span class="blk">Mà khoan,</span><span class="blk g">nghĩ lại coi</span></div>
+        <svg id="troph" width="360" height="360" viewBox="0 0 64 64" fill="none" stroke="#f5c242" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"><path d="M20 8h24v14a12 12 0 0 1-24 0z" fill="rgba(245,194,66,.18)"/><path d="M20 12h-8c0 8 4 12 9 12M44 12h8c0 8-4 12-9 12M32 34v10M22 56h20M26 44h12v12H26z"/></svg>
+        <div class="safe h c" id="s10-a"><span class="blk">Sợ Tết vì</span><span class="blk"><span class="strike" id="s10s">chưa thành công?<i></i></span></span></div>
+        <div id="s10-b">Đâu phải ai cũng vậy</div>
+      </div></div>
+
+      <!-- S11 · Một năm về nhà mấy lần -->
+      <div class="clip scene" id="s11" data-start="52.95" data-duration="5.6" data-track-index="2"><div class="in" id="s11-in">
+        <div class="safe h c" id="s11-h"><span class="blk">Một năm</span><span class="blk g">về nhà mấy lần?</span></div>
+        <div id="grid"></div>
+        <div id="home-n">Về nhà: 2 lần</div>
+      </div></div>
+
+      <!-- S12 · Hẹn rồi dời -->
+      <div class="clip scene" id="s12" data-start="58.45" data-duration="8.05" data-track-index="2"><div class="in" id="s12-in">
+        <div class="safe h c" id="s12-h"><span class="blk">Hẹn rồi dời,</span><span class="blk g">dời rồi hẹn</span></div>
+        <div id="plan">
+          <div class="wrow"><b>Tuần này</b></div><div class="wrow"><b>Tuần sau</b></div><div class="wrow"><b>Tuần sau nữa</b></div><div class="wrow last"><b>Bữa khác</b></div>
+        </div>
+        <div class="chip" id="chA"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="2.2" stroke-linecap="round"><path d="M4 9h13v5a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6zM17 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></svg>Cà phê bạn cũ</div>
+        <div class="chip" id="chB"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="2.2" stroke-linecap="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M15 3l-2 8M19 4l-4 7"/></svg>Cơm với ba má</div>
+      </div></div>
+
+      <!-- S13 · Thêm một tuổi -->
+      <div class="clip scene" id="s13" data-start="66.45" data-duration="4.3" data-track-index="2"><div class="in" id="s13-in">
+        <div class="safe h c" id="s13-h"><span class="blk">Qua mỗi cái Tết</span></div>
+        <div class="who" id="who1"><svg width="300" height="340" viewBox="0 0 100 114"><circle cx="50" cy="40" r="20" fill="#fff3df"/><path d="M14 114c2-26 18-40 36-40s34 14 36 40z" fill="#fff3df"/></svg><b>Mình</b><div class="plus" id="pl1"><span>+1</span><small>tuổi</small></div></div>
+        <div class="who" id="who2"><svg width="340" height="340" viewBox="0 0 120 114"><path d="M18 34c0-14 8-22 18-22s18 8 18 22" fill="#e6d6b8"/><circle cx="36" cy="38" r="16" fill="#fff3df"/><path d="M4 114c2-24 14-36 32-36s28 12 30 36z" fill="#fff3df"/><circle cx="84" cy="40" r="17" fill="#fff3df"/><path d="M68 34c2-12 8-17 16-17s14 5 16 17" stroke="#e6d6b8" stroke-width="6" fill="none"/><path d="M54 114c2-24 12-34 30-34s30 10 32 34z" fill="#fff3df"/></svg><b>Ba má</b><div class="plus" id="pl2"><span>+1</span><small>tuổi</small></div></div>
+      </div></div>
+
+      <!-- S14 · Đừng vội coi là năm thất bại -->
+      <div class="clip scene" id="s14" data-start="70.65" data-duration="5.1" data-track-index="2"><div class="in" id="s14-in">
+        <div class="safe h c" id="s14-h"><span class="blk">Chưa làm được</span><span class="blk g">chuyện lớn lao?</span></div>
+        <div class="card" id="yr26"><div class="lab">Năm của mày</div><div class="y">2026</div><div class="s">Chưa có thành tích gì to</div></div>
+        <div id="fail">THẤT BẠI</div>
+      </div></div>
+
+      <!-- S15 · Thử vầy nè -->
+      <div class="clip scene" id="s15" data-start="77.6" data-duration="6.65" data-track-index="2"><div class="in" id="s15-in">
+        <div class="safe h c" id="s15-h"><span class="blk">Thử vầy nè</span></div>
+        <div class="todo card" id="td1"><div class="no">1</div><div class="k"><span class="blk">Về nhà</span><span class="blk">ăn cơm với ba má</span></div>
+          <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="1.8" stroke-linecap="round"><path d="M3 11h18a9 9 0 0 1-18 0z" fill="#f5c242"/><path d="M15 3l-2 8M19 4l-4 7"/></svg></div>
+        <div class="todo card" id="td2"><div class="no">2</div><div class="k"><span class="blk">Gặp lại</span><span class="blk">người bạn cũ</span></div>
+          <svg width="130" height="110" viewBox="0 0 30 24" fill="none" stroke="#2b1a14" stroke-width="1.8" stroke-linecap="round"><path d="M2 10h10v5a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="#f5c242"/><path d="M16 10h10v5a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4z" fill="#fff3df"/><path d="M6 3v4M22 3v4"/></svg></div>
+        <div class="todo card" id="td3"><div class="no">3</div><div class="k"><span class="blk">Làm chuyện nhỏ</span><span class="blk">hẹn hoài chưa làm</span></div>
+          <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#2b1a14" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path id="tick3" d="M7 12l3.5 3.5L17 9" stroke="#b3161c" stroke-width="3"/></svg></div>
+      </div></div>
+
+      <!-- S16 · Tiếc nhất -->
+      <div class="clip scene" id="s16" data-start="84.2" data-duration="8.15" data-track-index="2"><div class="in" id="s16-in">
+        <div class="safe h c" id="s16-h"><span class="blk">Tiếc nhất</span><span class="blk g">sau một năm?</span></div>
+        <svg id="bag" width="400" height="440" viewBox="0 0 64 70" fill="none" stroke="#fff3df" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M10 22h44l-4 44H14z" fill="rgba(255,243,223,.12)"/><path d="M22 28V16a10 10 0 0 1 20 0v12"/><path d="M40 40l10-10 10 10-10 10z" fill="#f5c242" stroke="#f5c242"/><circle cx="50" cy="38" r="2" fill="#2b1a14" stroke="none"/></svg>
+        <div id="bagx"></div>
+        <div class="safe h c" id="s16-b"><span class="blk">Không phải</span><span class="blk">món chưa mua</span></div>
+        <div id="lamp"></div>
+        <svg id="table" viewBox="0 0 864 760" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M432 0v120" stroke="#fff3df" stroke-width="4"/>
+          <path d="M372 120h120l40 70H332z" fill="#f5c242"/>
+          <!-- người ngồi bên trái -->
+          <circle cx="200" cy="330" r="50" fill="#fff3df"/><path d="M110 560c4-90 40-140 90-140s86 50 90 140z" fill="#fff3df"/>
+          <!-- ghế trống bên phải (nét đứt) -->
+          <path id="chair" d="M640 380v260M640 520h120v120M760 520V380" stroke="#f5c242" stroke-width="10" stroke-dasharray="4 22"/>
+          <!-- bàn + 2 chén cơm -->
+          <path d="M60 560h744" stroke="#fff3df" stroke-width="16"/>
+          <path d="M140 576v170M724 576v170" stroke="#fff3df" stroke-width="12"/>
+          <path d="M290 520h90a45 45 0 0 1-90 0z" fill="#fff3df"/><path d="M490 520h90a45 45 0 0 1-90 0z" fill="#fff3df"/>
+          <path d="M300 506c10-20 60-20 70 0M500 506c10-20 60-20 70 0" stroke="#fff3df" stroke-width="5"/>
+        </svg>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // ---------- Dựng các tờ lịch (ngày thật, đếm ngược tới Mùng 1 Tết 6/2/2027) ----------
+      const TET = Date.UTC(2027, 1, 6);
+      const WD = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+      const DAYS = [[2026, 10, 11], [2026, 10, 27], [2026, 11, 14], [2026, 11, 30], [2026, 12, 15], [2026, 12, 31], [2027, 1, 12], [2027, 1, 25], [2027, 2, 6]];
+      const stack = document.getElementById("stack");
+      DAYS.forEach(([y, m, d], i) => {
+        const t = Date.UTC(y, m - 1, d), wd = new Date(t).getUTCDay(), left = Math.round((TET - t) / 864e5), tet = left === 0;
+        const pg = document.createElement("div");
+        pg.className = "pg"; pg.id = "pg" + i; pg.style.zIndex = 40 - i;
+        pg.innerHTML = `<div class="mo">THÁNG ${m} · ${y}</div><div class="d${wd === 0 || tet ? " r" : ""}">${d}</div><div class="wd">${WD[wd]}</div>` +
+          (tet ? `<div class="rib">MÙNG 1 TẾT ĐINH MÙI</div>` : `<div class="ft">Còn <b>${left} ngày</b> nữa là Tết</div>`);
+        stack.appendChild(pg);
+      });
+      // Lưới 12 tháng (S11): về nhà tháng 2 (Tết) và tháng 9
+      const grid = document.getElementById("grid");
+      for (let m = 1; m <= 12; m++) {
+        const c = document.createElement("div");
+        c.className = "mo12"; c.id = "mo" + m;
+        c.innerHTML = `<b>T${m}</b>` + (m === 2 || m === 9 ? `<svg class="hm" width="84" height="84" viewBox="0 0 24 24" fill="#f5c242" stroke="#2b1a14" stroke-width="1.8" stroke-linejoin="round"><path d="M3 11L12 4l9 7v9h-6v-6H9v6H3z"/></svg>` : "");
+        grid.appendChild(c);
+      }
+      // Thước năm (S5)
+      const ruler = document.getElementById("ruler");
+      for (let k = 0; k < 8; k++) {
+        const x = 30 + (k * (864 - 60)) / 7;
+        ruler.insertAdjacentHTML("beforeend", `<i class="tk" id="tk${k}" style="left:${x}px"></i><span class="ty" style="left:${x}px">${2020 + k}</span>`);
+      }
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const strike = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.inOut" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.18); up(sel, at, 0.4, 24); };
+      // Xé một tờ lịch: lật quanh mép trên rồi bay đi
+      let side = 1;
+      const tear = (i, at, d = 0.4) => { side = -side;
+        tl.to("#pg" + i, { rotation: side * (24 + (i % 3) * 8), x: side * 460, y: 220, opacity: 0, duration: d, ease: "power2.in" }, at); };
+      const shake = (sel, at, n = 7, a = 3) => tl.fromTo(sel, { rotation: 0 }, { rotation: a, duration: 0.05, repeat: n, yoyo: true, ease: "none", immediateRender: false }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+
+      // ---------- Lớp cảnh: hiện lên che cuốn lịch, mờ đi ở cuối ----------
+      [["#s3-in", 11.55, 16.0], ["#s4-in", 15.9, 19.0], ["#s5-in", 18.9, 25.65], ["#s6-in", 25.55, 31.5], ["#s8-in", 34.3, 42.6], ["#s9-in", 42.4, 48.85],
+       ["#s10-in", 48.75, 53.05], ["#s11-in", 52.95, 58.55], ["#s12-in", 58.45, 66.5], ["#s13-in", 66.45, 70.75], ["#s14-in", 70.65, 75.75], ["#s15-in", 77.6, 84.25], ["#s16-in", 84.2, 92.35]]
+        .forEach(([s, a, b]) => {
+          tl.fromTo(s, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.38, ease: E }, a + 0.02);
+          tl.to(s, { opacity: 0, duration: 0.16, ease: "power2.in" }, b - 0.2);
+        });
+      // Cuốn lịch: hiện 0–11.6 · 31.4–34.3 · 75.7–77.6 · 92.3–hết
+      [[11.55, 31.4], [34.25, 75.65], [77.55, 92.25]].forEach(([a, b]) => {
+        tl.to("#w-in", { opacity: 0, duration: 0.25 }, a);
+        tl.to("#w-in", { opacity: 1, duration: 0.35 }, b);
+      });
+      // Màu nền: đỏ son → nâu đêm khi lắng lại (48.9) → đèn ấm ở bữa cơm → đỏ lại ở câu chốt
+      tl.to("#root", { backgroundColor: "#2a1112", duration: 1.4, ease: "power1.inOut" }, 48.9);
+      tl.to("#glow", { opacity: 1, duration: 1.0 }, 89.6);
+      tl.to("#root", { backgroundColor: "#7a1317", duration: 0.8, ease: "power1.inOut" }, 95.2);
+      tl.to("#glow", { opacity: 0, duration: 0.6 }, 95.2);
+
+      // ===== S1 · Tết năm sau rơi vào 6/2 · còn chưa tới 4 tháng =====
+      up("#tt1", 0.25, 0.45, 26);
+      tl.fromTo("#cal", { y: 40 }, { y: 0, duration: 0.6, ease: E }, 0);
+      [0, 1, 2, 3, 4, 5, 6, 7].forEach((i) => tear(i, 1.55 + i * 0.19, 0.34));
+      tl.fromTo("#cal", { scale: 1 }, { scale: 1.05, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 3.15);
+      tl.fromTo("#pg8 .rib", { scaleX: 0.2, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 3.25);
+      [...document.querySelectorAll(".mchip")].forEach((el, i) => pop(el, 3.95 + i * 0.22, 0.5));
+      up("#mlab", 4.9, 0.4, 16);
+
+      // ===== S2 · Ủa khoan… Tết nữa hả? · trả góp lời hứa =====
+      title("#tt2", 6.65, "#tt1");
+      tl.fromTo("#huh", { opacity: 0, scale: 0.3, rotation: -30 }, { opacity: 1, scale: 1, rotation: 8, duration: 0.35, ease: "back.out(2.4)" }, 6.65);
+      shake("#cal", 6.7, 9, 2.5);
+      out(["#months", "#mlab"], 8.4, 0.2);
+      tl.to("#huh", { opacity: 0, duration: 0.2 }, 8.5);
+      tl.fromTo("#debt", { opacity: 0, y: 260, rotation: 4 }, { opacity: 1, y: 0, rotation: -2, duration: 0.5, ease: "back.out(1.5)" }, 8.6);
+      tl.fromTo("#debt .drow", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.32, ease: E }, 9.0);
+      stampIn("#overdue", 10.55, -9);
+
+      // ===== S3 · Sáu Suy Nghĩ =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 11.65);
+      up("#s3-name", 12.25, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 13.15); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 13.15);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 13.2);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 13.85); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 13.85);
+      pop("#follow", 13.95, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 14.55);
+      swapTxt("#f1", "#f2", 14.65); tl.to("#follow", { backgroundColor: "#fff3df", duration: 0.2 }, 14.65);
+      tl.fromTo("#sau1 .brow-r", { y: 0 }, { y: -10, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 15.0);
+
+      // ===== S4 · Thời gian chạy hơi bị nhanh =====
+      up("#s4-h", 16.05, 0.4, 24);
+      pop("#clock", 16.2, 0.6);
+      tl.fromTo("#mh", { rotation: 0, svgOrigin: "100 100" }, { rotation: 2160, svgOrigin: "100 100", duration: 2.6, ease: "power2.in" }, 16.3);
+      tl.fromTo("#hh", { rotation: 0, svgOrigin: "100 100" }, { rotation: 180, svgOrigin: "100 100", duration: 2.6, ease: "power2.in" }, 16.3);
+      document.querySelectorAll(".fly").forEach((el, i) => {
+        const a = (i / 8) * Math.PI * 2 + 0.4;
+        tl.fromTo(el, { opacity: 1, x: 0, y: 0, rotation: 0, scale: 0.4 },
+          { opacity: 1, x: Math.cos(a) * 560, y: Math.sin(a) * 760, rotation: (i % 2 ? 1 : -1) * 160, scale: 1.1, duration: 0.9, ease: "power1.in", immediateRender: false }, 16.7 + i * 0.2);
+        tl.set(el, { opacity: 0 }, 17.6 + i * 0.2);
+      });
+
+      // ===== S5 · Tết 2020 → Tết 2027 = 7 năm =====
+      up("#s5-lab", 19.0, 0.35, 14);
+      pop("#yr", 19.1, 0.6);
+      tl.fromTo("#lixi", { opacity: 0, y: 40, rotation: -10 }, { opacity: 1, y: 0, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 19.3);
+      up("#ruler", 19.5, 0.4, 20);
+      tl.set("#tk0", { backgroundColor: "#f5c242", borderColor: "#f5c242" }, 19.6);
+      tl.to("#lixi", { opacity: 0, y: 30, duration: 0.25 }, 20.2);
+      up("#s5-sub", 20.3, 0.4, 20);
+      out("#s5-sub", 22.55, 0.2);
+      const yr = { v: 2020 };
+      tl.fromTo(yr, { v: 2020 }, { v: 2027, duration: 1.5, ease: "power1.inOut", onUpdate: () => (document.getElementById("yr").textContent = Math.round(yr.v)) }, 23.0);
+      tl.fromTo("#rfl", { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "power1.inOut" }, 23.0);
+      for (let k = 1; k < 8; k++) tl.set("#tk" + k, { backgroundColor: "#f5c242", borderColor: "#f5c242" }, 23.0 + (k / 7) * 1.5);
+      tl.fromTo("#brk", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: E }, 24.3);
+      pop("#seven", 24.35, 0.5);
+
+      // ===== S6 · Hồi nhỏ mong tới Tết =====
+      up("#s6-h", 25.7, 0.4, 24);
+      tl.fromTo("#mini", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 25.9);
+      const cd = { v: 9 };
+      tl.fromTo(cd, { v: 9 }, { v: 1, duration: 1.8, ease: "none", onUpdate: () => (document.getElementById("cd").textContent = Math.round(cd.v)) }, 26.3);
+      tl.fromTo("#mini .pp", { y: 0 }, { y: 4, duration: 0.11, yoyo: true, repeat: 15, ease: "none", immediateRender: false }, 26.3);
+      pop("#k1", 28.2, 0.5); pop("#k2", 29.25, 0.5); pop("#k3", 30.15, 0.5);
+      tl.fromTo("#k3 svg", { rotation: 0 }, { rotation: 8, duration: 0.1, yoyo: true, repeat: 3, immediateRender: false }, 30.6);
+
+      // ===== S7 · Giờ lớn rồi, nghe Tết là giật mình =====
+      tl.set(["#tt2", "#debt", "#huh"], { opacity: 0 }, 11.6);
+      tl.set("#tt3b", { opacity: 0 }, 31.3);
+      up("#tt3", 31.5, 0.4, 24);
+      tl.to("#tt3b", { opacity: 1, duration: 0.15 }, 32.8);
+      shake("#cal", 32.85, 11, 3.5);
+      tl.fromTo("#cal", { scale: 1 }, { scale: 1.07, duration: 0.12, yoyo: true, repeat: 1, immediateRender: false }, 32.85);
+
+      // ===== S8 · Năm nay làm được gì chưa? =====
+      up("#s8-h", 34.45, 0.4, 24);
+      tl.fromTo("#cur", { opacity: 1 }, { opacity: 0, duration: 0.25, repeat: 3, yoyo: true, ease: "steps(1)" }, 34.8);
+      tl.set("#cur", { display: "none" }, 36.4);
+      up("#r1", 36.45, 0.4, 30); up("#r2", 37.6, 0.4, 30); up("#r3", 38.9, 0.4, 30);
+      ["#r1", "#r2", "#r3"].forEach((r, i) => tl.fromTo(r + " .q", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, [36.9, 38.15, 40.4][i]));
+      tl.to(["#r1 .q", "#r2 .q", "#r3 .q"], { rotation: 14, duration: 0.12, yoyo: true, repeat: 3, stagger: 0.08, ease: "sine.inOut" }, 41.3);
+
+      // ===== S9 · Giày chạy bộ → tủ trưng bày =====
+      up("#s9-h", 42.55, 0.4, 24);
+      tl.fromTo("#shoe", { opacity: 0, x: -300, rotation: -8 }, { opacity: 1, x: 0, rotation: 0, duration: 0.55, ease: "back.out(1.4)" }, 42.7);
+      up("#week", 43.3, 0.35, 20);
+      ["T2", "T3", "T4"].forEach((_, i) => pop(`#week .wk:nth-child(${i + 1}) i`, 44.0 + i * 0.28, 0.3));
+      tl.fromTo("#week .wk i.x", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.08 }, 44.9);
+      tl.fromTo("#case", { opacity: 0, y: -500 }, { opacity: 1, y: 0, duration: 0.45, ease: "bounce.out" }, 45.35);
+      tl.to("#week", { opacity: 0, duration: 0.25 }, 46.4);
+      tl.fromTo("#plaque", { opacity: 0, y: 30, rotation: 3 }, { opacity: 1, y: 0, rotation: -1, duration: 0.4, ease: "back.out(2)" }, 46.75);
+
+      // ===== S10 · Nhưng mà nghĩ kỹ =====
+      up("#s10-h", 48.9, 0.45, 24);
+      tl.fromTo("#troph", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 49.3);
+      up("#s10-a", 50.65, 0.4, 24);
+      strike("#s10s", 51.9);
+      tl.to("#troph", { opacity: 0.3, duration: 0.4 }, 51.9);
+      up("#s10-b", 52.15, 0.35, 16);
+
+      // ===== S11 · Một năm trôi qua, về nhà mấy lần =====
+      up("#s11-h", 53.1, 0.4, 24);
+      for (let m = 1; m <= 12; m++) tl.to("#mo" + m, { opacity: 1, duration: 0.18 }, 53.4 + (m - 1) * 0.18);
+      [2, 9].forEach((m, i) => pop(`#mo${m} .hm`, 56.25 + i * 0.6, 0.3));
+      for (let m = 1; m <= 12; m++) if (m !== 2 && m !== 9) tl.to("#mo" + m, { opacity: 0.28, duration: 0.3 }, 57.0);
+      pop("#home-n", 57.5, 0.6);
+
+      // ===== S12 · Hẹn bạn cũ dời hoài · cơm với ba má để cuối tuần =====
+      up("#s12-h", 58.6, 0.4, 24);
+      up("#plan", 58.6, 0.4, 20);
+      // hàng: top 440 + k*196; chip A nằm nửa trên hàng, chip B nửa dưới
+      const rowA = (k) => k * 196, rowB = (k) => k * 196;
+      pop("#chA", 58.85, 0.5);
+      [1, 2, 3].forEach((k, j) => tl.to("#chA", { y: rowA(k), duration: 0.3, ease: "back.out(1.6)" }, 59.45 + j * 0.42));
+      tl.to("#chA", { opacity: 0.45, duration: 0.3 }, 60.9);
+      pop("#chB", 61.15, 0.5);
+      tl.fromTo("#chB", { scale: 1 }, { scale: 1.08, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 62.6);
+      [1, 2, 3].forEach((k, j) => tl.to("#chB", { y: rowB(k), duration: 0.32, ease: "back.out(1.6)" }, 63.95 + j * 0.6));
+      tl.fromTo(".wrow.last > b", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, transformOrigin: "0% 50%", immediateRender: false }, 65.6);
+
+      // ===== S13 · Thêm một tuổi — ba má cũng vậy =====
+      up("#s13-h", 66.6, 0.4, 24);
+      up("#who1", 66.8, 0.45, 30);
+      pop("#pl1", 67.7, 0.4);
+      up("#who2", 68.8, 0.45, 30);
+      pop("#pl2", 69.4, 0.4);
+
+      // ===== S14 · Đừng vội coi là năm thất bại =====
+      up("#s14-h", 70.8, 0.4, 24);
+      tl.fromTo("#yr26", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 71.1);
+      stampIn("#fail", 74.35, -6);
+      tl.fromTo("#fail", { "--k": 0 }, { "--k": 1, duration: 0.3, ease: "power2.inOut" }, 74.9);
+      tl.to("#fail", { y: 700, rotation: 30, opacity: 0, duration: 0.5, ease: "power2.in" }, 75.2);
+
+      // ===== S14b · Còn mấy tháng nữa mới tới Tết =====
+      tl.set("#tt3", { opacity: 0 }, 34.3);
+      up("#tt4", 75.75, 0.4, 24);
+      tl.set(["#months", ".mchip"], { opacity: 0 }, 75.6);
+      tl.set("#months", { opacity: 1 }, 75.65);
+      [...document.querySelectorAll(".mchip")].forEach((el, i) => pop(el, 75.85 + i * 0.16, 0.5));
+      tl.to(".mchip:not(.tet)", { backgroundColor: "rgba(245,194,66,.25)", duration: 0.3, stagger: 0.1 }, 76.5);
+      up("#mlab2", 76.6, 0.35, 16);
+
+      // ===== S15 · Thử vầy nè =====
+      up("#s15-h", 77.75, 0.4, 24);
+      tl.fromTo("#td1", { opacity: 0, x: 200, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.45, ease: "back.out(1.5)" }, 77.85);
+      tl.fromTo("#td2", { opacity: 0, x: 200, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.45, ease: "back.out(1.5)" }, 79.8);
+      tl.fromTo("#td3", { opacity: 0, x: 200, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.45, ease: "back.out(1.5)" }, 81.75);
+      tl.fromTo("#tick3", { opacity: 0, scale: 0.4, svgOrigin: "12 12" }, { opacity: 1, scale: 1, svgOrigin: "12 12", duration: 0.3, ease: "back.out(3)" }, 83.0);
+
+      // ===== S16 · Tiếc nhất: không phải món chưa mua, mà là chỗ ngồi còn trống =====
+      up("#s16-h", 84.4, 0.45, 24);
+      tl.fromTo("#bag", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 86.9);
+      up("#s16-b", 87.2, 0.4, 20);
+      tl.fromTo("#bagx", { rotation: -24, scaleX: 0 }, { rotation: -24, scaleX: 1, duration: 0.35, ease: "power2.inOut" }, 88.4);
+      tl.to(["#bag", "#bagx", "#s16-b"], { opacity: 0, duration: 0.3 }, 89.35);
+      out("#s16-h", 89.4, 0.2);
+      tl.fromTo("#table", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 89.65);
+      tl.fromTo("#lamp", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 89.8);
+      tl.fromTo("#chair", { opacity: 1 }, { opacity: 0.25, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 90.8);
+
+      // ===== Kết · quay lại cuốn lịch: "thôi, để bữa khác." → tờ lịch bị xé đi =====
+      tl.set(["#tt4", "#months", "#mlab2"], { opacity: 0 }, 77.6);
+      for (let i = 0; i < 8; i++) tl.set("#pg" + i, { x: 0, y: 0, rotation: 0, opacity: 1 }, 92.0);
+      tl.fromTo("#note", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.35, ease: "back.out(2.2)" }, 93.7);
+      tl.to("#nt2", { opacity: 1, duration: 0.15 }, 94.3);
+      tl.to("#note", { rotation: 30, x: 380, y: -260, opacity: 0, duration: 0.45, ease: "power2.in" }, 95.15);
+      [0, 1, 2, 3].forEach((i, j) => tear(i, 95.15 + j * 0.3, 0.45));
+      up("#tt5", 95.7, 0.45, 26);
+      tl.fromTo("#cal", { scale: 1 }, { scale: 0.96, duration: 0.6, immediateRender: false }, 96.6);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post11"] = tl;
+    </script>
+  </body>
+</html>

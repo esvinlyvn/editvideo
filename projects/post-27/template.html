@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Ông biên tập viên trong đầu</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Phòng dựng phim của trí nhớ": một căn phòng dựng có camera =====
+         Trên tường: màn hình ký ức (cảnh xe chạy qua biển báo) · giữa: dòng thời gian các đoạn phim có đầu đọc · dưới: bàn dựng và
+         "ông biên tập viên" (đeo tai nghe, cầm kéo, keo dán). Câu hỏi gài chữ DỪNG → ổng cắt đoạn NHƯỜNG ĐƯỜNG, ghép đoạn DỪNG,
+         màn hình chiếu lại như thật. Cuối: ổng giơ ngón cái, đóng dấu "BẢN GỐC".
+         2 font: Chakra Petch (tiêu đề, kiểu mã thời gian) · Be Vietnam Pro (phụ đề). Chữ trắng ngà + nhấn xanh đầu đọc #22d3ee. */
+      :root { --disp: "Chakra Petch", sans-serif; --body: "Be Vietnam Pro", sans-serif; --fg: #f4f4f5; --acc: #22d3ee; --bg: #14161b; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--fg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: linear-gradient(rgba(14,15,19,.95) 0, rgba(14,15,19,.72) 280px, rgba(14,15,19,0) 520px); }
+      #dim { position: absolute; inset: 0; background: rgba(14,15,19,.86); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .r { color: #ff4d4f; }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.08; text-transform: none; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 200px; font-size: 68px; }
+      .lab { font-family: var(--disp); font-weight: 600; font-size: 28px; letter-spacing: .18em; text-transform: uppercase; color: rgba(244,244,245,.7); white-space: nowrap; }
+      .card { background: #1f232b; border: 3px solid #3a414d; border-radius: 18px; }
+      .bub { position: absolute; padding: 18px 26px 20px; border-radius: 26px 26px 26px 6px; background: #fff; color: #15171c; font-family: var(--disp); font-weight: 700; font-size: 38px; line-height: 1.2; white-space: nowrap; opacity: 0; }
+      .bubR { border-radius: 26px 26px 6px 26px; }
+      .row { display: flex; align-items: center; gap: 20px; margin-top: 16px; padding: 16px 22px; border-radius: 16px; background: #1f232b; border: 3px solid #3a414d; font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .row i { font-style: normal; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; font-size: 32px; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(6, 7, 9, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post27" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Chuyện đáng sợ</span><span class="blk a">về trí nhớ</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Nhớ nhầm</span><span class="blk a">chỉ vì một câu hỏi</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu</span></div></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Một trò của</span><span class="blk a">bộ não mình</span></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Cảnh 1:</span><span class="blk a">xe qua biển nhường đường</span></div>
+        <div class="bub" id="q1" style="left:120px;top:300px;font-size:34px">“Lúc chiếc xe chạy qua<br>biển <span class="r">DỪNG</span>, nó chạy nhanh không?”</div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Tưởng chỉ nhầm</span><span class="blk a">một chữ</span></div>
+        <div class="bub bubR" id="ans" style="right:120px;top:320px">“Tui thấy biển <span class="r">DỪNG</span> mà!”</div>
+        <div class="safe o0" id="cmp" style="top:200px"><div class="h c" style="font-size:64px"><span class="blk">Ủa?</span></div>
+          <div style="display:flex;gap:24px;margin-top:20px"><div class="card c" style="flex:1;padding:18px"><div class="lab">Lúc đầu</div><svg id="cmpA" width="360" height="300" viewBox="0 0 360 300"></svg></div><div class="card c" style="flex:1;padding:18px;border-color:#ff4d4f"><div class="lab">Trong trí nhớ</div><svg id="cmpB" width="360" height="300" viewBox="0 0 360 300"></svg></div></div></div>
+        <div class="safe c o0" id="misinfo" style="top:200px"><div class="lab">các nhà tâm lý học gọi là</div><div class="h" style="font-size:84px;margin-top:10px"><span class="blk">Hiệu ứng</span><span class="blk a">thông tin sai lệch</span></div></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Trí nhớ</span><span class="blk a">không phải camera</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Não dựng lại</span><span class="blk a">từ nhiều nguồn</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Thông tin sai</span><span class="blk r">chen vô</span></div>
+        <div class="safe o0" id="meter" style="top:200px"><div class="h c" style="font-size:60px"><span class="blk">Nhớ rõ ≠ nhớ đúng</span></div>
+          <div class="card" style="margin-top:24px;padding:24px 28px"><div style="display:flex;justify-content:space-between" class="lab"><span>Cảm giác rõ</span><span class="a" id="clearV">0%</span></div><div style="height:22px;border-radius:11px;background:#2b313b;margin-top:10px;overflow:hidden"><i id="clearBar" style="display:block;height:100%;background:var(--acc);transform-origin:0 50%"></i></div>
+          <div style="display:flex;justify-content:space-between;margin-top:22px" class="lab"><span>Độ chính xác</span><span class="r">???</span></div><div style="height:22px;border-radius:11px;background:#2b313b;margin-top:10px;position:relative;overflow:hidden"><i style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,#3a414d 0 14px,#2b313b 14px 28px)"></i></div></div></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Vậy chuyện này</span><span class="blk a">liên quan gì?</span></div>
+        <div class="bub" id="argA" style="left:100px;top:480px">“Hôm đó bạn nói<br>đúng câu này!”</div>
+        <div class="bub bubR" id="argB" style="right:100px;top:700px">“Tui đâu có nói!”</div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Cả hai đều tin</span><span class="blk a">mình nhớ đúng</span></div>
+        <div class="safe o0" id="imp" style="top:200px"><div class="h c" style="font-size:60px"><span class="blk">Chuyện quan trọng</span><span class="blk a">đừng chỉ dựa trí nhớ</span></div>
+          <div class="row" id="im1"><i style="background:#334155"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#f4f4f5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="26" height="18" rx="3"/><path d="M12 10V6h10v4M4 18h26"/></svg></i>Công việc</div><div class="row" id="im2"><i style="background:#334155"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#f4f4f5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="17" r="12"/><path d="M21 12h-6a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-7M17 8v18"/></svg></i>Tiền bạc</div><div class="row" id="im3"><i style="background:#334155"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#f4f4f5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l7-6 7 5 7-5 7 6M8 18l6 6c2 2 4 2 6 0l6-6"/></svg></i>Lời thỏa thuận</div></div>
+        <div class="safe o0" id="tips" style="top:200px"><div class="h c" style="font-size:60px"><span class="blk">Cách giữ</span><span class="blk a">“bản gốc”</span></div>
+          <div class="row" id="tp1"><i style="background:var(--acc);color:#0b0c10">1</i>Ghi lại ngay khi vừa xảy ra</div>
+          <div class="row" id="tp2"><i style="background:var(--acc);color:#0b0c10">2</i>Kiểm tra tin nhắn, tài liệu</div>
+          <div class="row" id="tp3"><i style="background:var(--acc);color:#0b0c10">3</i>Hỏi trung lập</div></div>
+        <div class="safe o0" id="askC" style="top:860px"><div class="row" style="opacity:1;border-color:#ff4d4f"><i style="background:#ff4d4f">✕</i><span style="font-size:32px">“Xe qua biển DỪNG nhanh không?”</span></div><div class="row" style="opacity:1;border-color:var(--acc)"><i style="background:var(--acc);color:#0b0c10">✓</i><span style="font-size:32px">“Bạn thấy biển báo gì?”</span></div></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Không phải máy quay</span><span class="blk a">mà là biên tập viên</span></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Thiếu cảnh?</span><span class="blk a">Ổng tự ghép</span></div>
+        <div class="bub" id="final" style="left:470px;top:960px;font-size:44px">“Bản gốc đó bạn!<br><span class="a" style="color:#0891b2">Tui nhớ rõ lắm!</span>”</div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const FG = "#f4f4f5", ACC = "#22d3ee", RED = "#ff4d4f", WALL = "#1b1e24", PANEL = "#23272f", LINE = "#3a414d", SKIN = "#f0c19c";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+
+      // ---------- biển báo ----------
+      const yieldSign = (s = 1) => `<g transform="scale(${s})"><path d="M-60-104h120L0 0z" fill="#fff" stroke="#e11d48" stroke-width="16" stroke-linejoin="round"/><text x="0" y="-62" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="17" fill="#e11d48">NHƯỜNG</text><text x="0" y="-42" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="17" fill="#e11d48">ĐƯỜNG</text></g>`;
+      const stopSign = (s = 1) => `<g transform="scale(${s})"><path d="M-25-110h50l35 35v50l-35 35h-50l-35-35v-50z" fill="#e11d48" stroke="#fff" stroke-width="6"/><text x="0" y="-48" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="28" fill="#fff">DỪNG</text></g>`;
+      const car = `<g><path d="M-110 0v-40c0-12 10-18 22-20l40-36h96l44 36c16 2 26 8 26 20v40z" fill="#f59e0b" stroke="#111" stroke-width="5" stroke-linejoin="round"/><path d="M-40-58l26-26h48l26 26z" fill="#bae6fd" stroke="#111" stroke-width="4"/><circle cx="-62" cy="2" r="22" fill="#111"/><circle cx="66" cy="2" r="22" fill="#111"/><circle cx="-62" cy="2" r="8" fill="#9ca3af"/><circle cx="66" cy="2" r="8" fill="#9ca3af"/></g>`;
+      // khung cảnh trong màn hình (860 × 540)
+      const roadScene = (signId) => `<rect width="860" height="540" fill="#9fd3f5"/><circle cx="720" cy="110" r="50" fill="#fde68a"/><path d="M0 330C200 290 400 320 860 300V540H0z" fill="#86c46d"/><rect y="380" width="860" height="110" fill="#4b5563"/><path d="M0 435h860" stroke="#fff" stroke-width="6" stroke-dasharray="40 30"/>
+        <path d="M520 380V220" stroke="#6b7280" stroke-width="10"/><g transform="translate(520 230)"><g id="${signId}Y">${yieldSign(1)}</g><g id="${signId}S" opacity="0">${stopSign(1)}</g></g>`;
+      // ---------- ông biên tập viên ----------
+      const editor = `<g id="ed"><g transform="translate(540 1660)">
+        <path d="M-150 260c0-130 60-190 150-190s150 60 150 190z" fill="#4b5563" stroke="#0b0c10" stroke-width="6"/><path d="M-40 80l40 60 40-60" fill="#e5e7eb" stroke="#0b0c10" stroke-width="5"/>
+        <circle cx="0" cy="-20" r="96" fill="${SKIN}" stroke="#0b0c10" stroke-width="6"/><path d="M-96-30c0-80 40-110 96-110s96 30 96 110c-20-40-50-56-96-56s-76 16-96 56z" fill="#57534e"/>
+        <g id="edEyes"><circle cx="-34" cy="-20" r="9" fill="#0b0c10"/><circle cx="34" cy="-20" r="9" fill="#0b0c10"/></g><path d="M-50-44h30M20-44h30" stroke="#0b0c10" stroke-width="6" stroke-linecap="round"/>
+        <path d="M-40 26c20 14 60 14 80 0" stroke="#0b0c10" stroke-width="6" fill="none" stroke-linecap="round" id="edMouth"/><path d="M-30 14c10-10 50-10 60 0" stroke="#57534e" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M-104-40a104 104 0 0 1 208 0" stroke="#0b0c10" stroke-width="14" fill="none"/><rect x="-124" y="-56" width="34" height="64" rx="14" fill="${ACC}" stroke="#0b0c10" stroke-width="5"/><rect x="90" y="-56" width="34" height="64" rx="14" fill="${ACC}" stroke="#0b0c10" stroke-width="5"/>
+        <g id="armL"><path d="M-120 140c-40 20-60 60-50 110" stroke="#4b5563" stroke-width="44" stroke-linecap="round" fill="none"/></g>
+        <g id="armR"><path d="M120 140c40 20 60 60 50 110" stroke="#4b5563" stroke-width="44" stroke-linecap="round" fill="none"/></g>
+        <g id="scis" opacity="0"><g transform="translate(-170 230) rotate(-30)"><circle cx="-18" cy="20" r="14" fill="none" stroke="#e5e7eb" stroke-width="7"/><circle cx="18" cy="20" r="14" fill="none" stroke="#e5e7eb" stroke-width="7"/><path id="bladeA" d="M-8 8L20-70" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round"/><path id="bladeB" d="M8 8L-20-70" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round"/></g></g>
+        <g id="glue" opacity="0"><g transform="translate(170 220)"><rect x="-22" y="-60" width="44" height="80" rx="10" fill="#fde047" stroke="#0b0c10" stroke-width="5"/><rect x="-12" y="-80" width="24" height="22" rx="4" fill="#f97316"/></g></g>
+        <g id="thumb" opacity="0"><g transform="translate(200 120)"><rect x="-30" y="-58" width="26" height="64" rx="13" fill="${SKIN}" stroke="#0b0c10" stroke-width="5" transform="rotate(-12 -17 6)"/><rect x="-26" y="-6" width="64" height="62" rx="16" fill="${SKIN}" stroke="#0b0c10" stroke-width="5"/><path d="M-4 10h40M-4 26h40M-4 42h40" stroke="#0b0c10" stroke-width="4" stroke-linecap="round"/></g></g></g></g>`;
+      // ---------- phòng dựng ----------
+      const clip = (x, w, label, col, id = "") => `<g ${id ? `id="${id}"` : ""}><rect x="${x}" y="1050" width="${w}" height="120" rx="10" fill="${col}" stroke="#0b0c10" stroke-width="4"/>${[...Array(Math.floor(w / 30))].map((_, k) => `<rect x="${x + 8 + k * 30}" y="1056" width="14" height="10" rx="2" fill="#0b0c10" opacity=".5"/><rect x="${x + 8 + k * 30}" y="1154" width="14" height="10" rx="2" fill="#0b0c10" opacity=".5"/>`).join("")}<text x="${x + w / 2}" y="1120" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="24" fill="#0b0c10">${label}</text></g>`;
+      const room = `<rect x="-2000" y="-2000" width="6000" height="7000" fill="${WALL}"/>${[...Array(26)].map((_, k) => `<rect x="${-400 + (k % 13) * 150}" y="${k < 13 ? 120 : 1880}" width="90" height="90" rx="10" fill="#20242b"/>`).join("")}
+        <g id="mon"><rect x="70" y="240" width="940" height="640" rx="24" fill="#0b0c10" stroke="${LINE}" stroke-width="6"/><clipPath id="scrClip"><rect x="110" y="280" width="860" height="540" rx="8"/></clipPath>
+          <g clip-path="url(#scrClip)"><g transform="translate(110 280)" id="scr"><g id="scnRoad">${roadScene("m")}<g id="carW"><g transform="translate(0 440)">${car}</g></g></g>
+            <g id="scnSlate" opacity="0"><rect width="860" height="540" fill="#0b0c10"/><g transform="translate(430 290)"><rect x="-260" y="-110" width="520" height="250" rx="14" fill="#111827" stroke="${FG}" stroke-width="6"/><g id="slateTop"><path d="M-260-110h520v-60h-520z" fill="${FG}"/>${[...Array(6)].map((_, k) => `<path d="M${-240 + k * 90}-170l50 60h-40l-50-60z" fill="#111827"/>`).join("")}</g>
+              <text x="0" y="-30" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="40" fill="${FG}">THÍ NGHIỆM</text><text x="0" y="30" text-anchor="middle" font-family="Chakra Petch" font-weight="600" font-size="32" fill="${ACC}">TÂM LÝ HỌC · TRÍ NHỚ</text><text x="0" y="90" text-anchor="middle" font-family="Chakra Petch" font-weight="600" font-size="28" fill="${FG}" opacity=".7">CẢNH 1 · LẦN 1</text></g></g>
+            <g id="scnArg" opacity="0"><rect width="860" height="540" fill="#fde7c8"/><rect y="380" width="860" height="160" fill="#c08457"/>${[[280, "#2563eb"], [580, "#db2777"]].map(([x, c]) => `<g transform="translate(${x} 420)"><circle cy="-170" r="54" fill="${SKIN}" stroke="#0b0c10" stroke-width="5"/><path d="M-80 60c0-120 40-170 80-170s80 50 80 170z" fill="${c}" stroke="#0b0c10" stroke-width="5"/></g>`).join("")}</g>
+            <g id="scnRec" opacity="0"><rect width="860" height="540" fill="#0f172a"/><g transform="translate(430 270)"><rect x="-220" y="-130" width="300" height="220" rx="24" fill="#334155" stroke="${FG}" stroke-width="6"/><path d="M80-60l140-70v220l-140-70z" fill="#334155" stroke="${FG}" stroke-width="6"/><circle cx="-180" cy="-100" r="16" fill="${RED}"/><path id="camX" d="M-260 140L260-160" stroke="${RED}" stroke-width="20" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></g></g>
+            <g id="scnStamp" opacity="0"><g transform="translate(430 270) rotate(-10)"><rect x="-260" y="-80" width="520" height="160" rx="14" fill="none" stroke="${RED}" stroke-width="12"/><text x="0" y="28" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="80" fill="${RED}">BẢN GỐC</text></g></g>
+            <g id="noise" opacity="0">${[...Array(40)].map((_, k) => `<rect x="0" y="${k * 14}" width="860" height="6" fill="#fff" opacity="${0.04 + (k % 5) * 0.03}"/>`).join("")}</g></g></g>
+          <circle cx="980" cy="850" r="8" fill="${ACC}"/><text x="110" y="268" font-family="Chakra Petch" font-weight="700" font-size="22" fill="${FG}" opacity=".6">MÀN HÌNH KÝ ỨC</text><g id="rec" opacity="0"><circle cx="910" cy="262" r="10" fill="${RED}"/><text x="960" y="270" text-anchor="end" font-family="Chakra Petch" font-weight="700" font-size="22" fill="${RED}">REC</text></g></g>
+        <g id="tl"><rect x="40" y="960" width="1000" height="260" rx="20" fill="${PANEL}" stroke="${LINE}" stroke-width="4"/><text x="70" y="1010" font-family="Chakra Petch" font-weight="700" font-size="24" fill="${FG}" opacity=".6">DÒNG THỜI GIAN · KÝ ỨC</text><text id="tc" x="1010" y="1010" text-anchor="end" font-family="Chakra Petch" font-weight="700" font-size="26" fill="${ACC}">00:00:00</text>
+          ${clip(70, 200, "XE CHẠY", "#93c5fd", "c1")}${clip(280, 260, "NHƯỜNG ĐƯỜNG", "#fde68a", "c2")}${clip(550, 200, "XE ĐI QUA", "#93c5fd", "c3")}${clip(760, 250, "KẾT THÚC", "#a7f3d0", "c4")}
+          <g id="cIns" opacity="0">${clip(280, 260, "DỪNG", "#fca5a5")}</g>
+          <g id="srcs" opacity="0">${clip(70, 200, "ĐÃ THẤY", "#93c5fd", "s1")}${clip(280, 200, "ĐÃ NGHE", "#c4b5fd", "s2")}${clip(490, 280, "BIẾT THÊM SAU", "#fcd34d", "s3")}${clip(780, 230, "SAI LỆCH", "#fca5a5", "s4")}</g>
+          <g id="gap" opacity="0"><rect x="550" y="1050" width="200" height="120" rx="10" fill="none" stroke="${FG}" stroke-width="4" stroke-dasharray="14 10"/><text x="650" y="1120" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="24" fill="${FG}">THIẾU CẢNH</text></g>
+          <g id="patch" opacity="0">${clip(550, 200, "CẢNH KHÁC", "#f0abfc")}</g><g id="patchA" opacity="0">${clip(550, 200, "NGHE KỂ LẠI", "#f0abfc")}</g>
+          <g id="ph"><path d="M80 1030v160" stroke="${ACC}" stroke-width="6"/><path d="M68 1024h24l-12 14z" fill="${ACC}"/></g></g>
+        <rect x="-2000" y="1560" width="6000" height="40" fill="#2a2f38"/><rect x="-2000" y="1600" width="6000" height="2000" fill="#1f232a"/>${editor}
+        <g id="deskStuff"><rect x="40" y="1520" width="160" height="40" rx="8" fill="#2b313b"/><rect x="820" y="1480" width="80" height="80" rx="10" fill="#e11d48"/><path d="M900 1500c30 0 30 40 0 40" stroke="#e11d48" stroke-width="10" fill="none"/></g>`;
+      document.getElementById("W").innerHTML = room;
+      document.getElementById("cmpA").innerHTML = `<rect width="360" height="300" rx="10" fill="#9fd3f5"/><rect y="200" width="360" height="100" fill="#4b5563"/><path d="M180 200V120" stroke="#6b7280" stroke-width="8"/><g transform="translate(180 130) scale(.8)">${yieldSign(1)}</g>`;
+      document.getElementById("cmpB").innerHTML = `<rect width="360" height="300" rx="10" fill="#9fd3f5"/><rect y="200" width="360" height="100" fill="#4b5563"/><path d="M180 200V120" stroke="#6b7280" stroke-width="8"/><g transform="translate(180 130) scale(.8)">${stopSign(1)}</g>`;
+
+      const P = { all: CAM(540, 1150, 1300, 900), mon: CAM(540, 560, 1000, 760), tl: CAM(540, 1110, 1060, 1000), ed: CAM(540, 1500, 1000, 980), monTl: CAM(540, 760, 1080, 900) };
+      document.getElementById("W").setAttribute("viewBox", vbs(P.monTl));
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.6)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => tl.to("#W", { attr: { viewBox: vbs(v) }, duration: d, ease }, at);
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const scene = (id, at) => { tl.to(["#scnRoad", "#scnSlate", "#scnArg", "#scnRec", "#scnStamp"].filter((s) => s !== id), { opacity: 0, duration: 0.2 }, at); tl.to(id, { opacity: 1, duration: 0.2 }, at); tl.fromTo("#noise", { opacity: 0.8 }, { opacity: 0, duration: 0.35, immediateRender: false }, at); };
+      const drive = (at, d = 3.2) => tl.fromTo("#carW", { x: -160 }, { x: 1020, duration: d, ease: "none", immediateRender: false }, at);
+      const play = (at, d) => tl.fromTo("#ph", { x: 0 }, { x: 900, duration: d, ease: "none", immediateRender: false }, at);
+      const snip = (at) => { tl.to("#scis", { opacity: 1, duration: 0.15 }, at); tl.fromTo("#bladeA", { rotation: 0, transformOrigin: "50% 100%" }, { rotation: 18, duration: 0.12, yoyo: true, repeat: 3, immediateRender: false }, at); tl.fromTo("#bladeB", { rotation: 0, transformOrigin: "50% 100%" }, { rotation: -18, duration: 0.12, yoyo: true, repeat: 3, immediateRender: false }, at); };
+      const tcO = { v: 0 }; tl.to(tcO, { v: 120, duration: 120, ease: "none", onUpdate: () => { const s = Math.floor(tcO.v), f = Math.floor((tcO.v % 1) * 24); document.getElementById("tc").textContent = `00:${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}:${String(f).padStart(2, "0")}`; } }, 0);
+
+      // ---- 0–8 · chuyện đáng sợ về trí nhớ; nhớ nhầm chỉ vì một câu hỏi
+      T("#t0", 0.15, 2.6);
+      tl.fromTo("#mon", { opacity: 0.2 }, { opacity: 1, duration: 0.6, immediateRender: false }, 0.1); tl.fromTo("#noise", { opacity: 1 }, { opacity: 0, duration: 0.8, immediateRender: false }, 0.1);
+      drive(0.6, 3.0);
+      T("#t1", 2.7, 8.4);
+      tl.fromTo("#q1", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 7.0);
+      tl.to("#mY", { opacity: 0, duration: 0.6 }, 7.5); tl.to("#mS", { opacity: 1, duration: 0.6 }, 7.5);
+      out("#q1", 8.4, 0.25);
+
+      // ---- 8.7–11 · thí nghiệm tâm lý học (bảng clapper)
+      scene("#scnSlate", 8.7);
+      tl.fromTo("#slateTop", { rotation: -18, transformOrigin: "0% 100%" }, { rotation: 0, duration: 0.18, ease: "power4.in", immediateRender: false }, 9.6);
+      tl.set("#mY", { opacity: 1 }, 11.2); tl.set("#mS", { opacity: 0 }, 11.2);
+
+      // ---- 12–17 · Sáu
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 11.8);
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 11.9);
+      out("#sauBox", 12.85, 0.25); tl.to("#dim", { opacity: 0, duration: 0.35 }, 12.85);
+      cam(P.ed, 12.9, 1.2);
+      T("#t2", 13.0, 17.4);
+      tl.fromTo("#edEyes", { x: 0 }, { x: -10, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 14.6);
+
+      // ---- 19–24 · nghiên cứu: xe chạy qua biển nhường đường
+      cam(P.monTl, 18.0, 1.2); scene("#scnRoad", 18.6); tl.to("#rec", { opacity: 1, duration: 0.2 }, 19.1);
+      T("#t3", 19.1, 24.4);
+      drive(21.0, 3.0); play(19.4, 4.6);
+
+      // ---- 24.5–29 · câu hỏi gài chữ DỪNG
+      cam(P.mon, 24.4, 0.9);
+      tl.fromTo("#q1", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 25.3);
+      tl.fromTo("#q1 .r", { scale: 1 }, { scale: 1.25, duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 27.3);
+      out("#q1", 29.6, 0.25);
+
+      // ---- 30–37 · tưởng chỉ nhầm một chữ → ổng cắt NHƯỜNG ĐƯỜNG, ghép DỪNG → nhớ thấy biển DỪNG thật
+      cam(P.all, 29.8, 1.0);
+      T("#t4", 30.0, 32.3);
+      tl.fromTo("#c2", { y: 0 }, { y: -10, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, 30.6);
+      snip(32.4); tl.to("#c2", { y: -220, x: -60, rotation: -14, opacity: 0, duration: 0.8, ease: "power2.in" }, 32.9);
+      tl.to("#glue", { opacity: 1, duration: 0.15 }, 33.6); tl.fromTo("#cIns", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: 0.6, ease: "bounce.out", immediateRender: false }, 33.8);
+      tl.to(["#scis", "#glue"], { opacity: 0, duration: 0.2 }, 34.8);
+      scene("#scnRoad", 34.6); tl.set("#mY", { opacity: 0 }, 34.6); tl.set("#mS", { opacity: 1 }, 34.6); drive(34.7, 2.6); play(34.6, 2.8);
+      tl.fromTo("#ans", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 35.6);
+      out("#ans", 37.5, 0.25);
+
+      // ---- 37.8–41 · Ủa? lúc đầu ≠ trong trí nhớ
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 37.6);
+      fadeUp("#cmp", 37.75, 0.4);
+      tl.fromTo("#cmpB", { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 39.0);
+      out("#cmp", 41.6, 0.28);
+
+      // ---- 42.2–45.3 · hiệu ứng thông tin sai lệch
+      fadeUp("#misinfo", 42.2, 0.5); out("#misinfo", 45.8, 0.28); tl.to("#dim", { opacity: 0, duration: 0.35 }, 45.9);
+
+      // ---- 46.6–49.2 · trí nhớ không giống camera
+      cam(P.mon, 45.8, 0.9); scene("#scnRec", 46.4);
+      T("#t5", 46.6, 49.6);
+      tl.fromTo("#camX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, immediateRender: false }, 47.6);
+
+      // ---- 49.8–55.5 · não dựng lại từ: đã thấy · đã nghe · biết thêm sau đó
+      cam(P.tl, 49.5, 1.0);
+      T("#t6", 49.8, 56.0); scene("#scnRoad", 49.6);
+      tl.to(["#c1", "#c3", "#c4", "#cIns"], { opacity: 0, duration: 0.3 }, 49.7);
+      tl.to("#srcs", { opacity: 1, duration: 0.01 }, 49.9); tl.set("#s4", { opacity: 0 }, 49.9);
+      tl.fromTo("#s1", { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 51.4);
+      tl.fromTo("#s2", { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 53.9);
+      tl.fromTo("#s3", { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 54.6);
+
+      // ---- 56.2–59.2 · thông tin sai chen vô → ký ức đổi theo
+      T("#t7", 56.2, 59.9);
+      tl.to("#s3", { x: -40, duration: 0.4 }, 56.6);
+      tl.fromTo("#s4", { opacity: 0, x: 200, y: -60 }, { opacity: 1, x: 0, y: 0, duration: 0.6, ease: B, immediateRender: false }, 56.8);
+      tl.fromTo("#srcs", { x: 0 }, { x: 8, duration: 0.06, repeat: 7, yoyo: true, immediateRender: false }, 58.1);
+
+      // ---- 60–64.4 · nhớ rõ ≠ nhớ đúng
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 59.8);
+      fadeUp("#meter", 60.0, 0.4);
+      tl.fromTo("#clearBar", { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: "power2.out", immediateRender: false }, 60.9);
+      (() => { const o = { v: 0 }; tl.fromTo(o, { v: 0 }, { v: 100, duration: 1.4, ease: "power2.out", immediateRender: false, onUpdate: () => (document.getElementById("clearV").textContent = Math.round(o.v) + "%") }, 60.9); })();
+      out("#meter", 65.3, 0.28); tl.to("#dim", { opacity: 0, duration: 0.35 }, 65.4);
+
+      // ---- 65.7–82 · ngoài đời: hai người cãi nhau, ai cũng tin mình nhớ đúng
+      tl.to("#srcs", { opacity: 0, duration: 0.3 }, 65.4); tl.set("#cIns", { opacity: 0 }, 65.4); tl.set(["#c1", "#c3", "#c4"], { opacity: 1 }, 65.6); tl.set("#c2", { x: 0, y: 0, rotation: 0, opacity: 1 }, 65.6);
+      cam(P.mon, 65.5, 1.0); scene("#scnArg", 66.0);
+      T("#t8", 65.8, 68.0);
+      fadeUp("#argA", 72.9, 0.4); tl.fromTo("#argB", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 75.0);
+      out(["#argA", "#argB"], 76.6, 0.25);
+      T("#t9", 76.8, 82.5);
+      cam(P.monTl, 78.6, 1.2);
+      tl.to("#c3", { opacity: 0, duration: 0.2 }, 79.4); tl.fromTo("#patchA", { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 79.6);
+
+      // ---- 82.9–89 · chuyện quan trọng đừng chỉ dựa trí nhớ
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 82.6);
+      tl.to("#imp", { opacity: 1, duration: 0.3 }, 82.8);
+      fadeUp("#im1", 84.3, 0.35, 14); fadeUp("#im2", 85.7, 0.35, 14); fadeUp("#im3", 86.5, 0.35, 14);
+      out("#imp", 89.2, 0.28);
+
+      // ---- 89.45–100.8 · cách giữ "bản gốc"
+      tl.to("#tips", { opacity: 1, duration: 0.3 }, 89.3);
+      fadeUp("#tp1", 89.5, 0.35, 14); fadeUp("#tp2", 92.5, 0.35, 14); fadeUp("#tp3", 97.8, 0.35, 14);
+      fadeUp("#askC", 99.1, 0.4);
+      out(["#tips", "#askC"], 101.4, 0.28); tl.to("#dim", { opacity: 0, duration: 0.35 }, 101.5);
+
+      // ---- 101.85–108 · không phải máy quay mà là biên tập viên
+      cam(P.mon, 101.3, 0.6); scene("#scnRec", 101.8); tl.set("#camX", { strokeDashoffset: 1 }, 101.7);
+      T("#t10", 101.9, 108.4);
+      tl.to("#camX", { strokeDashoffset: 0, duration: 0.45 }, 104.6);
+      cam(P.all, 106.4, 1.4);
+
+      // ---- 108.5–111.2 · thiếu cảnh → ổng tự ghép cảnh khác vô
+      T("#t11", 108.5, 111.6);
+      tl.to("#patchA", { opacity: 0, duration: 0.2 }, 108.4); tl.to("#c3", { opacity: 0, duration: 0.2 }, 108.5); tl.to("#gap", { opacity: 1, duration: 0.25 }, 108.6);
+      tl.to("#glue", { opacity: 1, duration: 0.15 }, 109.2);
+      tl.fromTo("#patch", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: 0.6, ease: "bounce.out", immediateRender: false }, 109.6); tl.to("#gap", { opacity: 0, duration: 0.2 }, 110.1);
+      tl.to("#glue", { opacity: 0, duration: 0.2 }, 111.0);
+
+      // ---- 111.6–end · tự tin tuyên bố: "Bản gốc đó bạn!"
+      cam(P.all, 111.5, 1.0); tl.to("#shTop", { opacity: 0, duration: 0.6 }, 111.6);
+      scene("#scnStamp", 112.2); tl.fromTo("#scnStamp > g", { scale: 2.2, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.in", immediateRender: false }, 112.2);
+      tl.to("#thumb", { opacity: 1, duration: 0.2 }, 113.6); tl.fromTo("#thumb", { y: 30 }, { y: 0, duration: 0.35, ease: B, immediateRender: false }, 113.6);
+      tl.fromTo("#final", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 113.8);
+      tl.fromTo("#ed", { rotation: 0, transformOrigin: "50% 100%" }, { rotation: 2, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 114.4);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post27"] = tl;
+    </script>
+  </body>
+</html>

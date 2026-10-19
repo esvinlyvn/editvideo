@@ -124,20 +124,44 @@ node projects/post-11/build.mjs
 | 8 | Montserrat | Xanh đêm `#0d1321` | Cam cảnh báo `#ff7a1a` | |
 | 9 | Baloo 2 | Hồng phấn `#fff0f3` | Đỏ hồng `#e8335a` | |
 | 10 | Space Grotesk | Giấy kraft `#f4ede1` | Xanh ngọc `#0fa3a3` | |
+| 11 | Playfair Display (serif) | Đỏ son `#7a1317` → nâu đêm `#2a1112` → đỏ | Vàng kim `#f5c242` | Giấy lịch kem, số đỏ |
+| 12 | Bungee (chữ bảng hiệu) | Xanh đêm `#0f2a22` | Xanh chanh `#c8f03c` | Bạt sọc chanh/kem, dây đèn |
+| 13 | Pangolin (viết tay) | Tường tím than `#241d33` (cố định) | Vàng đèn `#ffc65c` | Trời trong cửa sổ đổi theo giờ; đầu video đen trắng |
+| 14 | Paytone One | Giấy thi có dòng kẻ xanh + lề đỏ `#fbf8ef` | Mực đỏ chấm bài `#e0352b` (chữ chính mực xanh `#23339a`) | |
+| 15 | Barlow Condensed (biển chỉ dẫn) | Bê tông sáng `#e9e7e2` | Vàng biển báo `#ffcf00` (chữ chính đen) | Tiêu đề là các tấm biển đen |
 | 11b | Playfair Display | Trắng ngà `#fbf4e8` (nửa sau `#f4e7d6`) | Đỏ cờ `#d42a1f` | Font serif đầu tiên |
-| 12–14 | Bungee · Pangolin · Paytone One | (làm ở branch `claude/hyperframes-video-editing-56w91n`) | | Xem NOTES bên đó |
 | 16 | Grandstander | Xanh rêu `#2f4b38`, chữ kem | Hồng ruy băng `#f7a3c0` | |
 | 17 | Oswald (chữ biển báo) | Navy sàn hầm `#14213d`, chữ kem | Vàng mù tạt `#f2b134` | Bãi xe toàn màn hình, không khung |
 | 18 | VT323 (chữ điểm ảnh) | Đen `#0b0a10` | Hồng neon `#ff3d9a` | Đoạn ban đêm nền tím than |
+| 19 | Fraunces (serif tạp chí thám hiểm) | Nâu đá tối `#14100c` | Xanh lá rừng `#7ee08a` | Mặt cắt lòng núi |
+| 21 | Bricolage Grotesque | Bạc hà `#e7f3ec` chấm Riso | Hồng huỳnh quang `#ff4f9a` (chữ chính xanh than) | Bóng chữ lệch kiểu in Riso |
+| 22 | Lora (serif từ điển) | Giấy ngà `#f4ead8` | Đỏ đất `#c4532f` (chữ chính nâu mực) | |
+| 23 | Plus Jakarta Sans | Xám bản đồ `#f1f2f6` | Tím `#5b3df5` | |
+| 24 | Literata | Đêm xanh than `#0d1117`, chữ kem `#efe8da` | Vàng nến `#d9b26a` (sepia khi về 1968, đỏ cờ chỉ ở hộp hài cốt) | Giọng trang nghiêm, SFX thưa |
+| 25 | Unbounded | Kem `#f3efe7`, trời trong đầu xanh nhạt | Xanh lá "đang hoạt động" `#16a34a` (chữ mực `#26303d`) | Tòa nhà 7 tầng trong một cái đầu |
+| 26 | Cormorant Garamond | Biển sâu `#0a2230`, trời hoàng hôn | San hô đất nung `#ff8a5c` (chữ kem) | Mặt cắt trời–biển–đáy biển |
+| 27 | Chakra Petch | Phòng dựng tối `#14161b` | Xanh đầu đọc `#22d3ee` (đỏ chỉ ở biển DỪNG) | Phòng dựng phim của trí nhớ |
+| 28 | Archivo | Kem `#fbf3e4`, phố ban ngày | Xanh bạc hà `#00a884` (đỏ cho lỗi) | Con phố + dây mạng thanh toán dưới đất |
+| 29 | Exo 2 (nghiêng) | Đấu trường đêm `#0b1020`, trời hoàng hôn | Cam lửa `#ff5a1f` (xe đỏ `#d91c2a`) | Không logo thương hiệu |
+| 30 | Pacifico | Kem giấy `#fbf1e3` | Cam cà phê `#e4572e` | Lịch-đường + quán Chỗ Cũ |
+| 31 | Comfortaa | Đêm mưa `#15172e` | Tím nhạc `#b197fc` | Căn phòng mưa |
+| 32 | Big Shoulders Display | Than `#16181d` | Vàng tải `#ffd60a` | Phòng xưa / phòng nay |
+| 33 | Mali | Trắng xanh `#f1f6fb` | Đỏ cờ `#e63946` | Sân trường (trường hư cấu) |
+| 34 | Josefin Sans | Xám bê tông `#e9ecef` | Xanh rêu mọc lại `#6a9b14` | Thành phố tua nhanh |
+| 35 | Spectral (serif) | Lá non `#eef3ea` | Đỏ son đền `#d9481c` | Ga trên cao ôm cây long não |
+| 36 | Grandstander | Đêm xanh rêu `#14302e`, chữ kem | Hồng muỗi `#ff5c8a` | Bữa tối ngoài sân |
+| 37 | Saira | Mận đêm `#1b1020`, chữ kem | Vàng lưu huỳnh `#ffc23d` | Mô hình Hệ Mặt Trời |
+| 38 | Bai Jamjuree | Trời nhạt `#dcecf7` | Cam an toàn `#f77f00` | Khoang khách + mặt cắt cửa sổ |
+| 39 | Oswald | Biển bão `#16242c`, chữ trắng bọt | Đỏ laser `#ff4655` | Mặt cắt biển + giàn khoan |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
-- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, grandstander, oswald, vt323, be-vietnam-pro.
+- Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, grandstander, oswald, vt323, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
 - Phụ đề: chữ trắng 44px, Be Vietnam Pro 600, nền tối bán trong suốt bo góc kèm đổ bóng, khung trái 108px phải 150px.
 
 ### Âm thanh
 
 - Voice chuẩn hóa về -14 LUFS (loudnorm trong `build.mjs`). Không có nhạc nền.
-- Thư viện `sfx/`: 53 âm gốc, 89 file kể cả phiên bản (`pop`, `pop-2`…). Đã chuẩn hóa:
+- Thư viện `sfx/`: 120 âm gốc, 169 file kể cả phiên bản (đã xóa `scribble-2` theo yêu cầu, cấm dùng lại) (`pop`, `pop-2`…). Đã chuẩn hóa:
   - Cắt lặng đầu và cuối, lọc tần số dưới 40 Hz, giới hạn độ dài theo nhóm.
   - Âm lượng trung bình khoảng -30 dB, có limiter chặn đỉnh.
   - Các phiên bản cùng tên chênh nhau ≤ khoảng 2,5 dB.
@@ -156,6 +180,12 @@ node projects/post-11/build.mjs
   - Điện thoại: `notify`, `phone-ring`, `phone-vibrate`, `hang-up`, `send`.
   - Dồn nhịp: `riser`, `riser-long`.
   - Chốt câu cuối: `cymbal`, `stamp`.
+  - *Bộ mới "BASIC SFX QUẠ HD" (10/2026):*
+    - Chuyển cảnh đặc biệt: `glitch` (nhiễu màn hình), `flashback`, `rewind`, `slow-mo`, `reveal`, `transform`, `vanish`.
+    - Giao diện: `beep`, `check`, `confirm`, `cursor`, `shutter` (chụp hình), `zip`, `squeak`, `cheers`.
+    - Đập mạnh: `vine-boom`, `boom`, `bonk`, `anvil`, `gong`, `pan-hit`, `glass-break`, `thunder`, `sting`, `doom`, `explosion`, `sword`.
+    - Cảm xúc/hài: `awkward`, `aww`, `blush`, `cry`, `dazed`, `deflate`, `disappoint`, `sweat`, `vein-pop`, `shock`, `question`, `gag`, `slip`, `fall`, `wow`, `cheer`, `jackpot`, `reward`, `confetti`, `magic`, `discovery`, `dun-dun`, `tense`, `creepy`, `evil-laugh`, `dark-gleam`.
+    - Đồ vật/âm thực: `bell`, `knock`, `kettle`, `cuckoo`, `balloon`, `crumple`, `meow`, `quack`, `siren`; nền: `mosquito`, `fire`.
 
 ---
 
@@ -200,10 +230,35 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **8** | Lừa đảo "chuyển lộn tiền" | **Ứng dụng ngân hàng ban đêm**: thông báo số dư, cuộc gọi đến, dòng tiền lật ngược, giấy đòi nợ | Lần đầu có nhân vật Sáu (2 biểu cảm); quy tắc giọng miền Nam và xuống dòng ghi vào `CLAUDE.md` | 77,6s · 56 |
 | **9** | Xóa app ≠ hủy gói đăng ký | **App là người yêu cũ**: ảnh đôi bị xé, quyết định cấp dưỡng, "ứng dụng cũ" | Hướng dẫn hủy gói trên iPhone và Android từng bước; Sáu vẽ theo avatar; SFX có phiên bản theo cảnh | 98,0s · 68 |
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
-| **11b** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
+| **11** | Còn chưa tới 4 tháng là Tết: đừng để bữa khác | **Cuốn lịch xé (lịch bloc)**: mở đầu xé tới Mùng 1 Tết 6/2/2027, mỗi tờ ghi "còn N ngày"; cảnh kết dán note "thôi, để bữa khác." rồi xé tiếp | Nền đổi màu theo cảm xúc (đỏ → nâu đêm → đỏ); lịch hẹn bị dời xuống hàng "Bữa khác"; ghế trống ở bàn cơm; `FORCE`/`KEEP` chỉnh ngắt phụ đề tay | 97,8s · 79 |
+| **12** | Chợ flo: 5 bước để tăng flo (kịch bản cố ý viết "flo" thay "follow" → mọi chữ trên hình dùng "flo") | **Chợ đêm "CHỢ FLO"**: cổng chợ có dây đèn, dãy 5 sạp mái bạt sọc, camera lia ngang từng sạp theo từng bước | Vé vô chợ, thả tim, gửi liên kết bằng máy bay giấy, đăng lại kéo người vô, gõ bình luận "CÓ MẶT! 37 flo!"; bảng chỉ đường "HỔNG CÓ BÁN" người yêu; cảnh kết gọi lại cổng chợ | 61,1s · 57 |
+| **13** | Một ngày bình thường cũng đáng vui | **Ô cửa sổ nhìn ra phố**: trời đổi sáng/chiều/tối/bão, camera zoom vào ô cửa "Nhà mình"; đầu video cả ô cửa đen trắng (chán phèo), tới "Nhưng mày thử nghĩ coi" màu quay lại | Đồ trên bậu cửa (đồng hồ, chén cơm, gối, đèn); tin nhắn của Má; bão + kính nứt + tấm polaroid "một ngày bình thường"; kết bằng đèn ấm. SFX nhẹ hơn cho hợp giọng lắng | 57,8s · 42 |
+| **14** | "Ăn gì cũng được" là một bài kiểm tra (hội thoại A/B) | **Giấy kiểm tra**: lời thoại thành bong bóng, gợi ý món thành phiếu trắc nghiệm bị gạch bút đỏ; đề không phát, đáp án niêm phong; câu 2 trắc nghiệm, khoanh đáp án, chấm 10, giấy báo trúng tuyển trợ lý giám đốc | Nét bút đỏ tự vẽ (`pathLength=1` + `strokeDashoffset`); tắt phụ đề ở mọi đoạn thoại | 55,2s · 42 |
+| **15** | Hiệu ứng thang cuốn hư | **Biển chỉ dẫn ga tàu**: mặt cắt ga (cầu thang thường + thang cuốn TẠM NGƯNG), người hình biển báo đi, chao, chúi; thí nghiệm sàn chạy; não hai bộ phận cãi nhau; tối Chủ nhật vs sáng thứ Hai | Chân người đung đưa quanh hông (`transformOrigin: 50% 0%`); `FORCE` tự gộp chữ dư nếu đếm thiếu | 80,7s · 52 |
+| **11b** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" (cùng voice với post 11, làm song song ở nhánh khác) | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
 | **16** | 20/10: tặng quà hay giao thêm việc | **Quầy gói quà**: thẻ quà "Tặng em ♥" lật thành "Phiếu giao việc", Sáu nhảy ra từ hộp quà, hộp "ĐỒ XÀI CHUNG" gắn thẻ tên một người, cân "mắc tiền" vs "được để ý"; kết bằng hộp quà chưa mở + đơn hàng "1 ly sinh tố bơ · Người làm: Má" | Chuyển cảnh giấy gói quà quét chéo | 68,4s · 40 |
 | **17** | Mẹo nhớ chỗ đậu xe: chụp số tầng/dãy/cột, lưu vị trí trên bản đồ | **Bãi xe tầng hầm B2** nhìn từ trên xuống: camera lùi ra thấy bãi mênh mông, mọi xe đen viền vàng, "bản đồ kho báu" toàn dấu X, Sáu trên biển "khu đậu xe riêng", khung ngắm chụp cột B2·C17, bản đồ lưu vị trí đậu xe, định vị nhảy lung tung trong hầm; kết bằng vé phim tặng kèm "tour khám phá hệ thống tầng hầm" | Chuyển cảnh cửa cuốn; route vẽ bằng stroke-dashoffset | 75,7s · 43 |
 | **18** | Máy phiên dịch "ý thiệt" | **Máy dịch ý thiệt v1.0**: lời người ta nói (bong bóng) → máy nghe (sóng âm) → "đang dịch" → ý thiệt gõ ra trên màn hình; Sáu hiện trên màn hình, nút máy thành nút Follow; tắt máy khi "không dám xài"; ban đêm 23:00 → 02:47; má gọi → máy đứng hình, LỖI MÁ-404, khởi động lại 1/3–3/3, bốc khói "Máy cũng chịu thua!" | Chuyển cảnh nhiễu sóng CRT | 66,3s · 40 |
+| **19** | Khu rừng trong hang Sơn Đoòng | **Mặt cắt lòng núi**: camera lặn 200 m qua các vỉa đá vôi (thước đo độ sâu), đoàn thám hiểm đeo đèn đi xuyên rừng tới vách hang, quay ngược thời gian lúc mái hang sập, nắng lọt vô và cây mọc; cây ngoài trời vs cây trong hang; kết bằng người đứng trên mặt đất, mũi tên xuống khu rừng | Thế giới SVG cao 3000 đơn vị; bọc `<g>` khi cần animate y của phần tử có `transform` | 91,2s · 47 |
+| **21** | Earworm: nhạc tự lặp trong đầu | **Cái đầu là máy cát-xét**: băng quay, liveshow lúc đi ngủ, bấm tắt không được; "con sâu trong tai"; sóng nhạc chọn đúng 10 giây lặp x99, cờ trắng; DJ quên danh sách nhạc; nghiên cứu nhai kẹo (biểu đồ minh họa); nhai làm băng khựng; két sắt "giữ kỹ như tài sản thừa kế" | Riso: `text-shadow` hồng lệch | 79,4s · 54 |
+| **22** | Những câu ba má nói | **Từ điển ba má**: mâm cơm còn một miếng ngon, mỗi câu là một mục từ (nghĩa đen / nghĩa thật, bút dạ đánh dấu), "Chừng nào rảnh thì về chơi" = ba má nhớ con; hồi nhỏ vs lớn lên; mục cuối "Con về." = chuyện đặc biệt | Mục từ lật trang `rotationY`; tắt phụ đề ở các câu trích | 78,4s · 38 |
+| **23** | Google Maps Dòng thời gian | **Bản đồ ký ức**: ghim + dấu chấm đường đi trên bản đồ có camera; hướng dẫn 4 bước trên điện thoại mô phỏng (mở app, hình đại diện, Dòng thời gian, chọn ngày cũ); quán cà phê quên tên, chuyến đi, con đường quen; 4 thẻ lưu ý riêng tư; kết "điện thoại lưu địa điểm, mình nhớ cảm giác" | Giao diện app là mô phỏng chung, không chép giao diện thật | 85,0s · 44 |
+| **24** | 731 liệt sĩ · Lê Thị Riêng | **Một khung đất, hai thời** (bản làm lại): thế giới SVG mặt cắt có camera: trời đêm + tháp nước + Cư xá Bắc Hải, công viên/nghĩa địa (đổi 2026↔1968 bằng lớp sepia), lòng đất có rãnh mộ 698 ô + 33 mộ tập thể, Nghĩa trang Liệt sĩ xa bên phải. Ba bức ảnh = khung cắt của chính thế giới năm 1968 (`<use>`); ảnh 2 phủ lên cảnh thật rồi lật ra để tháp nước khớp. Hộp phủ cờ đi về nghĩa trang, đám đông cầm nhang, bản vẽ xanh, dây nối manh mối, thẻ "?" chưa danh tính, bảng tên sáng dần | Ảnh tham khảo không đưa vào; không vẽ hài cốt; bố cục không theo tỷ lệ thật | 321,5s · 191 |
+| **25** | Bảy dự án ma | **Tập đoàn trong đầu**: tòa nhà 7 tầng = 7 dự án, đồ đã mua chất đầy nhưng đèn tắt; ông "ban lãnh đạo" là nhân sự duy nhất; kéo camera ra thấy tòa nhà nằm trong một cái đầu; bấm thang máy hoài không lên (muốn ≠ làm được); kế hoạch nếu–thì = dây nối đồng hồ 8:00 bật đèn tầng 01; bảng KPI ĐÃ MUA / ĐÃ LÀM ở sảnh; 6 tầng treo TẠM NGHỈ, ổng họp một mình | Tầng 04–07 (học đàn, viết nhật ký, ngủ sớm, học nấu ăn) là tự bịa | 102,4s · 66 |
+| **26** | Thonis-Heracleion | **Mặt cắt trời → đáy biển**: thành phố cảng trên khối trầm tích, tàu Hy Lạp vào cảng, hàng hóa/thương nhân/trạm thu thuế; hai cuộn ghi chép Thonis (Ai Cập) và Heracleion (Hy Lạp); khối đất sụt, hóa lỏng, cột nghiêng, tượng đổ, chìm tới thế kỷ VIII; năm 2000 thuyền khảo sát + thợ lặn + sonar; tấm bia khắc chữ; bóng thành phố xưa hiện trên phế tích | Bản đồ Địa Trung Hải và chữ trên bia chỉ là minh họa | 142,3s · 82 |
+| **27** | Trí nhớ là biên tập viên | **Phòng dựng phim của trí nhớ**: màn hình ký ức chiếu xe qua biển NHƯỜNG ĐƯỜNG, dòng thời gian các đoạn phim; câu hỏi gài chữ DỪNG → ổng biên tập cắt đoạn cũ, dán đoạn DỪNG; so sánh lúc đầu / trong trí nhớ; nguồn đã thấy / đã nghe / biết thêm + đoạn sai lệch chen vô; đồng hồ "nhớ rõ" 100% vs độ chính xác ???; hai người cãi nhau; cách giữ "bản gốc"; dấu BẢN GỐC + ổng giơ ngón cái | Câu hỏi gài, câu hỏi trung lập và lời cãi nhau là tự viết | 119,4s · 65 |
+| **28** | Một ngày không tiền mặt | **Con phố + mạng thanh toán**: ví bay hết tiền; số dư 2.000.000đ nhưng không mua được bánh mì; quét mã ở quán cơm, shop; pin tụt về 0; mã QR mọc mắt nhìn lại; bà xài điện thoại bấm số, cột sóng yếu, sạp rau ghi sổ, phòng máy báo đỏ; chuỗi người mua – kết nối – người bán đứt một mắt xích; cân bằng tiền mặt/điện thoại; Tết nhà ông bà, bao lì xì in mã QR | Tên tiệm, giá 20.000đ, số dư, lời bà là tự bịa | 116,6s · 75 |
+| **29** | Siêu xe chạy lộn ngược | **Đấu trường biểu diễn**: một đường chạy liền (mặt đất → tường → trần lộn ngược → vách trái → dốc phóng), xe chạy theo đường bằng getPointAtLength, camera bám xe; bay, xoay 360°, đáp; mũi tên TRỌNG LỰC khi xe treo ngược; chế độ soi xuyên: quạt dưới gầm + mũi tên lực hút, bình khí nén + 4 vòi phụt; tên lửa minh họa lực đẩy ngược; lửa bị gạch vs đồng hồ áp suất; 2028; đồng hồ tốc độ; xe hơi/máy bay/tên lửa + P; phố Sài Gòn kẹt xe, xe bay mà bãi xe HẾT CHỖ | Không vẽ logo Tesla/SpaceX: roadster đỏ không huy hiệu, tên chỉ hiện bằng chữ theo lời voice | 111,4s · 63 |
+| **30** | Bữa nào cà phê | **Con đường lịch** 2022→2026: mỗi năm một bàn cà phê, hai người bạn hẹn "bữa nào", cây trong chậu lớn dần; thẻ lời mời có ô trống → điền Thứ Bảy/3 giờ/chỗ cũ + mộc CHỐT; lịch tuần; bảo tàng "di sản phi vật thể" | Lời bạn, quán "Chỗ Cũ", tấm biển bảo tàng là tự bịa | 77,2s |
+| **31** | Nghe nhạc buồn khi buồn | **Căn phòng mưa**: cửa sổ mưa, đèn bàn, máy hát, người đeo tai nghe; mây mưa riêng; khảo sát 772 người (chấm); biểu đồ minh họa buồn/hoài niệm; polaroid kỷ niệm; cảnh kết cửa sổ nắng | Biểu đồ là minh họa, không phải số liệu thật | 97,9s |
+| **32** | Chờ đợi và tốc độ | **Hai căn phòng** xưa/nay + thanh tiến trình vàng xuyên suốt; CRT tải chậm vs điện thoại xoay vòng; HUD đồ thị tốc độ/kiên nhẫn (minh họa), thước 1 NGÀY → 1 GIÂY, đồng hồ 10 giây, chữ CHỜ ĐỢI bị xóa | Đồ thị, cột thế hệ là minh họa | 99,2s |
+| **33** | Phù hiệu | **Sân trường** THCS Hoa Phượng (hư cấu): cổng, cờ đỏ, cây phượng, lớp 9A2, căng tin; hộp kỷ niệm; phù hiệu SVG; đường điện tim; ảnh lớp dưới cây phượng | Tên trường/lớp, tin nhắn "Ê, dạo này sao rồi?" tự bịa | 110,7s |
+| **34** | Nếu loài người biến mất | **Một mặt cắt thành phố** có camera + đồng hồ "Con người biến mất · vài ngày → hàng ngàn năm" (chỉ ước lượng): nhà máy điện tắt đèn, trạm bơm rỉ sét, cống tắc, cao ốc nứt + dây leo + đỉnh gãy, nhà vùng ẩm mọc rêu vs khối đá sa mạc, chai nhựa vỡ mảnh; tàu thăm dò khoan trúng lớp vật liệu nhân tạo; hóa thạch lớp sâu; tua lại thành phố sống, thợ bảo trì | Tàu thăm dò, mốc thời gian là minh họa | 124,2s |
+| **35** (bài 31 của người dùng) | Ga Kayashima ôm cây | **Mặt cắt ga trên cao**: cây long não xuyên sàn và mái, đền nhỏ + cổng đỏ dưới gốc; hồi tưởng 1970 lọc nâu (đường ray mặt đất, trụ cầu mọc lên, dây thi công, rìu); ba thế hệ cầm bảng "Giữ cây lại nha!"; thẻ phương án A/B; cây biết nói (bong bóng đúng nguyên lời); bài toán A/B/C | Bảng "Giữ cây lại nha!", thẻ phương án, câu "Đáp án thứ ba: giữ cả hai" tự viết | 95,9s |
+| **36** (bài 32) | Muỗi chọn khách quen | **Sân sau ban đêm**: 2 người chung bàn, A bị 8 nốt, B 0 nốt; muỗi vằn lượn; thẻ nghiên cứu 2022; thí nghiệm 2 mẫu; biểu đồ minh họa; kính lúp axit carboxylic; vệt mùi da, CO2, nhiệt; "tiệm thử đường huyết" CHƯA MỞ; xịt chống muỗi, áo che da, đổ nước đọng; thẻ hội viên XIN NGHỈ | Biểu đồ là minh họa; tiệm, thẻ hội viên là cảnh đùa tự bịa | 96,4s |
+| **37** (bài 33) | Đồng hồ Sao Kim | **Mô hình Hệ Mặt Trời nhìn từ trên**: vị trí hành tinh tính theo góc (proxy + onUpdate), cờ đánh dấu tự quay, vòng tiến độ 243 ngày; thẻ mặt đất Sao Kim (Mặt Trời mọc Tây lặn Đông, 117 ngày); mũi tên chiều quay; 465°C; vé nghỉ dưỡng → NGHỈ LUÔN | Ghi rõ không đúng tỉ lệ; vé nghỉ dưỡng tự bịa | 71,6s |
+| **38** (bài 34) | Lỗ nhỏ cửa sổ máy bay | **Khoang khách + mặt cắt**: cửa sổ nhìn thẳng, tách 3 lớp; mặt cắt với hạt khí dày/thưa, kim đồng hồ áp suất, mũi tên lực, khí lọt qua lỗ vào khe giữa, hơi ẩm tan, đường thông thẳng bị chặn; máy bay không logo; tiếp viên; vớ thủng "công nghệ hàng không?" | Không ghi số độ cao/áp suất; cảnh vớ thủng tự bịa | 78,5s |
+| **39** (bài 35) | Sóng dị thường Draupner | **Mặt cắt biển**: mặt nước là hàm thuần của thời gian (tổng sin + sóng dị thường nổi tại chỗ) nên tua tới đâu cũng đúng; giàn khoan có tia laser, biểu đồ laser cuộn theo thời gian có đỉnh 25,6 m và dải ≈ 12 m; tàu buồm xưa, tàu hàng; thẻ giao thoa 3 sóng; hải lưu, gió; đáy biển, cá | Câu "Sóng cao dữ thần luôn!", chai mắm/muối, sổ ghi chép tự bịa; tỉ lệ đứng 1 m ≈ 22 đơn vị | 121s |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 
@@ -216,6 +271,6 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 
 ### Ý tưởng chưa dùng cho các post sau
 
-- Bộ màu: xanh rêu và kem, đen và hồng neon, xanh navy và vàng mù tạt.
-- Concept: bản đồ thành phố có camera, game board / thẻ bài, bảng tin TV, mô phỏng web trình duyệt.
-- SFX còn thiếu trong thư viện: `glitch` (post 18 tạm dùng `snap`), `shutter-door` (post 17 tạm dùng `door-slam`), `paper-tear` (post 11 tạm dùng `page-turn`), `camera-shutter`, `glitch`, `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`.
+- Bộ màu: xanh rêu và kem, đen và hồng neon, xanh navy và vàng mù tạt, trắng và đỏ cờ.
+- Concept: bản đồ thành phố có camera, game board / thẻ bài, bảng tin TV, timeline lịch sử, mô phỏng web trình duyệt.
+- SFX còn thiếu trong thư viện: `drumroll`, `ta-da`, `sigh`, `gulp`, `card-beep`, `timer-beep`, `countdown`, âm nền `office` và `rain`. (Đã có `shutter`, `glitch`, `beep` từ bộ "BASIC SFX QUẠ HD".)

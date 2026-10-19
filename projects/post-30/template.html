@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Bữa nào cà phê</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Con đường của một cuộc hẹn": một con đường lịch 2022 → 2028, camera đi dọc theo năm =====
+         Mỗi năm một tờ lịch khổng lồ + một bàn cà phê chờ sẵn: chậu cây trên bàn lớn dần, ly nguội, mạng nhện giăng.
+         Giữa phim: tấm thiệp hẹn trống (ngày/giờ/địa điểm) bị đóng dấu CHỐT; lật ra là "thiện chí".
+         Hẹn cụ thể = tấm thiệp được điền đủ + lịch khoanh thứ Bảy + đồng hồ 3 giờ + ghim "chỗ cũ".
+         Kết: cái bàn nằm trong tủ kính viện bảo tàng, bảng DI SẢN VĂN HÓA PHI VẬT THỂ.
+         2 font: Pacifico (tiêu đề, kiểu bảng hiệu quán) · Be Vietnam Pro. Chữ nâu cà phê #4a2c1d + nhấn cam đỏ #e4572e. */
+      :root { --disp: "Pacifico", cursive; --body: "Be Vietnam Pro", sans-serif; --ink: #4a2c1d; --acc: #e4572e; --bg: #fbf1e3; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: linear-gradient(rgba(251,241,227,.96) 0, rgba(251,241,227,.78) 280px, rgba(251,241,227,0) 520px); }
+      #dim { position: absolute; inset: 0; background: rgba(251,241,227,.9); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 400; line-height: 1.32; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 190px; font-size: 64px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #8a6a55; white-space: nowrap; }
+      .card { background: #fff; border: 5px solid var(--ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--ink); }
+      .bub { position: absolute; translate: -50% -100%; padding: 16px 26px 20px; border-radius: 28px 28px 28px 8px; background: #fff; border: 4px solid var(--ink); font-family: var(--body); font-weight: 800; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .bubR { border-radius: 28px 28px 8px 28px; }
+      .fld { display: flex; align-items: center; gap: 16px; margin-top: 18px; font-weight: 800; font-size: 40px; white-space: nowrap; }
+      .fld b { width: 220px; font-weight: 700; font-size: 30px; color: #8a6a55; text-transform: uppercase; letter-spacing: .1em; }
+      .fld span { flex: 1; border-bottom: 4px dashed #c9b19c; min-height: 52px; position: relative; }
+      .fld em { font-style: normal; position: absolute; left: 6px; bottom: 4px; opacity: 0; color: var(--acc); }
+      .stamp { position: absolute; padding: 10px 30px 14px; border: 8px solid var(--acc); border-radius: 18px; color: var(--acc); font-family: var(--body); font-weight: 800; font-size: 80px; letter-spacing: .08em; opacity: 0; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(40, 24, 16, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post30" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="bub" id="b0">“Bữa nào cà phê nha!”</div>
+        <div class="bub bubR" id="b0r">“Ừ, bữa nào!”</div>
+        <div class="bub" id="b1">“Nhất định phải gặp nha!”</div>
+        <div class="bub bubR" id="b2">“Ừ, chốt luôn!”</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Lời mời có hạn</span><span class="blk a">lâu nhất lịch sử</span></div>
+        <div class="safe c o0" id="term" style="top:200px"><div class="lab">năm 2026 · chính thức bước sang</div><div class="h a" style="font-size:96px"><span class="blk">Nhiệm kỳ II</span></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Một loại lịch hẹn</span><span class="blk a">rất đặc biệt</span></div>
+        <div class="safe o0" id="invite" style="top:560px"><div class="card" style="padding:30px 34px 40px;position:relative">
+          <div class="h c" style="font-size:58px"><span class="blk">Thiệp hẹn cà phê</span></div>
+          <div class="fld" id="f1"><b>Ngày</b><span><em id="e1">Thứ Bảy này</em></span></div>
+          <div class="fld" id="f2"><b>Giờ</b><span><em id="e2">3 giờ chiều</em></span></div>
+          <div class="fld" id="f3"><b>Địa điểm</b><span><em id="e3">chỗ cũ</em></span></div>
+          <div class="fld" style="margin-top:30px"><b>Quyết tâm</b><div style="flex:1;height:34px;border:4px solid var(--ink);border-radius:17px;overflow:hidden"><i id="will" style="display:block;height:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(0)"></i></div></div>
+          <div class="stamp" id="stChot" style="right:40px;top:150px;transform:rotate(-12deg)">CHỐT</div>
+          <div class="stamp" id="stOk" style="right:40px;top:150px;transform:rotate(-12deg);border-color:#2a9d8f;color:#2a9d8f">ĐƯỢC!</div></div></div>
+        <div class="safe c o0" id="spirit" style="top:200px"><div class="card" style="display:inline-block;padding:20px 40px 26px;transform:rotate(-2deg)"><div class="lab">giấy khen</div><div class="h" style="font-size:60px"><span class="blk">Tinh thần</span><span class="blk a">rất đáng ghi nhận</span></div></div></div>
+        <div class="safe o0" id="flip" style="top:560px"><div class="card c" id="flipIn" style="padding:44px 30px 50px"><div class="lab">thật ra là</div><div class="h a" style="font-size:96px"><span class="blk">thiện chí</span></div><svg width="160" height="140" viewBox="0 0 160 140"><path d="M80 130C10 80 0 40 30 20s50 0 50 20c0-20 20-40 50-20s20 60-50 110z" fill="#e4572e" stroke="#4a2c1d" stroke-width="6"/></svg><div class="lab" style="margin-top:10px">chứ chưa phải lời hẹn cụ thể</div></div></div>
+        <div class="safe c o0" id="noMaybe" style="top:200px"><div class="h" style="font-size:72px;position:relative;display:inline-block"><span class="blk">“bữa nào”</span><svg width="420" height="120" viewBox="0 0 420 120" style="position:absolute;left:50%;top:50%;margin:-60px 0 0 -210px"><path id="maybeX" d="M10 100L410 20" stroke="#e4572e" stroke-width="14" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div><div class="lab" style="margin-top:6px">thử hỏi cụ thể</div></div>
+        <div class="safe o0" id="cal" style="top:560px"><div class="card" style="padding:22px 26px 26px"><div class="lab c">tuần này</div><div style="display:flex;justify-content:space-between;margin-top:14px" id="days">
+          <div class="dd">T2</div><div class="dd">T3</div><div class="dd">T4</div><div class="dd">T5</div><div class="dd">T6</div><div class="dd" id="dSat">T7</div><div class="dd" id="dSun">CN</div></div></div></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Người ta bận?</span><span class="blk a">Tìm ngày khác</span></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Hẹn hoài không ra ngày</span><span class="blk a">= chưa thành hình</span></div>
+        <div class="safe c o0" id="six" style="top:200px"><div class="lab">hội cà phê của tui · lên kế hoạch</div><div class="h a" style="font-size:120px"><span class="blk"><span id="sixN">0</span> năm</span></div></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Di sản văn hóa</span><span class="blk a">phi vật thể</span></div>
+        <style>.dd { width: 96px; height: 96px; border-radius: 20px; border: 4px solid #4a2c1d; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; position: relative; } .dd.ring::after { content: ""; position: absolute; inset: -12px; border: 6px solid #e4572e; border-radius: 50%; }</style>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const INK = "#4a2c1d", ACC = "#e4572e", GY = 1300, SKIN = "#f1c7a3";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+
+      // ---------- nhân vật: hai người bạn ----------
+      const friendA = (x, s = 1, beard = false) => `<g transform="translate(${x} ${GY}) scale(${s})"><path d="M-16 0v-60M16 0v-60" stroke="${INK}" stroke-width="13" stroke-linecap="round"/><path d="M-34-56l6-80c12-14 44-14 56 0l6 80z" fill="#3a86ff" stroke="${INK}" stroke-width="5"/><circle cy="-166" r="32" fill="${SKIN}" stroke="${INK}" stroke-width="5"/><path d="M-32-172c2-34 62-36 64 0-18-12-46-12-64 0z" fill="${INK}"/><circle cx="-11" cy="-164" r="10" fill="none" stroke="${INK}" stroke-width="4"/><circle cx="13" cy="-164" r="10" fill="none" stroke="${INK}" stroke-width="4"/>${beard ? `<path d="M-24-150c8 22 40 22 48 0-8 30-40 30-48 0z" fill="${INK}"/>` : `<path d="M-10-146c6 6 14 6 20 0" stroke="${INK}" stroke-width="4" fill="none"/>`}<path d="M30-120l30 34" stroke="${INK}" stroke-width="10" stroke-linecap="round"/></g>`;
+      const friendB = (x, s = 1, grey = false) => `<g transform="translate(${x} ${GY}) scale(${s})"><path d="M-14 0v-56M14 0v-56" stroke="${INK}" stroke-width="12" stroke-linecap="round"/><path d="M-36-52l10-84c12-14 40-14 52 0l10 84z" fill="#ffbe0b" stroke="${INK}" stroke-width="5"/><path d="M-36-150c-6 40-4 80 4 96h64c8-16 10-56 4-96z" fill="${grey ? "#9a8c84" : "#6b3d2a"}"/><circle cy="-164" r="30" fill="${SKIN}" stroke="${INK}" stroke-width="5"/><path d="M-30-170c4-30 56-32 60 0-20-14-40-14-60 0z" fill="${grey ? "#9a8c84" : "#6b3d2a"}"/><circle cx="-10" cy="-162" r="4" fill="${INK}"/><circle cx="10" cy="-162" r="4" fill="${INK}"/><path d="M-8-146c6 6 12 6 16 0" stroke="${INK}" stroke-width="4" fill="none"/><path d="M-30-118l-30 34" stroke="${INK}" stroke-width="10" stroke-linecap="round"/></g>`;
+      // ---------- bàn cà phê chờ: cây lớn dần, ly bám bụi ----------
+      const table = (x, k) => { const h = 30 + k * 70; return `<g id="tb${k}"><g transform="translate(${x} ${GY})"><path d="M-130-150h260" stroke="${INK}" stroke-width="16" stroke-linecap="round"/><path d="M0-150V0M-60 0h120" stroke="${INK}" stroke-width="12" stroke-linecap="round"/>
+        ${[-150, 150].map((cx) => `<g transform="translate(${cx} 0)"><path d="M-36-110h72M-30-110V0M30-110V0M-30-190v80" stroke="#8a6a55" stroke-width="10" stroke-linecap="round"/></g>`).join("")}
+        ${[-70, 70].map((cx) => `<g transform="translate(${cx} -158)"><path d="M-26-50h52l-6 50h-40z" fill="#fff" stroke="${INK}" stroke-width="5"/><path d="M26-38c18 0 18 24 0 24" stroke="${INK}" stroke-width="5" fill="none"/>${k === 0 ? `<path class="steam" d="M-8-60c-10-14 10-22 0-36M8-60c-10-14 10-22 0-36" stroke="#c9b19c" stroke-width="5" fill="none"/>` : `<path d="M-26-50l-20-30M26-50l20-30M-36-70h72" stroke="#c9b19c" stroke-width="2" opacity="${0.3 + k * 0.17}"/>`}</g>`).join("")}
+        <g transform="translate(0 -160)"><path d="M-20 0h40l-6-36h-28z" fill="#c1693c" stroke="${INK}" stroke-width="4"/><path d="M0-36V${-36 - h}" stroke="#2d6a4f" stroke-width="${6 + k * 2}"/>${[...Array(2 + k * 2)].map((_, j) => `<ellipse cx="${(j % 2 ? 1 : -1) * (16 + k * 4)}" cy="${-50 - j * (h / (2 + k * 2))}" rx="${14 + k * 4}" ry="${8 + k * 2}" fill="${j % 3 ? "#40916c" : "#52b788"}" stroke="${INK}" stroke-width="3"/>`).join("")}</g></g></g>`; };
+      // ---------- tờ lịch khổng lồ mỗi năm ----------
+      const yearBoard = (x, y, sub) => `<g transform="translate(${x} ${GY - 870})"><path d="M60 0V-900M240 0V-900" stroke="#8a6a55" stroke-width="5"/><rect width="300" height="330" rx="18" fill="#fff" stroke="${INK}" stroke-width="7"/><rect width="300" height="90" rx="18" fill="${ACC}"/><rect y="60" width="300" height="30" fill="${ACC}"/><circle cx="70" cy="-6" r="12" fill="${INK}"/><circle cx="230" cy="-6" r="12" fill="${INK}"/><text x="150" y="62" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="36" fill="#fff">${sub}</text><text x="150" y="230" text-anchor="middle" font-family="Pacifico" font-size="100" fill="${INK}">${y}</text></g>`;
+      const YRS = [[2022, "HẸN LẦN 1"], [2023, "HẸN TIẾP"], [2024, "VẪN HẸN"], [2026, "NHIỆM KỲ II"]];
+      const XS = [500, 1600, 2700, 3800];
+      let road = ""; for (let k = 0; k < 40; k++) road += `<rect x="${-600 + k * 200}" y="${GY + 60}" width="100" height="12" rx="6" fill="#fff" opacity=".8"/>`;
+      let world = `<rect x="-4000" y="-4000" width="14000" height="${4000 + GY}" fill="url(#gSky)"/>${[[300, 500], [1400, 380], [2500, 520], [3600, 420], [4700, 480]].map(([x, y]) => `<g transform="translate(${x} ${y})" fill="#fff"><circle r="50"/><circle cx="60" cy="8" r="40"/><circle cx="-60" cy="10" r="36"/></g>`).join("")}
+        <rect x="-4000" y="${GY}" width="14000" height="3000" fill="#e8d5bf"/><rect x="-4000" y="${GY + 20}" width="14000" height="100" fill="#8d7766"/>${road}
+        ${XS.map((x, i) => yearBoard(x - 70, YRS[i][0], YRS[i][1])).join("")}
+        ${XS.map((x, i) => table(x + 150, i)).join("")}
+        <g id="fr0">${friendA(XS[0] - 150)}${friendB(XS[0] + 450)}</g>${friendA(XS[1] - 150)}${friendB(XS[1] + 450)}${friendA(XS[2] - 150, 1, true)}${friendB(XS[2] + 450)}<g id="fr3">${friendA(XS[3] - 150, 1, true)}${friendB(XS[3] + 450, 1, true)}</g>
+        <g id="banner" opacity="0"><path d="M${XS[3] - 300} ${GY - 470}h900" stroke="${INK}" stroke-width="5"/>${[...Array(9)].map((_, k) => `<path d="M${XS[3] - 280 + k * 100} ${GY - 470}l40 70 40-70z" fill="${k % 2 ? ACC : "#ffbe0b"}" stroke="${INK}" stroke-width="3"/>`).join("")}</g>
+        <g id="museum"><g transform="translate(5200 0)"><rect x="-560" y="${GY - 1100}" width="1120" height="1100" fill="#efe6da" stroke="${INK}" stroke-width="8"/><path d="M-620 ${GY - 1100}L0 ${GY - 1400}L620 ${GY - 1100}z" fill="#e3d3bf" stroke="${INK}" stroke-width="8"/>${[-440, -220, 220, 440].map((x) => `<rect x="${x - 34}" y="${GY - 1060}" width="68" height="1060" fill="#f8f1e7" stroke="${INK}" stroke-width="5"/>`).join("")}
+          <text x="0" y="${GY - 1180}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="56" fill="${INK}" letter-spacing="6">BẢO TÀNG</text>
+          <rect x="-200" y="${GY - 520}" width="400" height="520" fill="#d7ecf2" opacity=".55" stroke="${INK}" stroke-width="6"/><path d="M-160 ${GY - 500}l60 120M-80 ${GY - 500}l40 80" stroke="#fff" stroke-width="8" opacity=".7"/>
+          <g transform="translate(0 0) scale(.8)">${table(0, 4).replace('id="tb4"', 'id="tbM"')}</g>
+          <rect x="-230" y="${GY - 60}" width="460" height="60" fill="#8a6a55" stroke="${INK}" stroke-width="5"/>
+          <g id="plaque"><rect x="230" y="${GY - 420}" width="300" height="190" rx="12" fill="#fff" stroke="${INK}" stroke-width="5"/><text x="380" y="${GY - 368}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="22" fill="${ACC}">DI SẢN VĂN HÓA</text><text x="380" y="${GY - 338}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="22" fill="${ACC}">PHI VẬT THỂ</text><text x="380" y="${GY - 296}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="20" fill="${INK}">Cuộc hẹn cà phê</text><text x="380" y="${GY - 266}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="20" fill="${INK}">2022 – ?</text></g>
+          ${[-420, 440].map((x, i) => `<g transform="translate(${x} 0)">${(i ? friendB : friendA)(0, 0.9)}</g>`).join("")}</g></g>
+        <g id="cafeShop"><g transform="translate(-1300 0)"><rect x="-300" y="${GY - 700}" width="600" height="700" fill="#f4a261" stroke="${INK}" stroke-width="7"/><rect x="-260" y="${GY - 660}" width="520" height="110" rx="14" fill="#fff" stroke="${INK}" stroke-width="5"/><text x="0" y="${GY - 585}" text-anchor="middle" font-family="Pacifico" font-size="62" fill="${INK}">Cà phê Chỗ Cũ</text><rect x="-200" y="${GY - 460}" width="160" height="460" fill="#8a6a55" stroke="${INK}" stroke-width="5"/><rect x="40" y="${GY - 460}" width="200" height="200" fill="#d7ecf2" stroke="${INK}" stroke-width="5"/>
+          <g id="pin" opacity="0"><path d="M0 ${GY - 760}c-60 0-90-40-90-90a90 90 0 0 1 180 0c0 50-30 90-90 90z" fill="${ACC}" stroke="${INK}" stroke-width="6"/><circle cx="0" cy="${GY - 850}" r="32" fill="#fff"/></g></g></g>`;
+      document.getElementById("W").innerHTML = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${GY}"><stop offset="0" stop-color="#ffd8a8"/><stop offset="1" stop-color="#fff3e2"/></linearGradient></defs>${world}`;
+
+      const P = { y22: CAM(XS[0] + 150, GY - 300, 1150, 1150), wide: CAM(2300, GY - 260, 3600, 1050), cafe: CAM(-1300, GY - 400, 1000, 1150), mus: CAM(5200, GY - 500, 1300, 1150), musC: CAM(5300, GY - 340, 900, 1150) };
+      P.y = XS.map((x) => CAM(x + 80, GY - 260, 900, 1180));
+      let lastCam = P.y[0];
+      document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("b0", P.y[0], XS[0] - 60, GY - 260); place("b0r", P.y[0], XS[0] + 420, GY - 330);
+      place("b1", P.y[3], XS[3] - 60, GY - 260); place("b2", P.y[3], XS[3] + 420, GY - 330);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const popB = (sel, at) => tl.fromTo(sel, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, at);
+      tl.fromTo(".steam", { y: 0, opacity: 0.9 }, { y: -16, opacity: 0.2, duration: 1.2, repeat: 30, yoyo: true, ease: "sine.inOut", immediateRender: false }, 0);
+
+      // ---- 0–5.8 · "Bữa nào cà phê nha!" · lời mời có hạn lâu nhất lịch sử
+      popB("#b0", 0.05); popB("#b0r", 0.9); out(["#b0", "#b0r"], 2.4, 0.25);
+      T("#t0", 2.3, 6.4);
+      cam(CAM(XS[0] + 80, GY - 260, 1100, 1180), 2.5, 3.8, "sine.inOut");
+
+      // ---- 6.7–17.9 · 2022 hẹn → 2023 hẹn tiếp → 2024 vẫn hẹn → 2026
+      cam(P.y[0], 6.4, 0.8);
+      cam(P.y[1], 11.2, 1.0); cam(P.y[2], 14.0, 1.0); cam(P.y[3], 16.3, 1.0);
+      tl.fromTo("#tb1 ellipse, #tb2 ellipse, #tb3 ellipse", { scale: 0.2, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.5, ease: B, stagger: 0.02, immediateRender: false }, 11.6);
+
+      // ---- 18.2–21.5 · nhiệm kỳ thứ hai của cuộc hẹn
+      tl.to("#banner", { opacity: 1, duration: 0.3 }, 18.1); tl.fromTo("#banner path", { y: -40 }, { y: 0, duration: 0.5, ease: "bounce.out", stagger: 0.03, immediateRender: false }, 18.1);
+      fadeUp("#term", 18.3, 0.45); out("#term", 21.8, 0.28);
+
+      // ---- 22.2–27 · Sáu · một loại lịch hẹn rất đặc biệt
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 22.0);
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 22.2);
+      out("#sauBox", 23.5, 0.25);
+      T("#t1", 23.7, 27.3);
+
+      // ---- 27.6–39.5 · không ngày, không giờ, không địa điểm · quyết tâm cực cao · CHỐT
+
+      tl.set("#dim", { opacity: 1 }, 27.3);
+      fadeUp("#invite", 27.4, 0.45);
+      [["#f1", 27.6], ["#f2", 28.6], ["#f3", 29.6]].forEach(([f, at]) => tl.fromTo(`${f} span`, { backgroundColor: "rgba(228,87,46,0)" }, { backgroundColor: "rgba(228,87,46,.18)", duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, at));
+      tl.fromTo("#will", { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: "power3.out", immediateRender: false }, 31.0);
+      tl.fromTo("#invite", { x: 0 }, { x: 6, duration: 0.05, repeat: 9, yoyo: true, immediateRender: false }, 32.4);
+      out("#invite", 33.7, 0.25); tl.to("#dim", { opacity: 0, duration: 0.3 }, 33.7);
+      popB("#b1", 33.9); popB("#b2", 35.3);
+      out(["#b1", "#b2"], 36.9, 0.25);
+      tl.to("#dim", { opacity: 1, duration: 0.3 }, 36.8);
+      tl.fromTo("#invite", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, 36.9);
+      tl.fromTo("#stChot", { opacity: 0, scale: 2.4 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power4.in", immediateRender: false }, 37.2);
+      out("#invite", 38.1, 0.25);
+      fadeUp("#spirit", 38.2, 0.45); out("#spirit", 40.3, 0.28);
+
+      // ---- 40.5–46.4 · thật ra là thiện chí, chưa phải lời hẹn cụ thể
+      fadeUp("#flip", 40.5, 0.4);
+      tl.fromTo("#flipIn", { rotationY: 90 }, { rotationY: 0, duration: 0.6, ease: E, immediateRender: false }, 40.5);
+      tl.fromTo("#flip svg", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.15, duration: 0.3, yoyo: true, repeat: 5, immediateRender: false }, 42.6);
+      out("#flip", 46.8, 0.28);
+
+      // ---- 47.2–55 · muốn gặp thiệt? bỏ "bữa nào" → thứ Bảy, 3 giờ, chỗ cũ
+      fadeUp("#noMaybe", 47.3, 0.45);
+      tl.fromTo("#maybeX", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, immediateRender: false }, 49.8);
+      out("#noMaybe", 52.2, 0.25);
+      tl.set(["#stChot"], { opacity: 0 }, 52.2);
+      fadeUp("#invite", 52.3, 0.35);
+      tl.to("#e1", { opacity: 1, duration: 0.25 }, 52.6); tl.to("#e2", { opacity: 1, duration: 0.25 }, 53.4); tl.to("#e3", { opacity: 1, duration: 0.25 }, 54.3);
+      out("#invite", 55.6, 0.25);
+
+      // ---- 56–57.8 · người ta bận → tìm ngày khác
+      fadeUp("#cal", 55.8, 0.35);
+      tl.fromTo("#dSat", { backgroundColor: "#fff" }, { backgroundColor: "#ffd6c7", duration: 0.2, immediateRender: false }, 56.0);
+      tl.to("#dSat", { backgroundColor: "#e5e0db", color: "#b7aea6", duration: 0.2 }, 56.9);
+      tl.fromTo("#dSun", { backgroundColor: "#fff" }, { backgroundColor: "#2a9d8f", color: "#fff", duration: 0.25, immediateRender: false }, 57.2);
+      T("#t2", 56.0, 58.4);
+      out("#cal", 58.2, 0.25);
+      tl.to("#dim", { opacity: 0, duration: 0.3 }, 58.2);
+
+      // ---- 58.3–63.7 · hẹn hoài không ra ngày → chưa thành hình (cái bàn chỉ còn nét đứt)
+      cam(P.cafe, 58.1, 1.0);
+      T("#t3", 58.4, 64.2);
+      tl.to("#pin", { opacity: 1, duration: 0.3 }, 59.0);
+      tl.fromTo("#pin", { y: -80 }, { y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, 59.0);
+      tl.fromTo("#cafeShop", { opacity: 1 }, { opacity: 0.35, duration: 1.2, immediateRender: false }, 61.3);
+
+      // ---- 64.6–68.1 · hội cà phê của tui: 6 năm kế hoạch (camera lướt cả con đường)
+      tl.set("#cafeShop", { opacity: 1 }, 64.4);
+      cam(P.wide, 64.3, 1.4);
+      fadeUp("#six", 64.6, 0.4);
+      (() => { const o = { v: 0 }; tl.fromTo(o, { v: 0 }, { v: 6, duration: 2.2, ease: "power1.out", immediateRender: false, onUpdate: () => (document.getElementById("sixN").textContent = Math.round(o.v)) }, 65.4); })();
+      out("#six", 68.6, 0.25);
+
+      // ---- 68.8–end · khi hoàn thành → di sản văn hóa phi vật thể
+      cam(P.mus, 68.5, 1.4);
+      T("#t4", 70.3, 999);
+      tl.fromTo("#plaque", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.5, ease: B, immediateRender: false }, 71.0);
+      cam(P.musC, 71.8, 2.6, "sine.inOut");
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post30"] = tl;
+    </script>
+  </body>
+</html>

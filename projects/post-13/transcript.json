@@ -1,0 +1,250 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.232,
+   "end": 0.485,
+   "speaker": "B",
+   "text": "Ê,"
+  },
+  {
+   "i": 1,
+   "start": 0.949,
+   "end": 3.074,
+   "speaker": "B",
+   "text": "có khi nào mày thấy cuộc sống mình chán phèo không?"
+  },
+  {
+   "i": 2,
+   "start": 3.599,
+   "end": 4.797,
+   "speaker": "B",
+   "text": "Sáng dậy đi làm,"
+  },
+  {
+   "i": 3,
+   "start": 5.003,
+   "end": 6.242,
+   "speaker": "B",
+   "text": "chiều kẹt xe về nhà,"
+  },
+  {
+   "i": 4,
+   "start": 6.494,
+   "end": 8.332,
+   "speaker": "B",
+   "text": "tối ăn cơm, lướt điện thoại rồi ngủ."
+  },
+  {
+   "i": 5,
+   "start": 8.973,
+   "end": 10.077,
+   "speaker": "B",
+   "text": "Ngày nào cũng y chang!"
+  },
+  {
+   "i": 6,
+   "start": 10.466,
+   "end": 11.691,
+   "speaker": "B",
+   "text": "Chẳng có gì đáng để kể."
+  },
+  {
+   "i": 7,
+   "start": 12.599,
+   "end": 13.152,
+   "speaker": "B",
+   "text": "Chào mấy mày,"
+  },
+  {
+   "i": 8,
+   "start": 13.58,
+   "end": 14.442,
+   "speaker": "B",
+   "text": "tao là Sáu suy nghĩ đây!"
+  },
+  {
+   "i": 9,
+   "start": 14.721,
+   "end": 15.481,
+   "speaker": "B",
+   "text": "Nhớ follow tao nha!"
+  },
+  {
+   "i": 10,
+   "start": 15.857,
+   "end": 17.546,
+   "speaker": "B",
+   "text": "Nhưng mày thử nghĩ coi..."
+  },
+  {
+   "i": 11,
+   "start": 18.335,
+   "end": 19.058,
+   "speaker": "B",
+   "text": "Sáng nay thức dậy,"
+  },
+  {
+   "i": 12,
+   "start": 19.554,
+   "end": 20.797,
+   "speaker": "B",
+   "text": "không có tin dữ nào chờ mày."
+  },
+  {
+   "i": 13,
+   "start": 21.582,
+   "end": 22.443,
+   "speaker": "B",
+   "text": "Chiều tan làm,"
+  },
+  {
+   "i": 14,
+   "start": 22.732,
+   "end": 23.595,
+   "speaker": "B",
+   "text": "dù mệt muốn xỉu,"
+  },
+  {
+   "i": 15,
+   "start": 23.846,
+   "end": 25.03,
+   "speaker": "B",
+   "text": "mày vẫn có một chỗ để về."
+  },
+  {
+   "i": 16,
+   "start": 25.778,
+   "end": 26.919,
+   "speaker": "B",
+   "text": "Tối nay vẫn có cơm ăn,"
+  },
+  {
+   "i": 17,
+   "start": 27.316,
+   "end": 28.113,
+   "speaker": "B",
+   "text": "có giường để ngủ,"
+  },
+  {
+   "i": 18,
+   "start": 28.696,
+   "end": 29.839,
+   "speaker": "B",
+   "text": "có người để nhắn một câu:"
+  },
+  {
+   "i": 19,
+   "start": 30.089,
+   "end": 30.291,
+   "speaker": "B",
+   "text": "“Ê,"
+  },
+  {
+   "i": 20,
+   "start": 30.641,
+   "end": 31.277,
+   "speaker": "B",
+   "text": "bữa nay sao rồi?”"
+  },
+  {
+   "i": 21,
+   "start": 32.269,
+   "end": 33.192,
+   "speaker": "B",
+   "text": "Một ngày như vậy,"
+  },
+  {
+   "i": 22,
+   "start": 33.609,
+   "end": 34.447,
+   "speaker": "B",
+   "text": "đâu có gì hoành tráng."
+  },
+  {
+   "i": 23,
+   "start": 34.96,
+   "end": 35.812,
+   "speaker": "B",
+   "text": "Không trúng số,"
+  },
+  {
+   "i": 24,
+   "start": 36.128,
+   "end": 36.783,
+   "speaker": "B",
+   "text": "không thăng chức,"
+  },
+  {
+   "i": 25,
+   "start": 37.071,
+   "end": 38.831,
+   "speaker": "B",
+   "text": "cũng chẳng có chuyện gì đáng đăng lên mạng."
+  },
+  {
+   "i": 26,
+   "start": 39.511,
+   "end": 40.53,
+   "speaker": "B",
+   "text": "Nhưng có cái lạ lắm."
+  },
+  {
+   "i": 27,
+   "start": 41.015,
+   "end": 42.5,
+   "speaker": "B",
+   "text": "Tới khi cuộc sống xảy ra biến cố,"
+  },
+  {
+   "i": 28,
+   "start": 43.031,
+   "end": 43.755,
+   "speaker": "B",
+   "text": "thứ mình mong nhất"
+  },
+  {
+   "i": 29,
+   "start": 44.16,
+   "end": 46.535,
+   "speaker": "B",
+   "text": "đôi khi chỉ là được quay lại một ngày bình thường như vậy."
+  },
+  {
+   "i": 30,
+   "start": 47.429,
+   "end": 49.492,
+   "speaker": "B",
+   "text": "Nên nếu hôm nay mày chẳng có gì đặc biệt để khoe..."
+  },
+  {
+   "i": 31,
+   "start": 50.348,
+   "end": 51.032,
+   "speaker": "B",
+   "text": "Thì cũng đâu có sao."
+  },
+  {
+   "i": 32,
+   "start": 51.791,
+   "end": 52.25,
+   "speaker": "B",
+   "text": "Đôi khi,"
+  },
+  {
+   "i": 33,
+   "start": 52.609,
+   "end": 53.427,
+   "speaker": "B",
+   "text": "một ngày bình yên đã"
+  },
+  {
+   "i": 34,
+   "start": 53.859,
+   "end": 55.298,
+   "speaker": "B",
+   "text": "là một ngày rất đáng để vui rồi."
+  }
+ ]
+}

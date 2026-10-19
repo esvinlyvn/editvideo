@@ -1,0 +1,369 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 3.266,
+   "speaker": "B",
+   "text": "Một thành phố từng kiểm soát cửa ngõ thương mại của Ai Cập cổ đại,"
+  },
+  {
+   "i": 1,
+   "start": 3.708,
+   "end": 5.559,
+   "speaker": "B",
+   "text": "vậy mà biến mất suốt hơn một ngàn năm."
+  },
+  {
+   "i": 2,
+   "start": 6.551,
+   "end": 7.075,
+   "speaker": "B",
+   "text": "Kỳ lạ hơn,"
+  },
+  {
+   "i": 3,
+   "start": 7.539,
+   "end": 9.591,
+   "speaker": "B",
+   "text": "người ta từng tưởng nó là hai thành phố khác nhau!"
+  },
+  {
+   "i": 4,
+   "start": 10.492,
+   "end": 13.196,
+   "speaker": "B",
+   "text": "Cho tới khi các nhà khảo cổ tìm thấy một tấm bia đá dưới biển."
+  },
+  {
+   "i": 5,
+   "start": 13.931,
+   "end": 14.779,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây."
+  },
+  {
+   "i": 6,
+   "start": 15.252,
+   "end": 21.11,
+   "speaker": "B",
+   "text": "Tui kể mấy bạn nghe một trong những phát hiện khảo cổ thú vị nhất ở Ai Cập."
+  },
+  {
+   "i": 8,
+   "start": 21.304,
+   "end": 22.335,
+   "speaker": "B",
+   "text": "Thành phố này tên là Thonis-Heracleion."
+  },
+  {
+   "i": 9,
+   "start": 22.924,
+   "end": 27.03,
+   "speaker": "B",
+   "text": "Trước khi thành phố Alexandria được thành lập vào năm 331 trước Công nguyên,"
+  },
+  {
+   "i": 10,
+   "start": 27.211,
+   "end": 28.561,
+   "speaker": "B",
+   "text": "Thonis-Heracleion từng là một cửa ngõ hàng hải quan trọng."
+  },
+  {
+   "i": 11,
+   "start": 28.762,
+   "end": 30.549,
+   "speaker": "B",
+   "text": "Những con tàu từ thế giới Hy Lạp"
+  },
+  {
+   "i": 12,
+   "start": 31.348,
+   "end": 34.045,
+   "speaker": "B",
+   "text": "muốn đi vô Ai Cập phải qua khu vực cảng này."
+  },
+  {
+   "i": 13,
+   "start": 34.284,
+   "end": 35.312,
+   "speaker": "B",
+   "text": "Hàng hóa,"
+  },
+  {
+   "i": 14,
+   "start": 36.263,
+   "end": 40.647,
+   "speaker": "B",
+   "text": "thương nhân, hoạt động kiểm soát thương mại... tất cả từng diễn ra ở đây."
+  },
+  {
+   "i": 15,
+   "start": 41.914,
+   "end": 44.063,
+   "speaker": "B",
+   "text": "Nhưng có một bí ẩn kéo dài hàng thế kỷ."
+  },
+  {
+   "i": 16,
+   "start": 44.882,
+   "end": 46.07,
+   "speaker": "B",
+   "text": "Trong những ghi chép cổ,"
+  },
+  {
+   "i": 18,
+   "start": 46.53,
+   "end": 48.066,
+   "speaker": "B",
+   "text": "người Ai Cập nhắc tới thành phố Thonis."
+  },
+  {
+   "i": 19,
+   "start": 48.801,
+   "end": 50.77,
+   "speaker": "B",
+   "text": "Còn người Hy Lạp lại nhắc tới Heracleion."
+  },
+  {
+   "i": 20,
+   "start": 51.53,
+   "end": 54.464,
+   "speaker": "B",
+   "text": "Người ta không biết chắc hai cái tên này có phải chỉ cùng một nơi hay không."
+  },
+  {
+   "i": 21,
+   "start": 55.529,
+   "end": 57.648,
+   "speaker": "B",
+   "text": "Rồi thành phố ấy dần chìm xuống biển."
+  },
+  {
+   "i": 23,
+   "start": 58.602,
+   "end": 58.986,
+   "speaker": "B",
+   "text": "Vì sao?"
+  },
+  {
+   "i": 24,
+   "start": 60.081,
+   "end": 62.928,
+   "speaker": "B",
+   "text": "Thành phố được xây trên lớp trầm tích mềm ở vùng châu thổ sông Nile."
+  },
+  {
+   "i": 25,
+   "start": 63.668,
+   "end": 64.308,
+   "speaker": "B",
+   "text": "Qua thời gian,"
+  },
+  {
+   "i": 26,
+   "start": 64.525,
+   "end": 65.311,
+   "speaker": "B",
+   "text": "nền đất sụt lún."
+  },
+  {
+   "i": 27,
+   "start": 65.944,
+   "end": 67.506,
+   "speaker": "B",
+   "text": "Những biến động địa chất và nước biển"
+  },
+  {
+   "i": 28,
+   "start": 67.693,
+   "end": 69.154,
+   "speaker": "B",
+   "text": "khiến nhiều khu vực không còn ổn định."
+  },
+  {
+   "i": 29,
+   "start": 70.02,
+   "end": 72.075,
+   "speaker": "B",
+   "text": "Có nơi xảy ra hiện tượng đất bị hóa lỏng,"
+  },
+  {
+   "i": 30,
+   "start": 72.484,
+   "end": 74.096,
+   "speaker": "B",
+   "text": "mất khả năng nâng đỡ các công trình bên trên."
+  },
+  {
+   "i": 31,
+   "start": 75.254,
+   "end": 79.988,
+   "speaker": "B",
+   "text": "Không phải đơn giản là một con sóng khổng lồ ập tới rồi nuốt trọn thành phố trong một đêm như trên phim."
+  },
+  {
+   "i": 32,
+   "start": 81.228,
+   "end": 82.081,
+   "speaker": "B",
+   "text": "Đến thế kỷ thứ tám,"
+  },
+  {
+   "i": 33,
+   "start": 82.406,
+   "end": 84.113,
+   "speaker": "B",
+   "text": "thành phố đã chìm hoàn toàn dưới biển."
+  },
+  {
+   "i": 34,
+   "start": 85.768,
+   "end": 86.376,
+   "speaker": "B",
+   "text": "Mãi năm 2000,"
+  },
+  {
+   "i": 35,
+   "start": 86.829,
+   "end": 92.063,
+   "speaker": "B",
+   "text": "nhóm khảo cổ dưới nước do Franck Goddio dẫn đầu mới phát hiện lại Thonis-Heracleion ở vịnh Aboukir."
+  },
+  {
+   "i": 36,
+   "start": 92.619,
+   "end": 94.327,
+   "speaker": "B",
+   "text": "Họ tìm thấy tượng đá khổng lồ,"
+  },
+  {
+   "i": 37,
+   "start": 94.511,
+   "end": 95.429,
+   "speaker": "B",
+   "text": "dấu tích đền thờ,"
+  },
+  {
+   "i": 38,
+   "start": 95.617,
+   "end": 96.975,
+   "speaker": "B",
+   "text": "bến cảng và nhiều hiện vật."
+  },
+  {
+   "i": 39,
+   "start": 97.396,
+   "end": 101.455,
+   "speaker": "B",
+   "text": "Nhưng thứ giúp giải được bí ẩn hai cái tên lại là một tấm bia đá có khắc chữ."
+  },
+  {
+   "i": 40,
+   "start": 102.354,
+   "end": 105.3,
+   "speaker": "B",
+   "text": "Các tư liệu khảo cổ cho thấy Thonis và Heracleion thật ra là cùng một thành phố."
+  },
+  {
+   "i": 42,
+   "start": 105.53,
+   "end": 107.079,
+   "speaker": "B",
+   "text": "Một tên do người Ai Cập sử dụng,"
+  },
+  {
+   "i": 43,
+   "start": 107.61,
+   "end": 110.652,
+   "speaker": "B",
+   "text": "một tên do người Hy Lạp gọi."
+  },
+  {
+   "i": 44,
+   "start": 111.382,
+   "end": 114.813,
+   "speaker": "B",
+   "text": "Tưởng tượng cả ngàn năm người đời sau tìm kiếm hai thành phố..."
+  },
+  {
+   "i": 46,
+   "start": 115.297,
+   "end": 116.187,
+   "speaker": "B",
+   "text": "Cuối cùng phát hiện ra"
+  },
+  {
+   "i": 47,
+   "start": 116.405,
+   "end": 117.729,
+   "speaker": "B",
+   "text": "hai ông chỉ chung một địa chỉ!"
+  },
+  {
+   "i": 48,
+   "start": 118.875,
+   "end": 120.481,
+   "speaker": "B",
+   "text": "Nhưng điều đáng kinh ngạc hơn là:"
+  },
+  {
+   "i": 49,
+   "start": 120.944,
+   "end": 124.554,
+   "speaker": "B",
+   "text": "Một nơi từng quyết định hàng hóa từ đâu được đi vào cả một nền văn minh,"
+  },
+  {
+   "i": 50,
+   "start": 124.95,
+   "end": 126.625,
+   "speaker": "B",
+   "text": "cuối cùng lại nằm im dưới lớp nước biển."
+  },
+  {
+   "i": 51,
+   "start": 127.265,
+   "end": 129.706,
+   "speaker": "B",
+   "text": "Và phải đợi tới thời đại của thiết bị khảo sát hiện đại,"
+  },
+  {
+   "i": 52,
+   "start": 130.084,
+   "end": 131.546,
+   "speaker": "B",
+   "text": "con người mới tìm lại được nó."
+  },
+  {
+   "i": 53,
+   "start": 132.925,
+   "end": 134.757,
+   "speaker": "B",
+   "text": "Lịch sử không chỉ nằm trong những cuốn sách cũ."
+  },
+  {
+   "i": 54,
+   "start": 135.253,
+   "end": 135.618,
+   "speaker": "B",
+   "text": "Đôi khi,"
+  },
+  {
+   "i": 55,
+   "start": 135.904,
+   "end": 136.945,
+   "speaker": "B",
+   "text": "nó vẫn nằm nguyên ở đó."
+  },
+  {
+   "i": 56,
+   "start": 137.377,
+   "end": 139.12,
+   "speaker": "B",
+   "text": "Chỉ là chúng ta chưa tìm ra."
+  }
+ ]
+}

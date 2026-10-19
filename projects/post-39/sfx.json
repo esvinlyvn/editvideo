@@ -1,0 +1,321 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  9.3,
+  12.9,
+  19.2,
+  32.5,
+  36.5,
+  40.8,
+  43.0,
+  47.5,
+  63.6,
+  67.6,
+  75.0,
+  78.1,
+  87.4,
+  91.4,
+  95.2,
+  103.8,
+  111.6
+ ],
+ "cues": [
+  {
+   "at": 0.15,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 2.3,
+   "name": "whoosh-heavy",
+   "vol": 0.6
+  },
+  {
+   "at": 3.8,
+   "name": "bass-drop",
+   "vol": 0.75
+  },
+  {
+   "at": 4.4,
+   "name": "click",
+   "vol": 0.45
+  },
+  {
+   "at": 6.6,
+   "name": "swipe",
+   "vol": 0.45
+  },
+  {
+   "at": 7.6,
+   "name": "hit",
+   "vol": 0.6
+  },
+  {
+   "at": 9.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 10.6,
+   "name": "zoom-in",
+   "vol": 0.55
+  },
+  {
+   "at": 11.2,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 13.0,
+   "name": "boing",
+   "vol": 0.55
+  },
+  {
+   "at": 14.77,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 15.4,
+   "name": "scribble",
+   "vol": 0.45
+  },
+  {
+   "at": 17.2,
+   "name": "stamp",
+   "vol": 0.65
+  },
+  {
+   "at": 19.2,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 21.3,
+   "name": "crowd-chatter",
+   "vol": 0.35
+  },
+  {
+   "at": 24.5,
+   "name": "whoosh-heavy",
+   "vol": 0.65
+  },
+  {
+   "at": 25.6,
+   "name": "bass-drop",
+   "vol": 0.75
+  },
+  {
+   "at": 28.0,
+   "name": "riser",
+   "vol": 0.4
+  },
+  {
+   "at": 31.4,
+   "name": "whoosh-fast",
+   "vol": 0.5
+  },
+  {
+   "at": 32.73,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 34.0,
+   "name": "boing",
+   "vol": 0.55
+  },
+  {
+   "at": 36.5,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 37.6,
+   "name": "oops",
+   "vol": 0.5
+  },
+  {
+   "at": 41.0,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 43.0,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 43.9,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 46.3,
+   "name": "zoom-in",
+   "vol": 0.55
+  },
+  {
+   "at": 47.5,
+   "name": "whoosh-heavy",
+   "vol": 0.6
+  },
+  {
+   "at": 49.0,
+   "name": "bass-drop",
+   "vol": 0.8
+  },
+  {
+   "at": 49.6,
+   "name": "tick",
+   "vol": 0.5
+  },
+  {
+   "at": 50.6,
+   "name": "click",
+   "vol": 0.5
+  },
+  {
+   "at": 53.5,
+   "name": "swipe",
+   "vol": 0.45
+  },
+  {
+   "at": 58.4,
+   "name": "stamp",
+   "vol": 0.9
+  },
+  {
+   "at": 60.5,
+   "name": "success",
+   "vol": 0.55
+  },
+  {
+   "at": 63.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 64.2,
+   "name": "cymbal",
+   "vol": 0.7
+  },
+  {
+   "at": 66.4,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 67.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 70.9,
+   "name": "whoosh-heavy",
+   "vol": 0.55
+  },
+  {
+   "at": 71.5,
+   "name": "alarm",
+   "vol": 0.6
+  },
+  {
+   "at": 75.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 75.6,
+   "name": "boing",
+   "vol": 0.5
+  },
+  {
+   "at": 78.42,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 79.4,
+   "name": "riser-long",
+   "vol": 0.4
+  },
+  {
+   "at": 85.6,
+   "name": "bass-drop",
+   "vol": 0.75
+  },
+  {
+   "at": 87.4,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 88.3,
+   "name": "whoosh-fast",
+   "vol": 0.5
+  },
+  {
+   "at": 89.4,
+   "name": "whoosh-fast",
+   "vol": 0.45
+  },
+  {
+   "at": 91.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 92.5,
+   "name": "tick-tock",
+   "vol": 0.4
+  },
+  {
+   "at": 95.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 99.0,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 103.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 105.6,
+   "name": "zoom-in",
+   "vol": 0.55
+  },
+  {
+   "at": 106.2,
+   "name": "bass-drop",
+   "vol": 0.8
+  },
+  {
+   "at": 109.7,
+   "name": "tick",
+   "vol": 0.5
+  },
+  {
+   "at": 111.6,
+   "name": "whoosh-heavy",
+   "vol": 0.5
+  },
+  {
+   "at": 112.8,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 116.0,
+   "name": "success-2",
+   "vol": 0.6
+  }
+ ]
+}

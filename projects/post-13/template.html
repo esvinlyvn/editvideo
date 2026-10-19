@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Một ngày bình thường</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== Hệ thiết kế: "ô cửa sổ một ngày" =====
+         2 font: Pangolin (chữ viết tay, giọng tâm sự) · Be Vietnam Pro (phụ đề, chữ phụ)
+         Tường phòng tím than cố định, chữ chính kem, 1 màu nhấn: vàng đèn ấm
+         Thế giới: một ô cửa sổ nhìn ra phố — trời đổi theo giờ (sáng/chiều/tối/bão), camera zoom bằng viewBox
+         Đầu video cả ô cửa đen trắng ("chán phèo") → "Nhưng mày thử nghĩ coi" màu quay lại
+         Vùng an toàn ≥10%: x 108–972, y 192–1728; phụ đề chừa cột nút phải TikTok */
+      :root {
+        --disp: "Pangolin", cursive;
+        --body: "Be Vietnam Pro", sans-serif;
+        --bg: #241d33;
+        --cream: #fbf3e6;
+        --lamp: #ffc65c;
+        --ink: #241d33;
+        --muted: rgba(36, 29, 51, 0.6);
+        --soft: rgba(251, 243, 230, 0.66);
+      }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--cream); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg);
+        background-image: radial-gradient(ellipse 900px 1100px at 50% 45%, rgba(255,255,255,.05), rgba(0,0,0,0) 70%); }
+      #warm { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle 700px at 800px 1250px, rgba(255,198,92,.16), rgba(255,198,92,0) 70%); }
+      .scene, .in { position: absolute; inset: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .h { font-family: var(--disp); font-weight: 400; line-height: 1.12; }
+      .h .blk, .nw { white-space: nowrap; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .y { color: var(--lamp); }
+      .lab { font-weight: 700; font-size: 28px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+      .card { background: var(--cream); color: var(--ink); border-radius: 28px; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+      .tt { position: absolute; left: 108px; right: 108px; top: 214px; text-align: center; font-family: var(--disp); font-size: 74px; line-height: 1.1; opacity: 0; }
+      .tt .blk { white-space: nowrap; }
+      .strike { position: relative; display: inline-block; }
+      .strike > i { position: absolute; left: -10px; right: -10px; top: 52%; height: 10px; border-radius: 5px; background: var(--lamp); transform-origin: 0 50%; transform: scaleX(0); }
+
+      /* ===== Thế giới: ô cửa sổ ===== */
+      #wworld { position: absolute; left: 0; right: 0; top: 70px; height: 1920px; }
+      #win { position: absolute; left: 108px; top: 400px; width: 864px; height: 840px; border: 18px solid var(--cream); border-radius: 30px; box-sizing: border-box; overflow: hidden; background: #8fb6c9; }
+      #win svg { display: block; }
+      #glass { position: absolute; left: 126px; top: 418px; width: 828px; height: 804px; border-radius: 14px; pointer-events: none;
+        background: linear-gradient(118deg, rgba(255,255,255,.14) 0 12%, rgba(255,255,255,0) 12% 22%, rgba(255,255,255,.08) 22% 26%, rgba(255,255,255,0) 26%); }
+      .curt { position: absolute; top: 372px; width: 120px; height: 930px; border-radius: 0 0 40px 40px;
+        background: repeating-linear-gradient(90deg, #5d4a7a 0 22px, #4c3c66 22px 40px); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+      #curtL { left: 64px; } #curtR { right: 64px; }
+      #rod { position: absolute; left: 40px; right: 40px; top: 360px; height: 18px; border-radius: 9px; background: var(--cream); }
+      #sill { position: absolute; left: 76px; right: 76px; top: 1232px; height: 48px; border-radius: 10px; background: var(--cream); box-shadow: 0 16px 30px rgba(0,0,0,.35); }
+      .obj { position: absolute; bottom: 686px; opacity: 0; }
+      #o-clock { left: 190px; } #o-bowl { left: 330px; } #o-phone { left: 560px; } #o-lamp { left: 760px; } #o-pillow { left: 400px; }
+      #lampglow { position: absolute; left: 640px; top: 900px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(255,198,92,.55), rgba(255,198,92,0) 70%); opacity: 0; }
+
+      /* nhãn giờ (S2) */
+      #clk { position: absolute; left: 108px; right: 108px; top: 214px; text-align: center; font-family: var(--disp); line-height: 1.1; }
+      #clk .t { font-size: 96px; color: var(--lamp); }
+      #clk .a { position: relative; height: 80px; font-size: 64px; }
+      #clk .a span { position: absolute; left: 0; right: 0; opacity: 0; white-space: nowrap; }
+      #clk .t span { position: absolute; left: 0; right: 0; opacity: 0; }
+      #clk .tw { position: relative; height: 110px; }
+      #ychang { position: absolute; left: 50%; top: 750px; width: 520px; margin-left: -260px; padding: 10px 0 18px; border: 10px solid var(--lamp); border-radius: 24px; color: var(--lamp); text-align: center;
+        font-family: var(--disp); font-size: 110px; background: rgba(36,29,51,.82); transform: rotate(-8deg); opacity: 0; z-index: 9; }
+      #diary { position: absolute; left: 190px; right: 190px; top: 790px; padding: 36px 44px 44px; opacity: 0; transform: rotate(-2deg); z-index: 9; }
+      #diary .d { font-family: var(--disp); font-size: 54px; }
+      #diary .ln { height: 64px; border-bottom: 3px dashed rgba(36,29,51,.22); }
+      #diary .ln.dot { font-family: var(--disp); font-size: 56px; color: var(--muted); }
+
+      /* điện thoại (S6) */
+      #phone { position: absolute; left: 600px; top: 810px; width: 330px; height: 620px; border-radius: 52px; background: #15111f; border: 10px solid #3a3150; box-sizing: border-box; opacity: 0; z-index: 9; overflow: hidden; }
+      #phone .scr { position: absolute; inset: 0; background: linear-gradient(180deg, #ffd9a8, #ffb98a 60%, #f5a07a); text-align: center; color: var(--ink); }
+      #phone .tm { font-family: var(--body); font-weight: 700; font-size: 92px; margin-top: 60px; line-height: 1; }
+      #phone .dt { font-weight: 600; font-size: 24px; margin-top: 8px; }
+      #phone .nt { position: absolute; left: 20px; right: 20px; top: 270px; padding: 22px 18px; border-radius: 26px; background: rgba(255,255,255,.72); font-weight: 700; font-size: 26px; line-height: 1.3; }
+      #phone .nt small { display: block; font-weight: 600; font-size: 21px; color: var(--muted); margin-top: 4px; }
+
+      /* chiều tan làm (S7) */
+      #batt { position: absolute; left: 150px; top: 1140px; padding: 16px 26px; display: flex; align-items: center; gap: 16px; font-weight: 700; font-size: 38px; opacity: 0; z-index: 9; }
+      #pin { position: absolute; left: 540px; top: 690px; opacity: 0; z-index: 9; }
+      #pin .b { padding: 14px 30px 18px; border-radius: 22px; background: var(--lamp); color: var(--ink); font-family: var(--disp); font-size: 56px; white-space: nowrap; transform: translateX(-50%); position: relative; }
+      #pin .b::after { content: ""; position: absolute; left: 50%; bottom: -18px; margin-left: -18px; border: 18px solid transparent; border-bottom: 0; border-top-color: var(--lamp); }
+
+      /* tối nay: tin nhắn (S8) */
+      #chat { position: absolute; left: 150px; right: 150px; top: 820px; padding: 26px 30px 30px; opacity: 0; z-index: 9; }
+      #chat .who { display: flex; align-items: center; gap: 16px; font-weight: 700; font-size: 34px; }
+      #chat .who i { width: 64px; height: 64px; border-radius: 50%; background: var(--lamp); display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-family: var(--disp); font-size: 34px; }
+      #bub { display: inline-block; margin-top: 20px; padding: 20px 30px 24px; border-radius: 30px 30px 30px 8px; background: #efe3cf; font-family: var(--disp); font-size: 58px; white-space: nowrap; }
+      #bub span { opacity: 0; }
+      #typing { display: inline-flex; gap: 10px; margin-top: 20px; padding: 26px 30px; border-radius: 30px 30px 30px 8px; background: #efe3cf; }
+      #typing i { width: 16px; height: 16px; border-radius: 50%; background: var(--muted); }
+
+      /* S9 hổng có gì hoành tráng */
+      #s9-h { top: 214px; font-size: 74px; }
+      .big { position: absolute; left: 150px; right: 150px; height: 230px; display: flex; align-items: center; gap: 34px; padding: 0 44px; box-sizing: border-box; opacity: 0; }
+      #b1 { top: 470px; } #b2 { top: 740px; } #b3 { top: 1010px; }
+      .big .k { font-family: var(--disp); font-size: 66px; white-space: nowrap; }
+      .big svg { flex: none; }
+
+      /* biến cố: polaroid */
+      #pola { position: absolute; left: 290px; top: 750px; width: 500px; padding: 26px 26px 0; background: var(--cream); border-radius: 10px; box-shadow: 0 24px 50px rgba(0,0,0,.5); opacity: 0; z-index: 9; }
+      #pola svg { display: block; border-radius: 4px; }
+      #pola b { display: block; font-family: var(--disp); font-weight: 400; font-size: 46px; color: var(--ink); text-align: center; padding: 18px 0 24px; white-space: nowrap; }
+      #rew { position: absolute; left: 790px; top: 690px; width: 130px; height: 130px; border-radius: 50%; background: var(--lamp); display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 10; }
+
+      /* S11 không có gì để khoe */
+      #post { position: absolute; left: 170px; right: 170px; top: 770px; padding: 30px 36px 34px; opacity: 0; z-index: 9; }
+      #post .top { display: flex; align-items: center; gap: 16px; font-weight: 700; font-size: 30px; }
+      #post .top i { width: 60px; height: 60px; border-radius: 50%; background: var(--bg); }
+      #post .body { margin-top: 20px; height: 200px; border-radius: 18px; background: #efe3cf; display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-size: 50px; color: var(--muted); white-space: nowrap; }
+      #post .meta { margin-top: 18px; display: flex; gap: 30px; font-weight: 700; font-size: 28px; color: var(--muted); }
+      #okay { position: absolute; left: 50%; top: 1050px; width: 560px; margin-left: -280px; padding: 8px 0 16px; border: 10px solid var(--lamp); border-radius: 24px; color: var(--lamp); text-align: center;
+        font-family: var(--disp); font-size: 84px; background: rgba(36,29,51,.9); transform: rotate(-6deg); opacity: 0; z-index: 10; white-space: nowrap; }
+
+      /* S4 Sáu */
+      .sau { position: absolute; left: 280px; top: 400px; width: 520px; height: 520px; }
+      #s4-name { top: 980px; font-size: 104px; }
+      #follow { position: absolute; left: 50%; top: 1176px; width: 430px; margin-left: -215px; height: 112px; border-radius: 56px; background: var(--lamp); color: var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--body); font-weight: 700; font-size: 48px; }
+      #follow span { position: absolute; white-space: nowrap; }
+
+      /* Phụ đề */
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(18, 13, 28, 0.86); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post13" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div id="warm"></div>
+
+      <!-- ===== THẾ GIỚI: ô cửa sổ ===== -->
+      <div class="clip scene" id="w" data-start="0" data-duration="{{DURATION}}" data-track-index="1"><div class="in" id="w-in">
+        <div id="wworld">
+          <div id="win">
+            <svg id="sky" width="828" height="804" viewBox="0 0 828 804">
+              <defs>
+                <linearGradient id="g-day" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ecbea"/><stop offset="1" stop-color="#e3f3fa"/></linearGradient>
+                <linearGradient id="g-dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fc4e8"/><stop offset=".6" stop-color="#ffd6ae"/><stop offset="1" stop-color="#ffe9c9"/></linearGradient>
+                <linearGradient id="g-dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d5a9c"/><stop offset=".55" stop-color="#ff8f6b"/><stop offset="1" stop-color="#ffc98a"/></linearGradient>
+                <linearGradient id="g-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1430"/><stop offset="1" stop-color="#2d3566"/></linearGradient>
+                <linearGradient id="g-storm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#23262f"/><stop offset="1" stop-color="#4a4f5c"/></linearGradient>
+              </defs>
+              <rect id="sky-day" width="828" height="804" fill="url(#g-day)"/>
+              <rect id="sky-dawn" width="828" height="804" fill="url(#g-dawn)" opacity="0"/>
+              <rect id="sky-dusk" width="828" height="804" fill="url(#g-dusk)" opacity="0"/>
+              <rect id="sky-night" width="828" height="804" fill="url(#g-night)" opacity="0"/>
+              <rect id="sky-storm" width="828" height="804" fill="url(#g-storm)" opacity="0"/>
+              <g id="stars" opacity="0" fill="#fbf3e6"></g>
+              <circle id="sun" cx="0" cy="0" r="62" fill="#ffd45c" transform="translate(620 170)"/>
+              <g id="moon" opacity="0" transform="translate(640 150)"><circle r="48" fill="#fbf3e6"/><circle cx="-14" cy="-8" r="9" fill="#e8dcc6"/><circle cx="12" cy="14" r="6" fill="#e8dcc6"/></g>
+              <g id="clouds" fill="#ffffff" opacity=".85">
+                <g transform="translate(120 140)"><ellipse rx="70" ry="26"/><ellipse cx="40" cy="-16" rx="44" ry="26"/></g>
+                <g transform="translate(470 250)"><ellipse rx="86" ry="28"/><ellipse cx="-30" cy="-18" rx="46" ry="26"/></g>
+              </g>
+              <g id="city"></g>
+              <rect id="home-win" x="0" y="0" width="34" height="42" rx="4" fill="#ffc65c" opacity="0"/>
+              <rect x="0" y="700" width="828" height="104" fill="#2b2638"/>
+              <path d="M0 752H828" stroke="#fbf3e6" stroke-width="5" stroke-dasharray="34 30" opacity=".5"/>
+              <g id="cars"></g>
+              <g id="rain" opacity="0" stroke="#cfd8ea" stroke-width="3" stroke-linecap="round"></g>
+              <path id="crack" d="M520 120l-60 90 40 30-80 110 30 20-60 120M460 210l-90-20M500 240l70 40M420 350l-70 60" stroke="#fbf3e6" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+              <rect id="flash" width="828" height="804" fill="#ffffff" opacity="0"/>
+            </svg>
+          </div>
+          <div id="glass"></div>
+          <div id="lampglow"></div>
+          <div id="rod"></div><div class="curt" id="curtL"></div><div class="curt" id="curtR"></div>
+          <div id="sill"></div>
+          <!-- đồ trên bậu cửa -->
+          <svg class="obj" id="o-clock" width="130" height="140" viewBox="0 0 26 28" fill="none" stroke="#241d33" stroke-width="1.6" stroke-linecap="round"><circle cx="13" cy="15" r="10" fill="#ffc65c"/><path d="M13 10v5l3 2M4 6l4-3M22 6l-4-3M7 25l-2 2M19 25l2 2"/></svg>
+          <svg class="obj" id="o-bowl" width="170" height="130" viewBox="0 0 34 26" fill="none" stroke="#241d33" stroke-width="1.6" stroke-linecap="round"><path d="M3 13h28a14 13 0 0 1-28 0z" fill="#fbf3e6"/><path d="M8 12c2-5 16-5 18 0" fill="#fff" /><path d="M10 6c0-2 2-2 2-4M16 6c0-2 2-2 2-4M22 6c0-2 2-2 2-4" stroke="#fbf3e6" opacity=".8"/><path d="M27 2l-6 10M31 4l-7 9"/></svg>
+          <svg class="obj" id="o-phone" width="90" height="150" viewBox="0 0 18 30"><rect x="1" y="1" width="16" height="28" rx="4" fill="#15111f" stroke="#3a3150" stroke-width="1.5"/><rect id="o-phone-scr" x="3" y="4" width="12" height="22" rx="2" fill="#ffc65c" opacity=".2"/></svg>
+          <svg class="obj" id="o-pillow" width="190" height="90" viewBox="0 0 38 18"><path d="M3 9c0-6 4-7 16-7s16 1 16 7-4 7-16 7S3 15 3 9z" fill="#fbf3e6" stroke="#241d33" stroke-width="1.4"/><path d="M8 5c3 2 3 6 0 8M30 5c-3 2-3 6 0 8" stroke="#241d33" stroke-width="1" fill="none" opacity=".4"/></svg>
+          <svg class="obj" id="o-lamp" width="130" height="200" viewBox="0 0 26 40" fill="none" stroke="#241d33" stroke-width="1.5" stroke-linejoin="round"><path id="o-lamp-sh" d="M5 16L9 3h8l4 13z" fill="#8a7aa3"/><path d="M13 16v18M7 38h12M9 34h8"/></svg>
+        </div>
+        <div class="tt" id="tt1"><span class="blk">Đời mày</span><span class="blk y">chán phèo hông?</span></div>
+        <div id="clk"><div class="tw t"><span id="t1">7:00</span><span id="t2">18:00</span><span id="t3">20:00</span><span id="t4">23:00</span><span id="t5">Thứ Hai</span><span id="t6">Thứ Ba</span><span id="t7">Thứ Tư</span><span id="t8">Thứ Năm</span></div>
+          <div class="a"><span id="a1">đi làm</span><span id="a2">kẹt xe</span><span id="a3">ăn cơm, lướt điện thoại</span><span id="a4">ngủ</span><span id="a5">lặp lại…</span></div></div>
+        <div id="ychang">y chang</div>
+        <div class="card" id="diary"><div class="d">Nhật ký hôm nay:</div><div class="ln"></div><div class="ln dot">…</div><div class="ln"></div></div>
+        <div class="tt" id="tt2"><span class="blk">Cũng ngày đó,</span><span class="blk y">nhìn kỹ lại coi</span></div>
+        <div class="tt" id="tt3"><span class="blk">Sáng nay</span><span class="blk y">bình yên</span></div>
+        <div id="phone"><div class="scr"><div class="tm">7:00</div><div class="dt">Thứ Hai</div><div class="nt">Không có thông báo mới<small>Ngủ ngon, dậy khỏe</small></div></div></div>
+        <div class="tt" id="tt4"><span class="blk">Mệt muốn xỉu,</span><span class="blk y">mà còn chỗ để về</span></div>
+        <div class="card" id="batt"><svg width="64" height="34" viewBox="0 0 32 17" fill="none" stroke="#241d33" stroke-width="2"><rect x="1" y="1" width="27" height="15" rx="3"/><path d="M30 6v5"/><rect x="3" y="3" width="3" height="11" fill="#e2574c" stroke="none"/></svg>Pin: 3%</div>
+        <div id="pin"><div class="b">Nhà mình</div></div>
+        <div class="tt" id="tt5"><span class="blk">Tối nay</span><span class="blk y">vẫn đủ đầy</span></div>
+        <div class="card" id="chat"><div class="who"><i>M</i>Má</div><div id="typing"><i></i><i></i><i></i></div><div id="bub"></div></div>
+        <div class="tt" id="tt6"><span class="blk">Mà lạ lắm nha…</span></div>
+        <div class="tt" id="tt7"><span class="blk">Khi biến cố tới,</span><span class="blk y">mình chỉ mong…</span></div>
+        <div id="pola"><svg width="448" height="380" viewBox="0 0 448 380"><rect width="448" height="380" fill="#9fd2ec"/><circle cx="340" cy="90" r="40" fill="#ffd45c"/>
+          <rect x="20" y="190" width="90" height="140" fill="#5b5379"/><rect x="120" y="150" width="100" height="180" fill="#6a6290"/><rect x="230" y="210" width="80" height="120" fill="#5b5379"/><rect x="320" y="170" width="110" height="160" fill="#6a6290"/>
+          <rect x="150" y="190" width="22" height="28" rx="3" fill="#ffc65c"/><rect y="330" width="448" height="50" fill="#2b2638"/></svg><b>một ngày bình thường</b></div>
+        <div id="rew"><svg width="74" height="74" viewBox="0 0 24 24" fill="#241d33"><path d="M11 6L3 12l8 6zM21 6l-8 6 8 6z"/></svg></div>
+        <div class="tt" id="tt8"><span class="blk">Hôm nay</span><span class="blk y">hổng có gì để khoe?</span></div>
+        <div class="card" id="post"><div class="top"><i></i>Hôm nay của mày</div><div class="body">không có gì đặc biệt</div><div class="meta"><span>♡ 0</span><span>💬 0</span></div></div>
+        <div id="okay">đâu có sao</div>
+        <div class="tt" id="tt9"><span class="blk">Một ngày bình yên</span><span class="blk y">cũng đáng vui rồi nha.</span></div>
+      </div></div>
+
+      <!-- S4 · Sáu Suy Nghĩ -->
+      <div class="clip scene" id="s4" data-start="12.4" data-duration="3.4" data-track-index="2"><div class="in" id="s4-in">
+        <div class="sau" id="sau1">{{SAU}}</div>
+        <div class="sau" id="sau2">{{SAU_LAUGH}}</div>
+        <div class="safe h c" id="s4-name"><span class="blk">Sáu Suy Nghĩ</span></div>
+        <div id="follow"><span id="f1">+ Follow</span><span id="f2">✓ Đã follow</span></div>
+      </div></div>
+
+      <!-- S9 · Hổng có gì hoành tráng -->
+      <div class="clip scene" id="s9" data-start="32.15" data-duration="7.15" data-track-index="2"><div class="in" id="s9-in">
+        <div class="safe h c" id="s9-h"><span class="blk">Đâu có gì</span><span class="blk y">hoành tráng</span></div>
+        <div class="big card" id="b1"><svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#241d33" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z" fill="#ffc65c"/><path d="M8 7v10" stroke-dasharray="1.5 1.5"/><path d="M12 10.5h5M12 13.5h3"/></svg><span class="k"><span class="strike" id="k1">Trúng số<i></i></span></span></div>
+        <div class="big card" id="b2"><svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#241d33" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M4 20V9h4v11M10 20V5h4v15M16 20v-7h4v7" fill="#ffc65c"/><path d="M11 3l1-1 1 1"/></svg><span class="k"><span class="strike" id="k2">Thăng chức<i></i></span></span></div>
+        <div class="big card" id="b3"><svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="#241d33" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3" fill="#ffc65c"/><path d="M7 9h10M7 13h6"/><path d="M15 17l1.5-1.5L18 17" /></svg><span class="k"><span class="strike" id="k3">Đăng lên mạng<i></i></span></span></div>
+      </div></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      // ---------- Dựng phố: các tòa nhà + cửa sổ (sáng đèn khi tối) ----------
+      const NS = "http://www.w3.org/2000/svg";
+      const city = document.getElementById("city");
+      const B = [[16, 140, 300], [170, 110, 230], [292, 160, 400], [466, 120, 270], [600, 136, 360], [748, 76, 220]];
+      let litHtml = "", home = null;
+      B.forEach(([x, w, h], bi) => {
+        city.insertAdjacentHTML("beforeend", `<rect x="${x}" y="${700 - h}" width="${w}" height="${h}" fill="${bi % 2 ? "#4f4770" : "#5d5482"}"/>`);
+        for (let r = 0; 700 - h + 30 + r * 54 < 660; r++)
+          for (let c = 0; x + 18 + c * 40 + 24 <= x + w; c++) {
+            const wx = x + 18 + c * 40, wy = 700 - h + 30 + r * 54;
+            if (bi === 2 && r === 3 && c === 1) { home = [wx, wy]; continue; }
+            litHtml += `<rect class="lit" x="${wx}" y="${wy}" width="24" height="32" rx="3" fill="#ffc65c" opacity="${(r * 7 + c * 3 + bi) % 4 ? 0 : 0}" data-on="${(r * 7 + c * 3 + bi) % 3 ? 1 : 0}"/>`;
+            city.insertAdjacentHTML("beforeend", `<rect x="${wx}" y="${wy}" width="24" height="32" rx="3" fill="#3a3456" opacity=".7"/>`);
+          }
+      });
+      city.insertAdjacentHTML("beforeend", litHtml);
+      const hw = document.getElementById("home-win");
+      hw.setAttribute("x", home[0] - 5); hw.setAttribute("y", home[1] - 5); hw.setAttribute("width", 34); hw.setAttribute("height", 42);
+      city.insertAdjacentHTML("beforeend", `<rect x="${home[0]}" y="${home[1]}" width="24" height="32" rx="3" fill="#3a3456" opacity=".7"/>`);
+      const stars = document.getElementById("stars");
+      for (let k = 0; k < 26; k++) stars.insertAdjacentHTML("beforeend", `<circle cx="${(k * 137) % 820}" cy="${20 + ((k * 89) % 360)}" r="${k % 3 ? 2 : 3.2}"/>`);
+      const cars = document.getElementById("cars");
+      for (let k = 0; k < 7; k++) cars.insertAdjacentHTML("beforeend", `<g class="car" transform="translate(${k * 150 - 120} 712)"><rect width="96" height="30" rx="10" fill="${k % 2 ? "#fbf3e6" : "#ffc65c"}"/><rect x="18" y="-14" width="56" height="18" rx="7" fill="${k % 2 ? "#fbf3e6" : "#ffc65c"}"/><circle cx="22" cy="32" r="8" fill="#15111f"/><circle cx="74" cy="32" r="8" fill="#15111f"/></g>`);
+      const rain = document.getElementById("rain");
+      for (let k = 0; k < 60; k++) { const x = (k * 53) % 860, y = (k * 97) % 760; rain.insertAdjacentHTML("beforeend", `<path d="M${x} ${y}l-14 34"/>`); }
+      // chữ trong bong bóng tin nhắn
+      document.getElementById("bub").innerHTML = [..."Ê, bữa nay sao rồi?"].map((ch) => `<span>${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const up = (sel, at, d = 0.5, y = 36) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E }, at);
+      const pop = (sel, at, s = 0.7) => tl.fromTo(sel, { opacity: 0, scale: s }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)" }, at);
+      const out = (sel, at, d = 0.22) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+      const strike = (sel, at) => tl.fromTo(sel + " > i", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.inOut" }, at);
+      const stampIn = (sel, at, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.3, rotation: rot - 20 }, { opacity: 1, scale: 1, rotation: rot, duration: 0.28, ease: "power4.in" }, at);
+      const swapTxt = (a, b, at) => { tl.to(a, { opacity: 0, duration: 0.12 }, at); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.15 }, at + 0.08); };
+      const title = (sel, at, prev) => { if (prev) out(prev, at - 0.05, 0.2); up(sel, at, 0.45, 24); };
+      const SK = ["day", "dawn", "dusk", "night", "storm"];
+      const sky = (n, at, d = 0.8) => SK.forEach((k) => tl.to("#sky-" + k, { opacity: k === n ? 1 : 0, duration: d, ease: "power1.inOut" }, at));
+      const sun = (x, y, at, d = 1, o = 1) => tl.to("#sun", { x, y, opacity: o, duration: d, ease: "power1.inOut" }, at);
+      const moon = (o, at, d = 0.8) => tl.to("#moon", { opacity: o, duration: d }, at);
+      const night = (on, at, d = 0.6) => { tl.to("#stars", { opacity: on ? 1 : 0, duration: d }, at); tl.to(".lit", { opacity: (i, el) => (on ? +el.dataset.on : 0), duration: d, stagger: on ? 0.004 : 0 }, at); };
+      const cam = (vb, at, d = 1) => tl.to("#sky", { attr: { viewBox: vb }, duration: d, ease: "power2.inOut" }, at);
+      const obj = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, at);
+      gsap.set(["#f2", "#sau2"], { opacity: 0 });
+      gsap.set("#sun", { x: 620, y: 170 }); gsap.set("#moon", { x: 640, y: 150 });
+
+      // Lớp phủ: Sáu (12.4–15.8) và "hổng có gì hoành tráng" (32.15–39.3) che ô cửa
+      [["#s4-in", 12.4, 15.8], ["#s9-in", 32.15, 39.3]].forEach(([s, a, b]) => {
+        tl.fromTo(s, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.38, ease: E }, a + 0.02);
+        tl.to(s, { opacity: 0, duration: 0.18 }, b - 0.2);
+        tl.to("#w-in", { opacity: 0, duration: 0.25 }, a);
+        tl.to("#w-in", { opacity: 1, duration: 0.35 }, b - 0.15);
+      });
+      // Đen trắng ("chán phèo") → có màu từ "Nhưng mày thử nghĩ coi"
+      tl.fromTo("#wworld", { filter: "grayscale(1) brightness(0.92)" }, { filter: "grayscale(0) brightness(1)", duration: 1.6, ease: "power1.inOut" }, 16.0);
+      // mây trôi suốt video
+      tl.fromTo("#clouds", { x: -60 }, { x: 160, duration: 55, ease: "none" }, 0);
+
+      // ===== S1 · Đời mày chán phèo hông? (xám) =====
+      up("#tt1", 0.2, 0.5, 24);
+      tl.fromTo("#win", { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: E }, 0);
+      tl.fromTo(["#curtL", "#curtR", "#rod", "#sill"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.1);
+      tl.fromTo("#curtL", { x: 120 }, { x: 0, duration: 0.9, ease: E }, 0.15);
+      tl.fromTo("#curtR", { x: -120 }, { x: 0, duration: 0.9, ease: E }, 0.15);
+
+      // ===== S2 · Sáng đi làm → chiều kẹt xe → tối ăn cơm, lướt điện thoại → ngủ =====
+      out("#tt1", 3.4, 0.2);
+      tl.set("#sun", { x: 140, y: 560 }, 3.5); sky("dawn", 3.5, 0.4);
+      const step = (t, a, at) => { tl.fromTo(t, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25 }, at); tl.fromTo(a, { opacity: 0 }, { opacity: 1, duration: 0.25 }, at + 0.05); };
+      const unstep = (t, a, at) => { tl.to([t, a], { opacity: 0, duration: 0.15 }, at); };
+      step("#t1", "#a1", 3.6); obj("#o-clock", 3.65);
+      tl.fromTo("#o-clock", { rotation: 0 }, { rotation: 8, duration: 0.06, repeat: 7, yoyo: true, immediateRender: false }, 3.9);
+      sun(420, 160, 3.7, 1.2);
+      unstep("#t1", "#a1", 4.9); step("#t2", "#a2", 5.0);
+      sky("dusk", 5.0, 0.6); sun(700, 600, 5.0, 1.2);
+      tl.to(".car", { x: "+=40", duration: 1.2, ease: "steps(6)" }, 5.0);
+      unstep("#t2", "#a2", 6.4); step("#t3", "#a3", 6.5);
+      sky("night", 6.4, 0.6); moon(1, 6.6); night(true, 6.5);
+      obj("#o-bowl", 6.7); obj("#o-phone", 7.25); tl.to("#o-phone-scr", { opacity: 1, duration: 0.2 }, 7.4);
+      unstep("#t3", "#a3", 7.85); step("#t4", "#a4", 7.95);
+      tl.to(".lit", { opacity: 0, duration: 0.4, stagger: 0.003 }, 8.0); tl.to("#o-phone-scr", { opacity: 0.2, duration: 0.2 }, 8.1);
+
+      // ===== S3 · Ngày nào cũng y chang · chẳng có gì để kể =====
+      unstep("#t4", "#a4", 8.85);
+      tl.to(["#o-clock", "#o-bowl", "#o-phone"], { opacity: 0, duration: 0.2 }, 8.9);
+      [["#t5", 9.0], ["#t6", 9.45], ["#t7", 9.9], ["#t8", 10.35]].forEach(([t, at], i, a) => {
+        tl.fromTo(t, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.15 }, at);
+        if (i < a.length - 1) tl.to(t, { opacity: 0, y: -30, duration: 0.12 }, at + 0.35);
+        // trời quay vòng sáng → tối mỗi "ngày"
+        tl.to("#sky-night", { opacity: 0, duration: 0.15 }, at); tl.to("#sky-night", { opacity: 1, duration: 0.2 }, at + 0.25);
+        moon(0, at, 0.1); moon(1, at + 0.25, 0.15);
+      });
+      tl.fromTo("#a5", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 9.05);
+      stampIn("#ychang", 9.35, -8);
+      out("#ychang", 10.35, 0.2);
+      tl.fromTo("#diary", { opacity: 0, y: 60, rotation: 2 }, { opacity: 1, y: 0, rotation: -2, duration: 0.45, ease: "back.out(1.5)" }, 10.5);
+      tl.fromTo("#diary .dot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 11.3);
+      out(["#diary", "#t8", "#a5"], 12.2, 0.2);
+
+      // ===== S4 · Sáu Suy Nghĩ =====
+      tl.fromTo("#sau1", { opacity: 0, scale: 0.6, y: 120 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 12.5);
+      up("#s4-name", 13.0, 0.45, 30);
+      tl.to("#sau1", { opacity: 0, duration: 0.08 }, 13.6); tl.to("#sau2", { opacity: 1, duration: 0.08 }, 13.6);
+      tl.fromTo("#sau2", { y: 0 }, { y: -12, duration: 0.1, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 13.65);
+      tl.to("#sau2", { opacity: 0, duration: 0.08 }, 14.1); tl.to("#sau1", { opacity: 1, duration: 0.08 }, 14.1);
+      pop("#follow", 14.4, 0.6);
+      tl.to("#follow", { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, 14.85);
+      swapTxt("#f1", "#f2", 14.95); tl.to("#follow", { backgroundColor: "#fbf3e6", duration: 0.2 }, 14.95);
+
+      // ===== S5 · Nhưng mày thử nghĩ coi — màu quay lại =====
+      moon(0, 15.9, 0.6); night(false, 15.9);
+      sky("dawn", 15.9, 1.2); tl.set("#sun", { x: 150, y: 560 }, 15.85);
+      title("#tt2", 16.05);
+      sun(330, 230, 16.3, 2.2);
+
+      // ===== S6 · Sáng nay thức dậy, không có tin dữ =====
+      title("#tt3", 18.3, "#tt2");
+      sky("day", 18.4, 1.0);
+      obj("#o-clock", 18.4);
+      tl.fromTo("#phone", { opacity: 0, y: 120, rotation: 6 }, { opacity: 1, y: 0, rotation: 3, duration: 0.55, ease: "back.out(1.5)" }, 19.4);
+      tl.fromTo("#phone .nt", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3 }, 20.0);
+      out("#phone", 21.3, 0.25); out("#o-clock", 21.3, 0.2);
+
+      // ===== S7 · Chiều tan làm, mệt muốn xỉu, vẫn có chỗ để về =====
+      title("#tt4", 21.55, "#tt3");
+      sky("dusk", 21.4, 1.0); sun(690, 620, 21.4, 2.0);
+      tl.to(".car", { x: "+=24", duration: 1.6, ease: "steps(5)" }, 21.6);
+      tl.fromTo("#batt", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(2)" }, 22.7);
+      tl.fromTo("#batt svg rect:last-child", { opacity: 1 }, { opacity: 0.2, duration: 0.2, repeat: 3, yoyo: true, immediateRender: false }, 23.1);
+      out("#batt", 23.8, 0.2);
+      const [hx, hy] = home;
+      cam(`${hx - 180} ${hy - 160} 380 369`, 23.9, 1.1);
+      tl.to("#home-win", { opacity: 1, duration: 0.3 }, 24.4);
+      tl.fromTo("#pin", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 24.5);
+      out("#pin", 25.55, 0.2);
+
+      // ===== S8 · Tối nay: cơm, giường, có người nhắn =====
+      cam("0 0 828 804", 25.6, 1.0);
+      title("#tt5", 25.75, "#tt4");
+      sky("night", 25.6, 1.0); moon(1, 25.9); night(true, 25.9, 0.8); tl.to("#sun", { opacity: 0, duration: 0.5 }, 25.6);
+      obj("#o-bowl", 26.35); obj("#o-pillow", 27.4); obj("#o-lamp", 27.9);
+      tl.to("#o-lamp-sh", { fill: "#ffc65c", duration: 0.2 }, 28.1); tl.to("#lampglow", { opacity: 1, duration: 0.4 }, 28.1);
+      obj("#o-phone", 28.5); tl.to("#o-phone-scr", { opacity: 1, duration: 0.2 }, 28.7);
+      tl.fromTo("#chat", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 28.85);
+      tl.fromTo("#typing i", { y: 0 }, { y: -8, duration: 0.18, yoyo: true, repeat: 3, stagger: 0.08, immediateRender: false }, 29.2);
+      tl.set("#typing", { display: "none" }, 30.05);
+      document.querySelectorAll("#bub span").forEach((c, k) => tl.set(c, { opacity: 1 }, k < 2 ? 30.1 + k * 0.05 : 30.62 + (k - 2) * 0.035));
+      out("#chat", 31.85, 0.25); out("#tt5", 31.85, 0.2);
+
+      // ===== S9 · Hổng trúng số, hổng thăng chức, hổng có gì đăng =====
+      up("#s9-h", 32.3, 0.45, 24);
+      up("#b1", 34.9, 0.4, 30); strike("#k1", 35.4);
+      up("#b2", 36.05, 0.4, 30); strike("#k2", 36.55);
+      up("#b3", 37.1, 0.4, 30); strike("#k3", 38.1);
+      tl.to(["#b1", "#b2", "#b3"], { opacity: 0.55, duration: 0.3 }, 38.5);
+
+      // ===== S10 · Có cái lạ lắm · biến cố · mong quay lại một ngày bình thường =====
+      tl.set(["#o-bowl", "#o-pillow", "#o-phone", "#o-lamp"], { opacity: 0 }, 32.2);
+      tl.set("#lampglow", { opacity: 0 }, 32.2);
+      title("#tt6", 39.5);
+      sky("dusk", 39.2, 0.6); moon(0, 39.2, 0.3); night(false, 39.2, 0.3); tl.set("#sun", { opacity: 0 }, 39.2);
+      sky("storm", 40.6, 0.9); tl.to("#clouds", { opacity: 0, duration: 0.6 }, 40.6);
+      title("#tt7", 41.05, "#tt6");
+      tl.fromTo("#rain", { opacity: 0 }, { opacity: 0.85, duration: 0.5 }, 41.1);
+      tl.fromTo("#rain", { y: -40 }, { y: 40, duration: 0.3, repeat: 18, ease: "none", immediateRender: false }, 41.1);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.85, duration: 0.06, yoyo: true, repeat: 3, immediateRender: false }, 41.85);
+      tl.fromTo("#crack", { opacity: 0 }, { opacity: 0.9, duration: 0.12 }, 42.0);
+      tl.fromTo("#win", { x: 0 }, { x: 10, duration: 0.05, repeat: 7, yoyo: true, immediateRender: false }, 42.0);
+      tl.fromTo("#pola", { opacity: 0, y: 80, rotation: -14, scale: 0.7 }, { opacity: 1, y: 0, rotation: -4, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 43.4);
+      tl.fromTo("#pola", { boxShadow: "0 24px 50px rgba(0,0,0,.5)" }, { boxShadow: "0 0 80px 20px rgba(255,198,92,.55)", duration: 0.8 }, 44.6);
+      pop("#rew", 45.3, 0.5);
+      tl.to("#rew", { rotation: -360, duration: 1.0, ease: "power2.inOut" }, 45.5);
+      out(["#pola", "#rew"], 47.1, 0.3); out("#tt7", 47.1, 0.2);
+
+      // ===== S11 · Hôm nay chẳng có gì để khoe… thì cũng đâu có sao =====
+      tl.to(["#rain", "#crack"], { opacity: 0, duration: 0.8 }, 47.0);
+      sky("dusk", 47.0, 1.2); tl.to("#clouds", { opacity: 0.85, duration: 0.8 }, 47.2);
+      tl.set("#sun", { x: 690, y: 640 }, 47.0); tl.to("#sun", { opacity: 1, duration: 0.8 }, 47.2);
+      title("#tt8", 47.45);
+      tl.fromTo("#post", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 47.9);
+      stampIn("#okay", 50.4, -6);
+      out(["#post", "#okay"], 51.5, 0.25);
+
+      // ===== Kết · Một ngày bình yên cũng đáng vui rồi =====
+      title("#tt9", 51.8, "#tt8");
+      sky("night", 51.6, 1.2); tl.to("#sun", { opacity: 0, duration: 0.6 }, 51.6); moon(1, 51.9, 1.0); night(true, 52.0, 1.0);
+      tl.to("#home-win", { opacity: 1, duration: 0.6 }, 52.4);
+      obj("#o-bowl", 52.6); obj("#o-lamp", 52.9);
+      tl.to("#lampglow", { opacity: 1, duration: 0.6 }, 53.3); tl.to("#warm", { opacity: 1, duration: 1.2 }, 53.3);
+      tl.fromTo("#tt9 .y", { opacity: 0.35 }, { opacity: 1, duration: 0.5, immediateRender: false }, 53.9);
+      cam("60 60 708 690", 53.0, 4.0);
+
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, parseFloat(el.dataset.start)));
+
+      window.__timelines["post13"] = tl;
+    </script>
+  </body>
+</html>
