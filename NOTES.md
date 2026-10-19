@@ -124,7 +124,7 @@ node projects/post-11/build.mjs
 | 8 | Montserrat | Xanh đêm `#0d1321` | Cam cảnh báo `#ff7a1a` | |
 | 9 | Baloo 2 | Hồng phấn `#fff0f3` | Đỏ hồng `#e8335a` | |
 | 10 | Space Grotesk | Giấy kraft `#f4ede1` | Xanh ngọc `#0fa3a3` | |
-| 11 | Playfair Display | Trắng ngà `#fbf4e8` (nửa sau `#f4e7d6`) | Đỏ cờ `#d42a1f` | Font serif đầu tiên |
+| 11b | Playfair Display | Trắng ngà `#fbf4e8` (nửa sau `#f4e7d6`) | Đỏ cờ `#d42a1f` | Font serif đầu tiên |
 | 12–14 | Bungee · Pangolin · Paytone One | (làm ở branch `claude/hyperframes-video-editing-56w91n`) | | Xem NOTES bên đó |
 | 16 | Grandstander | Xanh rêu `#2f4b38`, chữ kem | Hồng ruy băng `#f7a3c0` | |
 | 17 | Oswald (chữ biển báo) | Navy sàn hầm `#14213d`, chữ kem | Vàng mù tạt `#f2b134` | Bãi xe toàn màn hình, không khung |
@@ -200,7 +200,7 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **8** | Lừa đảo "chuyển lộn tiền" | **Ứng dụng ngân hàng ban đêm**: thông báo số dư, cuộc gọi đến, dòng tiền lật ngược, giấy đòi nợ | Lần đầu có nhân vật Sáu (2 biểu cảm); quy tắc giọng miền Nam và xuống dòng ghi vào `CLAUDE.md` | 77,6s · 56 |
 | **9** | Xóa app ≠ hủy gói đăng ký | **App là người yêu cũ**: ảnh đôi bị xé, quyết định cấp dưỡng, "ứng dụng cũ" | Hướng dẫn hủy gói trên iPhone và Android từng bước; Sáu vẽ theo avatar; SFX có phiên bản theo cảnh | 98,0s · 68 |
 | **10** | Hiệu ứng ngưỡng cửa | **Bản vẽ mặt bằng nhà có camera**: đèn soi tìm "thủ phạm", bong bóng suy nghĩ bị xóa khi qua cửa, gói mì | Thế giới SVG xuyên suốt + camera viewBox; Sáu cười theo tiếng cười trong voice; clapper và cắt phim | 76,7s · 52 |
-| **11** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
+| **11b** | Tết sắp tới, thời gian trôi, đừng "để bữa khác" | **Lịch bloc ngày Tết**: lật nhanh tới 6/2, tờ "6" xé ra thành Sáu, tờ Chủ nhật bị xé liên tục mà mẩu giấy "cơm với ba má" cứ dời qua tờ sau, kết bằng tờ "Bữa khác: không có trên lịch" | Chuyển cảnh xé trang; nửa sau đổi nền trầm hơn; lần đầu dùng font serif | 98,4s · 63 |
 | **16** | 20/10: tặng quà hay giao thêm việc | **Quầy gói quà**: thẻ quà "Tặng em ♥" lật thành "Phiếu giao việc", Sáu nhảy ra từ hộp quà, hộp "ĐỒ XÀI CHUNG" gắn thẻ tên một người, cân "mắc tiền" vs "được để ý"; kết bằng hộp quà chưa mở + đơn hàng "1 ly sinh tố bơ · Người làm: Má" | Chuyển cảnh giấy gói quà quét chéo | 68,4s · 40 |
 | **17** | Mẹo nhớ chỗ đậu xe: chụp số tầng/dãy/cột, lưu vị trí trên bản đồ | **Bãi xe tầng hầm B2** nhìn từ trên xuống: camera lùi ra thấy bãi mênh mông, mọi xe đen viền vàng, "bản đồ kho báu" toàn dấu X, Sáu trên biển "khu đậu xe riêng", khung ngắm chụp cột B2·C17, bản đồ lưu vị trí đậu xe, định vị nhảy lung tung trong hầm; kết bằng vé phim tặng kèm "tour khám phá hệ thống tầng hầm" | Chuyển cảnh cửa cuốn; route vẽ bằng stroke-dashoffset | 75,7s · 43 |
 | **18** | Máy phiên dịch "ý thiệt" | **Máy dịch ý thiệt v1.0**: lời người ta nói (bong bóng) → máy nghe (sóng âm) → "đang dịch" → ý thiệt gõ ra trên màn hình; Sáu hiện trên màn hình, nút máy thành nút Follow; tắt máy khi "không dám xài"; ban đêm 23:00 → 02:47; má gọi → máy đứng hình, LỖI MÁ-404, khởi động lại 1/3–3/3, bốc khói "Máy cũng chịu thua!" | Chuyển cảnh nhiễu sóng CRT | 66,3s · 40 |

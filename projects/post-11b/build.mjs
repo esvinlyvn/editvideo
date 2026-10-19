@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Dựng video motion graphics từ voice + transcript (chép lời theo cụm có mốc thời gian chính xác).
-//   node projects/post-11/build.mjs [--no-render]
-// Kết quả: build/post-11/index.html (+ output.mp4)
+//   node projects/post-11b/build.mjs [--no-render]
+// Kết quả: build/post-11b/index.html (+ output.mp4)
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
