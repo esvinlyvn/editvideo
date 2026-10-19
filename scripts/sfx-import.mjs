@@ -75,6 +75,74 @@ const META = {
   heartbeat: ["ambience", "hồi hộp, lo lắng"],
   "tick-tock": ["ambience", "áp lực thời gian"],
   suspense: ["ambience", "bí ẩn, 'nhưng mà…'"],
+  // Bộ "BASIC SFX QUẠ HD" (tháng 10/2026)
+  bonk: ["impact", "cốc đầu, bị đánh kiểu hài"],
+  "pan-hit": ["impact", "phang chảo, bị dập mạnh (hài)"],
+  awkward: ["accent", "khựng lại, ngượng ngùng (anime)"],
+  question: ["accent", "thắc mắc, 'hả?'"],
+  "vein-pop": ["accent", "bực mình, nổi gân (anime)"],
+  sweat: ["accent", "toát mồ hôi, lúng túng"],
+  blush: ["accent", "mắc cỡ, dễ thương"],
+  dream: ["accent", "bong bóng suy nghĩ, tưởng tượng"],
+  "cute-appear": ["accent", "nhân vật/đồ vật dễ thương xuất hiện"],
+  discovery: ["accent", "phát hiện ra, khám phá"],
+  disappoint: ["accent", "thất vọng kiểu hài"],
+  aww: ["accent", "'ồ…' tiếc nuối, tội nghiệp"],
+  fall: ["accent", "té, rớt xuống (hoạt hình)"],
+  slip: ["accent", "trượt chân, hụt"],
+  quack: ["accent", "tiếng vịt, ngớ ngẩn"],
+  gag: ["accent", "câu đùa nhạt, chuyện ngớ ngẩn"],
+  cuckoo: ["accent", "cúc cu, 'khùng hả'"],
+  "dark-gleam": ["accent", "ánh mắt gian, có âm mưu"],
+  doom: ["impact", "tin xấu, tuyệt vọng (anime)"],
+  tense: ["accent", "căng thẳng, đối đầu (anime)"],
+  anvil: ["impact", "vật nặng rơi xuống, đè bẹp"],
+  vanish: ["transition", "biến mất vèo"],
+  wow: ["accent", "đám đông trầm trồ 'wow'"],
+  "dun-dun": ["accent", "'tèn tén ten' kịch tính"],
+  sting: ["impact", "giật mình, lộ bí mật"],
+  creepy: ["accent", "rợn người, kinh dị (violin)"],
+  bell: ["accent", "chuông ngân, điểm mốc"],
+  gong: ["impact", "cồng, khai mạc/tuyên bố"],
+  thunder: ["impact", "sấm sét, tin sốc"],
+  "glass-break": ["impact", "vỡ kính, đổ bể"],
+  "vine-boom": ["impact", "nhấn câu chốt kiểu meme"],
+  kettle: ["accent", "ấm nước sôi, nóng giận"],
+  "slow-mo": ["transition", "chuyển sang quay chậm"],
+  fire: ["ambience", "lửa cháy"],
+  siren: ["accent", "còi báo động"],
+  boom: ["impact", "boom điện ảnh, lộ diện lớn"],
+  explosion: ["impact", "nổ tung (hài)"],
+  beep: ["ui", "bíp giao diện, máy quét"],
+  check: ["ui", "đánh dấu tick, xong mục"],
+  confetti: ["accent", "pháo giấy, chúc mừng"],
+  cry: ["accent", "khóc hu hu (hài)"],
+  "evil-laugh": ["accent", "cười gian, phản diện"],
+  glitch: ["transition", "nhiễu, lỗi, đổi cảnh công nghệ"],
+  cheer: ["accent", "reo hò, vỗ tay ăn mừng"],
+  magic: ["accent", "phép màu, biến hóa"],
+  transform: ["transition", "biến hình kiểu công nghệ"],
+  meow: ["accent", "tiếng mèo kêu"],
+  mosquito: ["ambience", "muỗi vo ve"],
+  sword: ["impact", "chém, cắt phăng"],
+  squeak: ["ui", "bóp đồ chơi, nhân vật nhỏ"],
+  reveal: ["transition", "whoosh lộ diện"],
+  flashback: ["transition", "hồi tưởng, mơ màng (harp đi lên)"],
+  dazed: ["accent", "choáng, lú (harp đi xuống)"],
+  shock: ["accent", "sốc, sững người"],
+  rewind: ["transition", "tua ngược, quay về quá khứ"],
+  title: ["accent", "hiện tiêu đề kiểu bản tin"],
+  cursor: ["ui", "di chuyển con trỏ, chọn mục"],
+  confirm: ["ui", "bấm nút xác nhận"],
+  shutter: ["ui", "chụp ảnh"],
+  crumple: ["accent", "vò giấy, bỏ ý tưởng"],
+  zip: ["ui", "kéo khóa, đóng gói"],
+  knock: ["accent", "gõ cửa"],
+  reward: ["accent", "nhận thưởng, lên cấp (game)"],
+  jackpot: ["accent", "trúng lớn, máy đánh bạc"],
+  cheers: ["ui", "cụng ly"],
+  balloon: ["accent", "thổi phồng, phình to"],
+  deflate: ["accent", "xì hơi, xẹp xuống"],
 };
 
 const vol = (f) => {
@@ -83,9 +151,12 @@ const vol = (f) => {
 };
 const dur = (f) => +execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]).toString();
 
+// Âm đã bị loại khỏi thư viện theo yêu cầu người dùng — không nhập lại
+const BANNED = new Set(["scribble-2"]);
 const catalog = fs.existsSync(path.join(OUT, "catalog.json")) ? JSON.parse(fs.readFileSync(path.join(OUT, "catalog.json"))) : {};
 for (const file of fs.readdirSync(src).filter((f) => /\.(mp3|wav|m4a|ogg|aac|flac)$/i.test(f)).sort()) {
   const name = path.basename(file, path.extname(file)).toLowerCase();
+  if (BANNED.has(name)) { console.log(`bỏ qua ${name} (đã bị loại khỏi thư viện)`); continue; }
   // "pop-2" = phiên bản 2 của "pop" (file không đánh số = phiên bản 1)
   const base = name.replace(/-(\d+)$/, "");
   const variant = name === base ? 1 : Number(name.match(/-(\d+)$/)[1]);
