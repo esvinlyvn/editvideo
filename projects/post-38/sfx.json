@@ -1,0 +1,315 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  3.8,
+  5.3,
+  9.0,
+  10.4,
+  15.0,
+  18.2,
+  23.2,
+  31.3,
+  36.6,
+  45.8,
+  49.0,
+  53.2,
+  57.1,
+  61.9,
+  67.3,
+  72.0
+ ],
+ "cues": [
+  {
+   "at": 0.2,
+   "name": "shimmer",
+   "vol": 0.45
+  },
+  {
+   "at": 0.8,
+   "name": "zoom-in",
+   "vol": 0.5
+  },
+  {
+   "at": 1.8,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 3.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 4.4,
+   "name": "gasp",
+   "vol": 0.55
+  },
+  {
+   "at": 5.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 6.2,
+   "name": "success",
+   "vol": 0.6
+  },
+  {
+   "at": 9.1,
+   "name": "boing",
+   "vol": 0.55
+  },
+  {
+   "at": 10.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 11.4,
+   "name": "swipe",
+   "vol": 0.45
+  },
+  {
+   "at": 12.4,
+   "name": "zoom-in",
+   "vol": 0.5
+  },
+  {
+   "at": 13.2,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 15.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 16.1,
+   "name": "wrong-buzzer",
+   "vol": 0.45
+  },
+  {
+   "at": 17.1,
+   "name": "wrong-buzzer",
+   "vol": 0.45
+  },
+  {
+   "at": 18.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 19.6,
+   "name": "click",
+   "vol": 0.5
+  },
+  {
+   "at": 20.2,
+   "name": "whoosh-fast",
+   "vol": 0.45
+  },
+  {
+   "at": 20.8,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 21.4,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 22.6,
+   "name": "riser",
+   "vol": 0.5
+  },
+  {
+   "at": 23.2,
+   "name": "whoosh-heavy",
+   "vol": 0.5
+  },
+  {
+   "at": 24.6,
+   "name": "tick",
+   "vol": 0.55
+  },
+  {
+   "at": 25.6,
+   "name": "tick",
+   "vol": 0.55
+  },
+  {
+   "at": 28.3,
+   "name": "whoosh-fast",
+   "vol": 0.5
+  },
+  {
+   "at": 29.0,
+   "name": "hit",
+   "vol": 0.6
+  },
+  {
+   "at": 31.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 32.2,
+   "name": "ding-idea",
+   "vol": 0.55
+  },
+  {
+   "at": 34.0,
+   "name": "whoosh-soft",
+   "vol": 0.5
+  },
+  {
+   "at": 34.6,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 36.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 37.6,
+   "name": "hit",
+   "vol": 0.65
+  },
+  {
+   "at": 40.3,
+   "name": "lock",
+   "vol": 0.6
+  },
+  {
+   "at": 42.8,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 44.0,
+   "name": "swipe",
+   "vol": 0.5
+  },
+  {
+   "at": 45.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 47.9,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 49.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 49.6,
+   "name": "wrong-buzzer",
+   "vol": 0.55
+  },
+  {
+   "at": 51.5,
+   "name": "lock-2",
+   "vol": 0.65
+  },
+  {
+   "at": 53.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 55.0,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 55.6,
+   "name": "success",
+   "vol": 0.6
+  },
+  {
+   "at": 57.3,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 58.6,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 59.8,
+   "name": "ding-idea",
+   "vol": 0.65
+  },
+  {
+   "at": 61.9,
+   "name": "whoosh-heavy",
+   "vol": 0.55
+  },
+  {
+   "at": 62.5,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 65.0,
+   "name": "riser",
+   "vol": 0.45
+  },
+  {
+   "at": 66.6,
+   "name": "success-2",
+   "vol": 0.6
+  },
+  {
+   "at": 67.3,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 68.6,
+   "name": "snap",
+   "vol": 0.6
+  },
+  {
+   "at": 70.4,
+   "name": "notify",
+   "vol": 0.7
+  },
+  {
+   "at": 71.2,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 72.0,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 72.8,
+   "name": "boing",
+   "vol": 0.6
+  },
+  {
+   "at": 74.0,
+   "name": "oops",
+   "vol": 0.6
+  },
+  {
+   "at": 75.3,
+   "name": "record-scratch",
+   "vol": 0.7
+  }
+ ]
+}

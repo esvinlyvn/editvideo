@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Nhà ga ôm cây long não</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Nhà ga ôm cây": một mặt cắt ga trên cao, cây long não xuyên qua sàn và mái, có camera =====
+         Dưới đất: phố, cổng đỏ + đền nhỏ dưới gốc cây. Trên cao: sàn ga, đoàn tàu, mái chừa lỗ cho cây.
+         Hồi tưởng thập niên 1970: lọc nâu, đường ray mặt đất, trụ cầu mọc lên.
+         2 font: Spectral (tiêu đề) · Be Vietnam Pro. Chữ xanh mực #1f2a24 + nhấn đỏ son đền #d9481c. Nền lá non #eef3ea. */
+      :root { --disp: "Spectral", serif; --body: "Be Vietnam Pro", sans-serif; --ink: #1f2a24; --acc: #d9481c; --bg: #eef3ea; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; filter: sepia(0); }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(238,243,234,.95) 0, rgba(238,243,234,.75) 300px, rgba(238,243,234,0) 560px); }
+      #dim { position: absolute; inset: 0; background: rgba(238,243,234,.9); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.08; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 72px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #5c6b62; white-space: nowrap; }
+      .card { background: #fff; border: 4px solid var(--ink); border-radius: 22px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 20px 12px; border-radius: 16px; background: #fff; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 36px; white-space: nowrap; opacity: 0; }
+      .strike { position: absolute; left: -10px; right: -10px; top: 52%; height: 9px; background: var(--acc); border-radius: 5px; transform-origin: 0 50%; transform: scaleX(0); }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .opt { display: flex; align-items: center; gap: 22px; padding: 22px 28px; margin-top: 18px; text-align: left; font-family: var(--disp); font-weight: 700; font-size: 46px; white-space: nowrap; position: relative; }
+      .opt b { display: inline-flex; width: 64px; height: 64px; border-radius: 50%; align-items: center; justify-content: center; background: var(--ink); color: #fff; font-size: 36px; flex: none; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(20, 26, 22, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post35" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgShrine">Đền nhỏ dưới gốc</div>
+        <div class="tag" id="tgWrong" style="font-size:44px">Mọc sai chỗ?<i class="strike" id="stWrong"></i></div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Cây mọc xuyên</span><span class="blk a">mái nhà ga!</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Chuyện lạ là…</span></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Ga cố tình xây</span><span class="blk a">bao quanh cây</span></div>
+        <div class="safe c o0" id="sign" style="top:300px"><div class="card" style="display:inline-block;overflow:hidden;min-width:640px">
+          <div style="height:22px;background:var(--acc)"></div>
+          <div class="h" style="font-size:96px;padding:22px 40px 4px;letter-spacing:.04em">Kayashima</div>
+          <div style="height:6px;background:var(--ink);margin:10px 40px"></div>
+          <div style="display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 30px 26px;font-weight:700;font-size:38px"><svg width="36" height="46" viewBox="0 0 36 46"><path d="M18 44C6 28 2 22 2 16a16 16 0 0 1 32 0c0 6-4 12-16 28z" fill="#d9481c" stroke="#1f2a24" stroke-width="3"/><circle cx="18" cy="16" r="6" fill="#fff"/></svg><span id="sgCity" class="o0">Neyagawa · Osaka · Nhật Bản</span></div>
+        </div></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Cây long não</span><span class="blk a">khoảng 700 năm</span></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Nhiều người</span><span class="blk a">mới ôm hết</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Thập niên 1970</span><span class="blk a">đường sắt lên cao</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Cây nằm ngay</span><span class="blk a">khu vực thi công</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Chặt đi</span><span class="blk a">cho dễ?</span></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Người dân</span><span class="blk a">muốn giữ cây</span></div>
+        <div class="safe c o0" id="plans" style="top:300px"><div class="h" style="font-size:72px"><span class="blk">Đổi thiết kế</span></div>
+          <div style="display:flex;gap:24px;justify-content:center;margin-top:34px">
+            <div class="card" id="plA" style="width:390px;padding:22px 0 18px;position:relative"><div class="lab">Phương án A</div>{{PLAN_A}}<div class="h" style="font-size:40px"><span class="blk">Chặt cây</span></div><svg id="xA" width="390" height="430" viewBox="0 0 390 430" style="position:absolute;left:-4px;top:-4px"><path d="M60 70L330 360M330 70L60 360" stroke="#d9481c" stroke-width="16" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+            <div class="card" id="plB" style="width:390px;padding:22px 0 18px;position:relative"><div class="lab">Phương án B</div>{{PLAN_B}}<div class="h a" style="font-size:40px"><span class="blk">Giữ cây lại</span></div></div>
+          </div></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Mái chừa lỗ</span><span class="blk a">cho tán cây</span></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Nghĩ tới đây</span><span class="blk a">mới thấy hay</span></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Một bên:</span><span class="blk a">hàng ngàn người</span></div>
+        <div class="safe c o0" id="tline" style="top:196px"><div class="h" style="font-size:72px"><span class="blk">Một bên:</span><span class="blk a">cây có trước</span></div>
+          <div class="card" style="margin-top:34px;padding:34px 40px 26px"><svg width="780" height="220" viewBox="0 0 780 220">
+            <path d="M40 120H740" stroke="#1f2a24" stroke-width="8" stroke-linecap="round"/>
+            <path id="tlFill" d="M40 120H740" stroke="#2f7d4f" stroke-width="20" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+            <g transform="translate(70 70)"><path d="M0 50V10" stroke="#6b4a2b" stroke-width="10"/><circle cy="0" r="30" fill="#3f9b5f" stroke="#1f2a24" stroke-width="4"/></g>
+            <text x="40" y="200" font-family="Be Vietnam Pro" font-weight="700" font-size="30" fill="#1f2a24">khoảng 700 năm trước</text>
+            <g id="tlCity" opacity="0"><path d="M610 100v-60h30v60M650 100v-90h34v90M694 100v-44h30v44" fill="#adb5ad" stroke="#1f2a24" stroke-width="4"/></g>
+            <text x="740" y="200" text-anchor="end" font-family="Be Vietnam Pro" font-weight="700" font-size="30" fill="#d9481c" id="tlNow" opacity="0">thành phố hiện đại</text>
+          </svg></div></div>
+        <div class="safe c o0" id="both" style="top:196px"><div class="h" style="font-size:72px"><span class="blk">Khỏi phải</span><span class="blk a">chọn một</span></div>
+          <div style="display:flex;justify-content:center;align-items:center;gap:26px;margin-top:40px">
+            <div class="card both-i" style="width:300px;padding:24px 0">{{IC_TRAIN}}<div class="h" style="font-size:42px">Nhà ga</div></div>
+            <div class="h a" style="font-size:90px">+</div>
+            <div class="card both-i" style="width:300px;padding:24px 0">{{IC_TREE}}<div class="h" style="font-size:42px">Cây</div></div>
+          </div></div>
+        <div class="safe c o0" id="award" style="top:330px"><div class="card" style="display:inline-block;padding:40px 60px 36px">
+          <svg width="230" height="270" viewBox="0 0 230 270"><path d="M70 0l45 90 45-90" fill="none" stroke="#d9481c" stroke-width="26"/><circle cx="115" cy="170" r="88" fill="#f2c14e" stroke="#1f2a24" stroke-width="7"/><circle cx="115" cy="170" r="60" fill="none" stroke="#1f2a24" stroke-width="4"/><g transform="translate(115 175)"><path d="M0 34V0" stroke="#6b4a2b" stroke-width="9"/><circle cy="-12" r="26" fill="#3f9b5f" stroke="#1f2a24" stroke-width="4"/></g></svg>
+          <div class="h" style="font-size:60px;margin-top:16px"><span class="blk">Giải thưởng</span><span class="blk a">cảnh quan đô thị</span></div><div class="lab" style="margin-top:14px">Osaka</div></div></div>
+        <div class="safe h c tt o0" id="t12"><span class="blk">Nếu cây</span><span class="blk a">biết nói…</span></div>
+        <div class="safe o0" id="bub" style="top:200px"><div class="card" style="padding:30px 36px 32px;border-radius:40px;position:relative">
+          <div class="h" style="font-size:50px;font-style:italic;line-height:1.18"><span class="blk">“Mấy cháu cứ xây nhà ga đi,</span><span class="blk" id="bq2">ông đứng đây được 700 năm rồi,</span><span class="blk a" id="bq3">ông không chuyển nhà đâu!”</span></div>
+          <svg width="80" height="60" viewBox="0 0 80 60" style="position:absolute;left:420px;bottom:-56px"><path d="M4 0L40 56L70 0" fill="#fff" stroke="#1f2a24" stroke-width="4"/><path d="M8 -2H66" stroke="#fff" stroke-width="8"/></svg></div></div>
+        <div class="safe h c tt o0" id="t13"><span class="blk">Hay nhất</span><span class="blk a">không phải tuổi thọ</span></div>
+        <div class="safe c o0" id="quiz" style="top:250px"><div class="h" style="font-size:70px"><span class="blk">Bài toán</span><span class="blk a">chỉ có 2 đáp án?</span></div>
+          <div style="margin-top:30px">
+            <div class="card opt o0" id="oA"><b>A</b>Chặt cây</div>
+            <div class="card opt o0" id="oB"><b>B</b>Bỏ công trình</div>
+            <div class="card opt o0" id="oC" style="border-color:var(--acc);border-width:7px"><b style="background:var(--acc)">C</b><span>Xây nhà ga,<br>để cây ở lại</span></div>
+          </div></div>
+        <div class="safe h c tt o0" id="t14"><span class="blk">Đáp án thứ ba</span><span class="blk a">giữ cả hai</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const INK = "#1f2a24", ACC = "#d9481c", GY = 1500, DECK = 1050, ROOF = 740;
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      const person = (x, y, c, s = 1, cls = "") => `<g class="${cls}"><g transform="translate(${x} ${y}) scale(${s})"><circle cy="-62" r="14" fill="#f1c7a3" stroke="${INK}" stroke-width="3"/><path d="M-14 0l3-46h22l3 46z" fill="${c}" stroke="${INK}" stroke-width="3"/></g></g>`;
+
+      // ---- trời + phố xa
+      const sky = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="-600" x2="0" y2="${GY}"><stop offset="0" stop-color="#bcdcf0"/><stop offset="1" stop-color="#eef3ea"/></linearGradient></defs><rect x="-6000" y="-4000" width="12000" height="${4000 + GY}" fill="url(#gSky)"/>`;
+      let far = ""; for (let i = 0; i < 26; i++) { const x = -3200 + i * 250, h = 140 + ((i * 37) % 5) * 40; far += `<path d="M${x} ${GY}v-${h}l90-50 90 50v${h}z" fill="#d3ddd3" stroke="#b9c6ba" stroke-width="4"/>`; }
+      let poles = ""; [-2300, -1500, 1500, 2300].forEach((x) => (poles += `<path d="M${x} ${GY}V${GY - 520}M${x - 50} ${GY - 480}h100" stroke="#7a8780" stroke-width="12"/>`));
+      const ground = `<rect x="-6000" y="${GY}" width="12000" height="1400" fill="#d8d2c4"/><path d="M-6000 ${GY + 8}H6000" stroke="${INK}" stroke-width="6"/><path d="M-6000 ${GY + 120}H6000" stroke="#c4bdae" stroke-width="10" stroke-dasharray="80 60"/>`;
+
+      // ---- đường ray mặt đất thời 1970 + tàu cũ
+      const old = `<g id="old" opacity="0"><path d="M-6000 ${GY - 6}H6000" stroke="#5c4a3a" stroke-width="12"/>${[...Array(60)].map((_, k) => `<path d="M${-3000 + k * 100} ${GY - 14}v16" stroke="#5c4a3a" stroke-width="10"/>`).join("")}
+        <g id="oldTrain"><g transform="translate(-2600 ${GY - 20})">${[0, 1].map((k) => `<rect x="${k * 520}" y="-190" width="500" height="180" rx="16" fill="#e8d8b0" stroke="${INK}" stroke-width="6"/><path d="M${k * 520} -70h500" stroke="#7a5c3a" stroke-width="16"/>${[0, 1, 2, 3].map((j) => `<rect x="${k * 520 + 40 + j * 115}" y="-160" width="80" height="60" rx="6" fill="#bcdcf0" stroke="${INK}" stroke-width="4"/>`).join("")}<circle cx="${k * 520 + 90}" cy="0" r="22" fill="${INK}"/><circle cx="${k * 520 + 410}" cy="0" r="22" fill="${INK}"/>`).join("")}</g></g></g>`;
+
+      // ---- nhà ga trên cao (trụ, sàn chừa lỗ, cột mái, mái chừa lỗ)
+      const pillars = [-820, -460, 460, 820].map((x) => `<rect class="pil" x="${x - 34}" y="${DECK + 40}" width="68" height="${GY - DECK - 40}" fill="#c9cec8" stroke="${INK}" stroke-width="6"/>`).join("");
+      const deck = `<g id="deckL"><rect x="-1100" y="${DECK}" width="985" height="44" fill="#b4bab4" stroke="${INK}" stroke-width="6"/></g><g id="deckR"><rect x="115" y="${DECK}" width="985" height="44" fill="#b4bab4" stroke="${INK}" stroke-width="6"/></g>`;
+      const posts = [-980, -560, 560, 980].map((x) => `<path d="M${x} ${ROOF + 30}V${DECK}" stroke="#7d8a91" stroke-width="14"/>`).join("");
+      const roof = `<g id="roofL"><path d="M-1060 ${ROOF}H-118v32H-1060z" fill="#7d8a91" stroke="${INK}" stroke-width="6"/></g><g id="roofR"><path d="M118 ${ROOF}H1060v32H118z" fill="#7d8a91" stroke="${INK}" stroke-width="6"/></g>`;
+      const fence = `<g id="fence"><rect x="-118" y="${DECK - 90}" width="236" height="90" fill="none" stroke="${INK}" stroke-width="5"/>${[...Array(7)].map((_, k) => `<path d="M${-100 + k * 33} ${DECK - 90}v90" stroke="${INK}" stroke-width="3"/>`).join("")}<rect x="-118" y="${ROOF + 32}" width="236" height="26" fill="#9aa5ab" stroke="${INK}" stroke-width="5"/></g>`;
+      const train = `<g id="train"><g transform="translate(-2900 ${DECK - 6})">${[0, 1, 2].map((k) => `<rect x="${k * 600}" y="-200" width="580" height="190" rx="22" fill="#f6f3ec" stroke="${INK}" stroke-width="6"/><path d="M${k * 600} -58h580" stroke="#2f6f5a" stroke-width="22"/>${[0, 1, 2, 3].map((j) => `<rect x="${k * 600 + 40 + j * 135}" y="-170" width="96" height="70" rx="8" fill="#bcdcf0" stroke="${INK}" stroke-width="4"/>`).join("")}<rect x="${k * 600 + 262}" y="-176" width="56" height="150" fill="#e4e0d6" stroke="${INK}" stroke-width="4"/>`).join("")}</g></g>`;
+      let crowd = ""; [-930, -800, -680, -380, -270, 300, 420, 690, 850, 960].forEach((x, i) => (crowd += person(x, DECK, ["#d9481c", "#2f6f5a", "#3b5bdb", "#f2c14e", "#7950f2"][i % 5], 1.25, "cr")));
+      const station = `<g id="station">${pillars}${posts}${train}${deck}${crowd}${roof}</g>`;
+
+      // ---- bản phác thảo nét đứt (ga vẽ quanh cây)
+      const ghost = `<g id="ghost" fill="none" stroke="${ACC}" stroke-width="8" stroke-dasharray="26 16" opacity="0"><path class="gh" d="M-1060 ${ROOF}H-118V${ROOF + 32}H-1060z" pathLength="1"/><path class="gh" d="M118 ${ROOF}H1060V${ROOF + 32}H118z"/><path class="gh" d="M-1100 ${DECK}H-115V${DECK + 44}H-1100z"/><path class="gh" d="M115 ${DECK}H1100V${DECK + 44}H115z"/><circle cx="0" cy="${(ROOF + DECK) / 2}" r="190" stroke-width="10"/></g>`;
+
+      // ---- cây long não
+      const trunk = `<g id="trunk"><path d="M-95 ${GY}C-150 ${GY} -110 ${GY - 40} -82 ${GY - 120}C-62 ${GY - 400} -52 ${GY - 650} -48 700L48 700C52 ${GY - 650} 62 ${GY - 400} 82 ${GY - 120}C110 ${GY - 40} 150 ${GY} 95 ${GY}z" fill="#7a5638" stroke="${INK}" stroke-width="7"/><path d="M-20 ${GY - 40}C-30 ${GY - 300} -10 ${GY - 500} -18 760M24 ${GY - 80}C30 ${GY - 260} 14 ${GY - 450} 20 820" stroke="#5a3d26" stroke-width="6" fill="none"/>
+        <path d="M-30 760C-120 680 -200 640 -280 600M30 740C120 650 200 610 270 560M0 720V470" stroke="#7a5638" stroke-width="34" stroke-linecap="round" fill="none"/></g>`;
+      const leaves = [[-300, 600, 170, "#2f7d4f"], [0, 460, 210, "#3f9b5f"], [290, 560, 175, "#2f7d4f"], [-140, 660, 150, "#5bb974"], [150, 670, 150, "#5bb974"], [-440, 700, 115, "#3f9b5f"], [440, 690, 115, "#3f9b5f"], [-150, 420, 150, "#5bb974"], [170, 410, 140, "#2f7d4f"]];
+      const canopy = `<g id="canopyW"><g id="canopy">${leaves.map(([x, y, r, c]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="${INK}" stroke-width="6"/>`).join("")}
+        <g id="face" opacity="0"><g id="eyes"><ellipse cx="-80" cy="560" rx="30" ry="36" fill="#fff" stroke="${INK}" stroke-width="5"/><ellipse cx="80" cy="560" rx="30" ry="36" fill="#fff" stroke="${INK}" stroke-width="5"/><circle cx="-74" cy="566" r="13" fill="${INK}"/><circle cx="86" cy="566" r="13" fill="${INK}"/></g><path d="M-130 505q40-26 80-6M50 499q40-20 80 6" stroke="${INK}" stroke-width="8" fill="none" stroke-linecap="round"/><path id="mouth" d="M-50 640q50 40 100 0" stroke="${INK}" stroke-width="8" fill="#8a3b2a" stroke-linecap="round"/><path d="M-60 700q60 30 120 0" stroke="#e8e2d0" stroke-width="10" fill="none" stroke-linecap="round"/></g></g></g>`;
+
+      // ---- đền nhỏ + cổng đỏ dưới gốc
+      const shrine = `<g id="shrine"><g transform="translate(-380 ${GY})"><path d="M-70 0V-230M70 0V-230" stroke="${ACC}" stroke-width="22"/><path d="M-120 -250q120 -30 240 0" stroke="${INK}" stroke-width="22" fill="none"/><path d="M-96 -200H96" stroke="${ACC}" stroke-width="18"/></g>
+        <g transform="translate(300 ${GY})"><rect x="-80" y="-40" width="160" height="40" fill="#b9b2a2" stroke="${INK}" stroke-width="5"/><rect x="-56" y="-150" width="112" height="110" fill="#c98b4b" stroke="${INK}" stroke-width="5"/><path d="M-90 -150q90-70 180 0z" fill="#4a3a30" stroke="${INK}" stroke-width="5"/><rect x="-22" y="-120" width="44" height="80" fill="#5a3d26"/><path d="M-30 -60h60" stroke="#f2c14e" stroke-width="6"/></g>
+        <g transform="translate(470 ${GY})"><rect x="-20" y="-120" width="40" height="120" fill="#c4bfb4" stroke="${INK}" stroke-width="4"/><rect x="-36" y="-150" width="72" height="34" fill="#c4bfb4" stroke="${INK}" stroke-width="4"/><rect x="-14" y="-108" width="28" height="22" fill="#f2c14e" id="lamp"/></g></g>`;
+
+      // ---- thước 20 m, vòng người ôm, thi công, rìu, ba thế hệ
+      const ruler = `<g id="rulerW" opacity="0"><g id="ruler"><path d="M-620 ${GY}V500" stroke="${INK}" stroke-width="10"/>${[0, 5, 10, 15, 20].map((m) => `<path d="M-650 ${GY - m * 50}h60" stroke="${INK}" stroke-width="8"/><text x="-670" y="${GY - m * 50 + 16}" text-anchor="end" font-family="Be Vietnam Pro" font-weight="700" font-size="${m === 20 ? 64 : 44}" fill="${m === 20 ? ACC : INK}">${m} m</text>`).join("")}</g></g>`;
+      const hug = `<g id="hug" opacity="0">${[-200, -100, 0, 100, 200].map((x, i) => person(x, GY + 8, ["#d9481c", "#2f6f5a", "#3b5bdb", "#f2c14e", "#7950f2"][i], 1.6, "hp")).join("")}<path d="M-200 ${GY - 46}H200" stroke="#f1c7a3" stroke-width="10" stroke-linecap="round"/></g>`;
+      const crane = `<g id="crane" opacity="0"><path d="M1250 ${GY}V300M1250 320H650M1250 320H1450" stroke="#f2a20c" stroke-width="26"/><path d="M1250 300l-600 20M1250 300l200 20" stroke="${INK}" stroke-width="4"/><g id="hook"><path d="M760 320V800" stroke="${INK}" stroke-width="4"/><rect x="660" y="800" width="200" height="40" fill="#b4bab4" stroke="${INK}" stroke-width="5"/></g></g>`;
+      const tape = `<g id="tape" opacity="0"><path d="M-560 ${GY - 70}H560" stroke="#f2c14e" stroke-width="30"/><path d="M-560 ${GY - 70}H560" stroke="${INK}" stroke-width="30" stroke-dasharray="34 34"/><path d="M-560 ${GY}V${GY - 100}M560 ${GY}V${GY - 100}" stroke="${INK}" stroke-width="12"/></g>`;
+      const axe = `<g id="axeW" opacity="0"><g transform="translate(-20 -200)"><g id="axe"><path d="M340 1420L180 1300" stroke="#8a5a2b" stroke-width="22" stroke-linecap="round"/><path d="M190 1240l60 60-40 50c-40-10-60-40-60-70z" fill="#adb5bd" stroke="${INK}" stroke-width="6"/></g></g></g><path id="cut" d="M-140 1380H140" stroke="${ACC}" stroke-width="10" stroke-dasharray="24 14" opacity="0"/>`;
+      const gens = `<g id="gens" opacity="0"><path d="M-1240 ${GY}V${GY - 360}M-700 ${GY}V${GY - 360}" stroke="${INK}" stroke-width="12"/><rect x="-1270" y="${GY - 400}" width="600" height="130" rx="14" fill="#fff" stroke="${INK}" stroke-width="7"/><text x="-970" y="${GY - 314}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="62" fill="${ACC}">Giữ cây lại nha!</text>
+        ${person(-1100, GY, "#7a8780", 1.7, "gp")}<path d="M-1060 ${GY}l10-60" stroke="#6b4a2b" stroke-width="8"/>${person(-960, GY, "#3b5bdb", 1.7, "gp")}${person(-840, GY, "#f2c14e", 1.15, "gp")}</g>`;
+
+      document.getElementById("W").innerHTML = `${sky}${far}${poles}${ground}${old}${crane}${station}${tape}${shrine}${trunk}${fence}${canopy}${ghost}${ruler}${hug}${axe}${gens}`;
+
+      const P = { canopy: CAM(0, 560, 1100, 1000), wide: CAM(0, 930, 1500, 960), mid: CAM(0, 1000, 1350, 1000), tall: CAM(-200, 930, 1500, 960), base: CAM(0, 1380, 1300, 1350), shrine: CAM(0, 1380, 1300, 1350), face: CAM(0, 620, 1300, 1130), old: CAM(250, 1050, 1800, 1050), gens: CAM(-600, 1020, 1500, 1020) };
+      let lastCam = P.canopy; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgShrine", P.shrine, 300, GY - 230); place("tgWrong", P.wide, 0, 230);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.6)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const trainRun = (from, to, at, d, ease = "none") => tl.fromTo("#train", { x: from }, { x: to, duration: d, ease, immediateRender: false }, at);
+      tl.fromTo("#canopy", { rotation: -0.6, svgOrigin: "0 760" }, { rotation: 0.6, svgOrigin: "0 760", duration: 2.2, yoyo: true, repeat: 43, ease: "sine.inOut", immediateRender: false }, 0);
+
+      // ---- 0–3.6 · cây mọc xuyên mái ga
+      T("#t0", 0.15, 4.0);
+      cam(P.wide, 0.6, 2.6);
+      trainRun(0, 5600, 1.2, 3.2, "power1.inOut");
+
+      // ---- 4.1–6.0 · chuyện lạ không phải cây mọc sai chỗ
+      T("#t1", 4.1, 6.4); fadeUp("#tgWrong", 4.3, 0.3);
+      tl.to("#stWrong", { scaleX: 1, duration: 0.35, ease: E }, 5.4); out("#tgWrong", 6.3, 0.2);
+
+      // ---- 6.5–8.7 · cố tình xây ga bao quanh cây (bản phác nét đứt)
+      T("#t2", 6.51, 9.3);
+      tl.to("#ghost", { opacity: 1, duration: 0.3 }, 6.6);
+      tl.fromTo("#ghost", { strokeDashoffset: 0 }, { strokeDashoffset: -126, duration: 2.4, ease: "none", immediateRender: false }, 6.6);
+      tl.fromTo("#ghost circle", { scale: 0.6, svgOrigin: `0 ${(ROOF + DECK) / 2}` }, { scale: 1, svgOrigin: `0 ${(ROOF + DECK) / 2}`, duration: 0.6, ease: B, immediateRender: false }, 7.2);
+      out("#ghost", 9.0, 0.3);
+
+      // ---- 9.5–10.4 · Sáu
+      dimIn(9.3); tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 9.35);
+      out("#sauBox", 11.0, 0.25); dimOut(11.1);
+
+      // ---- 11.5–16.2 · ga Kayashima, Neyagawa, Osaka
+      cam(P.mid, 11.0, 1.2);
+      tl.fromTo("#sign", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: B, immediateRender: false }, 11.5);
+      fadeUp("#sgCity", 14.35, 0.35); out("#sign", 16.7, 0.28);
+
+      // ---- 17.2–24.4 · 700 năm · 20 mét · nhiều người mới ôm hết
+      cam(P.tall, 16.8, 1.0);
+      T("#t3", 17.15, 22.0);
+      tl.to("#rulerW", { opacity: 1, duration: 0.2 }, 20.5); tl.fromTo("#ruler", { scaleY: 0, svgOrigin: `-620 ${GY}` }, { scaleY: 1, svgOrigin: `-620 ${GY}`, duration: 1.0, ease: E, immediateRender: false }, 20.6);
+      cam(P.base, 21.9, 0.9); out("#rulerW", 22.3, 0.3);
+      T("#t4", 22.12, 25.0);
+      tl.to("#hug", { opacity: 1, duration: 0.01 }, 22.4); tl.fromTo("#hug .hp", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.18, ease: B, immediateRender: false }, 22.4);
+      tl.fromTo("#hug path", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, 23.5);
+      out("#hug", 25.0, 0.3);
+
+      // ---- 25.4–32.1 · hồi tưởng 1970: đường sắt nâng lên cao, cây nằm ngay khu thi công
+      cam(P.old, 24.9, 1.1);
+      tl.to("#W", { filter: "sepia(0.55)", duration: 0.6 }, 25.0);
+      tl.to(["#station", "#fence"], { opacity: 0, duration: 0.5 }, 25.0); tl.to("#old", { opacity: 1, duration: 0.5 }, 25.1);
+      T("#t5", 25.41, 30.0);
+      tl.fromTo("#oldTrain", { x: 0 }, { x: 5600, duration: 3.4, ease: "none", immediateRender: false }, 25.6);
+      tl.set("#train", { opacity: 0 }, 25.5); tl.set(".cr", { opacity: 0 }, 25.5); tl.set(["#roofL", "#roofR", "#deckL", "#deckR"], { opacity: 0 }, 25.5);
+      tl.set("#station", { opacity: 1 }, 27.0); tl.set(".pil", { scaleY: 0, svgOrigin: `0 ${GY}` }, 25.5);
+      tl.to(".pil", { scaleY: 1, svgOrigin: `0 ${GY}`, duration: 0.7, stagger: 0.18, ease: E }, 27.2);
+      tl.to("#crane", { opacity: 1, duration: 0.4 }, 27.4);
+      tl.fromTo("#deckL", { opacity: 0, x: -400 }, { opacity: 1, x: 0, duration: 0.8, ease: E, immediateRender: false }, 28.7);
+      tl.fromTo("#deckR", { opacity: 0, x: 400 }, { opacity: 1, x: 0, duration: 0.8, ease: E, immediateRender: false }, 28.9);
+      tl.fromTo("#hook", { y: 0 }, { y: 120, duration: 0.8, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 27.6);
+      T("#t6", 30.15, 32.7); cam(P.mid, 30.0, 1.0);
+      tl.to("#tape", { opacity: 1, duration: 0.3 }, 30.5); tl.fromTo("#tape", { scaleX: 0.2, svgOrigin: `0 ${GY}` }, { scaleX: 1, svgOrigin: `0 ${GY}`, duration: 0.6, ease: B, immediateRender: false }, 30.5);
+      tl.to("#old", { opacity: 0, duration: 0.5 }, 30.4);
+
+      // ---- 32.8–35.1 · chặt đi cho dễ?
+      cam(P.base, 32.6, 0.8);
+      T("#t7", 32.84, 35.7);
+      tl.to("#axeW", { opacity: 1, duration: 0.3 }, 33.0);
+      tl.fromTo("#axe", { rotation: 0, svgOrigin: "340 1420" }, { rotation: -28, svgOrigin: "340 1420", duration: 0.35, yoyo: true, repeat: 3, ease: "power2.inOut", immediateRender: false }, 33.3);
+      tl.to("#cut", { opacity: 1, duration: 0.3 }, 33.8);
+
+      // ---- 35.9–39.7 · người dân muốn giữ cây (ba thế hệ)
+      cam(P.gens, 35.5, 1.1);
+      out(["#axeW", "#cut"], 35.9, 0.4);
+      T("#t8", 35.92, 40.3);
+      tl.to("#gens", { opacity: 1, duration: 0.01 }, 36.3); tl.fromTo("#gens .gp", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.3, ease: B, immediateRender: false }, 36.3);
+      tl.fromTo("#gens rect, #gens text", { opacity: 0, scale: 0.6, svgOrigin: `-970 ${GY - 335}` }, { opacity: 1, scale: 1, svgOrigin: `-970 ${GY - 335}`, duration: 0.45, ease: B, immediateRender: false }, 37.4);
+
+      // ---- 40.8–45.2 · đổi thiết kế: phương án A chặt cây ✗ · B giữ cây ✓
+      dimIn(40.6); fadeUp("#plans", 40.75, 0.45);
+      tl.fromTo("#plA", { scale: 0.92 }, { scale: 1, duration: 0.3, immediateRender: false }, 40.9);
+      tl.to("#xA path", { strokeDashoffset: 0, duration: 0.45, ease: E }, 42.6);
+      tl.fromTo("#plB", { scale: 1 }, { scale: 1.08, duration: 0.35, ease: B, immediateRender: false }, 43.3);
+      out("#plans", 45.7, 0.28); dimOut(45.8);
+      tl.set(["#gens", "#tape", "#crane"], { opacity: 0 }, 45.8);
+
+      // ---- 46.3–51.8 · ga xây quanh thân cây · tán vươn khỏi mái · đền nhỏ bên dưới
+      tl.to("#W", { filter: "sepia(0)", duration: 0.6 }, 45.9);
+      T("#t9", 46.25, 52.6);
+      tl.fromTo("#roofL", { opacity: 0, x: -500 }, { opacity: 1, x: 0, duration: 0.8, ease: E, immediateRender: false }, 46.4);
+      tl.fromTo("#roofR", { opacity: 0, x: 500 }, { opacity: 1, x: 0, duration: 0.8, ease: E, immediateRender: false }, 46.6);
+      tl.to("#fence", { opacity: 1, duration: 0.4 }, 47.2);
+      tl.fromTo("#canopyW", { scale: 0.92, svgOrigin: "0 760" }, { scale: 1, svgOrigin: "0 760", duration: 0.9, ease: B, immediateRender: false }, 48.3);
+      cam(P.shrine, 49.6, 1.0); fadeUp("#tgShrine", 50.3, 0.3);
+      tl.to("#lamp", { fill: "#ffe066", duration: 0.3, yoyo: true, repeat: 3 }, 50.5);
+      out("#tgShrine", 52.4, 0.2);
+
+      // ---- 52.9–57.3 · nghĩ tới đây mới thấy hay · một bên: giao thông hàng ngàn người
+      cam(P.wide, 52.5, 1.0);
+      T("#t10", 52.89, 54.7);
+      tl.set("#train", { opacity: 1, x: 0 }, 52.5);
+      trainRun(0, 2050, 54.6, 2.0, "power2.out");
+      T("#t11", 54.84, 58.0);
+      tl.fromTo(".cr", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, stagger: { each: 0.1, from: "edges" }, ease: B, immediateRender: false }, 55.6);
+
+      // ---- 58.2–61.7 · một bên: cây có trước nhiều thành phố hiện đại
+      fadeUp("#tline", 58.15, 0.45);
+      tl.to("#tlFill", { strokeDashoffset: 0, duration: 2.4, ease: "power1.inOut" }, 58.6);
+      tl.to(["#tlCity", "#tlNow"], { opacity: 1, duration: 0.35 }, 60.6);
+      out("#tline", 62.1, 0.28);
+
+      // ---- 62.4–64.6 · khỏi phải chọn bỏ một trong hai
+      fadeUp("#both", 62.35, 0.45);
+      tl.fromTo(".both-i", { scale: 0.8 }, { scale: 1, duration: 0.4, stagger: 0.25, ease: B, immediateRender: false }, 62.6);
+      out("#both", 65.3, 0.28);
+
+      // ---- 65.7–69.5 · giải thưởng cảnh quan đô thị Osaka
+      dimIn(65.5); tl.fromTo("#award", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: B, immediateRender: false }, 65.7);
+      tl.fromTo("#award svg", { rotation: -8 }, { rotation: 8, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 66.3);
+      out("#award", 70.1, 0.28); dimOut(70.2);
+
+      // ---- 70.5–77.8 · nếu cây biết nói
+      cam(P.face, 70.2, 1.0);
+      T("#t12", 70.53, 73.3);
+      tl.to("#face", { opacity: 1, duration: 0.4 }, 71.2);
+      tl.fromTo("#eyes", { scaleY: 1, svgOrigin: "0 560" }, { scaleY: 0.1, svgOrigin: "0 560", duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, 72.4);
+      fadeUp("#bub", 73.4, 0.4);
+      tl.fromTo(["#bq2", "#bq3"], { opacity: 0.15 }, { opacity: 1, duration: 0.3, stagger: 1.25, immediateRender: false }, 75.2);
+      tl.fromTo("#mouth", { scaleY: 1, svgOrigin: "0 640" }, { scaleY: 0.4, svgOrigin: "0 640", duration: 0.16, yoyo: true, repeat: 25, immediateRender: false }, 73.5);
+      tl.fromTo("#canopyW", { y: 0 }, { y: -14, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 76.6);
+      out("#bub", 78.4, 0.28); out("#face", 78.6, 0.4);
+
+      // ---- 78.9–81.7 · điều hay nhất không phải tuổi thọ
+      cam(P.mid, 78.6, 1.0);
+      T("#t13", 78.89, 82.3);
+
+      // ---- 82.6–89.8 · bài toán: A chặt cây · B bỏ công trình · C đáp án thứ ba
+      dimIn(82.4); fadeUp("#quiz", 82.62, 0.45);
+      fadeUp("#oA", 85.84, 0.3); fadeUp("#oB", 86.68, 0.3);
+      tl.to(["#oA", "#oB"], { opacity: 0.45, duration: 0.3 }, 88.0);
+      tl.fromTo("#oC", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: B, immediateRender: false }, 88.3);
+      out("#quiz", 90.3, 0.28); dimOut(90.35);
+
+      // ---- 90.6–end · xây nhà ga, nhưng để cây ở lại
+      cam(P.wide, 90.3, 1.2);
+      T("#t14", 90.55, 96.0);
+      trainRun(2050, 5600, 91.0, 2.6, "power2.in");
+      tl.fromTo("#canopyW", { scale: 1, svgOrigin: "0 760" }, { scale: 1.05, svgOrigin: "0 760", duration: 0.5, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, 91.7);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post35"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.352,
+   "end": 3.636,
+   "speaker": "B",
+   "text": "Cửa sổ máy bay có một cái lỗ nhỏ được người ta cố tình làm sẵn."
+  },
+  {
+   "i": 1,
+   "start": 4.147,
+   "end": 4.909,
+   "speaker": "B",
+   "text": "Nghe đáng lo hả?"
+  },
+  {
+   "i": 2,
+   "start": 5.52,
+   "end": 8.542,
+   "speaker": "B",
+   "text": "Nhưng cái lỗ đó lại là một phần trong thiết kế an toàn của cửa sổ!"
+  },
+  {
+   "i": 3,
+   "start": 9.352,
+   "end": 10.208,
+   "speaker": "B",
+   "text": "Tui Sáu Suy Nghĩ nè."
+  },
+  {
+   "i": 4,
+   "start": 10.802,
+   "end": 12.15,
+   "speaker": "B",
+   "text": "Nếu từng ngồi cạnh cửa sổ máy bay,"
+  },
+  {
+   "i": 5,
+   "start": 12.45,
+   "end": 14.727,
+   "speaker": "B",
+   "text": "có thể bạn đã thấy cái lỗ nhỏ gần phía dưới rồi."
+  },
+  {
+   "i": 6,
+   "start": 15.344,
+   "end": 17.559,
+   "speaker": "B",
+   "text": "Nó không phải vết nứt, cũng không phải bị khoan nhầm đâu nha."
+  },
+  {
+   "i": 7,
+   "start": 18.224,
+   "end": 19.25,
+   "speaker": "B",
+   "text": "Để hiểu nó làm gì,"
+  },
+  {
+   "i": 8,
+   "start": 19.511,
+   "end": 21.989,
+   "speaker": "B",
+   "text": "phải biết cửa sổ máy bay chở khách thường có nhiều lớp."
+  },
+  {
+   "i": 11,
+   "start": 22.568,
+   "end": 23.439,
+   "speaker": "B",
+   "text": "Khi máy bay lên cao,"
+  },
+  {
+   "i": 12,
+   "start": 23.749,
+   "end": 27.759,
+   "speaker": "B",
+   "text": "áp suất không khí bên ngoài thấp hơn nhiều so với áp suất được duy trì trong khoang hành khách."
+  },
+  {
+   "i": 13,
+   "start": 27.986,
+   "end": 30.524,
+   "speaker": "B",
+   "text": "Sự chênh lệch đó tạo ra lực tác động lên cửa sổ."
+  },
+  {
+   "i": 14,
+   "start": 31.763,
+   "end": 33.335,
+   "speaker": "B",
+   "text": "Cái lỗ nhỏ nằm ở lớp kính giữa,"
+  },
+  {
+   "i": 15,
+   "start": 33.783,
+   "end": 36.326,
+   "speaker": "B",
+   "text": "cho phép áp suất trong khoang truyền vào khoảng không giữa các lớp."
+  },
+  {
+   "i": 16,
+   "start": 36.724,
+   "end": 39.841,
+   "speaker": "B",
+   "text": "Nhờ vậy, lớp ngoài được thiết kế để chịu phần chênh lệch áp suất chính,"
+  },
+  {
+   "i": 17,
+   "start": 40.194,
+   "end": 41.607,
+   "speaker": "B",
+   "text": "còn lớp giữa có vai trò dự phòng."
+  },
+  {
+   "i": 18,
+   "start": 42.631,
+   "end": 45.438,
+   "speaker": "B",
+   "text": "Cái lỗ cũng giúp hạn chế hơi ẩm đọng giữa các lớp cửa sổ."
+  },
+  {
+   "i": 19,
+   "start": 46.114,
+   "end": 47.574,
+   "speaker": "B",
+   "text": "Và đây mới là chi tiết quan trọng:"
+  },
+  {
+   "i": 20,
+   "start": 47.757,
+   "end": 50.984,
+   "speaker": "B",
+   "text": "nó không phải một cái lỗ thông thẳng từ chỗ bạn ngồi ra bầu trời bên ngoài!"
+  },
+  {
+   "i": 21,
+   "start": 51.523,
+   "end": 52.656,
+   "speaker": "B",
+   "text": "Lớp ngoài vẫn được bịt kín."
+  },
+  {
+   "i": 22,
+   "start": 53.619,
+   "end": 54.713,
+   "speaker": "B",
+   "text": "Thành ra lần sau lên máy bay,"
+  },
+  {
+   "i": 23,
+   "start": 55.034,
+   "end": 56.869,
+   "speaker": "B",
+   "text": "nếu thấy cái lỗ nhỏ đó, bạn không cần hoảng."
+  },
+  {
+   "i": 24,
+   "start": 57.319,
+   "end": 59.223,
+   "speaker": "B",
+   "text": "Nó không phải dấu hiệu người ta quên sửa cửa sổ."
+  },
+  {
+   "i": 25,
+   "start": 59.763,
+   "end": 61.38,
+   "speaker": "B",
+   "text": "Mà là một chi tiết kỹ thuật có chủ đích."
+  },
+  {
+   "i": 26,
+   "start": 62.154,
+   "end": 66.919,
+   "speaker": "B",
+   "text": "Có khi thứ trông giống một lỗi nhỏ xíu lại chính là một phần của giải pháp kỹ thuật được tính toán rất kỹ."
+  },
+  {
+   "i": 29,
+   "start": 67.724,
+   "end": 71.593,
+   "speaker": "B",
+   "text": "Còn nếu nhìn thấy cửa sổ có vết nứt hay hư hại thật thì cứ báo tiếp viên kiểm tra nha."
+  },
+  {
+   "i": 31,
+   "start": 72.034,
+   "end": 75.041,
+   "speaker": "B",
+   "text": "Đừng tự đứng ra kết luận mọi cái lỗ đều là công nghệ hàng không!"
+  }
+ ]
+}

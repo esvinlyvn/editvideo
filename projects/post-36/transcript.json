@@ -1,0 +1,236 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.311,
+   "speaker": "B",
+   "text": "Hai người ngồi chung một bàn,"
+  },
+  {
+   "i": 1,
+   "start": 1.695,
+   "end": 3.29,
+   "speaker": "B",
+   "text": "một người bị muỗi chích tám nốt,"
+  },
+  {
+   "i": 3,
+   "start": 3.647,
+   "end": 4.81,
+   "speaker": "B",
+   "text": "người kia chẳng sao."
+  },
+  {
+   "i": 4,
+   "start": 5.397,
+   "end": 7.006,
+   "speaker": "B",
+   "text": "Bộ muỗi cũng biết chọn khách quen hả?"
+  },
+  {
+   "i": 5,
+   "start": 7.447,
+   "end": 9.038,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ nè."
+  },
+  {
+   "i": 6,
+   "start": 9.426,
+   "end": 10.766,
+   "speaker": "B",
+   "text": "Mà nghe cái nghiên cứu này xong,"
+  },
+  {
+   "i": 7,
+   "start": 11.018,
+   "end": 13.693,
+   "speaker": "B",
+   "text": "có khi bạn sẽ hết đổ thừa tại mình có máu ngọt!"
+  },
+  {
+   "i": 8,
+   "start": 14.93,
+   "end": 16.314,
+   "speaker": "B",
+   "text": "Năm 2022,"
+  },
+  {
+   "i": 9,
+   "start": 16.514,
+   "end": 20.061,
+   "speaker": "B",
+   "text": "các nhà khoa học tại Đại học Rockefeller công bố một nghiên cứu trên tạp chí Cell."
+  },
+  {
+   "i": 10,
+   "start": 20.658,
+   "end": 22.731,
+   "speaker": "B",
+   "text": "Họ lấy mẫu mùi từ da của những người tình nguyện,"
+  },
+  {
+   "i": 11,
+   "start": 23.085,
+   "end": 25.017,
+   "speaker": "B",
+   "text": "rồi cho muỗi vằn lựa chọn giữa các mẫu."
+  },
+  {
+   "i": 12,
+   "start": 25.553,
+   "end": 29.016,
+   "speaker": "B",
+   "text": "Kết quả là có người thu hút muỗi mạnh hơn người khác một cách rất rõ rệt."
+  },
+  {
+   "i": 14,
+   "start": 29.374,
+   "end": 32.232,
+   "speaker": "B",
+   "text": "Thậm chí sự khác biệt đó còn khá ổn định qua nhiều năm."
+  },
+  {
+   "i": 15,
+   "start": 33.044,
+   "end": 34.092,
+   "speaker": "B",
+   "text": "Vậy muỗi thích cái gì?"
+  },
+  {
+   "i": 16,
+   "start": 35.004,
+   "end": 35.997,
+   "speaker": "B",
+   "text": "Các nhà nghiên cứu"
+  },
+  {
+   "i": 17,
+   "start": 36.372,
+   "end": 41.679,
+   "speaker": "B",
+   "text": "phát hiện những người đặc biệt thu hút muỗi có hàm lượng một nhóm chất gọi là axit carboxylic trên da cao hơn."
+  },
+  {
+   "i": 19,
+   "start": 42.439,
+   "end": 45.09,
+   "speaker": "B",
+   "text": "Đây là những chất góp phần tạo nên mùi riêng của mỗi người."
+  },
+  {
+   "i": 20,
+   "start": 45.897,
+   "end": 48.747,
+   "speaker": "B",
+   "text": "Tất nhiên, muỗi còn dựa vào hơi thở có khí CO2,"
+  },
+  {
+   "i": 22,
+   "start": 49.082,
+   "end": 51.568,
+   "speaker": "B",
+   "text": "nhiệt độ cơ thể và nhiều tín hiệu khác để tìm mục tiêu."
+  },
+  {
+   "i": 23,
+   "start": 52.227,
+   "end": 57.683,
+   "speaker": "B",
+   "text": "Nhưng nghiên cứu này cho thấy mùi da là một phần quan trọng giải thích vì sao có người bị muỗi tìm tới nhiều hơn."
+  },
+  {
+   "i": 25,
+   "start": 58.37,
+   "end": 61.85,
+   "speaker": "B",
+   "text": "Và không, chuyện đó không chứng minh người bị chích có máu ngọt hơn nha!"
+  },
+  {
+   "i": 27,
+   "start": 62.294,
+   "end": 64.408,
+   "speaker": "B",
+   "text": "Muỗi chưa có mở tiệm thử đường huyết ngoài sân đâu!"
+  },
+  {
+   "i": 28,
+   "start": 65.387,
+   "end": 67.289,
+   "speaker": "B",
+   "text": "Còn nếu bạn thuộc hội chuyên bị muỗi lựa trúng,"
+  },
+  {
+   "i": 29,
+   "start": 67.695,
+   "end": 70.276,
+   "speaker": "B",
+   "text": "đừng vội tìm cách thay đổi mùi cơ thể bằng mấy mẹo truyền miệng."
+  },
+  {
+   "i": 30,
+   "start": 70.854,
+   "end": 71.73,
+   "speaker": "B",
+   "text": "Cách thực tế hơn là"
+  },
+  {
+   "i": 31,
+   "start": 71.962,
+   "end": 73.266,
+   "speaker": "B",
+   "text": "dùng sản phẩm chống muỗi phù hợp,"
+  },
+  {
+   "i": 32,
+   "start": 73.614,
+   "end": 78.204,
+   "speaker": "B",
+   "text": "mặc đồ che da khi cần và dọn những chỗ nước đọng quanh nhà để hạn chế muỗi sinh sản."
+  },
+  {
+   "i": 34,
+   "start": 78.933,
+   "end": 80.742,
+   "speaker": "B",
+   "text": "Nhất là muỗi vằn có thể truyền bệnh sốt xuất huyết,"
+  },
+  {
+   "i": 35,
+   "start": 81.148,
+   "end": 83.084,
+   "speaker": "B",
+   "text": "nên chuyện phòng muỗi không chỉ để khỏi ngứa."
+  },
+  {
+   "i": 36,
+   "start": 83.866,
+   "end": 84.191,
+   "speaker": "B",
+   "text": "Nói chung,"
+  },
+  {
+   "i": 37,
+   "start": 84.656,
+   "end": 86.638,
+   "speaker": "B",
+   "text": "bị muỗi lựa chọn không phải lời khen."
+  },
+  {
+   "i": 39,
+   "start": 87.029,
+   "end": 89.275,
+   "speaker": "B",
+   "text": "Đó là kiểu khách hàng thân thiết"
+  },
+  {
+   "i": 40,
+   "start": 89.458,
+   "end": 92.765,
+   "speaker": "B",
+   "text": "mà tui nghĩ ai cũng muốn xin nghỉ hội viên!"
+  }
+ ]
+}

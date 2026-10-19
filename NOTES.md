@@ -144,6 +144,11 @@ node projects/post-11/build.mjs
 | 32 | Big Shoulders Display | Than `#16181d` | Vàng tải `#ffd60a` | Phòng xưa / phòng nay |
 | 33 | Mali | Trắng xanh `#f1f6fb` | Đỏ cờ `#e63946` | Sân trường (trường hư cấu) |
 | 34 | Josefin Sans | Xám bê tông `#e9ecef` | Xanh rêu mọc lại `#6a9b14` | Thành phố tua nhanh |
+| 35 | Spectral (serif) | Lá non `#eef3ea` | Đỏ son đền `#d9481c` | Ga trên cao ôm cây long não |
+| 36 | Grandstander | Đêm xanh rêu `#14302e`, chữ kem | Hồng muỗi `#ff5c8a` | Bữa tối ngoài sân |
+| 37 | Saira | Mận đêm `#1b1020`, chữ kem | Vàng lưu huỳnh `#ffc23d` | Mô hình Hệ Mặt Trời |
+| 38 | Bai Jamjuree | Trời nhạt `#dcecf7` | Cam an toàn `#f77f00` | Khoang khách + mặt cắt cửa sổ |
+| 39 | Oswald | Biển bão `#16242c`, chữ trắng bọt | Đỏ laser `#ff4655` | Mặt cắt biển + giàn khoan |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
@@ -231,6 +236,11 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **32** | Chờ đợi và tốc độ | **Hai căn phòng** xưa/nay + thanh tiến trình vàng xuyên suốt; CRT tải chậm vs điện thoại xoay vòng; HUD đồ thị tốc độ/kiên nhẫn (minh họa), thước 1 NGÀY → 1 GIÂY, đồng hồ 10 giây, chữ CHỜ ĐỢI bị xóa | Đồ thị, cột thế hệ là minh họa | 99,2s |
 | **33** | Phù hiệu | **Sân trường** THCS Hoa Phượng (hư cấu): cổng, cờ đỏ, cây phượng, lớp 9A2, căng tin; hộp kỷ niệm; phù hiệu SVG; đường điện tim; ảnh lớp dưới cây phượng | Tên trường/lớp, tin nhắn "Ê, dạo này sao rồi?" tự bịa | 110,7s |
 | **34** | Nếu loài người biến mất | **Một mặt cắt thành phố** có camera + đồng hồ "Con người biến mất · vài ngày → hàng ngàn năm" (chỉ ước lượng): nhà máy điện tắt đèn, trạm bơm rỉ sét, cống tắc, cao ốc nứt + dây leo + đỉnh gãy, nhà vùng ẩm mọc rêu vs khối đá sa mạc, chai nhựa vỡ mảnh; tàu thăm dò khoan trúng lớp vật liệu nhân tạo; hóa thạch lớp sâu; tua lại thành phố sống, thợ bảo trì | Tàu thăm dò, mốc thời gian là minh họa | 124,2s |
+| **35** (bài 31 của người dùng) | Ga Kayashima ôm cây | **Mặt cắt ga trên cao**: cây long não xuyên sàn và mái, đền nhỏ + cổng đỏ dưới gốc; hồi tưởng 1970 lọc nâu (đường ray mặt đất, trụ cầu mọc lên, dây thi công, rìu); ba thế hệ cầm bảng "Giữ cây lại nha!"; thẻ phương án A/B; cây biết nói (bong bóng đúng nguyên lời); bài toán A/B/C | Bảng "Giữ cây lại nha!", thẻ phương án, câu "Đáp án thứ ba: giữ cả hai" tự viết | 95,9s |
+| **36** (bài 32) | Muỗi chọn khách quen | **Sân sau ban đêm**: 2 người chung bàn, A bị 8 nốt, B 0 nốt; muỗi vằn lượn; thẻ nghiên cứu 2022; thí nghiệm 2 mẫu; biểu đồ minh họa; kính lúp axit carboxylic; vệt mùi da, CO2, nhiệt; "tiệm thử đường huyết" CHƯA MỞ; xịt chống muỗi, áo che da, đổ nước đọng; thẻ hội viên XIN NGHỈ | Biểu đồ là minh họa; tiệm, thẻ hội viên là cảnh đùa tự bịa | 96,4s |
+| **37** (bài 33) | Đồng hồ Sao Kim | **Mô hình Hệ Mặt Trời nhìn từ trên**: vị trí hành tinh tính theo góc (proxy + onUpdate), cờ đánh dấu tự quay, vòng tiến độ 243 ngày; thẻ mặt đất Sao Kim (Mặt Trời mọc Tây lặn Đông, 117 ngày); mũi tên chiều quay; 465°C; vé nghỉ dưỡng → NGHỈ LUÔN | Ghi rõ không đúng tỉ lệ; vé nghỉ dưỡng tự bịa | 71,6s |
+| **38** (bài 34) | Lỗ nhỏ cửa sổ máy bay | **Khoang khách + mặt cắt**: cửa sổ nhìn thẳng, tách 3 lớp; mặt cắt với hạt khí dày/thưa, kim đồng hồ áp suất, mũi tên lực, khí lọt qua lỗ vào khe giữa, hơi ẩm tan, đường thông thẳng bị chặn; máy bay không logo; tiếp viên; vớ thủng "công nghệ hàng không?" | Không ghi số độ cao/áp suất; cảnh vớ thủng tự bịa | 78,5s |
+| **39** (bài 35) | Sóng dị thường Draupner | **Mặt cắt biển**: mặt nước là hàm thuần của thời gian (tổng sin + sóng dị thường nổi tại chỗ) nên tua tới đâu cũng đúng; giàn khoan có tia laser, biểu đồ laser cuộn theo thời gian có đỉnh 25,6 m và dải ≈ 12 m; tàu buồm xưa, tàu hàng; thẻ giao thoa 3 sóng; hải lưu, gió; đáy biển, cá | Câu "Sóng cao dữ thần luôn!", chai mắm/muối, sổ ghi chép tự bịa; tỉ lệ đứng 1 m ≈ 22 đơn vị | 121s |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

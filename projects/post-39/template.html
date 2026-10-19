@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Con sóng Draupner</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Một vùng biển động": mặt cắt ngang biển có camera =====
+         Mặt nước tính bằng công thức theo thời gian (tổng các sóng sin + "sóng dị thường" nổi lên tại chỗ) → tất định khi tua.
+         Trái: tàu buồm xưa (thủy thủ kể chuyện) · giữa: giàn khoan có tia laser đo mặt nước · phải: tàu hàng hiện đại.
+         Tỉ lệ đứng: 1 m ≈ 22 đơn vị. Sóng 25,6 m tính từ đáy tới đỉnh; độ cao sóng đáng kể ≈ 12 m.
+         2 font: Oswald (tiêu đề) · Be Vietnam Pro. Chữ trắng bọt #eef4f6 + nhấn đỏ laser #ff4655. Nền biển bão #16242c. */
+      :root { --disp: "Oswald", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #eef4f6; --acc: #ff4655; --bg: #16242c; --card: #0e181e; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 540px; background: linear-gradient(rgba(22,36,44,.95) 0, rgba(22,36,44,.7) 300px, rgba(22,36,44,0) 540px); }
+      #dim { position: absolute; inset: 0; background: rgba(14,24,30,.88); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.08; text-transform: none; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 76px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #8fb3c4; white-space: nowrap; }
+      .card { background: var(--card); border: 4px solid var(--ink); border-radius: 22px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 22px 12px; border-radius: 14px; background: var(--card); border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .stamp { position: absolute; padding: 8px 26px; border: 8px solid var(--acc); border-radius: 16px; color: var(--acc); font-family: var(--disp); font-weight: 700; font-size: 66px; white-space: nowrap; opacity: 0; background: rgba(14,24,30,.92); }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(6, 12, 16, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post39" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgPlat">Giàn khoan Draupner<br><span style="font-size:28px;color:#8fb3c4">Biển Bắc · ngoài khơi Na Uy</span></div>
+        <div class="tag" id="tgLaser" style="color:var(--acc)">Đo bằng laser</div>
+        <div class="tag" id="tgNoTool" style="font-size:34px">Đo bằng gì đây?</div>
+        <div class="tag" id="tgNew" style="color:var(--acc)">Bất ngờ!</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe c o0" id="cal" style="top:300px"><div class="card" style="display:inline-block;width:420px;overflow:hidden;padding:0">
+          <div style="background:var(--acc);padding:14px 0;font-family:var(--disp);font-weight:700;font-size:40px">THÁNG GIÊNG</div>
+          <div class="h" style="font-size:220px;line-height:1;padding:10px 0 0">1</div><div class="h" style="font-size:64px;padding:0 0 22px;color:#8fb3c4">1995</div></div></div>
+        <div class="safe h c tt o0" id="t0"><span class="blk">Sóng hơn 25 mét</span><span class="blk a">giữa biển Bắc</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Cao hơn gấp đôi</span><span class="blk a">sóng xung quanh</span></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Lần này</span><span class="blk a">có máy đo!</span></div>
+        <div class="safe c o0" id="book" style="top:300px"><div style="display:inline-block;position:relative"><div class="card" style="width:720px;padding:32px 40px 40px;text-align:left">
+          <div class="lab">Sổ ghi chép khoa học</div>
+          <div class="h" style="font-size:60px;margin-top:14px"><span class="blk">Sóng khổng lồ</span><span class="blk">tự dưng dựng lên?</span></div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:12px"><i class="ln" style="width:100%"></i><i class="ln" style="width:88%"></i><i class="ln" style="width:64%"></i></div></div>
+          <div class="stamp" id="stDoubt" style="left:300px;top:150px;rotate:-10deg;border-color:#8fb3c4;color:#8fb3c4">CÒN NGHI NGỜ</div></div></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Thủy thủ kể về</span><span class="blk a">bức tường nước</span></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Đến rất nhanh</span><span class="blk a">rồi biến mất</span></div>
+        <div class="safe c o0" id="tale" style="top:196px"><div class="h" style="font-size:72px"><span class="blk">Thêm mắm</span><span class="blk a">dặm muối?</span></div>
+          <div style="display:flex;justify-content:center;align-items:flex-end;gap:20px;margin-top:30px">
+            <div class="card" style="padding:26px 34px;border-radius:40px;position:relative"><div class="h" style="font-size:54px;font-style:italic"><span class="blk">"Sóng cao</span><span class="blk">dữ thần luôn!"</span></div></div>
+            <div id="condi" style="position:relative;width:200px;height:260px">{{IC_SAUCE}}</div></div></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Ngày xưa</span><span class="blk a">khó đo để kiểm chứng</span></div>
+        <div class="safe c o0" id="graph" style="top:196px"><div style="display:inline-block;position:relative"><div class="card" style="padding:22px 26px 18px;text-align:left">
+          <div style="display:flex;justify-content:space-between;align-items:center"><div class="lab" style="color:var(--acc)">● laser đo mặt nước</div><div class="lab">mét</div></div>
+          <svg width="780" height="380" viewBox="0 0 780 380" style="margin-top:10px;display:block">
+            <path d="M40 20V340H760" stroke="#8fb3c4" stroke-width="3" fill="none"/>
+            <g id="hsBand" opacity="0"><rect x="40" y="0" width="720" height="0" fill="#8fb3c4" opacity=".15" id="hsRect"/><text x="752" y="0" text-anchor="end" font-family="Be Vietnam Pro" font-weight="700" font-size="26" fill="#8fb3c4" id="hsTxt">sóng đáng kể ≈ 12 m</text></g>
+            <path id="trace" d="" stroke="#ff4655" stroke-width="5" fill="none" stroke-linejoin="round"/>
+            <g id="peakLab" opacity="0"><path id="peakLine" d="" stroke="#eef4f6" stroke-width="3" stroke-dasharray="8 6"/><text id="peakTxt" x="0" y="0" text-anchor="middle" font-family="Oswald" font-weight="700" font-size="44" fill="#eef4f6">25,6 m</text></g>
+          </svg></div>
+          <div class="stamp" id="stOk" style="left:400px;top:250px;rotate:-8deg">ĐÃ XÁC NHẬN</div></div></div>
+        <div class="safe c o0" id="name" style="top:520px"><div class="lab">các nhà khoa học gọi là</div><div class="h" style="font-size:150px;margin-top:10px;letter-spacing:.02em"><span class="blk">ROGUE WAVE</span></div><div class="h a" style="font-size:84px"><span class="blk">sóng dị thường</span></div></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Nguy hiểm</span><span class="blk a">không chỉ vì cao</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Mà vì nó</span><span class="blk a">đến bất ngờ</span></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Vậy tại sao?</span></div>
+        <div class="safe c o0" id="interf" style="top:196px"><div class="h" style="font-size:70px" id="ifT1"><span class="blk">Các đợt sóng</span><span class="blk a">gặp nhau</span></div>
+          <div class="card" style="margin-top:28px;padding:20px 20px 16px"><svg width="820" height="560" viewBox="0 0 820 560">
+            <path id="w1" d="" stroke="#5cc8ff" stroke-width="6" fill="none"/><path id="w2" d="" stroke="#ffd166" stroke-width="6" fill="none"/><path id="w3" d="" stroke="#b892ff" stroke-width="6" fill="none"/>
+            <path d="M20 330H800" stroke="#8fb3c4" stroke-width="2" stroke-dasharray="8 8"/>
+            <path id="wsum" d="" stroke="#ff4655" stroke-width="8" fill="none" stroke-linejoin="round"/>
+            <text x="30" y="535" font-family="Be Vietnam Pro" font-weight="700" font-size="28" fill="#ff4655">cộng lại</text>
+          </svg></div></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Hải lưu, gió</span><span class="blk a">cũng góp phần</span></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Tới nay</span><span class="blk a">vẫn đang nghiên cứu</span></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Nhiều thế hệ thấy</span><span class="blk a">mà không chứng minh được</span></div>
+        <div class="safe h c tt o0" id="t12"><span class="blk">Rồi tia laser</span><span class="blk a">ghi lại đúng chuyện đó</span></div>
+        <div class="safe h c tt o0" id="t13"><span class="blk">Chỉ trong</span><span class="blk a">chốc lát</span></div>
+        <div class="safe h c tt o0" id="t14"><span class="blk">Đủ để khoa học</span><span class="blk a">nhìn lại đại dương</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <style>.ln { display: block; height: 14px; border-radius: 7px; background: #2c4552; }</style>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const CR = "#eef4f6", ACC = "#ff4655", K = "#0e181e", SEA = 1200, M = 22, DUR = {{DURATION}};
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+
+      // ---- mặt nước = hàm thuần của thời gian t (tua tới đâu cũng ra đúng hình)
+      const BASE = [[58, 700, 1.3, 0.3], [40, 430, 1.8, 1.7], [24, 260, 2.5, 4.1]];
+      const sstep = (a, b, t) => { const x = Math.min(1, Math.max(0, (t - a) / (b - a))); return x * x * (3 - 2 * x); };
+      const env = (t, [a, b, c, d]) => sstep(a, b, t) * (1 - sstep(c, d, t));
+      // [lên, đỉnh, giữ tới, tắt, chiều cao (đơn vị), vị trí x]
+      const ROGUE = [[2.2, 3.8, 10.8, 12.4, 420, 0], [24.5, 25.6, 30.9, 31.8, 360, -1550], [47.4, 49.0, 56.9, 57.8, 420, 0], [70.9, 71.8, 74.6, 75.6, 380, 1150], [84.1, 85.7, 87.6, 88.6, 300, 0], [104.5, 106.0, 110.5, 111.4, 420, 0]];
+      const rogueAt = (x, t) => { let y = 0; for (const r of ROGUE) { const e = env(t, r); if (!e) continue; const d = x - r[5], H = r[4] * e; y += H * (Math.exp(-((d / 120) ** 2)) - 0.35 * Math.exp(-(((d - 270) / 150) ** 2)) - 0.35 * Math.exp(-(((d + 270) / 150) ** 2))); } return y; };
+      const calm = (t) => 1 - 0.55 * env(t, [88.0, 88.6, 91.4, 92.0]) * 0; // giữ biên độ nền
+      const surf = (x, t) => { let y = 0; for (const [A, L, w, p] of BASE) y += A * Math.sin((2 * Math.PI * x) / L - w * t + p); return SEA - y * calm(t) - rogueAt(x, t); };
+      const SPK = [3.6, 49.2, 105.8];
+      const baseH = (x, t) => { let y = 0; for (const [A, L, w, p] of BASE) y += A * Math.sin((2 * Math.PI * x) / L - w * t + p); return y / M; };
+      const gH = (tt) => { let h = baseH(30, tt); for (const tp of SPK) h += 18.5 * Math.exp(-(((tt - tp) / 0.32) ** 2)) - 6.5 * Math.exp(-(((tt - tp + 0.55) / 0.3) ** 2)) - 6.5 * Math.exp(-(((tt - tp - 0.55) / 0.3) ** 2)); return h; };
+      const X0 = -3400, X1 = 3000, STEP = 20;
+
+      // ---- trời, mây bão, biển
+      const defs = `<defs><linearGradient id="gSky" gradientUnits="userSpaceOnUse" x1="0" y1="-800" x2="0" y2="${SEA}"><stop offset="0" stop-color="#0b141a"/><stop offset="1" stop-color="#3b5563"/></linearGradient><linearGradient id="gSea" gradientUnits="userSpaceOnUse" x1="0" y1="${SEA - 400}" x2="0" y2="${SEA + 1400}"><stop offset="0" stop-color="#2f6f86"/><stop offset=".4" stop-color="#1b4a5c"/><stop offset="1" stop-color="#0a1f28"/></linearGradient></defs>`;
+      const sky = `<rect x="-6000" y="-4000" width="12000" height="${4000 + SEA + 400}" fill="url(#gSky)"/>${[...Array(14)].map((_, i) => `<ellipse cx="${-3200 + i * 480}" cy="${180 + (i % 3) * 90}" rx="${300 + (i % 4) * 60}" ry="${80 + (i % 2) * 30}" fill="#22343e" opacity=".9"/>`).join("")}`;
+      const sea = `<path id="seaF" d="" fill="url(#gSea)"/><path id="seaL" d="" stroke="#cfe9f2" stroke-width="7" fill="none" stroke-linejoin="round"/>`;
+      const currents = `<g id="currents" opacity="0">${[0, 1, 2, 3, 4, 5].map((k) => `<g class="cur"><path d="M${-1100 + k * 380} ${SEA + 320 + (k % 2) * 160}h220" stroke="#5cc8ff" stroke-width="12" stroke-linecap="round"/><path d="M${-860 + k * 380} ${SEA + 320 + (k % 2) * 160}l-30-20v40z" fill="#5cc8ff"/></g>`).join("")}</g>`;
+      const winds = `<g id="winds" opacity="0">${[0, 1, 2, 3, 4].map((k) => `<g class="wd"><path d="M${-1000 + k * 420} ${600 + (k % 2) * 120}c80-30 160 30 240 0s120-40 160 0" stroke="${CR}" stroke-width="8" fill="none" stroke-linecap="round"/></g>`).join("")}</g>`;
+
+      // ---- giàn khoan (chân đứng dưới đáy biển, sàn trên cao, đèn laser dưới sàn)
+      const DECK = SEA - 30 * M; // ≈ 30 m trên mặt biển trung bình
+      const plat = `<g id="plat">${[-260, -90, 90, 260].map((x) => `<path d="M${x} ${DECK + 60}L${x * 1.25} ${SEA + 1400}" stroke="#c9b37a" stroke-width="22"/>`).join("")}
+        ${[0, 1, 2, 3, 4].map((k) => { const y1 = DECK + 120 + k * 260, y2 = y1 + 260; return `<path d="M${-260 - k * 13} ${y1}L${260 + (k + 1) * 13} ${y2}M${260 + k * 13} ${y1}L${-260 - (k + 1) * 13} ${y2}" stroke="#a8945e" stroke-width="10"/>`; }).join("")}
+        <rect x="-340" y="${DECK - 40}" width="680" height="100" fill="#e9d8a6" stroke="${K}" stroke-width="7"/><rect x="-300" y="${DECK - 200}" width="260" height="160" fill="#d9e2e6" stroke="${K}" stroke-width="7"/><rect x="0" y="${DECK - 150}" width="200" height="110" fill="#f2a541" stroke="${K}" stroke-width="7"/>
+        <path d="M200 ${DECK - 150}l120-160" stroke="${K}" stroke-width="10"/><path d="M-200 ${DECK - 200}v-80h80" stroke="${K}" stroke-width="10" fill="none"/><circle cx="-110" cy="${DECK - 280}" r="10" fill="${ACC}"/>
+        <rect x="0" y="${DECK + 60}" width="60" height="36" fill="${ACC}" stroke="${K}" stroke-width="5"/>
+        <line id="laser" x1="30" y1="${DECK + 96}" x2="30" y2="${SEA}" stroke="${ACC}" stroke-width="8" opacity="0"/><circle id="laserDot" cx="30" cy="${SEA}" r="16" fill="${ACC}" opacity="0"/></g>`;
+      // thước đo trong thế giới: đáy → đỉnh (25,6 m) và băng sóng đáng kể (≈ 12 m)
+      const rul = `<g id="rul" opacity="0"><path d="M520 ${SEA + 147}V${SEA - 420}" stroke="${CR}" stroke-width="8"/><path d="M490 ${SEA - 420}h60M490 ${SEA + 147}h60" stroke="${CR}" stroke-width="8"/><text x="570" y="${SEA - 160}" font-family="Oswald" font-weight="700" font-size="76" fill="${CR}">25,6 m</text></g>
+        <g id="hsW" opacity="0"><rect x="-900" y="${SEA - 132}" width="1800" height="264" fill="#8fb3c4" opacity=".14"/><path d="M-900 ${SEA - 132}H900M-900 ${SEA + 132}H900" stroke="#8fb3c4" stroke-width="5" stroke-dasharray="20 14"/><text x="-640" y="${SEA - 150}" font-family="Oswald" font-weight="700" font-size="56" fill="#8fb3c4">≈ 12 m</text></g>
+        <g id="x2" opacity="0"><text x="-560" y="${SEA - 380}" font-family="Oswald" font-weight="700" font-size="110" fill="${ACC}">× 2</text></g>`;
+      // ---- tàu buồm xưa + thủy thủ; tàu hàng hiện đại
+      const sailor = (x, c) => `<g transform="translate(${x} -60)"><circle cy="-46" r="13" fill="#f1c7a3" stroke="${K}" stroke-width="3"/><path d="M-12 0l3-36h18l3 36z" fill="${c}" stroke="${K}" stroke-width="3"/></g>`;
+      const oldShip = `<g id="oldShip"><g id="oldShipR"><path d="M-260 -60h520l-70 90h-380z" fill="#7a4a2a" stroke="${K}" stroke-width="7"/><path d="M-60 -60V-460M110 -60V-380" stroke="#5a3a20" stroke-width="12"/><path d="M-60 -440c120 40 120 280 0 340z" fill="#efe3c6" stroke="${K}" stroke-width="6"/><path d="M110 -360c90 30 90 220 0 260z" fill="#efe3c6" stroke="${K}" stroke-width="6"/><path d="M-60 -460l-40 20 40 10z" fill="${ACC}"/>
+        <g id="sailors">${sailor(-180, "#3b5bdb")}${sailor(-130, "#e07a5f")}${sailor(190, "#2f9e44")}</g></g></g>`;
+      const newShip = `<g id="newShip"><g id="newShipR"><path d="M-380 -80h760l-60 120h-640z" fill="#b8322a" stroke="${K}" stroke-width="7"/><path d="M-380 -80h760" stroke="${CR}" stroke-width="10"/>${[0, 1, 2, 3, 4].map((k) => `<rect x="${-300 + k * 100}" y="-170" width="90" height="90" fill="${["#2f9e44", "#1971c2", "#f2a541", "#7950f2", "#e07a5f"][k]}" stroke="${K}" stroke-width="5"/>`).join("")}<rect x="220" y="-260" width="110" height="180" fill="${CR}" stroke="${K}" stroke-width="6"/><rect x="236" y="-240" width="78" height="30" fill="#5cc8ff"/></g></g>`;
+      const warn = `<g id="warnW" opacity="0"><g transform="translate(1150 ${SEA - 620})"><path d="M0 -70l70 120h-140z" fill="#ffd166" stroke="${K}" stroke-width="7"/><path d="M0 -26v42" stroke="${K}" stroke-width="10" stroke-linecap="round"/><circle cy="32" r="6" fill="${K}"/></g></g>`;
+
+      const fish = (x, y, n) => `<g class="fish">${[...Array(n)].map((_, k) => `<g transform="translate(${x + (k % 4) * 70} ${y + Math.floor(k / 4) * 46 + (k % 2) * 16})"><ellipse rx="26" ry="11" fill="#7fb7c9" opacity=".55"/><path d="M24 0l18-12v24z" fill="#7fb7c9" opacity=".55"/></g>`).join("")}</g>`;
+      const bed = `<path d="M-4000 ${SEA + 1300}C-2500 ${SEA + 1240} -1500 ${SEA + 1340} 0 ${SEA + 1290}S2500 ${SEA + 1250} 4000 ${SEA + 1310}V5000H-4000z" fill="#0a1a20"/>${[-1300, -600, 700, 1400].map((x) => `<path d="M${x} ${SEA + 1300}c-20-80 20-140 0-220M${x + 30} ${SEA + 1300}c20-60-10-120 10-180" stroke="#2f5b4a" stroke-width="12" fill="none"/>`).join("")}`;
+      document.getElementById("W").innerHTML = `${defs}${sky}${winds}${plat}${oldShip}${newShip}${sea}${bed}${fish(-1100, SEA + 520, 8)}${fish(500, SEA + 820, 8)}${fish(-2100, SEA + 900, 6)}${currents}${rul}${warn}`;
+      const OLDX = -1700, NEWX = 1450;
+
+      // ---- vẽ lại mặt nước, tàu, laser, biểu đồ theo t
+      const seaF = document.getElementById("seaF"), seaL = document.getElementById("seaL");
+      const tr = document.getElementById("trace");
+      const gY = (h) => 330 - h * 7.2; // biểu đồ: mét → px (mean ở 330… đáy 25,6 m vừa khung)
+      let G = { on: 0, peak: 0, hs: 0 };
+      const draw = (t) => {
+        let d = ""; for (let x = X0; x <= X1; x += STEP) d += `${x === X0 ? "M" : "L"}${x} ${surf(x, t).toFixed(1)}`;
+        seaL.setAttribute("d", d); seaF.setAttribute("d", `${d}L${X1} 4000L${X0} 4000Z`);
+        const ride = (id, x, rid) => { const y = surf(x, t), sl = (surf(x + 40, t) - surf(x - 40, t)) / 80; document.getElementById(id).setAttribute("transform", `translate(${x} ${y.toFixed(1)}) rotate(${((Math.atan(sl) * 180) / Math.PI).toFixed(2)})`); };
+        ride("oldShip", OLDX, 1); ride("newShip", NEWX, 3);
+        const ly = surf(30, t); document.getElementById("laser").setAttribute("y2", ly.toFixed(1)); document.getElementById("laserDot").setAttribute("cy", ly.toFixed(1));
+        // biểu đồ: 8 giây gần nhất của mặt nước dưới laser (theo mét so với mực trung bình)
+        let p = ""; const N = 200; for (let i = 0; i <= N; i++) { const tt = t - 14 + (14 * i) / N; const h = gH(tt); p += `${i ? "L" : "M"}${(40 + (720 * i) / N).toFixed(1)} ${gY(h).toFixed(1)}`; }
+        tr.setAttribute("d", p);
+        let sx = -999; for (const tp of SPK) { const xx = 40 + (720 * (tp - (t - 14))) / 14; if (xx > 30 && xx < 770) sx = xx; } document.getElementById("peakLab").setAttribute("transform", `translate(${(sx === -999 ? 2000 : sx - 700).toFixed(1)} 0)`);
+      };
+      const clock = { t: 0 };
+      draw(0);
+
+      const P = { plat: CAM(80, 980, 1700, 1000), platC: CAM(150, 900, 1250, 980), wide: CAM(-200, 980, 3200, 1000), old: CAM(OLDX + 100, 1000, 1500, 1000), neu: CAM(NEWX - 150, 980, 1700, 1000), deep: CAM(0, 1250, 2400, 900) };
+      let lastCam = P.plat; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgPlat", P.platC, -20, DECK - 300); place("tgLaser", P.platC, 360, DECK + 40); place("tgNoTool", P.old, OLDX, 520); place("tgNew", P.neu, 1150, SEA - 720);
+
+      // biểu đồ phụ: dải sóng đáng kể ±6 m, đường đỉnh
+      { const r = document.getElementById("hsRect"); r.setAttribute("y", gY(6)); r.setAttribute("height", gY(-6) - gY(6)); document.getElementById("hsTxt").setAttribute("y", gY(6) - 10);
+        document.getElementById("peakLine").setAttribute("d", `M700 ${gY(19)}V${gY(-6.6)}`); const pt = document.getElementById("peakTxt"); pt.setAttribute("x", 640); pt.setAttribute("y", gY(19) + 10); }
+
+      // ---- giao thoa: 3 sóng nhỏ + tổng (HUD), vẽ theo pha
+      const ifs = { k: 0 };
+      const drawIf = () => { const ph = ifs.k; const wv = (A, L, sh, y0) => { let s = ""; for (let x = 20; x <= 800; x += 8) { const c = x - 410; s += `${x === 20 ? "M" : "L"}${x} ${(y0 - A * Math.cos((2 * Math.PI * c) / L + sh * (1 - ph))).toFixed(1)}`; } return s; };
+        document.getElementById("w1").setAttribute("d", wv(26, 260, 2.4, 70)); document.getElementById("w2").setAttribute("d", wv(26, 190, -2.0, 140)); document.getElementById("w3").setAttribute("d", wv(26, 330, 3.1, 210));
+        let s = ""; for (let x = 20; x <= 800; x += 6) { const c = x - 410; const v = [[260, 2.4], [190, -2.0], [330, 3.1]].reduce((a, [L, sh]) => a + 26 * Math.cos((2 * Math.PI * c) / L + sh * (1 - ph)), 0) * 2.4; s += `${x === 20 ? "M" : "L"}${x} ${(330 - v).toFixed(1)}`; } document.getElementById("wsum").setAttribute("d", s); };
+      drawIf();
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const stampIn = (sel, at) => tl.fromTo(sel, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.in", immediateRender: false }, at);
+      tl.fromTo(clock, { t: 0 }, { t: DUR, duration: DUR, ease: "none", immediateRender: false, onUpdate: () => draw(clock.t) }, 0);
+      tl.fromTo(".fish", { x: -200 }, { x: 260, duration: DUR, ease: "none", immediateRender: false }, 0);
+      const laserOn = (a, b) => { tl.to(["#laser", "#laserDot"], { opacity: 1, duration: 0.2 }, a); tl.fromTo("#laser", { strokeWidth: 8 }, { strokeWidth: 12, duration: 0.2, yoyo: true, repeat: Math.round((b - a) / 0.2), ease: "none", immediateRender: false }, a); out(["#laser", "#laserDot"], b, 0.3); };
+
+      // ---- 0.2–1.9 · ngày đầu năm 1995
+      dimIn(0); tl.set("#dim", { opacity: 1 }, 0); fadeUp("#cal", 0.15, 0.4); out("#cal", 2.1, 0.25); dimOut(2.2);
+      // ---- 2.5–5.2 · sóng hơn 25 mét xuất hiện trên biển Bắc
+      T("#t0", 2.45, 5.8);
+      tl.to("#rul", { opacity: 1, duration: 0.4 }, 4.0);
+      // ---- 6.0–9.0 · cao hơn gấp đôi mức sóng đáng kể
+      T("#t1", 6.03, 9.4); tl.to("#hsW", { opacity: 1, duration: 0.4 }, 6.6); tl.fromTo("#x2", { opacity: 0, scale: 0.5, svgOrigin: `-460 ${SEA - 420}` }, { opacity: 1, scale: 1, svgOrigin: `-460 ${SEA - 420}`, duration: 0.4, ease: B, immediateRender: false }, 7.6);
+      out(["#hsW", "#x2"], 9.3, 0.3);
+      // ---- 9.5–12.3 · lần này có thiết bị đo
+      cam(P.platC, 9.3, 1.0); T("#t2", 9.53, 12.8);
+      laserOn(10.6, 12.8); fadeUp("#tgLaser", 10.8, 0.3); out(["#tgLaser", "#rul"], 12.7, 0.25);
+
+      // ---- 13.3–14.6 · Sáu
+      dimIn(12.9); tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 13.0);
+      out("#sauBox", 14.6, 0.22);
+      // ---- 14.8–18.7 · hiện tượng từng bị nhiều người nghi ngờ
+      fadeUp("#book", 14.77, 0.45); tl.fromTo(".ln", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.4, stagger: 0.15, immediateRender: false }, 15.4);
+      stampIn("#stDoubt", 17.2); out("#book", 19.3, 0.28); dimOut(19.4);
+
+      // ---- 19.9–27.0 · thủy thủ kể: giữa sóng thường bỗng dựng bức tường nước
+      cam(P.old, 19.2, 1.2);
+      T("#t3", 19.89, 27.6);
+      tl.fromTo("#sailors g", { y: 0 }, { y: -10, duration: 0.25, yoyo: true, repeat: 7, stagger: 0.1, immediateRender: false }, 21.3);
+      // ---- 27.8–31.8 · xuất hiện rất nhanh, vượt trội, rồi biến mất
+      T("#t4", 27.84, 32.3);
+
+      // ---- 32.7–35.8 · thêm mắm dặm muối?
+      dimIn(32.5); fadeUp("#tale", 32.73, 0.45);
+      tl.fromTo("#condi", { rotation: 0 }, { rotation: -25, duration: 0.25, yoyo: true, repeat: 5, transformOrigin: "50% 80%", immediateRender: false }, 34.0);
+      tl.fromTo(".grain", { opacity: 0, y: 0 }, { opacity: 1, y: 60, duration: 0.5, stagger: 0.05, repeat: 2, immediateRender: false }, 34.1);
+      out("#tale", 36.4, 0.28); dimOut(36.5);
+      // ---- 36.8–40.2 · ngày xưa khó đo để kiểm chứng
+      T("#t5", 36.81, 40.7); fadeUp("#tgNoTool", 37.6, 0.3); out("#tgNoTool", 40.5, 0.2);
+
+      // ---- 41.0–43.2 · ngày 1 tháng Giêng 1995
+      dimIn(40.8); fadeUp("#cal", 41.01, 0.4); out("#cal", 43.4, 0.25); dimOut(43.5);
+      // ---- 43.8–47.5 · giàn khoan Draupner ngoài khơi Na Uy · hệ thống đo bằng laser
+      cam(P.platC, 43.0, 1.4);
+      fadeUp("#tgPlat", 43.9, 0.35); out("#tgPlat", 46.2, 0.2);
+      laserOn(46.3, 57.4); fadeUp("#tgLaser", 46.4, 0.3); out("#tgLaser", 47.6, 0.2);
+      // ---- 47.7–56.8 · 25,6 m từ đáy tới đỉnh · sóng đáng kể ≈ 12 m (biểu đồ laser)
+      fadeUp("#graph", 47.5, 0.4);
+      tl.to("#peakLab", { opacity: 1, duration: 0.3 }, 49.6);
+      cam(P.plat, 49.6, 1.0); tl.to("#rul", { opacity: 1, duration: 0.3 }, 50.4);
+      tl.fromTo("#rul path", { strokeWidth: 8 }, { strokeWidth: 14, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 50.6);
+      tl.to("#hsBand", { opacity: 1, duration: 0.3 }, 53.5); tl.to("#hsW", { opacity: 1, duration: 0.4 }, 53.5);
+      // ---- 57.6–62.4 · bằng chứng bước ngoặt
+      stampIn("#stOk", 58.4);
+      out("#rul", 57.3, 0.3); out(["#graph", "#hsW"], 63.0, 0.3);
+
+      // ---- 63.9–67.4 · rogue wave, sóng dị thường
+      dimIn(63.6); fadeUp("#name", 63.92, 0.5); tl.fromTo("#name .a", { opacity: 0 }, { opacity: 1, duration: 0.35, immediateRender: false }, 66.4);
+      out("#name", 67.8, 0.28); dimOut(67.9);
+      // ---- 68.2–74.6 · nguy hiểm không chỉ vì cao, mà vì đến bất ngờ
+      cam(P.neu, 67.6, 1.2);
+      T("#t6", 68.23, 70.7); T("#t7", 70.94, 75.1);
+      tl.to("#warnW", { opacity: 1, duration: 0.2 }, 71.4); tl.fromTo("#warnW", { scale: 0.6, svgOrigin: `1150 ${SEA - 620}` }, { scale: 1, svgOrigin: `1150 ${SEA - 620}`, duration: 0.35, ease: B, immediateRender: false }, 71.4);
+      fadeUp("#tgNew", 71.6, 0.3); out(["#warnW", "#tgNew"], 74.9, 0.25);
+
+      // ---- 75.5–87.0 · tại sao? các đợt sóng gặp nhau, năng lượng dồn lại
+      cam(P.plat, 75.0, 1.2); T("#t8", 75.48, 77.6);
+      dimIn(78.1); fadeUp("#interf", 78.42, 0.45);
+      tl.fromTo(ifs, { k: 0 }, { k: 1, duration: 6.2, ease: "power1.inOut", immediateRender: false, onUpdate: drawIf }, 79.4);
+      tl.fromTo("#wsum", { strokeWidth: 8 }, { strokeWidth: 12, duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, 85.6);
+      out("#interf", 87.4, 0.28); dimOut(87.5);
+
+      // ---- 88.0–91.2 · hải lưu, gió cũng góp phần
+      cam(P.deep, 87.4, 1.0); T("#t9", 88.04, 91.5);
+      tl.to(["#currents", "#winds"], { opacity: 1, duration: 0.4 }, 88.3);
+      tl.fromTo(".cur", { x: -60 }, { x: 60, duration: 1.0, repeat: 2, ease: "none", immediateRender: false }, 88.3);
+      tl.fromTo(".wd", { x: -80 }, { x: 80, duration: 0.9, repeat: 3, ease: "none", immediateRender: false }, 88.3);
+      out(["#currents", "#winds"], 91.6, 0.3);
+      // ---- 91.5–94.7 · vẫn đang nghiên cứu
+      cam(P.wide, 91.4, 1.2); T("#t10", 91.5, 95.2);
+
+      // ---- 95.7–103.3 · nhiều thế hệ thấy mà không có thiết bị chứng minh
+      cam(P.old, 95.2, 1.2); T("#t11", 95.66, 103.8);
+      fadeUp("#tgNoTool", 99.0, 0.3); out("#tgNoTool", 103.4, 0.2);
+      // ---- 104.6–111.0 · rồi một ngày tia laser ghi lại · một con sóng trong chốc lát
+      cam(P.platC, 103.8, 1.2); T("#t12", 104.55, 109.4);
+      laserOn(105.6, 111.2);
+      T("#t13", 109.71, 112.0);
+      // ---- 112.3–end · đủ để khoa học nhìn lại đại dương
+      cam(P.wide, 111.6, 2.6, "power2.inOut"); T("#t14", 112.26, 121.0);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post39"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Đồng hồ kỳ cục Sao Kim</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Mô hình Hệ Mặt Trời": một mặt phẳng quỹ đạo nhìn từ trên xuống, có camera =====
+         Mặt Trời ở giữa · Sao Thủy · Sao Kim (có cờ đánh dấu để thấy nó tự quay) · Trái Đất (có ghim + nửa đêm) · Sao Hỏa.
+         Thẻ "mặt đất Sao Kim" để xem Mặt Trời mọc ở Tây, lặn ở Đông. Kích thước, khoảng cách không đúng tỉ lệ.
+         2 font: Saira (tiêu đề) · Be Vietnam Pro. Chữ kem #fff3dc + nhấn vàng lưu huỳnh #ffc23d. Nền mận đêm #1b1020. */
+      :root { --disp: "Saira", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #fff3dc; --acc: #ffc23d; --bg: #1b1020; --card: #120a16; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: linear-gradient(rgba(27,16,32,.95) 0, rgba(27,16,32,.7) 300px, rgba(27,16,32,0) 520px); }
+      #dim { position: absolute; inset: 0; background: rgba(18,10,22,.88); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.06; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 72px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #c9a9c9; white-space: nowrap; }
+      .card { background: var(--card); border: 4px solid var(--ink); border-radius: 26px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 22px 12px; border-radius: 16px; background: var(--card); border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .pb { position: relative; height: 34px; border-radius: 17px; background: #3a2a40; overflow: hidden; margin-top: 10px; }
+      .pb i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 17px; transform-origin: 0 50%; transform: scaleX(0); }
+      .num { font-family: var(--disp); font-weight: 700; font-variant-numeric: tabular-nums; }
+      .stamp { position: absolute; padding: 8px 26px; border: 8px solid #ff5a3c; border-radius: 18px; color: #ff5a3c; font-family: var(--disp); font-weight: 700; font-size: 70px; white-space: nowrap; opacity: 0; }
+      .chip { display: inline-block; padding: 12px 26px; margin: 0 8px; border-radius: 40px; border: 4px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 40px; position: relative; }
+      .strike { position: absolute; left: -8px; right: -8px; top: 50%; height: 8px; background: #ff5a3c; border-radius: 4px; transform-origin: 0 50%; transform: scaleX(0); }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(10, 5, 12, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post37" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgVenus" style="color:var(--acc);font-size:48px">Sao Kim</div>
+        <div class="tag" id="tgEarth">Trái Đất · <span class="a">≈ 24 giờ</span></div>
+        <div class="tag" id="tgSpin" style="font-size:44px"><span class="num a" id="nSpin">0</span> ngày Trái Đất</div>
+        <div class="tag" id="tgHot" style="font-size:56px;color:#ff5a3c"><span class="num" id="nHot">0</span> độ C</div>
+        <div class="lab" id="noscale" style="position:absolute;left:0;right:0;top:1780px;text-align:center;opacity:0">kích thước, khoảng cách không đúng tỉ lệ</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe c o0" id="t0" style="top:196px"><div class="h" style="font-size:66px"><span class="blk">Chưa quay xong 1 vòng</span><span class="blk a">đã hết 1 năm!</span></div>
+          <div class="card" style="margin-top:26px;padding:22px 34px 26px;text-align:left">
+            <div style="font-weight:700;font-size:32px">Một năm <span style="color:#c9a9c9">(vòng quanh Mặt Trời)</span></div><div class="pb"><i id="pbYear" style="background:var(--acc)"></i></div>
+            <div style="font-weight:700;font-size:32px;margin-top:18px">Một vòng tự quay</div><div class="pb"><i id="pbSpin" style="background:#ff8a5c"></i></div></div></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Nghe vô lý…</span></div>
+        <div class="safe c o0" id="clk" style="top:196px"><div class="h" style="font-size:66px"><span class="blk">Cái đồng hồ</span><span class="blk a">kỳ cục</span></div>
+          <svg width="360" height="360" viewBox="0 0 360 360" style="margin-top:20px"><circle cx="180" cy="180" r="160" fill="#120a16" stroke="#fff3dc" stroke-width="10"/><g id="clkTicks">{{TICKS}}</g><g id="hM"><path d="M180 180V60" stroke="#ffc23d" stroke-width="12" stroke-linecap="round"/></g><g id="hH"><path d="M180 180h80" stroke="#fff3dc" stroke-width="14" stroke-linecap="round"/></g><circle cx="180" cy="180" r="14" fill="#fff3dc"/></svg></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Trái Đất</span><span class="blk a">tự quay ≈ 24 giờ</span></div>
+        <div class="safe c o0" id="t3" style="top:196px"><div class="h" style="font-size:72px"><span class="blk">Một năm</span><span class="blk a"><span class="num" id="nEY">0</span> ngày</span></div></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Sao Kim</span><span class="blk a">thì khác</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Tự quay 1 vòng</span><span class="blk a">243 ngày</span></div>
+        <div class="safe c o0" id="t6" style="top:196px"><div class="h" style="font-size:72px"><span class="blk">Một năm Sao Kim</span><span class="blk a"><span class="num" id="nVY">0</span> ngày</span></div></div>
+        <div class="safe c o0" id="cmp" style="top:330px"><div class="h" style="font-size:64px"><span class="blk">Ngày dài hơn</span><span class="blk a">cả năm!</span></div>
+          <div class="card" style="margin-top:34px;padding:34px 40px 36px;text-align:left">
+            <div style="display:flex;justify-content:space-between;font-weight:700;font-size:36px"><span>Một vòng tự quay</span><span class="num a">243 ngày</span></div><div class="pb" style="height:56px;border-radius:28px"><i id="cb1" style="background:#ff8a5c;border-radius:28px"></i></div>
+            <div style="display:flex;justify-content:space-between;font-weight:700;font-size:36px;margin-top:26px"><span>Một năm</span><span class="num">225 ngày</span></div><div class="pb" style="height:56px;border-radius:28px"><i id="cb2" style="background:#c9a9c9;width:92.6%;border-radius:28px"></i></div>
+            <div class="lab" style="margin-top:22px">đơn vị: ngày Trái Đất</div></div></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Nhưng khoan…</span><span class="blk a">còn một cú lật</span></div>
+        <div class="safe c o0" id="surf" style="top:250px"><div class="h" id="surfT" style="font-size:60px"><span class="blk">Từ lúc mọc</span><span class="blk a">tới lần mọc sau</span></div>
+          <div class="card" style="margin-top:28px;padding:0;overflow:hidden;display:inline-block"><svg width="820" height="560" viewBox="0 0 820 560">
+            <defs><linearGradient id="gV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a3b1f"/><stop offset="1" stop-color="#e8964a"/></linearGradient><clipPath id="skyC"><rect width="820" height="440"/></clipPath></defs>
+            <rect width="820" height="560" fill="url(#gV)"/>
+            <g clip-path="url(#skyC)"><g id="sunArm"><circle cx="410" cy="150" r="40" fill="#fff0b3"/><circle cx="410" cy="150" r="70" fill="#fff0b3" opacity=".25"/></g></g>
+            <path d="M0 440l90-30 70 20 110-40 120 30 90-24 120 34 110-20 110 30V560H0z" fill="#3b1d14"/>
+            <path d="M0 440H820" stroke="#fff3dc" stroke-width="3" stroke-dasharray="10 10" opacity=".5"/>
+            <g id="cmpW" opacity="0"><text x="40" y="520" font-family="Saira" font-weight="700" font-size="44" fill="#ffc23d">TÂY</text><text x="780" y="520" text-anchor="end" font-family="Saira" font-weight="700" font-size="44" fill="#ffc23d">ĐÔNG</text></g>
+            <g id="riseL" opacity="0"><text x="40" y="400" font-family="Be Vietnam Pro" font-weight="700" font-size="30" fill="#fff3dc">mọc</text></g><g id="setL" opacity="0"><text x="780" y="400" text-anchor="end" font-family="Be Vietnam Pro" font-weight="700" font-size="30" fill="#fff3dc">lặn</text></g>
+          </svg></div>
+          <div class="card" id="solar" style="display:inline-block;margin-top:24px;padding:14px 34px 16px"><span class="num a" style="font-size:66px" id="nSol">0</span><span style="font-weight:700;font-size:36px"> ngày Trái Đất</span></div></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Tại sao?</span></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Sao Kim</span><span class="blk a">quay ngược chiều</span></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Chưa hết…</span></div>
+        <div class="safe c o0" id="thermo" style="top:196px"><div class="h" style="font-size:66px"><span class="blk">Bề mặt</span><span class="blk" style="color:#ff5a3c">nóng khoảng 465°C</span></div></div>
+        <div class="safe c o0" id="ticket" style="top:330px"><div style="display:inline-block;position:relative">
+          <div class="card" id="tkCard" style="width:780px;padding:30px 40px 34px;text-align:left;background:linear-gradient(135deg,#ffc23d,#ff8a5c);border-color:#fff3dc;color:#1b1020">
+            <div class="lab" style="color:#5a2a10">Vé nghỉ dưỡng</div>
+            <div style="display:flex;align-items:center;gap:26px;margin-top:10px">{{IC_CHAIR}}<div class="h" style="font-size:72px"><span class="blk">Sao Kim</span><span class="blk" style="font-size:52px">· 1 ngày</span></div></div></div>
+          <div class="stamp" id="stNghi" style="left:230px;top:96px;rotate:-12deg;background:rgba(18,10,22,.9)">NGHỈ LUÔN</div></div>
+          <div id="askQ" class="o0" style="margin-top:36px"><div class="h" style="font-size:54px"><span class="blk">"1 ngày" là</span><span class="blk a">tính kiểu nào?</span></div>
+            <div style="margin-top:24px"><span class="chip" id="ch1">243 ngày?<i class="strike"></i></span><span class="chip" id="ch2">117 ngày?<i class="strike"></i></span></div></div>
+          <div id="noAsk" class="o0 h" style="font-size:56px;margin-top:-180px"><span class="blk">Thiệt ra</span><span class="blk a">khỏi hỏi cũng được</span></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const CR = "#fff3dc", ACC = "#ffc23d", K = "#120a16", HOT = "#ff5a3c";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      const rad = (d) => (d * Math.PI) / 180, pos = (r, d) => [r * Math.cos(rad(d)), r * Math.sin(rad(d))];
+      const R = { me: 420, ve: 720, ea: 1020, ma: 1360 }, A0 = { me: 150, ve: -60, ea: 205, ma: 60 };
+
+      // ---- sao, Mặt Trời, quỹ đạo
+      let stars = ""; let sd = 7; const rnd = () => ((sd = (sd * 16807) % 2147483647) / 2147483647);
+      for (let i = 0; i < 220; i++) stars += `<circle cx="${-2600 + rnd() * 5200}" cy="${-3200 + rnd() * 6400}" r="${1.5 + rnd() * 3.5}" fill="${CR}" opacity="${0.25 + rnd() * 0.5}"/>`;
+      const sun = `<defs><radialGradient id="gS"><stop offset="0" stop-color="#ffd76a" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a2a" stop-opacity="0"/></radialGradient><radialGradient id="gHot"><stop offset=".5" stop-color="${HOT}" stop-opacity=".9"/><stop offset="1" stop-color="${HOT}" stop-opacity="0"/></radialGradient></defs><circle r="420" fill="url(#gS)"/><circle id="sunB" r="170" fill="#ffcf5a" stroke="#ffe8a8" stroke-width="10"/>`;
+      const orbits = Object.entries(R).map(([k, r]) => `<circle r="${r}" fill="none" stroke="${CR}" stroke-opacity=".22" stroke-width="5" stroke-dasharray="${k === "ve" ? "none" : "14 14"}"/>`).join("") +
+        `<circle id="trailV" r="${R.ve}" fill="none" stroke="${ACC}" stroke-width="12" transform="rotate(${A0.ve})" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><circle id="trailE" r="${R.ea}" fill="none" stroke="#6bb7ff" stroke-width="12" transform="rotate(${A0.ea})" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>`;
+
+      // ---- hành tinh: nhóm dời chỗ (#p) > thân + .spin (đánh dấu) + .night (nửa tối quay ra ngoài) + .arr (mũi tên chiều quay)
+      const night = (r) => `<g class="night"><path d="M0 ${-r}A${r} ${r} 0 0 1 0 ${r}z" fill="#000" opacity=".45"/></g>`;
+      const arrow = (r, rev, c) => `<g class="arr" opacity="0"><path d="M${r + 36} 0A${r + 36} ${r + 36} 0 0 1 0 ${r + 36}" fill="none" stroke="${c}" stroke-width="12"/>${rev ? `<path d="M${r + 36} 0l-18 30h36z" fill="${c}" transform="rotate(180 ${r + 36} 0) translate(0 0)"/>` : `<path d="M0 ${r + 36}l30 -18v36z" fill="${c}"/>`}</g>`;
+      const planet = (id, r, body, mark, rev = false, arrC = CR) => { const [x, y] = pos(R[id], A0[id]); return `<g id="${id}" transform="translate(${x} ${y})"><g class="body">${body}</g><g class="spin" id="${id}Spin">${mark}</g><g class="nt" transform="rotate(${A0[id]})">${night(r)}</g><g class="arrW" id="${id}Arr">${arrow(r, rev, arrC)}</g></g>`; };
+      const me = planet("me", 26, `<circle r="26" fill="#a39a92"/>`, "");
+      const ve = planet("ve", 80, `<circle r="80" fill="#e8b86d"/><path d="M-70 -30c40 14 90 -10 140 6M-78 10c50 16 100 -8 156 4M-60 46c40 10 80 -6 120 2" stroke="#f6d9a0" stroke-width="12" fill="none" stroke-linecap="round"/><circle id="veHot" r="120" fill="url(#gHot)" opacity="0"/>`,
+        `<path d="M0 -80V-150" stroke="${CR}" stroke-width="7"/><path d="M0 -150l48 16-48 16z" fill="${HOT}"/>`, true, HOT);
+      const ea = planet("ea", 80, `<circle r="80" fill="#3b82c4"/><path d="M-50 -40c20-20 50-10 50 10s-30 20-40 10-30 0-10-20zM10 20c20-10 50 0 40 20s-40 20-50 0zM-60 20c10 0 20 20 0 30" fill="#4caf6a"/>`,
+        `<path d="M0 -80V-140" stroke="${CR}" stroke-width="7"/><circle cy="-148" r="14" fill="#6bb7ff" stroke="${CR}" stroke-width="5"/>`);
+      const ma = planet("ma", 46, `<circle r="46" fill="#d4643a"/>`, "");
+      const ring = `<g id="ringW" opacity="0"><circle id="spinRing" r="200" fill="none" stroke="${ACC}" stroke-width="14" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90)"/></g>`;
+      document.getElementById("W").innerHTML = `<rect x="-6000" y="-6000" width="12000" height="12000" fill="#1b1020"/>${stars}${orbits}${sun}${me}${ve}${ea}${ma}`;
+      // vòng tiến độ tự quay gắn vào Sao Kim
+      document.getElementById("ve").insertAdjacentHTML("afterbegin", ring);
+
+      // vị trí hành tinh cập nhật theo góc (proxy)
+      const ang = { me: { v: A0.me }, ve: { v: A0.ve }, ea: { v: A0.ea }, ma: { v: A0.ma } };
+      const setP = (k) => { const d = ang[k].v, [x, y] = pos(R[k], d), el = document.getElementById(k); el.setAttribute("transform", `translate(${x} ${y})`); el.querySelector(".nt").setAttribute("transform", `rotate(${d})`); };
+      const [vx, vy] = pos(R.ve, A0.ve), [ex, ey] = pos(R.ea, A0.ea);
+      const P = { sys: CAM(0, 0, 2350, 1150), ve: CAM(vx, vy, 760, 1060), veFar: CAM(vx, vy, 1300, 1080), ea: CAM(ex, ey, 760, 1060), sysV: CAM(0, 0, 2350, 1150) };
+      let lastCam = P.sys; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgVenus", P.ve, vx, vy - 170); place("tgEarth", P.ea, ex, ey - 175); place("tgSpin", P.veFar, vx, vy + 240); place("tgHot", P.ve, vx, vy - 190);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const orbit = (k, from, to, at, d, ease = "power1.inOut") => tl.fromTo(ang[k], { v: from }, { v: to, duration: d, ease, immediateRender: false, onUpdate: () => setP(k) }, at);
+      const count = (id, to, at, d, ease = "power1.inOut") => tl.fromTo({ n: 0 }, { n: 0 }, { n: to, duration: d, ease, immediateRender: false, onUpdate() { document.getElementById(id).textContent = Math.round(this.targets()[0].n); } }, at);
+      const spin = (k, deg, at, d, ease = "none") => tl.to(`#${k}Spin`, { rotation: `+=${deg}`, svgOrigin: "0 0", duration: d, ease }, at);
+      tl.fromTo("#sunB", { scale: 1, svgOrigin: "0 0" }, { scale: 1.04, svgOrigin: "0 0", duration: 1.2, yoyo: true, repeat: 59, ease: "sine.inOut", immediateRender: false }, 0);
+      // Thủy, Hỏa chạy chậm suốt video cho có sống
+      orbit("me", A0.me, A0.me + 300, 0, 72, "none"); orbit("ma", A0.ma, A0.ma + 60, 0, 72, "none");
+
+      // ---- 0.35–4.1 · chưa quay xong một vòng đã hết một năm
+      fadeUp("#t0", 0.3, 0.45); out("#t0", 4.7, 0.28);
+      fadeUp("#noscale", 0.6, 0.4); out("#noscale", 5.0, 0.3);
+      orbit("ve", A0.ve, A0.ve + 360, 1.0, 3.2);
+      tl.to("#trailV", { strokeDashoffset: 0, duration: 3.2, ease: "power1.inOut" }, 1.0);
+      spin("ve", -333, 1.0, 3.2, "power1.inOut");
+      tl.to("#pbYear", { scaleX: 1, duration: 3.2, ease: "power1.inOut" }, 1.0);
+      tl.to("#pbSpin", { scaleX: 0.926, duration: 3.2, ease: "power1.inOut" }, 1.0);
+
+      // ---- 5.3–7.5 · nghe vô lý, nhưng đó là Sao Kim
+      T("#t1", 5.28, 6.3);
+      tl.to("#trailV", { opacity: 0, duration: 0.4 }, 5.6);
+      cam(P.ve, 5.9, 1.1); fadeUp("#tgVenus", 6.4, 0.35); out("#tgVenus", 7.9, 0.2);
+
+      // ---- 8.1–8.8 · Sáu · 9.1–11.3 đồng hồ kỳ cục
+      dimIn(7.9); tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 7.95);
+      out("#sauBox", 9.0, 0.22);
+      fadeUp("#clk", 9.14, 0.4);
+      tl.fromTo("#hM", { rotation: 0, svgOrigin: "180 180" }, { rotation: 720, svgOrigin: "180 180", duration: 1.0, ease: "power2.inOut", immediateRender: false }, 9.6);
+      tl.fromTo("#hH", { rotation: 0, svgOrigin: "180 180" }, { rotation: -540, svgOrigin: "180 180", duration: 1.2, ease: "power2.inOut", immediateRender: false }, 9.8);
+      tl.fromTo("#hM", { rotation: 720 }, { rotation: 700, duration: 0.12, yoyo: true, repeat: 3, immediateRender: false }, 10.9);
+      out("#clk", 11.6, 0.28); dimOut(11.7);
+
+      // ---- 12.3–15.1 · Trái Đất tự quay ≈ 24 giờ
+      cam(P.ea, 11.6, 1.1);
+      T("#t2", 12.3, 15.2); fadeUp("#tgEarth", 12.6, 0.35); out("#tgEarth", 15.0, 0.2);
+      spin("ea", 360, 12.6, 2.4, "power1.inOut");
+
+      // ---- 15.3–17.1 · một năm 365 ngày
+      cam(P.sys, 15.0, 1.0);
+      fadeUp("#t3", 15.25, 0.4); out("#t3", 17.3, 0.25);
+      orbit("ea", A0.ea, A0.ea + 360, 15.4, 1.8); tl.to("#trailE", { strokeDashoffset: 0, duration: 1.8, ease: "power1.inOut" }, 15.4);
+      count("nEY", 365, 15.4, 1.8); spin("ea", 360 * 6, 15.4, 1.8, "power1.inOut");
+      tl.to("#trailE", { opacity: 0, duration: 0.4 }, 17.4);
+
+      // ---- 17.4–23.0 · Sao Kim thì khác: 243 ngày mới tự quay đúng một vòng
+      cam(P.veFar, 17.2, 1.1);
+      T("#t4", 17.4, 19.2);
+      T("#t5", 19.34, 23.3);
+      tl.set("#veSpin", { rotation: 0 }, 19.2);
+      tl.to("#ringW", { opacity: 1, duration: 0.3 }, 19.3); fadeUp("#tgSpin", 19.4, 0.3);
+      tl.fromTo("#spinRing", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 3.5, ease: "none", immediateRender: false }, 19.5);
+      tl.fromTo("#veSpin", { rotation: 0 }, { rotation: -360, svgOrigin: "0 0", duration: 3.5, ease: "none", immediateRender: false }, 19.5);
+      count("nSpin", 243, 19.5, 3.5, "none");
+      out(["#tgSpin", "#ringW"], 23.4, 0.3);
+
+      // ---- 23.3–29.6 · trong khi đó: đi một vòng quanh Mặt Trời chỉ ≈ 225 ngày
+      cam(P.sys, 23.3, 1.2);
+      fadeUp("#t6", 25.32, 0.4); out("#t6", 30.0, 0.28);
+      tl.set("#trailV", { opacity: 1, strokeDashoffset: 1 }, 25.0);
+      orbit("ve", A0.ve + 360, A0.ve + 720, 25.4, 4.0); tl.to("#trailV", { strokeDashoffset: 0, duration: 4.0, ease: "power1.inOut" }, 25.4);
+      count("nVY", 225, 25.4, 4.0); spin("ve", -333, 25.4, 4.0, "power1.inOut");
+
+      // ---- 30.2–33.2 · ngày dài hơn cả năm
+      dimIn(30.0); fadeUp("#cmp", 30.23, 0.45);
+      tl.to("#cb1", { scaleX: 1, duration: 0.9, ease: E }, 30.8); tl.fromTo("#cb2", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: E, immediateRender: false }, 31.0);
+      tl.fromTo("#cb1", { scaleY: 1 }, { scaleY: 1.2, duration: 0.2, yoyo: true, repeat: 3, immediateRender: false }, 32.0);
+      out("#cmp", 33.6, 0.28);
+
+      // ---- 34.1–35.8 · nhưng khoan, cú lật
+      tl.fromTo("#t7", { opacity: 0, rotationX: 90 }, { opacity: 1, rotationX: 0, duration: 0.5, ease: B, immediateRender: false }, 34.13);
+      out("#t7", 36.3, 0.25);
+
+      // ---- 36.6–43.8 · từ lúc mọc tới lần mọc sau ≈ 117 ngày Trái Đất
+      fadeUp("#surf", 36.62, 0.45);
+      tl.fromTo("#sunArm", { rotation: -82, svgOrigin: "410 560" }, { rotation: 82, svgOrigin: "410 560", duration: 2.6, ease: "none", immediateRender: false }, 37.0);
+      tl.to("#riseL", { opacity: 1, duration: 0.2 }, 37.0); tl.to("#setL", { opacity: 1, duration: 0.2 }, 39.5);
+      tl.set("#sunArm", { rotation: -82 }, 39.7);
+      tl.fromTo("#sunArm", { rotation: -82 }, { rotation: -62, duration: 1.2, ease: E, immediateRender: false }, 40.3);
+      count("nSol", 117, 37.0, 4.4, "power1.inOut");
+      tl.fromTo("#solar", { scale: 1 }, { scale: 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, 42.0);
+      out("#surf", 44.1, 0.25); dimOut(44.2);
+
+      // ---- 44.4–48.9 · tại sao? Sao Kim tự quay ngược chiều các hành tinh khác
+      cam(P.sysV, 44.1, 0.9);
+      T("#t8", 44.4, 45.4);
+      T("#t9", 45.49, 49.5);
+      tl.to(".arr", { opacity: 1, duration: 0.3, stagger: 0.15 }, 45.7);
+      ["me", "ea", "ma"].forEach((k) => tl.fromTo(`#${k}Arr`, { rotation: 0, svgOrigin: "0 0" }, { rotation: 360, svgOrigin: "0 0", duration: 2.2, repeat: 2, ease: "none", immediateRender: false }, 45.7));
+      tl.fromTo("#veArr", { rotation: 0, svgOrigin: "0 0" }, { rotation: -360, svgOrigin: "0 0", duration: 2.2, repeat: 2, ease: "none", immediateRender: false }, 45.7);
+      tl.to("#veSpin", { rotation: "-=200", svgOrigin: "0 0", duration: 3.4, ease: "none" }, 45.7);
+      out(".arr", 49.4, 0.3); tl.to("#trailV", { opacity: 0, duration: 0.4 }, 49.5);
+
+      // ---- 49.7–52.0 · Mặt Trời mọc ở Tây, lặn ở Đông
+      dimIn(49.4); tl.set("#surfT", { opacity: 0 }, 49.5); tl.set("#solar", { opacity: 0 }, 49.5); tl.set(["#riseL", "#setL"], { opacity: 0 }, 49.5);
+      fadeUp("#surf", 49.6, 0.4); tl.to("#cmpW", { opacity: 1, duration: 0.3 }, 49.8);
+      tl.fromTo("#sunArm", { rotation: -82 }, { rotation: 82, duration: 2.0, ease: "power1.inOut", immediateRender: false }, 49.9);
+      tl.to("#riseL", { opacity: 1, duration: 0.2 }, 50.0); tl.to("#setL", { opacity: 1, duration: 0.2 }, 51.6);
+      out("#surf", 52.3, 0.25); dimOut(52.4);
+
+      // ---- 52.3–57.7 · chưa hết: bề mặt nóng khoảng 465 độ C
+      cam(P.ve, 52.2, 1.0);
+      T("#t10", 52.27, 54.0);
+      fadeUp("#thermo", 54.16, 0.4); out("#thermo", 58.1, 0.28);
+      tl.to("#veHot", { opacity: 1, duration: 1.4 }, 54.3);
+      tl.fromTo("#veHot", { scale: 1, svgOrigin: "0 0" }, { scale: 1.15, svgOrigin: "0 0", duration: 0.5, yoyo: true, repeat: 6, ease: "sine.inOut", immediateRender: false }, 54.5);
+      fadeUp("#tgHot", 54.4, 0.3); count("nHot", 465, 54.5, 2.6, "power2.out"); out("#tgHot", 58.0, 0.25);
+
+      // ---- 58.3–63.4 · ai rủ đi nghỉ dưỡng một ngày → hỏi tính ngày kiểu nào
+      dimIn(58.1); tl.fromTo("#ticket", { opacity: 0, y: 60, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: B, immediateRender: false }, 58.33);
+      fadeUp("#askQ", 61.35, 0.4);
+      tl.fromTo("#ch1", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: B, immediateRender: false }, 62.2);
+      tl.fromTo("#ch2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: B, immediateRender: false }, 62.7);
+
+      // ---- 64.3–65.5 · thiệt ra khỏi hỏi cũng được
+      out("#askQ", 64.2, 0.25); fadeUp("#noAsk", 64.29, 0.35);
+      out("#noAsk", 65.8, 0.25);
+
+      // ---- 66.0–68.1 · nóng cỡ đó, nghỉ dưỡng thành nghỉ luôn
+      tl.fromTo("#tkCard", { filter: "saturate(1) hue-rotate(0deg) brightness(1)" }, { filter: "saturate(1.8) hue-rotate(-28deg) brightness(0.75)", duration: 0.8, immediateRender: false }, 66.0);
+      tl.fromTo("#tkCard", { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: 0.86, skewX: -4, duration: 0.8, ease: "power2.in", immediateRender: false }, 66.3);
+      tl.fromTo("#stNghi", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.in", immediateRender: false }, 67.4);
+      out("#ticket", 70.0, 0.3); dimOut(70.0);
+      cam(P.sys, 69.8, 1.4);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post37"] = tl;
+    </script>
+  </body>
+</html>

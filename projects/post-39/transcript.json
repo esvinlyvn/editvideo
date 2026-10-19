@@ -1,0 +1,292 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.199,
+   "end": 1.923,
+   "speaker": "B",
+   "text": "Ngày đầu năm 1995,"
+  },
+  {
+   "i": 1,
+   "start": 2.451,
+   "end": 5.196,
+   "speaker": "B",
+   "text": "một con sóng cao hơn 25 mét bất ngờ xuất hiện trên biển Bắc."
+  },
+  {
+   "i": 2,
+   "start": 6.025,
+   "end": 9.028,
+   "speaker": "B",
+   "text": "Nó cao hơn gấp đôi mức sóng đáng kể ở vùng biển lúc đó."
+  },
+  {
+   "i": 3,
+   "start": 9.526,
+   "end": 12.25,
+   "speaker": "B",
+   "text": "Và quan trọng nhất, lần này có thiết bị đo được!"
+  },
+  {
+   "i": 6,
+   "start": 13.321,
+   "end": 14.585,
+   "speaker": "B",
+   "text": "Tui là Sáu đây."
+  },
+  {
+   "i": 8,
+   "start": 14.771,
+   "end": 18.714,
+   "speaker": "B",
+   "text": "Chuyện này đã thay đổi cách giới khoa học nhìn nhận một hiện tượng từng bị nhiều người nghi ngờ."
+  },
+  {
+   "i": 9,
+   "start": 19.889,
+   "end": 20.737,
+   "speaker": "B",
+   "text": "Suốt hàng trăm năm,"
+  },
+  {
+   "i": 10,
+   "start": 21.226,
+   "end": 22.381,
+   "speaker": "B",
+   "text": "thủy thủ đi biển kể rằng"
+  },
+  {
+   "i": 11,
+   "start": 22.687,
+   "end": 24.35,
+   "speaker": "B",
+   "text": "đôi khi giữa những con sóng bình thường,"
+  },
+  {
+   "i": 12,
+   "start": 24.705,
+   "end": 26.957,
+   "speaker": "B",
+   "text": "có một bức tường nước khổng lồ bất ngờ dựng lên."
+  },
+  {
+   "i": 13,
+   "start": 27.845,
+   "end": 28.718,
+   "speaker": "B",
+   "text": "Nó xuất hiện rất nhanh,"
+  },
+  {
+   "i": 14,
+   "start": 29.106,
+   "end": 30.912,
+   "speaker": "B",
+   "text": "cao vượt trội so với những con sóng chung quanh,"
+  },
+  {
+   "i": 15,
+   "start": 31.359,
+   "end": 31.765,
+   "speaker": "B",
+   "text": "rồi biến mất."
+  },
+  {
+   "i": 16,
+   "start": 32.726,
+   "end": 35.785,
+   "speaker": "B",
+   "text": "Nghe giống chuyện người ta thêm mắm dặm muối sau một chuyến đi biển ha?"
+  },
+  {
+   "i": 17,
+   "start": 36.808,
+   "end": 40.154,
+   "speaker": "B",
+   "text": "Nhưng vấn đề là ngày xưa rất khó đo đạc để kiểm chứng."
+  },
+  {
+   "i": 20,
+   "start": 41.014,
+   "end": 43.197,
+   "speaker": "B",
+   "text": "Tới ngày mùng Một tháng Giêng năm 1995,"
+  },
+  {
+   "i": 21,
+   "start": 43.807,
+   "end": 45.85,
+   "speaker": "B",
+   "text": "tại giàn khoan Draupner ngoài khơi Na Uy,"
+  },
+  {
+   "i": 23,
+   "start": 46.337,
+   "end": 47.473,
+   "speaker": "B",
+   "text": "hệ thống đo bằng laser"
+  },
+  {
+   "i": 24,
+   "start": 47.676,
+   "end": 49.94,
+   "speaker": "B",
+   "text": "ghi nhận một con sóng cao 25,6 mét,"
+  },
+  {
+   "i": 25,
+   "start": 50.554,
+   "end": 52.155,
+   "speaker": "B",
+   "text": "tính từ đáy sóng tới đỉnh sóng."
+  },
+  {
+   "i": 27,
+   "start": 53.412,
+   "end": 56.752,
+   "speaker": "B",
+   "text": "Trong khi độ cao sóng đáng kể ở vùng biển lúc đó khoảng 12 mét."
+  },
+  {
+   "i": 29,
+   "start": 57.632,
+   "end": 59.933,
+   "speaker": "B",
+   "text": "Đây trở thành một trong những bằng chứng mang tính bước ngoặt"
+  },
+  {
+   "i": 30,
+   "start": 60.258,
+   "end": 62.349,
+   "speaker": "B",
+   "text": "xác nhận sự tồn tại của loại sóng cực lớn này."
+  },
+  {
+   "i": 31,
+   "start": 63.925,
+   "end": 65.983,
+   "speaker": "B",
+   "text": "Các nhà khoa học gọi nó là rogue wave,"
+  },
+  {
+   "i": 32,
+   "start": 66.481,
+   "end": 67.377,
+   "speaker": "B",
+   "text": "hay sóng dị thường."
+  },
+  {
+   "i": 33,
+   "start": 68.233,
+   "end": 70.354,
+   "speaker": "B",
+   "text": "Điều nguy hiểm không đơn giản là nó rất cao."
+  },
+  {
+   "i": 34,
+   "start": 70.94,
+   "end": 74.614,
+   "speaker": "B",
+   "text": "Mà là nó có thể xuất hiện bất ngờ và cao vượt trội so với tình trạng sóng xung quanh."
+  },
+  {
+   "i": 35,
+   "start": 75.481,
+   "end": 77.145,
+   "speaker": "B",
+   "text": "Vậy tại sao có con sóng kỳ lạ như vậy?"
+  },
+  {
+   "i": 36,
+   "start": 78.419,
+   "end": 81.131,
+   "speaker": "B",
+   "text": "Một phần lời giải nằm ở cách các đợt sóng tương tác."
+  },
+  {
+   "i": 39,
+   "start": 82.382,
+   "end": 83.451,
+   "speaker": "B",
+   "text": "Khi những hệ sóng gặp nhau,"
+  },
+  {
+   "i": 40,
+   "start": 84.065,
+   "end": 85.137,
+   "speaker": "B",
+   "text": "năng lượng có thể tập trung,"
+  },
+  {
+   "i": 41,
+   "start": 85.556,
+   "end": 87.008,
+   "speaker": "B",
+   "text": "tạo nên một con sóng lớn bất thường."
+  },
+  {
+   "i": 42,
+   "start": 88.04,
+   "end": 91.207,
+   "speaker": "B",
+   "text": "Dòng hải lưu và điều kiện gió cũng có thể góp phần, tùy tình huống."
+  },
+  {
+   "i": 44,
+   "start": 91.5,
+   "end": 94.717,
+   "speaker": "B",
+   "text": "Các nhà khoa học tới nay vẫn nghiên cứu cách những con sóng này hình thành và xuất hiện."
+  },
+  {
+   "i": 45,
+   "start": 95.656,
+   "end": 98.146,
+   "speaker": "B",
+   "text": "Mà điều khiến tui suy nghĩ là suốt nhiều thế hệ,"
+  },
+  {
+   "i": 46,
+   "start": 98.503,
+   "end": 101.102,
+   "speaker": "B",
+   "text": "có những thủy thủ tận mắt chứng kiến hiện tượng nguy hiểm đó,"
+  },
+  {
+   "i": 47,
+   "start": 101.666,
+   "end": 103.326,
+   "speaker": "B",
+   "text": "nhưng không có thiết bị nào để chứng minh."
+  },
+  {
+   "i": 48,
+   "start": 104.553,
+   "end": 105.053,
+   "speaker": "B",
+   "text": "Rồi một ngày,"
+  },
+  {
+   "i": 49,
+   "start": 105.826,
+   "end": 108.804,
+   "speaker": "B",
+   "text": "một tia laser trên giàn khoan ghi lại được đúng thứ họ từng kể."
+  },
+  {
+   "i": 50,
+   "start": 109.709,
+   "end": 111.017,
+   "speaker": "B",
+   "text": "Một con sóng xuất hiện trong chốc lát."
+  },
+  {
+   "i": 51,
+   "start": 112.258,
+   "end": 117.545,
+   "speaker": "B",
+   "text": "Nhưng đủ khiến cả một lĩnh vực khoa học phải nhìn lại những điều người ta tưởng đã hiểu về đại dương."
+  }
+ ]
+}

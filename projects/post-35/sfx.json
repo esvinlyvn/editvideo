@@ -1,0 +1,326 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  4.1,
+  9.3,
+  11.0,
+  16.8,
+  25.0,
+  32.6,
+  35.5,
+  40.6,
+  45.9,
+  52.5,
+  58.1,
+  62.3,
+  65.5,
+  70.2,
+  78.6,
+  82.4,
+  90.3
+ ],
+ "cues": [
+  {
+   "at": 0.2,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 1.2,
+   "name": "whoosh-heavy",
+   "vol": 0.5
+  },
+  {
+   "at": 4.3,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 5.4,
+   "name": "scribble",
+   "vol": 0.5
+  },
+  {
+   "at": 6.6,
+   "name": "scribble",
+   "vol": 0.45
+  },
+  {
+   "at": 7.3,
+   "name": "ding-idea",
+   "vol": 0.55
+  },
+  {
+   "at": 9.35,
+   "name": "boing",
+   "vol": 0.55
+  },
+  {
+   "at": 11.5,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 12.1,
+   "name": "stamp",
+   "vol": 0.65
+  },
+  {
+   "at": 14.4,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 16.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 17.4,
+   "name": "shimmer",
+   "vol": 0.5
+  },
+  {
+   "at": 20.6,
+   "name": "chart-up",
+   "vol": 0.55
+  },
+  {
+   "at": 22.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 22.6,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 23.2,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 23.9,
+   "name": "success",
+   "vol": 0.6
+  },
+  {
+   "at": 25.0,
+   "name": "record-scratch",
+   "vol": 0.6
+  },
+  {
+   "at": 25.7,
+   "name": "whoosh-fast",
+   "vol": 0.45
+  },
+  {
+   "at": 27.2,
+   "name": "hit",
+   "vol": 0.6
+  },
+  {
+   "at": 28.7,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 30.5,
+   "name": "alert",
+   "vol": 0.5
+  },
+  {
+   "at": 32.7,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 33.3,
+   "name": "swipe",
+   "vol": 0.55
+  },
+  {
+   "at": 34.0,
+   "name": "swipe",
+   "vol": 0.55
+  },
+  {
+   "at": 35.5,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 36.3,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 37.4,
+   "name": "stamp",
+   "vol": 0.6
+  },
+  {
+   "at": 39.0,
+   "name": "crowd-chatter",
+   "vol": 0.35
+  },
+  {
+   "at": 40.75,
+   "name": "page-turn",
+   "vol": 0.55
+  },
+  {
+   "at": 42.6,
+   "name": "wrong-buzzer",
+   "vol": 0.5
+  },
+  {
+   "at": 43.3,
+   "name": "success",
+   "vol": 0.65
+  },
+  {
+   "at": 45.9,
+   "name": "whoosh-heavy",
+   "vol": 0.5
+  },
+  {
+   "at": 46.5,
+   "name": "whoosh-fast",
+   "vol": 0.5
+  },
+  {
+   "at": 47.2,
+   "name": "click",
+   "vol": 0.5
+  },
+  {
+   "at": 48.3,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 50.3,
+   "name": "ding-idea",
+   "vol": 0.5
+  },
+  {
+   "at": 52.5,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 54.6,
+   "name": "whoosh-heavy",
+   "vol": 0.55
+  },
+  {
+   "at": 55.6,
+   "name": "crowd-chatter",
+   "vol": 0.4
+  },
+  {
+   "at": 58.2,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 58.8,
+   "name": "riser",
+   "vol": 0.4
+  },
+  {
+   "at": 60.6,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 62.4,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 63.0,
+   "name": "success-2",
+   "vol": 0.6
+  },
+  {
+   "at": 65.7,
+   "name": "cymbal",
+   "vol": 0.7
+  },
+  {
+   "at": 66.3,
+   "name": "success-3",
+   "vol": 0.75
+  },
+  {
+   "at": 70.2,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 71.2,
+   "name": "boing",
+   "vol": 0.5
+  },
+  {
+   "at": 72.4,
+   "name": "tick",
+   "vol": 0.5
+  },
+  {
+   "at": 73.4,
+   "name": "pop",
+   "vol": 0.55
+  },
+  {
+   "at": 77.0,
+   "name": "gasp",
+   "vol": 0.5
+  },
+  {
+   "at": 78.6,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 82.6,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 85.84,
+   "name": "click",
+   "vol": 0.55
+  },
+  {
+   "at": 86.68,
+   "name": "click",
+   "vol": 0.55
+  },
+  {
+   "at": 88.3,
+   "name": "ding-idea",
+   "vol": 0.75
+  },
+  {
+   "at": 90.3,
+   "name": "whoosh-soft",
+   "vol": 0.45
+  },
+  {
+   "at": 91.0,
+   "name": "whoosh-heavy",
+   "vol": 0.6
+  },
+  {
+   "at": 92.6,
+   "name": "success",
+   "vol": 0.85
+  }
+ ]
+}

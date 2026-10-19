@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Muỗi chọn khách quen</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Bữa tối ngoài sân": một sân sau ban đêm có camera =====
+         Trái → phải: tường nhà + cửa sổ sáng · bàn ăn với 2 người (A bị chích, B chẳng sao) · góc sân: xô nước, lốp xe, đĩa lót chậu (nước đọng)
+         · xa nhất: "tiệm thử đường huyết" (cảnh đùa, chưa mở). Dây đèn chạy ngang. Muỗi vằn bay theo đường.
+         2 font: Grandstander (tiêu đề) · Be Vietnam Pro. Chữ kem #fdf6e3 + nhấn hồng muỗi #ff5c8a. Nền đêm xanh rêu #14302e. */
+      :root { --disp: "Grandstander", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #fdf6e3; --acc: #ff5c8a; --bg: #14302e; --card: #0d2220; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 560px; background: linear-gradient(rgba(20,48,46,.96) 0, rgba(20,48,46,.75) 300px, rgba(20,48,46,0) 560px); }
+      #dim { position: absolute; inset: 0; background: rgba(13,34,32,.88); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 800; line-height: 1.08; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 70px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #9fc2bc; white-space: nowrap; }
+      .card { background: var(--card); border: 4px solid var(--ink); border-radius: 26px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 20px 12px; border-radius: 16px; background: var(--card); border: 4px solid var(--ink); font-family: var(--disp); font-weight: 800; font-size: 36px; white-space: nowrap; opacity: 0; }
+      .strike { position: absolute; left: -12px; right: -12px; top: 50%; height: 10px; background: var(--acc); border-radius: 5px; transform-origin: 0 50%; transform: scaleX(0); }
+      .stamp { position: absolute; padding: 8px 26px; border: 8px solid var(--acc); border-radius: 18px; color: var(--acc); font-family: var(--disp); font-weight: 800; font-size: 64px; white-space: nowrap; opacity: 0; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .row { display: flex; align-items: center; gap: 22px; padding: 18px 26px; margin-top: 16px; text-align: left; font-family: var(--disp); font-weight: 800; font-size: 44px; white-space: nowrap; }
+      .row svg { flex: none; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(5, 15, 14, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post36" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgA" style="font-size:56px;color:var(--acc)"><span id="biteN">0</span> nốt</div>
+        <div class="tag" id="tgB" style="font-size:56px">0 nốt</div>
+        <div class="tag" id="tgSugar" style="font-size:44px">Máu ngọt?<i class="strike" id="stSugar"></i></div>
+        <div class="tag" id="tgCO2">CO2</div><div class="tag" id="tgHeat">Nhiệt độ</div><div class="tag" id="tgSmell" style="color:var(--acc)">Mùi da</div>
+        <div class="tag" id="tgClub" style="font-size:34px;color:var(--acc)">Hội bị muỗi lựa</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Chung một bàn</span><span class="blk a">mà khác số phận</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Muỗi cũng biết</span><span class="blk a">chọn khách quen?</span></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Hết đổ thừa</span><span class="blk a">tại máu ngọt</span></div>
+        <div class="safe c o0" id="paper" style="top:330px"><div class="card" style="display:inline-block;width:720px;padding:36px 40px 34px;text-align:left;position:relative">
+          <div class="lab">Nghiên cứu · năm <span id="yr">2022</span></div>
+          <div class="h" style="font-size:66px;margin-top:14px"><span class="blk">Vì sao muỗi</span><span class="blk a">chọn người này?</span></div>
+          <div style="height:4px;background:#2f5b56;margin:26px 0"></div>
+          <div class="row pr" style="padding:0;margin-top:0">{{IC_UNI}}<span>Đại học Rockefeller</span></div>
+          <div class="row pr" style="padding:0">{{IC_JOURNAL}}<span>Tạp chí <span class="a">Cell</span></span></div>
+          <div style="margin-top:22px;display:flex;flex-direction:column;gap:12px"><i class="ln" style="width:100%"></i><i class="ln" style="width:92%"></i><i class="ln" style="width:70%"></i></div>
+        </div></div>
+        <div class="safe c o0" id="choice" style="top:300px"><div class="h" style="font-size:66px"><span class="blk">Cho muỗi vằn</span><span class="blk a">lựa mẫu mùi</span></div>
+          <div class="card" style="margin-top:30px;padding:24px 20px 20px"><svg width="820" height="420" viewBox="0 0 820 420" id="cbox">
+            <rect x="40" y="250" width="240" height="130" rx="20" fill="#1d403d" stroke="#fdf6e3" stroke-width="5"/><rect x="540" y="250" width="240" height="130" rx="20" fill="#1d403d" stroke="#fdf6e3" stroke-width="5"/>
+            <path d="M80 300h160M80 335h120" stroke="#ff5c8a" stroke-width="10" stroke-linecap="round"/><path d="M580 300h160M580 335h120" stroke="#9fc2bc" stroke-width="10" stroke-linecap="round"/>
+            <text x="160" y="235" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="34" fill="#ff5c8a">Mẫu 1</text><text x="660" y="235" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="34" fill="#9fc2bc">Mẫu 2</text>
+            <g id="swarm">{{SWARM}}</g>
+          </svg></div></div>
+        <div class="safe c o0" id="chart" style="top:300px"><div class="h" style="font-size:62px"><span class="blk">Có người hút muỗi</span><span class="blk a">mạnh hơn rõ rệt</span></div>
+          <div class="card" style="margin-top:30px;padding:30px 30px 20px"><svg width="800" height="470" viewBox="0 0 800 470">
+            <path d="M60 400H760" stroke="#fdf6e3" stroke-width="5"/>
+            {{BARS}}
+            <g id="yrs" opacity="0"><text x="400" y="40" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="32" fill="#9fc2bc">đo lại qua nhiều năm: vẫn vậy</text></g>
+          </svg><div class="lab" style="margin-top:8px">minh họa · không đúng tỉ lệ</div></div></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Vậy muỗi</span><span class="blk a">thích cái gì?</span></div>
+        <div class="safe c o0" id="lens" style="top:200px"><div class="h" style="font-size:62px"><span class="blk">Axit carboxylic</span><span class="blk a">trên da cao hơn</span></div>
+          <svg width="640" height="640" viewBox="0 0 640 640" style="margin-top:34px">
+            <defs><clipPath id="lc"><circle cx="320" cy="320" r="270"/></clipPath></defs>
+            <circle cx="320" cy="320" r="270" fill="#f6d2b5"/>
+            <g clip-path="url(#lc)"><path d="M40 400c120-40 200 30 300-10s200-30 300 10M40 470c110-30 230 30 320-10s180-20 280 10M20 250c140-30 220 20 300-10s220-30 320 10" stroke="#e3b48f" stroke-width="10" fill="none"/>{{MOLS}}</g>
+            <circle cx="320" cy="320" r="270" fill="none" stroke="#fdf6e3" stroke-width="18"/><path d="M510 510l100 100" stroke="#fdf6e3" stroke-width="36" stroke-linecap="round"/>
+          </svg></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Mùi riêng</span><span class="blk a">của mỗi người</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Muỗi dò</span><span class="blk a">nhiều tín hiệu</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Mùi da là</span><span class="blk a">phần quan trọng</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Không chứng minh</span><span class="blk a">máu ngọt hơn</span></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Muỗi đâu có</span><span class="blk a">mở tiệm vậy!</span></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Đừng vội tin</span><span class="blk a">mẹo truyền miệng</span></div>
+        <div class="safe c o0" id="todo" style="top:196px"><div class="h" style="font-size:62px"><span class="blk">Cách thực tế hơn</span></div>
+          <div class="card" style="display:inline-block;margin-top:24px;padding:10px 30px 24px">
+            <div class="row td">{{IC_SPRAY}}<span>Sản phẩm chống muỗi</span></div>
+            <div class="row td">{{IC_SLEEVE}}<span>Mặc đồ che da</span></div>
+            <div class="row td">{{IC_WATER}}<span>Dọn nước đọng</span></div></div></div>
+        <div class="safe c o0" id="warn" style="top:300px"><div class="card" style="display:inline-block;padding:34px 46px 36px;border-color:var(--acc);border-width:7px">
+          <svg width="420" height="230" viewBox="0 0 420 230" id="bigMq">{{MQ_BIG}}</svg>
+          <div class="lab" style="margin-top:16px">muỗi vằn có thể truyền</div><div class="h a" style="font-size:72px;margin-top:8px"><span class="blk">Sốt xuất huyết</span></div>
+          <div class="h" style="font-size:44px;margin-top:20px;position:relative;display:inline-block"><span class="blk">không chỉ là ngứa</span></div></div></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Bị muỗi chọn</span><span class="blk a">đâu phải lời khen</span></div>
+        <div class="safe c o0" id="club" style="top:330px"><div style="display:inline-block;position:relative">
+          <div class="card" style="width:760px;padding:34px 40px 36px;text-align:left;background:linear-gradient(135deg,#ff5c8a,#c2366b);border-color:#fdf6e3">
+            <div class="lab" style="color:#ffe0ea">Thẻ khách hàng thân thiết</div>
+            <div class="h" style="font-size:76px;margin-top:10px"><span class="blk">Câu lạc bộ</span><span class="blk">Muỗi Vằn</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:end;margin-top:26px;font-weight:700;font-size:34px"><span>Hạng: Khách quen</span><span>8 nốt / tối</span></div></div>
+          <div class="stamp" id="stQuit" style="left:250px;top:120px;rotate:-12deg;background:rgba(13,34,32,.92)">XIN NGHỈ</div></div>
+          <div class="h" style="font-size:56px;margin-top:40px"><span class="blk">Ai cũng muốn</span><span class="blk a">xin nghỉ hội viên</span></div></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+        <style>.ln { display: block; height: 14px; border-radius: 7px; background: #2f5b56; }</style>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const CR = "#fdf6e3", ACC = "#ff5c8a", K = "#0b1b1a", SKIN = "#f1c7a3", GY = 1500;
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      // muỗi vằn (nhìn ngang, đầu bên phải); cánh trong .wg để vỗ
+      const mosq = (s = 1) => `<g transform="scale(${s})"><path d="M-6 6l-22 30M2 8l-6 34M10 6l14 30M-2 4l-40 18M14 4l30 22" stroke="${K}" stroke-width="3" fill="none"/><ellipse cx="-26" cy="0" rx="30" ry="9" fill="#222"/><path d="M-46 -4v8M-36 -6v12M-26 -7v14M-16 -6v12" stroke="#f4f4f4" stroke-width="3"/><circle cx="10" cy="-2" r="10" fill="#222"/><circle cx="20" cy="-4" r="7" fill="#222"/><path d="M26 -2l26 10" stroke="${K}" stroke-width="3"/><circle cx="22" cy="-7" r="2" fill="#f4f4f4"/><g class="wg"><ellipse cx="-12" cy="-22" rx="22" ry="11" fill="#dff4ff" fill-opacity=".55" stroke="#dff4ff" stroke-width="2" transform="rotate(-20 -12 -22)"/></g></g>`;
+
+      // ---- trời đêm, sao, tường nhà, dây đèn
+      const sky = `<rect x="-6000" y="-4000" width="12000" height="${4000 + GY}" fill="#14302e"/>${[...Array(40)].map((_, i) => `<circle cx="${-2500 + ((i * 397) % 6000)}" cy="${-300 + ((i * 211) % 700)}" r="${3 + (i % 3) * 2}" fill="#fdf6e3" opacity=".5"/>`).join("")}`;
+      const house = `<g id="house"><rect x="-1500" y="250" width="2350" height="${GY - 250}" fill="#2a4f4b" stroke="${K}" stroke-width="8"/><path d="M-1560 260l1230-260 1240 260z" fill="#1d403d" stroke="${K}" stroke-width="8"/>
+        <rect x="-1250" y="560" width="380" height="330" rx="10" fill="#ffd27a" stroke="${K}" stroke-width="8"/><path d="M-1060 560v330M-1250 725h380" stroke="${K}" stroke-width="8"/>
+        <rect x="430" y="820" width="260" height="${GY - 820}" rx="8" fill="#183a37" stroke="${K}" stroke-width="8"/><circle cx="650" cy="1170" r="14" fill="#ffd27a"/></g>`;
+      let bulbs = ""; for (let i = 0; i < 22; i++) { const x = -1400 + i * 160, y = 330 + 60 * Math.sin((i % 7) / 6 * Math.PI); bulbs += `<circle class="bulb" cx="${x}" cy="${y + 22}" r="16" fill="#ffd27a"/>`; }
+      const lights = `<path d="M-1400 330${[...Array(21)].map((_, i) => `L${-1240 + i * 160} ${330 + 60 * Math.sin(((i + 1) % 7) / 6 * Math.PI)}`).join("")}" stroke="${K}" stroke-width="5" fill="none"/>${bulbs}`;
+      const ground = `<rect x="-6000" y="${GY}" width="12000" height="1500" fill="#1f4a3a"/><rect x="-1500" y="${GY}" width="2350" height="70" fill="#3a5f58"/>${[...Array(30)].map((_, i) => `<path d="M${880 + i * 70} ${GY}l-8-34M${900 + i * 70} ${GY}l10-40" stroke="#2f7a55" stroke-width="7"/>`).join("")}`;
+
+      // ---- bàn + 2 người (A bên trái bị chích, B bên phải)
+      const seated = (x, shirt, id, flip) => `<g id="${id}"><g transform="translate(${x} 0) scale(${flip ? -1 : 1} 1)">
+        <path d="M-90 ${GY}v-260h-40M-90 ${GY - 260}h120v20" stroke="${K}" stroke-width="14" fill="none"/>
+        <path d="M-60 1240l-10 250M10 1240l10 250" stroke="#33415c" stroke-width="44" stroke-linecap="round"/>
+        <path d="M-80 1250v-250c0-60 30-90 90-90s80 30 80 90v250z" fill="${shirt}" stroke="${K}" stroke-width="7"/>
+        <path class="arm" d="M70 1010c60 40 110 90 170 130" stroke="${SKIN}" stroke-width="44" stroke-linecap="round" fill="none"/>
+        <path class="sleeve" d="M70 1010c60 40 110 90 160 124" stroke="${shirt}" stroke-width="52" stroke-linecap="round" fill="none" opacity="0"/>
+        <rect x="-26" y="880" width="52" height="40" fill="${SKIN}"/>
+        <circle cx="10" cy="810" r="82" fill="${SKIN}" stroke="${K}" stroke-width="7"/>
+        <path d="M-72 800c0-70 40-100 90-100s80 30 76 80c-30-30-80-30-110-10z" fill="#2b1d16"/>
+        <circle cx="46" cy="812" r="8" fill="${K}"/><g class="mood"></g></g></g>`;
+      const people = seated(-430, "#f2c14e", "pA", false) + seated(430, "#7cc6fe", "pB", true);
+      const table = `<g id="table"><rect x="-260" y="1140" width="520" height="34" rx="10" fill="#c98b4b" stroke="${K}" stroke-width="7"/><path d="M-200 1174V${GY}M200 1174V${GY}" stroke="${K}" stroke-width="16"/><ellipse cx="-110" cy="1132" rx="70" ry="14" fill="${CR}" stroke="${K}" stroke-width="5"/><ellipse cx="110" cy="1132" rx="70" ry="14" fill="${CR}" stroke="${K}" stroke-width="5"/><rect x="-20" y="1060" width="40" height="72" rx="8" fill="#ff8a65" stroke="${K}" stroke-width="5"/></g>`;
+      // mặt A (nhăn) / B (cười)
+      const faceA = `<g id="fA"><path d="M28 774l34 8" stroke="${K}" stroke-width="7" stroke-linecap="round"/><path id="mA" d="M18 852q22-12 44 0" stroke="${K}" stroke-width="7" fill="none" stroke-linecap="round"/></g>`;
+      const faceB = `<g id="fB"><path d="M-62 852q22 16 44 0" stroke="${K}" stroke-width="7" fill="none" stroke-linecap="round"/></g>`;
+      // các nốt chích trên A (tay, mặt, chân)
+      const bitePos = [[-260, 1090], [-300, 1110], [-340, 1050], [-395, 830], [-450, 770], [-470, 1300], [-500, 1400], [-430, 1180]];
+      const bites = `<g id="bites">${bitePos.map(([x, y], i) => `<g class="bt" opacity="0"><circle cx="${x}" cy="${y}" r="15" fill="${ACC}" stroke="${CR}" stroke-width="4"/></g>`).join("")}</g>`;
+      // mùi da (A hồng đậm, B nhạt), CO2, nhiệt
+      const plume = (x, c, w, id, op) => `<path id="${id}" d="M${x} 1000c-40-100 40-200 0-300s40-200 0-300s-40-150 0-260" stroke="${c}" stroke-width="${w}" stroke-linecap="round" fill="none" stroke-dasharray="40 30" opacity="${op}"/>`;
+      const smells = `<g id="smells" opacity="0">${plume(-330, ACC, 16, "plA", 1)}${plume(-470, ACC, 12, "plA2", 0.8)}${plume(330, "#9fc2bc", 7, "plB", 0.5)}</g>`;
+      const co2 = `<g id="co2" opacity="0">${[0, 1, 2].map((k) => `<circle class="pf" cx="${-340 + k * 70}" cy="${820 - k * 40}" r="${26 + k * 10}" fill="#cfe3df" opacity=".55"/>`).join("")}</g>`;
+      const heat = `<defs><radialGradient id="gH"><stop offset="0" stop-color="#ff8a3d" stop-opacity=".55"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient></defs><ellipse id="heat" cx="-420" cy="1050" rx="330" ry="420" fill="url(#gH)" opacity="0"/>`;
+      const sample = `<g id="sample" opacity="0"><path d="M-300 1080c30 20 50 34 70 48" stroke="${CR}" stroke-width="60" stroke-linecap="round" opacity=".85"/><path d="M-310 1078c30 20 54 36 76 50" stroke="${ACC}" stroke-width="6" stroke-dasharray="10 8" fill="none"/></g>`;
+      const spray = `<g id="spray" opacity="0"><g transform="translate(-170 1010) rotate(-20)"><rect x="-22" y="-80" width="44" height="90" rx="10" fill="#7cc6fe" stroke="${K}" stroke-width="5"/><rect x="-10" y="-98" width="20" height="18" fill="${CR}" stroke="${K}" stroke-width="4"/></g><g id="mist">${[...Array(9)].map((_, k) => `<circle cx="${-210 - (k % 3) * 40}" cy="${900 - Math.floor(k / 3) * 36}" r="${8 + (k % 2) * 6}" fill="#dff4ff" opacity=".6"/>`).join("")}</g></g>`;
+
+      // ---- góc sân: nước đọng (xô, lốp xe, đĩa lót chậu) + lăng quăng
+      const wig = (x, y) => `<path class="lv" d="M${x} ${y}q6-8 0-16t0-16" stroke="${CR}" stroke-width="4" fill="none"/>`;
+      const yard = `<g id="yard"><g id="bucket"><g id="bucketT"><path d="M1060 ${GY}l-20-200h220l-20 200z" fill="#4dabf7" stroke="${K}" stroke-width="7"/><path d="M1050 ${GY - 180}h200" stroke="#a5d8ff" stroke-width="16" id="bW"/>${wig(1120, GY - 140)}${wig(1180, GY - 120)}</g></g>
+        <g id="tire"><ellipse cx="1480" cy="${GY - 70}" rx="150" ry="70" fill="#222" stroke="${K}" stroke-width="7"/><ellipse cx="1480" cy="${GY - 70}" rx="80" ry="30" fill="#4dabf7" id="tW"/>${wig(1470, GY - 60)}</g>
+        <g id="saucer"><path d="M1740 ${GY - 120}l30 120h120l30-120z" fill="#c98b4b" stroke="${K}" stroke-width="7"/><path d="M1760 ${GY - 160}c20-100 100-120 130-40" stroke="#2f7a55" stroke-width="16" fill="none"/><circle cx="1810" cy="${GY - 230}" r="40" fill="#ff8fab" stroke="${K}" stroke-width="5"/><ellipse cx="1830" cy="${GY - 6}" rx="150" ry="22" fill="#c98b4b" stroke="${K}" stroke-width="6"/><ellipse cx="1830" cy="${GY - 10}" rx="110" ry="10" fill="#4dabf7" id="sW"/></g>
+        <g id="drops" opacity="0">${[0, 1, 2, 3, 4].map((k) => `<path d="M${1300 + k * 40} ${GY - 10}q10 -16 0 -30q-10 14 0 30z" fill="#a5d8ff"/>`).join("")}</g></g>`;
+      // ---- "tiệm thử đường huyết" (đùa): quầy nhỏ có muỗi đứng, bảng CHƯA MỞ
+      const shop = `<g id="shop"><rect x="2300" y="${GY - 330}" width="460" height="330" fill="#c98b4b" stroke="${K}" stroke-width="7"/><path d="M2270 ${GY - 330}l40-90h420l40 90z" fill="${ACC}" stroke="${K}" stroke-width="7"/>${[0, 1, 2, 3, 4].map((k) => `<path d="M${2310 + k * 90} ${GY - 420}l-20 90" stroke="${CR}" stroke-width="16"/>`).join("")}
+        <rect x="2310" y="${GY - 560}" width="440" height="110" rx="12" fill="${CR}" stroke="${K}" stroke-width="6"/><text x="2530" y="${GY - 525}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="30" fill="${K}">TIỆM THỬ</text><text x="2530" y="${GY - 478}" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="38" fill="${ACC}">ĐƯỜNG HUYẾT</text>
+        <path d="M2330 ${GY - 450}v-40M2730 ${GY - 450}v-40" stroke="${K}" stroke-width="6"/>
+        <g transform="translate(2530 ${GY - 250})">${mosq(2.6)}</g>
+        <g id="closed" opacity="0"><g transform="translate(2530 ${GY - 120}) rotate(-8)"><rect x="-190" y="-50" width="380" height="100" rx="12" fill="${K}" stroke="${ACC}" stroke-width="8"/><text y="20" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="56" fill="${ACC}">CHƯA MỞ</text></g></g></g>`;
+
+      // ---- bầy muỗi trong thế giới
+      const swarmW = `<g id="mqs">${[[-600, 700], [-250, 640], [-520, 980], [-150, 900], [-700, 1220]].map(([x, y], i) => `<g class="mqw" id="mqw${i}"><g transform="translate(${x} ${y})"><g class="mqh">${mosq(1.1)}</g></g></g>`).join("")}</g>`;
+
+      document.getElementById("W").innerHTML = `${sky}${house}${lights}${ground}${heat}${yard}${shop}${smells}${table}${people}${bites}${sample}${spray}${co2}${swarmW}`;
+      document.querySelector("#pA .mood").innerHTML = faceA; document.querySelector("#pB .mood").innerHTML = faceB;
+
+      const P = { wide: CAM(0, 1000, 1600, 1060), A: CAM(-380, 1020, 1150, 1000), skin: CAM(-300, 1080, 700, 1000), B: CAM(380, 1020, 1300, 1000), yard: CAM(1450, 1250, 1300, 1120), shop: CAM(2530, 1250, 1100, 1060), pair: CAM(0, 1020, 1350, 1016) };
+      let lastCam = P.wide; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgA", P.pair, -430, 660); place("tgB", P.pair, 430, 660); place("tgSugar", P.A, -380, 640);
+      place("tgCO2", P.A, -150, 700); place("tgHeat", P.A, -720, 900); place("tgSmell", P.A, -330, 560);
+      place("tgClub", P.A, -400, 650);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const stampIn = (sel, at) => tl.fromTo(sel, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.in", immediateRender: false }, at);
+      // vỗ cánh + lượn liên tục (tất định)
+      tl.fromTo(".wg", { scaleY: 1, svgOrigin: "-12 -12" }, { scaleY: 0.25, svgOrigin: "-12 -12", duration: 0.05, yoyo: true, repeat: 1900, ease: "none", immediateRender: false }, 0);
+      document.querySelectorAll(".mqh").forEach((el, i) => {
+        tl.fromTo(el, { x: 0, y: 0 }, { x: 40 + i * 12, y: -30 + (i % 2) * 50, duration: 0.9 + i * 0.17, yoyo: true, repeat: Math.ceil(96 / (0.9 + i * 0.17)), ease: "sine.inOut", immediateRender: false }, 0);
+      });
+      tl.fromTo(".bulb", { opacity: 1 }, { opacity: 0.55, duration: 0.8, yoyo: true, repeat: 119, stagger: { each: 0.15, from: "center" }, ease: "sine.inOut", immediateRender: false }, 0);
+      tl.fromTo(".lv", { rotation: -20, svgOrigin: "1120 1360" }, { rotation: 20, duration: 0.3, yoyo: true, repeat: 250, ease: "sine.inOut", immediateRender: false }, 0);
+
+      // ---- 0–4.8 · hai người chung bàn: A bị chích 8 nốt, B chẳng sao
+      T("#t0", 0.15, 5.2);
+      cam(P.pair, 0.4, 1.4);
+      tl.fromTo(".mqw", { x: -500, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2, stagger: 0.12, ease: E, immediateRender: false }, 1.5);
+      fadeUp("#tgA", 1.8, 0.3);
+      tl.fromTo(".bt", { opacity: 0, scale: 0.2, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.18, stagger: 0.16, ease: B, immediateRender: false }, 2.0);
+      tl.fromTo({ n: 0 }, { n: 0 }, { n: 8, duration: 1.3, ease: "none", immediateRender: false, onUpdate() { document.getElementById("biteN").textContent = Math.round(this.targets()[0].n); } }, 2.0);
+      tl.fromTo("#pA", { x: 0 }, { x: -6, duration: 0.06, yoyo: true, repeat: 9, immediateRender: false }, 3.3);
+      fadeUp("#tgB", 3.7, 0.3);
+      tl.fromTo("#pB", { y: 0 }, { y: -10, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, 3.8);
+      out(["#tgA", "#tgB"], 5.0, 0.25);
+
+      // ---- 5.4–7.0 · muỗi biết chọn khách quen?
+      cam(P.A, 5.0, 0.9);
+      T("#t1", 5.4, 7.4);
+      tl.to("#mqw1", { x: -40, y: 80, duration: 0.6, ease: "sine.inOut" }, 5.6);
+
+      // ---- 7.5–9.0 · Sáu
+      dimIn(7.3); tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 7.35);
+      out("#sauBox", 9.1, 0.25); dimOut(9.2);
+
+      // ---- 9.4–13.7 · hết đổ thừa máu ngọt
+      T("#t2", 9.43, 14.4);
+      fadeUp("#tgSugar", 11.0, 0.35);
+      tl.fromTo("#tgSugar", { rotation: 0 }, { rotation: -4, duration: 0.12, yoyo: true, repeat: 3, immediateRender: false }, 12.4);
+      out("#tgSugar", 14.3, 0.2);
+
+      // ---- 14.9–20.1 · nghiên cứu 2022 · ĐH Rockefeller · tạp chí Cell
+      dimIn(14.6); fadeUp("#paper", 14.93, 0.45);
+      tl.fromTo("#yr", { scale: 1.6 }, { scale: 1, duration: 0.4, ease: B, immediateRender: false }, 15.0);
+      tl.fromTo(".pr", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, stagger: 1.6, ease: E, immediateRender: false }, 16.6);
+      tl.fromTo(".ln", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.4, stagger: 0.15, immediateRender: false }, 18.4);
+      out("#paper", 20.3, 0.28); dimOut(20.4);
+
+      // ---- 20.7–22.7 · lấy mẫu mùi từ da người tình nguyện
+      cam(P.skin, 20.3, 0.9);
+      tl.to("#sample", { opacity: 1, duration: 0.4 }, 20.9);
+      tl.fromTo("#sample", { y: 30 }, { y: 0, duration: 0.5, ease: E, immediateRender: false }, 20.9);
+
+      // ---- 23.1–25.0 · muỗi vằn chọn giữa các mẫu
+      dimIn(22.8); fadeUp("#choice", 23.0, 0.45);
+      tl.fromTo(".sw", { x: 0, y: 0 }, { x: (i) => (i % 5 === 4 ? 300 : -220 - (i % 3) * 26), y: (i) => (i % 5 === 4 ? 175 : 165 + (i % 4) * 12), duration: 1.4, stagger: 0.07, ease: "power2.inOut", immediateRender: false }, 23.6);
+      out("#choice", 25.4, 0.25);
+
+      // ---- 25.6–32.2 · có người hút muỗi mạnh hơn rõ rệt · ổn định qua nhiều năm
+      fadeUp("#chart", 25.55, 0.45);
+      tl.fromTo(".bar", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.7, stagger: 0.12, ease: B, immediateRender: false }, 26.0);
+      tl.fromTo("#barA", { scaleY: 0.3, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.9, ease: B, immediateRender: false }, 27.4);
+      tl.to("#yrs", { opacity: 1, duration: 0.3 }, 29.4);
+      tl.call(() => (document.getElementById("yrA").textContent = "vài năm sau"), null, 30.6); tl.call(() => (document.getElementById("yrA").textContent = "năm đầu"), null, 26.0);
+      tl.fromTo("#barA", { scaleY: 1 }, { scaleY: 0.94, duration: 0.25, yoyo: true, repeat: 3, transformOrigin: "50% 100%", immediateRender: false }, 30.6);
+      out("#chart", 32.6, 0.28); dimOut(32.7);
+
+      // ---- 33.0–34.1 · muỗi thích cái gì?
+      cam(P.A, 32.6, 0.9); tl.to("#sample", { opacity: 0, duration: 0.3 }, 32.7);
+      T("#t3", 33.04, 34.9);
+      tl.to("#mqw0", { x: 120, y: 90, duration: 0.8, ease: "sine.inOut" }, 33.2);
+
+      // ---- 35.0–41.7 · axit carboxylic trên da cao hơn (kính lúp)
+      dimIn(34.8); fadeUp("#lens", 35.0, 0.45);
+      tl.fromTo(".mol", { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.35, stagger: { each: 0.18, from: "center" }, ease: B, immediateRender: false }, 37.5);
+      tl.fromTo(".mol", { y: 0 }, { y: -14, duration: 0.7, yoyo: true, repeat: 5, stagger: 0.1, ease: "sine.inOut", immediateRender: false }, 39.4);
+      out("#lens", 42.1, 0.28); dimOut(42.2);
+
+      // ---- 42.4–45.1 · chất tạo nên mùi riêng của mỗi người
+      cam(P.pair, 42.0, 1.0);
+      T("#t4", 42.44, 45.6);
+      tl.to("#smells", { opacity: 1, duration: 0.6 }, 42.7);
+      tl.fromTo(["#plA", "#plA2", "#plB"], { strokeDashoffset: 0 }, { strokeDashoffset: 700, duration: 10, ease: "none", repeat: 4, immediateRender: false }, 42.7);
+
+      // ---- 45.9–51.6 · muỗi dò CO2, nhiệt độ, tín hiệu khác
+      cam(P.A, 45.6, 0.9);
+      T("#t5", 45.9, 52.0);
+      tl.to("#co2", { opacity: 1, duration: 0.3 }, 46.6); fadeUp("#tgCO2", 46.8, 0.3);
+      tl.fromTo(".pf", { scale: 0.4, transformOrigin: "50% 50%" }, { scale: 1.2, duration: 0.9, stagger: 0.2, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 46.7);
+      tl.to("#heat", { opacity: 1, duration: 0.5 }, 49.1); fadeUp("#tgHeat", 49.3, 0.3);
+      tl.fromTo("#heat", { scale: 0.92, svgOrigin: "-420 1050" }, { scale: 1.05, svgOrigin: "-420 1050", duration: 0.6, yoyo: true, repeat: 5, ease: "sine.inOut", immediateRender: false }, 49.4);
+
+      // ---- 52.2–57.7 · mùi da là phần quan trọng
+      T("#t6", 52.23, 58.2);
+      tl.to(["#co2", "#heat", "#tgCO2", "#tgHeat"], { opacity: 0.25, duration: 0.4 }, 52.4);
+      fadeUp("#tgSmell", 52.6, 0.35);
+      tl.fromTo(["#plA", "#plA2"], { strokeWidth: 16 }, { strokeWidth: 30, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 53.5);
+      tl.to(".mqw", { x: 140, y: 60, duration: 1.2, stagger: 0.1, ease: "sine.inOut" }, 54.5);
+      out(["#co2", "#heat", "#tgCO2", "#tgHeat", "#tgSmell"], 58.0, 0.3);
+
+      // ---- 58.4–61.9 · không chứng minh máu ngọt hơn
+      T("#t7", 58.37, 62.0);
+      fadeUp("#tgSugar", 58.4, 0.3); tl.to("#stSugar", { scaleX: 1, duration: 0.35, ease: E }, 59.4);
+      out("#tgSugar", 61.8, 0.2);
+
+      // ---- 62.3–64.4 · muỗi chưa mở tiệm thử đường huyết ngoài sân
+      cam(P.shop, 61.9, 1.0);
+      T("#t8", 62.29, 65.0);
+      tl.to("#closed", { opacity: 1, duration: 0.01 }, 63.3); tl.fromTo("#closed g", { scale: 1.8, svgOrigin: `2530 ${GY - 120}` }, { scale: 1, svgOrigin: `2530 ${GY - 120}`, duration: 0.3, ease: "power3.in", immediateRender: false }, 63.3);
+
+      // ---- 65.4–70.3 · hội bị muỗi lựa · đừng vội tin mẹo truyền miệng
+      cam(P.A, 64.9, 1.1);
+      fadeUp("#tgClub", 65.6, 0.35);
+      T("#t9", 67.69, 70.8);
+      out("#tgClub", 67.5, 0.25);
+      tl.fromTo(".mqw", { opacity: 1 }, { opacity: 1, duration: 0.1, immediateRender: false }, 67.7);
+
+      // ---- 70.9–78.2 · cách thực tế: chống muỗi · đồ che da · dọn nước đọng
+      fadeUp("#todo", 70.85, 0.45);
+      fadeUp(".td:nth-child(1)", 71.96, 0.35); fadeUp(".td:nth-child(2)", 73.61, 0.35); fadeUp(".td:nth-child(3)", 75.11, 0.35);
+      tl.to("#spray", { opacity: 1, duration: 0.3 }, 72.1); tl.fromTo("#mist circle", { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" }, { opacity: 0.7, scale: 1.4, duration: 0.5, stagger: 0.04, ease: E, immediateRender: false }, 72.3);
+      tl.to(".mqw", { x: 600, y: -300, opacity: 0, duration: 1.0, stagger: 0.08, ease: "power2.in" }, 72.6);
+      tl.to(".sleeve", { opacity: 1, duration: 0.4 }, 73.7); out("#spray", 73.6, 0.3);
+      cam(P.yard, 74.6, 1.0);
+      tl.to("#bucketT", { rotation: -70, svgOrigin: `1250 ${GY}`, duration: 0.6, ease: "power2.in" }, 75.9);
+      tl.to("#drops", { opacity: 1, duration: 0.2 }, 76.4); tl.fromTo("#drops path", { x: 0, y: 0 }, { x: (i) => 40 + i * 30, y: (i) => -40 + i * 10, duration: 0.6, ease: E, immediateRender: false }, 76.4);
+      tl.to(["#tW", "#sW", "#bW"], { opacity: 0, duration: 0.5, stagger: 0.4 }, 76.8); tl.to(".lv", { opacity: 0, duration: 0.3 }, 76.8);
+      out("#drops", 77.4, 0.3);
+      out("#todo", 78.5, 0.28);
+
+      // ---- 78.9–83.1 · muỗi vằn truyền sốt xuất huyết, không chỉ là ngứa
+      dimIn(78.6); tl.fromTo("#warn", { opacity: 0, scale: 0.88 }, { opacity: 1, scale: 1, duration: 0.45, ease: B, immediateRender: false }, 78.93);
+      tl.fromTo("#bigMq", { y: 0 }, { y: -12, duration: 0.4, yoyo: true, repeat: 7, ease: "sine.inOut", immediateRender: false }, 79.3);
+      out("#warn", 83.4, 0.28); dimOut(83.5);
+
+      // ---- 83.9–86.6 · bị muỗi chọn không phải lời khen
+      cam(P.pair, 83.3, 1.0);
+      tl.set(".mqw", { x: 0, y: 0 }, 83.3); tl.to(".mqw", { opacity: 1, duration: 0.5, stagger: 0.1 }, 83.6);
+      T("#t10", 83.87, 87.0);
+
+      // ---- 87.0–92.8 · thẻ khách hàng thân thiết → xin nghỉ hội viên
+      dimIn(86.8); tl.fromTo("#club", { opacity: 0, rotationY: 70 }, { opacity: 1, rotationY: 0, duration: 0.6, ease: E, immediateRender: false }, 87.03);
+      stampIn("#stQuit", 91.3);
+      tl.fromTo("#club .card", { rotation: 0 }, { rotation: -2, duration: 0.1, yoyo: true, repeat: 3, immediateRender: false }, 91.6);
+      tl.to(".mqw", { x: 900, y: -400, opacity: 0, duration: 1.4, stagger: 0.1, ease: "power2.in" }, 92.0);
+      out("#club", 94.6, 0.3); dimOut(94.6);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post36"] = tl;
+    </script>
+  </body>
+</html>

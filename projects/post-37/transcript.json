@@ -1,0 +1,208 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.349,
+   "end": 4.092,
+   "speaker": "B",
+   "text": "Có một hành tinh chưa kịp tự quay hết một vòng, mà đã đi hết một năm!"
+  },
+  {
+   "i": 3,
+   "start": 5.276,
+   "end": 5.89,
+   "speaker": "B",
+   "text": "Nghe vô lý,"
+  },
+  {
+   "i": 4,
+   "start": 6.247,
+   "end": 7.445,
+   "speaker": "B",
+   "text": "nhưng đó chính là Sao Kim."
+  },
+  {
+   "i": 5,
+   "start": 8.083,
+   "end": 8.837,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây!"
+  },
+  {
+   "i": 6,
+   "start": 9.141,
+   "end": 11.325,
+   "speaker": "B",
+   "text": "Để tui giải thích cái đồng hồ kỳ cục của hành tinh này."
+  },
+  {
+   "i": 7,
+   "start": 12.302,
+   "end": 15.07,
+   "speaker": "B",
+   "text": "Trái Đất mình tự quay một vòng mất khoảng 24 tiếng,"
+  },
+  {
+   "i": 8,
+   "start": 15.254,
+   "end": 17.118,
+   "speaker": "B",
+   "text": "còn đi hết một vòng quanh Mặt Trời mất khoảng 365 ngày."
+  },
+  {
+   "i": 9,
+   "start": 17.4,
+   "end": 18.756,
+   "speaker": "B",
+   "text": "Nhưng Sao Kim thì khác."
+  },
+  {
+   "i": 10,
+   "start": 19.345,
+   "end": 22.968,
+   "speaker": "B",
+   "text": "Nó mất tới 243 ngày Trái Đất để tự quay đúng một vòng."
+  },
+  {
+   "i": 12,
+   "start": 23.32,
+   "end": 24.527,
+   "speaker": "B",
+   "text": "Trong khi đó,"
+  },
+  {
+   "i": 13,
+   "start": 25.321,
+   "end": 27.778,
+   "speaker": "B",
+   "text": "thời gian Sao Kim đi một vòng quanh Mặt Trời"
+  },
+  {
+   "i": 14,
+   "start": 28.016,
+   "end": 29.571,
+   "speaker": "B",
+   "text": "chỉ khoảng 225 ngày."
+  },
+  {
+   "i": 15,
+   "start": 30.226,
+   "end": 33.176,
+   "speaker": "B",
+   "text": "Nghĩa là một vòng tự quay còn lâu hơn cả một năm của chính nó!"
+  },
+  {
+   "i": 16,
+   "start": 34.135,
+   "end": 34.579,
+   "speaker": "B",
+   "text": "Nhưng khoan,"
+  },
+  {
+   "i": 17,
+   "start": 34.95,
+   "end": 35.815,
+   "speaker": "B",
+   "text": "có một cú lật nữa."
+  },
+  {
+   "i": 18,
+   "start": 36.625,
+   "end": 39.38,
+   "speaker": "B",
+   "text": "Nếu tính một ngày theo khoảng thời gian từ lần Mặt Trời mọc này"
+  },
+  {
+   "i": 19,
+   "start": 39.656,
+   "end": 40.504,
+   "speaker": "B",
+   "text": "tới lần mọc tiếp theo,"
+  },
+  {
+   "i": 20,
+   "start": 40.984,
+   "end": 43.748,
+   "speaker": "B",
+   "text": "thì trên Sao Kim chỉ khoảng 117 ngày Trái Đất thôi."
+  },
+  {
+   "i": 21,
+   "start": 44.396,
+   "end": 44.748,
+   "speaker": "B",
+   "text": "Tại sao?"
+  },
+  {
+   "i": 22,
+   "start": 45.486,
+   "end": 46.813,
+   "speaker": "B",
+   "text": "Vì Sao Kim tự quay ngược chiều"
+  },
+  {
+   "i": 23,
+   "start": 47.033,
+   "end": 48.927,
+   "speaker": "B",
+   "text": "so với phần lớn các hành tinh trong Hệ Mặt Trời."
+  },
+  {
+   "i": 24,
+   "start": 49.703,
+   "end": 52.018,
+   "speaker": "B",
+   "text": "Nên trên Sao Kim, Mặt Trời sẽ mọc ở hướng Tây và lặn ở hướng Đông."
+  },
+  {
+   "i": 25,
+   "start": 52.266,
+   "end": 53.172,
+   "speaker": "B",
+   "text": "Chưa hết,"
+  },
+  {
+   "i": 26,
+   "start": 54.156,
+   "end": 57.738,
+   "speaker": "B",
+   "text": "bề mặt Sao Kim nóng tới mức khoảng 465 độ C."
+  },
+  {
+   "i": 27,
+   "start": 58.331,
+   "end": 60.599,
+   "speaker": "B",
+   "text": "Thành ra nếu có ai rủ bạn qua đó nghỉ dưỡng một ngày..."
+  },
+  {
+   "i": 28,
+   "start": 61.346,
+   "end": 63.379,
+   "speaker": "B",
+   "text": "Thì nhớ hỏi người ta đang tính ngày theo kiểu nào nha!"
+  },
+  {
+   "i": 29,
+   "start": 64.294,
+   "end": 65.51,
+   "speaker": "B",
+   "text": "Mà thiệt ra khỏi hỏi cũng được."
+  },
+  {
+   "i": 30,
+   "start": 65.997,
+   "end": 67.173,
+   "speaker": "B",
+   "text": "Nóng cỡ đó,"
+  },
+  {
+   "i": 31,
+   "start": 67.371,
+   "end": 68.128,
+   "speaker": "B",
+   "text": "nghỉ dưỡng chắc thành nghỉ luôn!"
+  }
+ ]
+}
