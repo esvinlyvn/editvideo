@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Giàn phơi mùa mưa</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Nhà ống mùa mưa": mặt cắt phòng giặt + ban công có giàn phơi, có camera =====
+         Trái: phòng (máy giặt cửa trước, quạt, máy hút ẩm) · cửa kính · phải: ban công + giàn phơi + phố Sài Gòn mưa phía sau.
+         Trời đổi sáng/đêm/âm u bằng lớp màu. Kính lúp (HUD) soi vi khuẩn trên sợi vải: chỉ là hình minh họa.
+         2 font: Quicksand (tiêu đề) · Be Vietnam Pro. Chữ xanh than #1f3340 + nhấn san hô #f25f5c. Nền xám mưa #e3eef0. */
+      :root { --disp: "Quicksand", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #1f3340; --acc: #f25f5c; --bg: #e3eef0; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 540px; background: linear-gradient(rgba(227,238,240,.96) 0, rgba(227,238,240,.78) 300px, rgba(227,238,240,0) 540px); }
+      #dim { position: absolute; inset: 0; background: rgba(227,238,240,.92); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 700; line-height: 1.08; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 72px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #5f7684; white-space: nowrap; }
+      .card { background: #fff; border: 5px solid var(--ink); border-radius: 30px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 22px 12px; border-radius: 18px; background: #fff; border: 5px solid var(--ink); font-family: var(--disp); font-weight: 700; font-size: 38px; white-space: nowrap; opacity: 0; }
+      .strike { position: absolute; left: -10px; right: -10px; top: 52%; height: 9px; background: var(--acc); border-radius: 5px; transform-origin: 0 50%; }
+      .row { display: flex; align-items: center; gap: 22px; padding: 16px 26px; text-align: left; font-family: var(--disp); font-weight: 700; font-size: 44px; white-space: nowrap; }
+      .row b { display: inline-flex; width: 64px; height: 64px; border-radius: 50%; align-items: center; justify-content: center; background: var(--acc); color: #fff; font-size: 38px; flex: none; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(18, 30, 38, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post42" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgFresh" style="color:#2a9d8f">Thơm phức</div>
+        <div class="tag" id="tgNight">Qua một đêm mưa…</div>
+        <div class="tag" id="tgRag" style="color:var(--acc)">Mùi khăn lau bàn 3 ngày</div>
+        <div class="tag" id="tgTight" style="color:var(--acc)">Áo sát áo · không khí ẩm</div>
+        <div class="tag" id="tgDamp">Sáng tới tối vẫn âm ẩm</div>
+        <div class="tag" id="tgAir" style="color:#2a9d8f">Gió lùa qua từng món</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Mới giặt</span><span class="blk a">sao lại hôi?</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Ủa? Ai đem đồ</span><span class="blk a">đi ở dơ lại vậy?</span></div>
+        <div class="safe c o0" id="soap" style="top:300px"><div class="card" style="display:inline-block;padding:30px 44px 36px;position:relative">
+          <svg width="260" height="220" viewBox="0 0 260 220">{{SOAP}}</svg>
+          <div class="h" style="font-size:56px;margin-top:10px;position:relative;display:inline-block"><span class="blk">Thiếu xà bông?</span><i class="strike" id="stSoap" style="transform:scaleX(0)"></i></div>
+          <div class="h a o0" id="dryWay" style="font-size:62px;margin-top:22px"><span class="blk">Mà là cách đồ khô!</span></div></div></div>
+        <div class="safe c o0" id="paper" style="top:300px"><div class="card" style="display:inline-block;width:740px;padding:34px 40px 38px;text-align:left">
+          <div class="lab">Nghiên cứu · năm 2025</div><div class="h" style="font-size:60px;margin-top:12px"><span class="blk">Vi sinh vật</span><span class="blk a">trên quần áo</span></div>
+          <div style="display:flex;gap:16px;align-items:center;margin-top:24px">{{MINI_SHIRT}}<div style="font-weight:700;font-size:32px;line-height:1.4">Giặt xong, nhóm vi khuẩn<br>trên vải có thể thay đổi</div></div></div></div>
+        <div class="safe c o0" id="lens" style="top:196px"><div class="h" style="font-size:62px" id="lensT"><span class="blk">Giặt làm thay đổi</span><span class="blk a">nhóm vi khuẩn</span></div>
+          <svg width="640" height="640" viewBox="0 0 640 640" style="margin-top:20px">{{LENS}}</svg>
+          <div class="lab" style="margin-top:6px">hình minh họa · không theo tỉ lệ</div></div>
+        <div class="safe c o0" id="humid" style="top:196px"><div class="h" style="font-size:62px"><span class="blk">Phơi nóng ẩm:</span><span class="blk a">khuẩn sinh sôi, mùi tăng</span></div>
+          <div style="display:flex;justify-content:center;gap:30px;margin-top:30px;align-items:center">
+            <div class="card" style="padding:24px 26px"><svg width="200" height="260" viewBox="0 0 200 260">{{THERMO}}</svg></div>
+            <div class="card" style="padding:24px 26px"><svg width="380" height="260" viewBox="0 0 380 260">{{GROW}}</svg></div></div></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Giặt xong</span><span class="blk a">chưa phải hết sạch khuẩn</span></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Ẩm hoài + bí gió</span><span class="blk a">= mùi khó chịu</span></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Mưa Sài Gòn</span><span class="blk a">đúng bài luôn!</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Vậy giải quyết sao?</span></div>
+        <div class="safe c o0" id="s1" style="top:196px"><div class="h" style="font-size:60px"><span class="blk"><span class="a">1.</span> Giặt xong</span><span class="blk">đem phơi liền</span></div></div>
+        <div class="safe c o0" id="s2" style="top:196px"><div class="h" style="font-size:60px"><span class="blk"><span class="a">2.</span> Phơi cách nhau</span><span class="blk">cho gió đi xuyên qua</span></div></div>
+        <div class="safe c o0" id="s2b" style="top:196px"><div class="h" style="font-size:60px"><span class="blk">Phơi trong nhà?</span><span class="blk a">quạt, máy hút ẩm</span></div></div>
+        <div class="safe c o0" id="s3" style="top:196px"><div class="h" style="font-size:60px"><span class="blk"><span class="a">3.</span> Đã hôi rõ</span><span class="blk">giặt lại, làm khô đúng cách</span></div>
+          <div style="display:flex;justify-content:center;gap:24px;margin-top:30px"><div class="card" style="padding:24px 30px"><svg width="220" height="220" viewBox="0 0 220 220">{{REWASH}}</svg><div class="h" style="font-size:40px;color:#2a9d8f">Nên</div></div>
+            <div class="card" style="padding:24px 30px;position:relative"><svg width="220" height="220" viewBox="0 0 220 220">{{PERFUME}}</svg><div class="h a" style="font-size:40px">Chỉ xịt thơm</div><svg id="xPerf" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;opacity:0"><path d="M14 14L86 86M86 14L14 86" stroke="#f25f5c" stroke-width="5" stroke-linecap="round"/></svg></div></div></div>
+        <div class="safe c o0" id="soft" style="top:196px"><div class="h" style="font-size:60px"><span class="blk">Đổ thêm nước xả</span><span class="blk a">hổng hết hôi đâu</span></div>
+          <div class="card" style="display:inline-block;margin-top:30px;padding:24px 40px;position:relative"><svg width="520" height="380" viewBox="0 0 520 380">{{SOFT}}</svg>
+            <div style="font-weight:700;font-size:32px;margin-top:6px" id="softNote" class="o0">Lâu khô thì nước xả cũng chịu</div></div></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Áo cần thoát khỏi</span><span class="blk a">khu rừng nhiệt đới!</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Mưa cả tuần</span><span class="blk a">áo xin nghỉ phép luôn</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const K = "#1f3340", ACC = "#f25f5c", GY = 1500, BAR = 760, TEAL = "#2a9d8f";
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      const SHC = ["#8ecae6", "#ffb703", "#f4f1de", "#e07a5f", "#90be6d"];
+      // áo thun treo móc (gốc tọa độ = điểm móc trên thanh phơi)
+      const shirt = (c, face = "") => `<path d="M0 0v18" stroke="${K}" stroke-width="5"/><path d="M-60 40l60-22 60 22" stroke="${K}" stroke-width="6" fill="none"/><path d="M-70 40l-46 44 34 30 18-18v150h128v-150l18 18 34-30-46-44c-14 12-34 18-62 18s-48-6-62-18z" fill="${c}" stroke="${K}" stroke-width="6"/>${face}`;
+      const pants = (c) => `<path d="M0 0v18" stroke="${K}" stroke-width="5"/><path d="M-70 24h140l10 220h-62l-18-150-18 150h-62z" fill="${c}" stroke="${K}" stroke-width="6"/>`;
+      const stink = (x) => `<g class="stink" opacity="0"><path d="M${x - 30} ${BAR + 60}c-20-30 20-50 0-80s20-50 0-80M${x + 20} ${BAR + 60}c-20-30 20-50 0-80s20-50 0-80" stroke="#7a9a3a" stroke-width="9" fill="none" stroke-linecap="round"/></g>`;
+      const CR_X = [300, 380, 460, 540, 620], SP_X = [220, 400, 580, 760, 940];
+      const faceS = `<g id="sFace" opacity="0"><circle cx="-24" cy="110" r="8" fill="${K}"/><circle cx="24" cy="110" r="8" fill="${K}"/><path d="M-20 150q20-14 40 0" stroke="${K}" stroke-width="6" fill="none"/></g>`;
+
+      // ---- trời (3 lớp: ngày / đêm / âm u) + phố + mưa
+      const sky = `<rect x="-6000" y="-4000" width="12000" height="${4000 + GY}" fill="#bfe3f0"/><rect id="skyNight" x="-6000" y="-4000" width="12000" height="${4000 + GY}" fill="#1d2b3a" opacity="0"/><rect id="skyGray" x="-6000" y="-4000" width="12000" height="${4000 + GY}" fill="#9fb3bd" opacity="0"/>`;
+      let city = ""; for (let i = 0; i < 16; i++) { const x = -200 + i * 120, h = 400 + ((i * 97) % 5) * 90; city += `<rect x="${x}" y="${GY - 350 - h}" width="104" height="${h + 350}" fill="#8fa5b0" stroke="#7a909b" stroke-width="4"/>${[...Array(Math.floor(h / 90))].map((_, r) => `<rect class="cw" x="${x + 20}" y="${GY - 330 - h + 30 + r * 90}" width="24" height="34" fill="#d7e3e8"/><rect class="cw" x="${x + 60}" y="${GY - 330 - h + 30 + r * 90}" width="24" height="34" fill="#d7e3e8"/>`).join("")}`; }
+      const clouds = `<g id="rainCloud" opacity="0">${[0, 1, 2, 3, 4, 5].map((k) => `<ellipse cx="${-100 + k * 300}" cy="${260 + (k % 2) * 60}" rx="220" ry="90" fill="#6b7f8c"/>`).join("")}</g>`;
+      let rain = ""; for (let i = 0; i < 70; i++) rain += `<path d="M${-200 + ((i * 131) % 1700)} ${200 + ((i * 271) % 1300)}l-18 60" stroke="#5b8db3" stroke-width="5" stroke-linecap="round"/>`;
+      // ---- phòng giặt (trái)
+      const room = `<g id="room"><rect x="-1500" y="200" width="1400" height="${GY - 200}" fill="#f6efe3" stroke="${K}" stroke-width="6"/><rect x="-1500" y="${GY}" width="1500" height="900" fill="#c9b79c"/><path d="M-1500 ${GY}H0" stroke="${K}" stroke-width="8"/>
+        <g id="washer"><rect x="-1250" y="${GY - 420}" width="380" height="420" rx="26" fill="#fdfdfd" stroke="${K}" stroke-width="8"/><rect x="-1250" y="${GY - 420}" width="380" height="80" rx="26" fill="#e3eef0" stroke="${K}" stroke-width="6"/><circle cx="-1060" cy="${GY - 190}" r="120" fill="#b7d6e4" stroke="${K}" stroke-width="10"/><circle id="drum" cx="-1060" cy="${GY - 190}" r="92" fill="#8ecae6"/><g id="wetPile"><path d="M-1130 ${GY - 150}c30-40 110-40 140 0" fill="${SHC[1]}" stroke="${K}" stroke-width="5"/><path d="M-1120 ${GY - 120}c40-30 90-30 120 0" fill="${SHC[3]}" stroke="${K}" stroke-width="5"/></g><circle cx="-930" cy="${GY - 380}" r="14" fill="${ACC}"/></g>
+        <g id="fanW" opacity="0"><path d="M-640 ${GY}V${GY - 300}" stroke="${K}" stroke-width="12"/><circle cx="-640" cy="${GY - 380}" r="96" fill="#fff" stroke="${K}" stroke-width="8"/><g id="blades">${[0, 120, 240].map((a) => `<ellipse cx="-640" cy="${GY - 430}" rx="26" ry="50" fill="#8ecae6" transform="rotate(${a} -640 ${GY - 380})"/>`).join("")}</g><circle cx="-640" cy="${GY - 380}" r="14" fill="${K}"/></g>
+        <g id="dehum" opacity="0"><rect x="-470" y="${GY - 300}" width="190" height="300" rx="22" fill="#fff" stroke="${K}" stroke-width="7"/><path d="M-440 ${GY - 260}h130M-440 ${GY - 230}h130M-440 ${GY - 200}h130" stroke="${K}" stroke-width="5"/><rect x="-440" y="${GY - 120}" width="130" height="80" rx="10" fill="#8ecae6" stroke="${K}" stroke-width="5"/></g>
+        <g id="me"><g transform="translate(-260 ${GY})"><path d="M-36 0l6-170h60l6 170z" fill="#457b9d" stroke="${K}" stroke-width="6"/><path d="M-40 -170l10-160h60l10 160z" fill="${SHC[4]}" stroke="${K}" stroke-width="6"/><circle cy="-390" r="54" fill="#f1c7a3" stroke="${K}" stroke-width="6"/><path d="M-54 -400c0-40 20-60 54-60s54 22 50 56c-30-20-70-20-104 4z" fill="#3b2a20"/>
+          <g id="meNose" opacity="0"><path d="M30 -320c20-30 40-50 40-74" stroke="#f1c7a3" stroke-width="26" stroke-linecap="round" fill="none"/><path d="M-20 -404l16 6M20 -404l-16 6" stroke="${K}" stroke-width="6"/></g><circle id="meE1" cx="-18" cy="-396" r="6" fill="${K}"/><circle id="meE2" cx="18" cy="-396" r="6" fill="${K}"/></g></g>
+        <rect x="-110" y="200" width="110" height="${GY - 200}" fill="#cfe6ef" opacity=".6" stroke="${K}" stroke-width="8"/></g>`;
+      // ---- ban công + giàn phơi (phải)
+      const balcony = `<g id="balcony"><rect x="0" y="${GY}" width="1500" height="900" fill="#b8c4c9"/><path d="M0 ${GY}H1500" stroke="${K}" stroke-width="8"/><path d="M0 ${GY - 260}H1500" stroke="${K}" stroke-width="10"/>${[...Array(16)].map((_, k) => `<path d="M${60 + k * 90} ${GY}V${GY - 260}" stroke="${K}" stroke-width="7"/>`).join("")}
+        <path d="M120 ${GY}V${BAR - 40}M1080 ${GY}V${BAR - 40}" stroke="${K}" stroke-width="16"/><path d="M100 ${BAR}H1100" stroke="${K}" stroke-width="14" stroke-linecap="round"/>
+        <g id="clothes">${SHC.map((c, i) => `<g class="shO"><g transform="translate(${CR_X[i]} ${BAR})"><g class="sh" id="sh${i}"><g class="swing">${shirt(c, i === 2 ? faceS : "")}</g></g></g></g>`).join("")}
+          <g class="shO"><g transform="translate(700 ${BAR})"><g class="sh" id="sh5"><g class="swing">${pants("#457b9d")}</g></g></g></g></g>
+        ${CR_X.map((x) => stink(x)).join("")}
+        <g id="sparks" opacity="0">${[[260, 860], [470, 820], [620, 900], [380, 980]].map(([x, y]) => `<path d="M${x} ${y - 30}l8 22 22 8-22 8-8 22-8-22-22-8 22-8z" fill="#ffd166"/>`).join("")}</g>
+        <g id="damp" opacity="0">${[...Array(12)].map((_, k) => `<path class="dr" d="M${280 + (k % 6) * 80} ${BAR + 230 + Math.floor(k / 6) * 20}q8 14 0 24q-8-10 0-24z" fill="#5b8db3"/>`).join("")}</g>
+        <g id="airflow" opacity="0">${[0, 1, 2].map((k) => `<path class="af" d="M-60 ${BAR + 80 + k * 80}c200-30 400 30 600 0s400-30 600 0" stroke="${TEAL}" stroke-width="10" fill="none" stroke-dasharray="40 30" stroke-linecap="round"/>`).join("")}</g>
+        <g id="jungle" opacity="0">${[150, 330, 520, 700, 880, 1060].map((x, k) => `<path d="M${x} ${BAR}c-30 80 30 160 0 260" stroke="#2d6a4f" stroke-width="12" fill="none"/>${[0, 1, 2].map((j) => `<ellipse cx="${x + (j % 2 ? 24 : -24)}" cy="${BAR + 60 + j * 70}" rx="30" ry="16" fill="#40916c" transform="rotate(${j % 2 ? 30 : -30} ${x} ${BAR + 60 + j * 70})"/>`).join("")}`).join("")}
+          ${[[200, GY - 120], [960, GY - 90], [560, GY - 60]].map(([x, y]) => `<path d="M${x} ${y}c-60-80-20-180 60-200c-20 80 40 140-60 200z" fill="#52b788" stroke="#2d6a4f" stroke-width="5"/>`).join("")}
+          <g transform="translate(860 ${GY - 30})"><ellipse rx="44" ry="28" fill="#80b918" stroke="${K}" stroke-width="5"/><circle cx="-22" cy="-26" r="13" fill="#fff" stroke="${K}" stroke-width="4"/><circle cx="22" cy="-26" r="13" fill="#fff" stroke="${K}" stroke-width="4"/><circle cx="-22" cy="-26" r="5" fill="${K}"/><circle cx="22" cy="-26" r="5" fill="${K}"/></g></g>
+        <g id="leave" opacity="0"><g id="leaveS"><g transform="translate(560 ${BAR + 290})"><rect x="-150" y="0" width="300" height="130" rx="12" fill="#fff" stroke="${K}" stroke-width="6"/><text y="52" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="34" fill="${K}">ĐƠN XIN</text><text y="100" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="34" fill="${ACC}">NGHỈ PHÉP</text></g></g></g></g>`;
+      document.getElementById("W").innerHTML = `${sky}<g id="city">${city}</g>${clouds}<g id="rain" opacity="0">${rain}</g>${room}${balcony}`;
+
+      const P = { rack: CAM(560, 960, 1000, 980), rackC: CAM(480, 920, 780, 960), room: CAM(-760, 1150, 1500, 1080), washer: CAM(-1000, 1250, 900, 1100), wide: CAM(-100, 1100, 2200, 1100), me: CAM(-330, 1200, 900, 1140), fan: CAM(-500, 1150, 1300, 1080) };
+      let lastCam = P.rackC; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgFresh", P.rackC, 460, BAR - 40); place("tgNight", P.rack, 560, BAR - 120); place("tgRag", P.rackC, 460, BAR - 120); place("tgTight", P.rack, 460, BAR - 60); place("tgDamp", P.rack, 460, BAR + 330); place("tgAir", P.rack, 560, BAR - 60);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const rainOn = (a, b) => { tl.to(["#rain", "#rainCloud"], { opacity: 1, duration: 0.4 }, a); out(["#rain", "#rainCloud"], b, 0.4); };
+      tl.fromTo("#rain", { y: 0 }, { y: 240, duration: 0.4, repeat: 260, ease: "none", immediateRender: false }, 0);
+      tl.fromTo(".swing", { rotation: -2, svgOrigin: "0 0" }, { rotation: 2, svgOrigin: "0 0", duration: 1.6, yoyo: true, repeat: 64, ease: "sine.inOut", stagger: 0.2, immediateRender: false }, 0);
+      tl.fromTo(".stink path", { y: 0 }, { y: -20, duration: 0.8, yoyo: true, repeat: 125, ease: "sine.inOut", immediateRender: false }, 0);
+
+      // ---- 0–1.8 · mới giặt xong thơm phức
+      T("#t0", 0.15, 6.9);
+      tl.to("#sparks", { opacity: 1, duration: 0.3 }, 0.3); tl.fromTo("#sparks path", { scale: 0.4, transformOrigin: "50% 50%" }, { scale: 1.2, duration: 0.4, yoyo: true, repeat: 3, stagger: 0.1, immediateRender: false }, 0.3); fadeUp("#tgFresh", 0.4, 0.3);
+      out(["#sparks", "#tgFresh"], 2.4, 0.3);
+      // ---- 2.6–6.6 · qua một đêm mưa → sáng ra mùi khăn lau bàn 3 ngày
+      cam(P.rack, 2.4, 0.9);
+      tl.to("#skyNight", { opacity: 1, duration: 0.6 }, 2.6); rainOn(2.7, 5.2); fadeUp("#tgNight", 2.9, 0.3); out("#tgNight", 4.0, 0.2);
+      tl.to("#skyNight", { opacity: 0, duration: 0.6 }, 4.1); tl.to("#skyGray", { opacity: 1, duration: 0.6 }, 4.1);
+      cam(P.rackC, 4.1, 0.8); tl.to(".stink", { opacity: 1, duration: 0.3, stagger: 0.1 }, 4.4); fadeUp("#tgRag", 4.8, 0.3); out("#tgRag", 7.0, 0.2);
+      // ---- 7.6–10.9 · ủa? ai đem đồ đi ở dơ lại vậy?
+      cam(P.me, 7.0, 1.0);
+      T("#t1", 7.6, 11.6); tl.to("#meNose", { opacity: 1, duration: 0.2 }, 8.0);
+      tl.fromTo("#me", { x: 0 }, { x: -8, duration: 0.07, yoyo: true, repeat: 7, immediateRender: false }, 8.3);
+
+      // ---- 12.2–18.8 · Sáu · thủ phạm không nằm ở xà bông · mà ở cách đồ khô
+      dimIn(11.9); tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 12.0);
+      out("#sauBox", 13.5, 0.22);
+      fadeUp("#soap", 13.67, 0.45); tl.fromTo("#stSoap", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: E, immediateRender: false }, 15.8);
+      fadeUp("#dryWay", 17.19, 0.35); out("#soap", 19.6, 0.28);
+
+      // ---- 20.0–26.9 · nghiên cứu 2025: giặt làm đổi nhóm vi khuẩn trên vải
+      fadeUp("#paper", 20.0, 0.45); out("#paper", 23.9, 0.28);
+      fadeUp("#lens", 24.0, 0.45);
+      tl.fromTo(".bA", { opacity: 1, scale: 1, transformOrigin: "50% 50%" }, { opacity: 0, scale: 0.3, duration: 0.4, stagger: 0.08, immediateRender: false }, 25.2);
+      tl.fromTo(".bB", { opacity: 0, scale: 0.3, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: B, immediateRender: false }, 25.8);
+      out("#lens", 27.5, 0.28);
+      // ---- 27.6–35.0 · phơi nóng ẩm: vi khuẩn phát triển, chất gây mùi tăng
+      fadeUp("#humid", 27.62, 0.45);
+      tl.fromTo("#mercury", { scaleY: 0.3, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 1.2, ease: E, immediateRender: false }, 28.6);
+      tl.fromTo(".gB", { opacity: 0, scale: 0.2, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.12, ease: B, immediateRender: false }, 30.7);
+      tl.fromTo(".gS", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, immediateRender: false }, 33.0);
+      out("#humid", 35.6, 0.28); dimOut(35.7);
+
+      // ---- 35.9–40.1 · giặt xong chưa phải hết sạch vi sinh vật
+      cam(P.rackC, 35.5, 0.9); T("#t2", 35.93, 40.6);
+      tl.set(".stink", { opacity: 0 }, 35.5); tl.set("#skyGray", { opacity: 0.6 }, 35.5);
+      tl.fromTo("#sparks", { opacity: 0 }, { opacity: 0.4, duration: 0.3, immediateRender: false }, 37.0); out("#sparks", 40.0, 0.3);
+      // ---- 40.9–44.4 · ẩm hoài + thiếu thông gió → mùi
+      T("#t3", 40.89, 45.0); tl.to("#damp", { opacity: 1, duration: 0.4 }, 41.0); tl.fromTo(".dr", { y: 0 }, { y: 40, opacity: 0, duration: 0.8, repeat: 4, stagger: 0.1, immediateRender: false }, 41.2);
+      tl.to(".stink", { opacity: 1, duration: 0.3, stagger: 0.1 }, 43.3);
+      // ---- 45.3–53.6 · mưa Sài Gòn: áo sát áo, quần chồng quần, không khí ẩm, sáng tới tối vẫn ẩm
+      cam(P.rack, 44.9, 1.0); T("#t4", 45.32, 47.7); rainOn(45.4, 53.8);
+      fadeUp("#tgTight", 47.9, 0.3); out("#tgTight", 51.2, 0.2);
+      tl.fromTo("#sh5", { y: 0 }, { y: -30, duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, 49.0);
+      tl.to("#skyGray", { opacity: 1, duration: 0.6 }, 51.4); tl.to("#skyNight", { opacity: 0.8, duration: 1.2 }, 52.6); fadeUp("#tgDamp", 51.6, 0.3); out("#tgDamp", 54.2, 0.2);
+      tl.to("#damp", { opacity: 1, duration: 0.3 }, 51.6);
+      // ---- 54.6–55.5 · vậy giải quyết sao?
+      tl.to("#skyNight", { opacity: 0, duration: 0.6 }, 54.2); tl.to("#skyGray", { opacity: 0.3, duration: 0.6 }, 54.2);
+      T("#t5", 54.62, 56.2);
+      // ---- 56.5–60.2 · bước 1: giặt xong đem phơi liền, đừng để nằm ướt trong máy
+      cam(P.washer, 55.8, 1.0); fadeUp("#s1", 56.48, 0.4); out("#s1", 60.6, 0.25);
+      tl.fromTo("#wetPile", { x: 0, opacity: 1 }, { x: 260, opacity: 0, duration: 0.7, ease: "power2.in", immediateRender: false }, 58.4);
+      // ---- 61.0–64.7 · bước 2: phơi cách nhau, gió xuyên qua
+      cam(P.rack, 60.4, 1.0); fadeUp("#s2", 60.97, 0.4); out("#s2", 65.0, 0.25);
+      tl.to(".stink", { opacity: 0, duration: 0.3 }, 61.0); tl.to("#damp", { opacity: 0, duration: 0.3 }, 61.0);
+      SP_X.forEach((x, i) => tl.to(`#sh${i}`, { x: x - CR_X[i], duration: 0.8, ease: B }, 61.9 + i * 0.08)); tl.to("#sh5", { x: 360, duration: 0.8, ease: B }, 62.3);
+      tl.to("#airflow", { opacity: 1, duration: 0.3 }, 63.0); tl.fromTo(".af", { strokeDashoffset: 0 }, { strokeDashoffset: -280, duration: 1.0, repeat: 5, ease: "none", immediateRender: false }, 63.0); fadeUp("#tgAir", 63.2, 0.3); out(["#tgAir", "#airflow"], 65.2, 0.3);
+      // ---- 65.4–69.2 · phơi trong nhà: quạt, máy hút ẩm
+      cam(P.fan, 65.0, 1.0); fadeUp("#s2b", 65.39, 0.4); out("#s2b", 69.8, 0.25);
+      tl.to("#fanW", { opacity: 1, duration: 0.3 }, 66.3); tl.fromTo("#blades", { rotation: 0, svgOrigin: `-640 ${GY - 380}` }, { rotation: 2160, svgOrigin: `-640 ${GY - 380}`, duration: 6, ease: "none", immediateRender: false }, 66.3);
+      tl.to("#dehum", { opacity: 1, duration: 0.3 }, 67.6); tl.fromTo("#dehum", { y: 30 }, { y: 0, duration: 0.4, ease: B, immediateRender: false }, 67.6);
+      // ---- 70.4–77.3 · bước 3: đã hôi thì giặt lại, làm khô đúng cách; đừng chỉ xịt nước hoa
+      dimIn(70.0); fadeUp("#s3", 70.38, 0.45);
+      tl.to("#xPerf", { opacity: 1, duration: 0.3 }, 75.6);
+      tl.fromTo(".pf", { opacity: 0, y: 0 }, { opacity: 0.8, y: -30, duration: 0.6, stagger: 0.12, immediateRender: false }, 75.4);
+      out("#s3", 77.8, 0.28);
+      // ---- 78.2–85.7 · đừng nghĩ đổ nhiều nước xả là hết hôi
+      fadeUp("#soft", 78.17, 0.45);
+      tl.fromTo("#pour", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, 79.0);
+      tl.fromTo("#bottle", { rotation: 0, svgOrigin: "150 200" }, { rotation: -60, svgOrigin: "150 200", duration: 0.6, ease: E, immediateRender: false }, 79.0);
+      tl.fromTo("#xSoft", { opacity: 0, scale: 1.6, svgOrigin: "260 190" }, { opacity: 1, scale: 1, svgOrigin: "260 190", duration: 0.3, ease: "power3.in", immediateRender: false }, 80.5);
+      fadeUp("#softNote", 82.2, 0.35);
+      out("#soft", 86.1, 0.28); dimOut(86.2);
+      // ---- 86.4–95.4 · áo không cần thêm nắp nước xả, mà cần thoát khỏi khu rừng nhiệt đới
+      cam(P.rack, 86.0, 1.0);
+      SP_X.forEach((x, i) => tl.to(`#sh${i}`, { x: 0, duration: 0.6, ease: E }, 86.2)); tl.to("#sh5", { x: 0, duration: 0.6 }, 86.2);
+      tl.to("#skyGray", { opacity: 1, duration: 0.5 }, 86.4); rainOn(86.6, 97.6);
+      T("#t6", 89.89, 96.0);
+      tl.to("#jungle", { opacity: 1, duration: 0.6 }, 91.2); tl.fromTo("#jungle path", { scale: 0.3, transformOrigin: "50% 0%" }, { scale: 1, duration: 1.2, stagger: 0.05, ease: E, immediateRender: false }, 91.2);
+      tl.to(".stink", { opacity: 1, duration: 0.3, stagger: 0.1 }, 92.0);
+      // ---- 96.4–end · mưa cả tuần, áo xin nghỉ phép
+      cam(P.rackC, 96.0, 1.0); tl.to("#jungle", { opacity: 0.3, duration: 0.5 }, 96.2); tl.to(".stink", { opacity: 0, duration: 0.3 }, 96.2);
+      T("#t7", 96.36, 103.0); tl.to("#sFace", { opacity: 1, duration: 0.3 }, 97.2);
+      tl.to("#leave", { opacity: 1, duration: 0.3 }, 97.9); tl.fromTo("#leaveS", { scale: 0.5, svgOrigin: `560 ${BAR + 355}` }, { scale: 1, svgOrigin: `560 ${BAR + 355}`, duration: 0.4, ease: B, immediateRender: false }, 97.9);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post42"] = tl;
+    </script>
+  </body>
+</html>

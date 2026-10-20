@@ -1,0 +1,369 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.202,
+   "end": 3.373,
+   "speaker": "B",
+   "text": "Ở Pháp, có những cuộc đình công khiến tàu điện ngừng chạy,"
+  },
+  {
+   "i": 2,
+   "start": 3.911,
+   "end": 4.973,
+   "speaker": "B",
+   "text": "trường học bị gián đoạn,"
+  },
+  {
+   "i": 3,
+   "start": 5.392,
+   "end": 7.142,
+   "speaker": "B",
+   "text": "hàng triệu người phải thay đổi kế hoạch."
+  },
+  {
+   "i": 4,
+   "start": 7.791,
+   "end": 9.946,
+   "speaker": "B",
+   "text": "Mà chuyện này không phải mới xảy ra vài năm gần đây."
+  },
+  {
+   "i": 5,
+   "start": 10.855,
+   "end": 14.042,
+   "speaker": "B",
+   "text": "Người Pháp đã có lịch sử đấu tranh tập thể kéo dài hàng trăm năm!"
+  },
+  {
+   "i": 6,
+   "start": 14.856,
+   "end": 18.317,
+   "speaker": "B",
+   "text": "Vậy tại sao biểu tình lại trở thành một phần nổi bật trong đời sống xã hội Pháp?"
+  },
+  {
+   "i": 7,
+   "start": 19.24,
+   "end": 20.521,
+   "speaker": "B",
+   "text": "Tui là Sáu Suy Nghĩ."
+  },
+  {
+   "i": 9,
+   "start": 21.434,
+   "end": 23.31,
+   "speaker": "B",
+   "text": "Câu trả lời có một đoạn lịch sử rất ngược đời."
+  },
+  {
+   "i": 10,
+   "start": 24.668,
+   "end": 25.987,
+   "speaker": "B",
+   "text": "Năm 1791,"
+  },
+  {
+   "i": 11,
+   "start": 26.424,
+   "end": 28.274,
+   "speaker": "B",
+   "text": "chỉ hai năm sau khi Cách mạng Pháp bắt đầu,"
+  },
+  {
+   "i": 12,
+   "start": 28.952,
+   "end": 31.854,
+   "speaker": "B",
+   "text": "chính quyền ban hành một đạo luật cấm các tổ chức liên kết của người lao động,"
+  },
+  {
+   "i": 13,
+   "start": 32.384,
+   "end": 34.073,
+   "speaker": "B",
+   "text": "khiến hoạt động đình công bị đàn áp."
+  },
+  {
+   "i": 14,
+   "start": 34.971,
+   "end": 35.224,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 15,
+   "start": 35.785,
+   "end": 37.128,
+   "speaker": "B",
+   "text": "Một đất nước nổi tiếng với cách mạng"
+  },
+  {
+   "i": 16,
+   "start": 37.451,
+   "end": 39.301,
+   "speaker": "B",
+   "text": "mà lại từng cấm người lao động liên kết đấu tranh?"
+  },
+  {
+   "i": 17,
+   "start": 40.043,
+   "end": 40.565,
+   "speaker": "B",
+   "text": "Đúng vậy!"
+  },
+  {
+   "i": 18,
+   "start": 41.366,
+   "end": 43.064,
+   "speaker": "B",
+   "text": "Phải tới năm 1864,"
+  },
+  {
+   "i": 19,
+   "start": 43.69,
+   "end": 46.516,
+   "speaker": "B",
+   "text": "đình công mới không còn bị coi là hành vi phạm tội theo cách trước đó."
+  },
+  {
+   "i": 20,
+   "start": 47.31,
+   "end": 48.939,
+   "speaker": "B",
+   "text": "Rồi tới năm 1884,"
+  },
+  {
+   "i": 21,
+   "start": 49.502,
+   "end": 51.338,
+   "speaker": "B",
+   "text": "các công đoàn được công nhận hợp pháp."
+  },
+  {
+   "i": 23,
+   "start": 52.394,
+   "end": 54.836,
+   "speaker": "B",
+   "text": "Nghĩa là quyền đấu tranh tập thể không tự nhiên mà có."
+  },
+  {
+   "i": 24,
+   "start": 55.593,
+   "end": 58.59,
+   "speaker": "B",
+   "text": "Nó hình thành qua rất nhiều xung đột xã hội và thay đổi pháp luật."
+  },
+  {
+   "i": 25,
+   "start": 59.401,
+   "end": 62.134,
+   "speaker": "B",
+   "text": "Và rồi tới tháng Năm năm 1968."
+  },
+  {
+   "i": 27,
+   "start": 62.901,
+   "end": 64.556,
+   "speaker": "B",
+   "text": "Ban đầu là những cuộc phản đối của sinh viên."
+  },
+  {
+   "i": 28,
+   "start": 65.462,
+   "end": 65.882,
+   "speaker": "B",
+   "text": "Sau đó,"
+  },
+  {
+   "i": 29,
+   "start": 66.27,
+   "end": 67.761,
+   "speaker": "B",
+   "text": "phong trào lan rộng tới giới công nhân,"
+  },
+  {
+   "i": 30,
+   "start": 68.128,
+   "end": 70.863,
+   "speaker": "B",
+   "text": "dẫn tới một trong những làn sóng đình công lớn nhất lịch sử nước Pháp."
+  },
+  {
+   "i": 31,
+   "start": 71.668,
+   "end": 73.191,
+   "speaker": "B",
+   "text": "Hàng triệu người lao động ngừng làm việc."
+  },
+  {
+   "i": 32,
+   "start": 74.298,
+   "end": 75.374,
+   "speaker": "B",
+   "text": "Áp lực từ phong trào này"
+  },
+  {
+   "i": 33,
+   "start": 75.729,
+   "end": 78.845,
+   "speaker": "B",
+   "text": "góp phần dẫn tới những cuộc thương lượng về lương và điều kiện lao động."
+  },
+  {
+   "i": 35,
+   "start": 79.726,
+   "end": 84.536,
+   "speaker": "B",
+   "text": "Từ đó có thể hiểu vì sao nhiều người Pháp xem biểu tình và đình công là những công cụ để gây sức ép,"
+  },
+  {
+   "i": 37,
+   "start": 85.115,
+   "end": 86.823,
+   "speaker": "B",
+   "text": "buộc người có quyền quyết định phải lắng nghe."
+  },
+  {
+   "i": 38,
+   "start": 87.73,
+   "end": 89.132,
+   "speaker": "B",
+   "text": "Nhưng có một chuyện cần phân biệt."
+  },
+  {
+   "i": 39,
+   "start": 89.417,
+   "end": 90.376,
+   "speaker": "B",
+   "text": "Biểu tình ôn hòa,"
+  },
+  {
+   "i": 40,
+   "start": 90.583,
+   "end": 93.947,
+   "speaker": "B",
+   "text": "đình công và đập phá gây bạo lực là những hành vi khác nhau."
+  },
+  {
+   "i": 43,
+   "start": 94.813,
+   "end": 98.479,
+   "speaker": "B",
+   "text": "Không phải cứ thấy đám đông xuống đường là kết luận tất cả đang gây bạo loạn."
+  },
+  {
+   "i": 46,
+   "start": 99.637,
+   "end": 102.508,
+   "speaker": "B",
+   "text": "Và cũng không phải người Pháp nào cũng đồng tình với mọi cuộc biểu tình."
+  },
+  {
+   "i": 47,
+   "start": 103.554,
+   "end": 104.286,
+   "speaker": "B",
+   "text": "Có người ủng hộ"
+  },
+  {
+   "i": 48,
+   "start": 104.498,
+   "end": 106.585,
+   "speaker": "B",
+   "text": "vì cho rằng quyền lợi của mình đang bị ảnh hưởng."
+  },
+  {
+   "i": 49,
+   "start": 107.236,
+   "end": 110.232,
+   "speaker": "B",
+   "text": "Có người phản đối vì đình công làm gián đoạn công việc,"
+  },
+  {
+   "i": 50,
+   "start": 110.607,
+   "end": 112.006,
+   "speaker": "B",
+   "text": "giao thông và cuộc sống của họ."
+  },
+  {
+   "i": 51,
+   "start": 113.383,
+   "end": 116.879,
+   "speaker": "B",
+   "text": "Thành ra điều đáng hiểu không phải là người Pháp thích biểu tình hơn thích đi làm."
+  },
+  {
+   "i": 52,
+   "start": 117.843,
+   "end": 119.297,
+   "speaker": "B",
+   "text": "Mà là trong lịch sử nước Pháp,"
+  },
+  {
+   "i": 53,
+   "start": 119.577,
+   "end": 125.993,
+   "speaker": "B",
+   "text": "xuống đường đã trở thành một phương thức hành động tập thể có tổ chức, có ảnh hưởng và có cả những tranh cãi riêng."
+  },
+  {
+   "i": 58,
+   "start": 126.871,
+   "end": 127.292,
+   "speaker": "B",
+   "text": "Bởi vậy,"
+  },
+  {
+   "i": 59,
+   "start": 127.556,
+   "end": 129.072,
+   "speaker": "B",
+   "text": "nhìn một đoàn người biểu tình ở Pháp,"
+  },
+  {
+   "i": 60,
+   "start": 129.413,
+   "end": 131.13,
+   "speaker": "B",
+   "text": "đừng chỉ hỏi sao họ xuống đường hoài."
+  },
+  {
+   "i": 61,
+   "start": 131.996,
+   "end": 132.58,
+   "speaker": "B",
+   "text": "Thử hỏi thêm:"
+  },
+  {
+   "i": 62,
+   "start": 132.909,
+   "end": 134.457,
+   "speaker": "B",
+   "text": "họ đang yêu cầu thay đổi chuyện gì,"
+  },
+  {
+   "i": 63,
+   "start": 135.022,
+   "end": 139.153,
+   "speaker": "B",
+   "text": "ai tổ chức và vì sao họ tin rằng xuống đường có thể tạo ra khác biệt?"
+  },
+  {
+   "i": 67,
+   "start": 140.057,
+   "end": 142.332,
+   "speaker": "B",
+   "text": "Ba câu đó giúp mình hiểu câu chuyện hơn rất nhiều"
+  },
+  {
+   "i": 68,
+   "start": 142.574,
+   "end": 145.078,
+   "speaker": "B",
+   "text": "so với chỉ coi một đoạn video có cảnh đám đông la hét."
+  }
+ ]
+}

@@ -10,7 +10,7 @@ const NUMBER = new Set("một hai ba bốn năm sáu bảy tám chín mười m�
 
 // Từ ghép hay gặp — bổ sung dần khi gặp chỗ ngắt sai
 export const COMPOUNDS = new Set(
-  `loài người|bằng chứng|thiết bị|chứng kiến|thủy thủ|giàn khoan|hải lưu|xuất hiện|nghiên cứu|lĩnh vực|khoa học|đại dương|bất ngờ|vượt trội|kỹ thuật|hành khách|áp suất|duy trì|bảo trì|sửa chữa|vận hành|hoạt động|khả năng|nhiệt độ|kết cấu|công trình|sa mạc|văn minh|nguyên vẹn|quyết định|nước ngoài|đi nhậu|chi tiết|giải thích|rõ ràng|tham gia|lý do|bài toán|người ta|tối nay|hết tiền|dậy sớm|chính đáng|thông thường|
+  `loài người|nhiệt đới|vi sinh vật|vi khuẩn|thông gió|xà bông|nước xả|giàn phơi|nước hoa|đấu tranh|biểu tình|phương thức|bạo lực|bạo loạn|hành động|đình công|công đoàn|pháp luật|xung đột|sinh viên|công nhân|thương lượng|điều kiện|lao động|ảnh hưởng|gián đoạn|xã hội|cách mạng|kết luận|tranh cãi|đồng tình|ủng hộ|phản đối|khác biệt|xảy ra|lịch sử|bằng chứng|thiết bị|chứng kiến|thủy thủ|giàn khoan|hải lưu|xuất hiện|nghiên cứu|lĩnh vực|khoa học|đại dương|bất ngờ|vượt trội|kỹ thuật|hành khách|áp suất|duy trì|bảo trì|sửa chữa|vận hành|hoạt động|khả năng|nhiệt độ|kết cấu|công trình|sa mạc|văn minh|nguyên vẹn|quyết định|nước ngoài|đi nhậu|chi tiết|giải thích|rõ ràng|tham gia|lý do|bài toán|người ta|tối nay|hết tiền|dậy sớm|chính đáng|thông thường|
 tiết kiệm|giảm giá|sử dụng|mua sắm|săn sale|món hời|hiệp định|hòa bình|thương lượng|từ chối|năn nỉ|cuộc họp|đám giỗ|bà con|chứng minh|lời mời|
 đơn giản|nhất thiết|cảm ơn|bữa khác|tin nhắn|trả lời|lát nữa|đầu óc|lởn vởn|bứt rứt|giải quyết|sắp xếp|điện thoại|lời nhắc|cụ thể|bỏ qua|
 hoàn thành|lập tức|chủ đầu tư|căn hộ|dự án|mở bán|thiết yếu|phụ kiện|sản phẩm|cảm giác|chi phí|số lần|bao nhiêu|hôm nay|ngày mai|bản thân|

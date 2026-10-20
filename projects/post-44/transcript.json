@@ -1,0 +1,271 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0,
+   "end": 1.516,
+   "speaker": "B",
+   "text": "Nồi lẩu đang sôi ùng ục."
+  },
+  {
+   "i": 1,
+   "start": 2.174,
+   "end": 3.326,
+   "speaker": "B",
+   "text": "Vừa thả một dĩa thịt vô,"
+  },
+  {
+   "i": 2,
+   "start": 3.707,
+   "end": 4.889,
+   "speaker": "B",
+   "text": "tự nhiên mặt nước im re!"
+  },
+  {
+   "i": 3,
+   "start": 5.858,
+   "end": 6.059,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 4,
+   "start": 6.586,
+   "end": 8.189,
+   "speaker": "B",
+   "text": "Bộ thịt có chức năng tắt bếp hả?"
+  },
+  {
+   "i": 5,
+   "start": 9.202,
+   "end": 9.969,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây."
+  },
+  {
+   "i": 6,
+   "start": 10.651,
+   "end": 12.442,
+   "speaker": "B",
+   "text": "Chuyện này có một lời giải thích rất đơn giản,"
+  },
+  {
+   "i": 7,
+   "start": 12.823,
+   "end": 15.032,
+   "speaker": "B",
+   "text": "nhưng còn một chi tiết thú vị hơn nhiều người nghĩ."
+  },
+  {
+   "i": 9,
+   "start": 16.147,
+   "end": 20.204,
+   "speaker": "B",
+   "text": "Nước đang sôi ở áp suất khí quyển bình thường có nhiệt độ khoảng 100 độ C."
+  },
+  {
+   "i": 11,
+   "start": 21.005,
+   "end": 24.222,
+   "speaker": "B",
+   "text": "Lúc này, nhiệt từ bếp tiếp tục truyền vào để biến nước thành hơi,"
+  },
+  {
+   "i": 13,
+   "start": 24.591,
+   "end": 25.936,
+   "speaker": "B",
+   "text": "nên mình thấy bong bóng sôi liên tục."
+  },
+  {
+   "i": 14,
+   "start": 27.14,
+   "end": 29.355,
+   "speaker": "B",
+   "text": "Nhưng khi bạn thả thịt vừa lấy từ tủ lạnh vô,"
+  },
+  {
+   "i": 16,
+   "start": 29.864,
+   "end": 31.528,
+   "speaker": "B",
+   "text": "thịt có nhiệt độ thấp hơn nước rất nhiều."
+  },
+  {
+   "i": 17,
+   "start": 32.205,
+   "end": 35.189,
+   "speaker": "B",
+   "text": "Nhiệt sẽ truyền từ nước nóng qua thịt lạnh để làm nóng miếng thịt."
+  },
+  {
+   "i": 19,
+   "start": 36.402,
+   "end": 37.964,
+   "speaker": "B",
+   "text": "Khi nhiệt độ nước giảm xuống dưới mức sôi,"
+  },
+  {
+   "i": 20,
+   "start": 38.355,
+   "end": 40.762,
+   "speaker": "B",
+   "text": "bong bóng sôi sẽ ít đi hoặc ngừng hẳn."
+  },
+  {
+   "i": 22,
+   "start": 41.597,
+   "end": 42.77,
+   "speaker": "B",
+   "text": "Không phải bếp tự nhiên yếu đi."
+  },
+  {
+   "i": 23,
+   "start": 43.257,
+   "end": 46.606,
+   "speaker": "B",
+   "text": "Mà vì nhiệt đang được dùng để làm nóng cả phần nguyên liệu mới thả vô."
+  },
+  {
+   "i": 24,
+   "start": 47.587,
+   "end": 49.142,
+   "speaker": "B",
+   "text": "Nếu bạn thả càng nhiều đồ lạnh cùng lúc,"
+  },
+  {
+   "i": 25,
+   "start": 49.873,
+   "end": 52.148,
+   "speaker": "B",
+   "text": "nồi thường càng mất thời gian để sôi mạnh trở lại."
+  },
+  {
+   "i": 26,
+   "start": 53.387,
+   "end": 54.773,
+   "speaker": "B",
+   "text": "Nhưng có một hiểu lầm cần tránh nha."
+  },
+  {
+   "i": 27,
+   "start": 55.635,
+   "end": 59.525,
+   "speaker": "B",
+   "text": "Nước hết nổi bong bóng không có nghĩa là đã nguội tới mức không nấu chín được gì."
+  },
+  {
+   "i": 28,
+   "start": 60.316,
+   "end": 60.723,
+   "speaker": "B",
+   "text": "Ngược lại,"
+  },
+  {
+   "i": 29,
+   "start": 61.254,
+   "end": 62.318,
+   "speaker": "B",
+   "text": "nước vẫn có thể rất nóng"
+  },
+  {
+   "i": 30,
+   "start": 62.57,
+   "end": 63.644,
+   "speaker": "B",
+   "text": "dù chưa đạt tới điểm sôi."
+  },
+  {
+   "i": 31,
+   "start": 64.455,
+   "end": 66.343,
+   "speaker": "B",
+   "text": "Và chuyện thịt đã chín an toàn hay chưa"
+  },
+  {
+   "i": 32,
+   "start": 66.692,
+   "end": 69.508,
+   "speaker": "B",
+   "text": "cũng không thể kết luận chỉ bằng việc nồi đã sôi lại."
+  },
+  {
+   "i": 35,
+   "start": 70.188,
+   "end": 73.379,
+   "speaker": "B",
+   "text": "Nó còn phụ thuộc loại thịt, độ dày và nhiệt độ thực tế bên trong."
+  },
+  {
+   "i": 38,
+   "start": 74.305,
+   "end": 74.641,
+   "speaker": "B",
+   "text": "Bởi vậy,"
+  },
+  {
+   "i": 39,
+   "start": 75.091,
+   "end": 75.598,
+   "speaker": "B",
+   "text": "khi ăn lẩu,"
+  },
+  {
+   "i": 40,
+   "start": 76.016,
+   "end": 77.988,
+   "speaker": "B",
+   "text": "cứ cho nguyên liệu vô từng đợt vừa phải,"
+  },
+  {
+   "i": 41,
+   "start": 78.384,
+   "end": 79.662,
+   "speaker": "B",
+   "text": "chờ chín kỹ rồi hãy ăn."
+  },
+  {
+   "i": 42,
+   "start": 80.256,
+   "end": 85.17,
+   "speaker": "B",
+   "text": "Chứ có người vừa ngồi xuống đã đổ nguyên dĩa thịt, cá viên, rau, nấm vô một lượt."
+  },
+  {
+   "i": 47,
+   "start": 85.74,
+   "end": 87.036,
+   "speaker": "B",
+   "text": "Nồi lẩu đang sôi khí thế,"
+  },
+  {
+   "i": 48,
+   "start": 87.493,
+   "end": 89.919,
+   "speaker": "B",
+   "text": "tự nhiên im lặng như bị giao thêm công việc ngoài giờ!"
+  },
+  {
+   "i": 49,
+   "start": 90.298,
+   "end": 90.771,
+   "speaker": "B",
+   "text": "Mà nói thiệt,"
+  },
+  {
+   "i": 50,
+   "start": 91.076,
+   "end": 93.398,
+   "speaker": "B",
+   "text": "lúc đó không phải nồi lẩu ngừng hoạt động."
+  },
+  {
+   "i": 51,
+   "start": 94.124,
+   "end": 96.915,
+   "speaker": "B",
+   "text": "Nó chỉ đang gồng mình phục vụ nguyên cái bàn thôi!"
+  }
+ ]
+}

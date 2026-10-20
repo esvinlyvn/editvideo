@@ -1,0 +1,250 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.284,
+   "end": 2.043,
+   "speaker": "B",
+   "text": "Chiếc xe đang chạy tới phía trước,"
+  },
+  {
+   "i": 1,
+   "start": 2.634,
+   "end": 5.321,
+   "speaker": "B",
+   "text": "nhưng bánh xe trong video lại quay ngược về phía sau!"
+  },
+  {
+   "i": 2,
+   "start": 6.192,
+   "end": 6.483,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 3,
+   "start": 6.862,
+   "end": 9.172,
+   "speaker": "B",
+   "text": "Vậy rốt cuộc chiếc xe đang chạy tới hay đang chạy lùi?"
+  },
+  {
+   "i": 4,
+   "start": 9.959,
+   "end": 11.198,
+   "speaker": "B",
+   "text": "Mà kỳ hơn nữa,"
+  },
+  {
+   "i": 5,
+   "start": 11.454,
+   "end": 13.21,
+   "speaker": "B",
+   "text": "có lúc bánh xe đang quay rất nhanh,"
+  },
+  {
+   "i": 6,
+   "start": 13.658,
+   "end": 15.114,
+   "speaker": "B",
+   "text": "tự nhiên nhìn như đứng im luôn!"
+  },
+  {
+   "i": 7,
+   "start": 16.529,
+   "end": 17.308,
+   "speaker": "B",
+   "text": "Sáu Suy Nghĩ đây!"
+  },
+  {
+   "i": 8,
+   "start": 17.672,
+   "end": 18.756,
+   "speaker": "B",
+   "text": "Chuyện này có tên đàng hoàng:"
+  },
+  {
+   "i": 9,
+   "start": 18.971,
+   "end": 20.535,
+   "speaker": "B",
+   "text": "hiệu ứng bánh xe ngựa."
+  },
+  {
+   "i": 10,
+   "start": 21.654,
+   "end": 25.203,
+   "speaker": "B",
+   "text": "Để hiểu nó, mấy bạn tưởng tượng một bánh xe có sáu nan hoa giống hệt nhau."
+  },
+  {
+   "i": 11,
+   "start": 26.133,
+   "end": 27.708,
+   "speaker": "B",
+   "text": "Camera không ghi lại chuyển động liên tục."
+  },
+  {
+   "i": 12,
+   "start": 28.202,
+   "end": 31.445,
+   "speaker": "B",
+   "text": "Nó chụp rất nhiều khung hình riêng biệt rồi ghép thành video."
+  },
+  {
+   "i": 13,
+   "start": 32.376,
+   "end": 34.437,
+   "speaker": "B",
+   "text": "Giả sử camera ghi 30 hình mỗi giây."
+  },
+  {
+   "i": 14,
+   "start": 35.275,
+   "end": 35.988,
+   "speaker": "B",
+   "text": "Giữa hai lần chụp,"
+  },
+  {
+   "i": 15,
+   "start": 36.422,
+   "end": 40.168,
+   "speaker": "B",
+   "text": "bánh xe đã quay vừa đúng một khoảng bằng khoảng cách giữa hai nan hoa."
+  },
+  {
+   "i": 16,
+   "start": 40.937,
+   "end": 42.124,
+   "speaker": "B",
+   "text": "Thì trong hai tấm hình,"
+  },
+  {
+   "i": 17,
+   "start": 42.458,
+   "end": 44.149,
+   "speaker": "B",
+   "text": "vị trí các nan hoa nhìn y chang nhau!"
+  },
+  {
+   "i": 19,
+   "start": 45.129,
+   "end": 47.031,
+   "speaker": "B",
+   "text": "Thế là bánh xe trông như đang đứng im,"
+  },
+  {
+   "i": 20,
+   "start": 47.35,
+   "end": 48.85,
+   "speaker": "B",
+   "text": "dù ngoài đời vẫn quay ào ào."
+  },
+  {
+   "i": 21,
+   "start": 49.892,
+   "end": 51.32,
+   "speaker": "B",
+   "text": "Nhưng nếu mỗi lần camera chụp,"
+  },
+  {
+   "i": 22,
+   "start": 51.75,
+   "end": 54.089,
+   "speaker": "B",
+   "text": "bánh xe quay thiếu một chút so với khoảng cách đó..."
+  },
+  {
+   "i": 23,
+   "start": 54.973,
+   "end": 57.615,
+   "speaker": "B",
+   "text": "Nan hoa trong hình tiếp theo lại có vẻ lùi về sau."
+  },
+  {
+   "i": 24,
+   "start": 58.516,
+   "end": 59.885,
+   "speaker": "B",
+   "text": "Não mình nối hai hình lại,"
+  },
+  {
+   "i": 25,
+   "start": 60.167,
+   "end": 61.473,
+   "speaker": "B",
+   "text": "rồi tưởng bánh xe đang quay ngược!"
+  },
+  {
+   "i": 26,
+   "start": 62.742,
+   "end": 63.395,
+   "speaker": "B",
+   "text": "Nói đơn giản,"
+  },
+  {
+   "i": 27,
+   "start": 63.682,
+   "end": 64.93,
+   "speaker": "B",
+   "text": "bánh xe không có quay ngược."
+  },
+  {
+   "i": 28,
+   "start": 65.606,
+   "end": 68.821,
+   "speaker": "B",
+   "text": "Camera chỉ bỏ lỡ phần chuyển động xảy ra giữa hai khung hình."
+  },
+  {
+   "i": 29,
+   "start": 69.856,
+   "end": 71.103,
+   "speaker": "B",
+   "text": "Và cái thú vị nhất là"
+  },
+  {
+   "i": 30,
+   "start": 71.287,
+   "end": 73.943,
+   "speaker": "B",
+   "text": "hiệu ứng này còn có thể làm bánh xe nhìn như quay chậm,"
+  },
+  {
+   "i": 31,
+   "start": 74.376,
+   "end": 76.897,
+   "speaker": "B",
+   "text": "đứng yên hoặc đổi chiều khi tốc độ thay đổi."
+  },
+  {
+   "i": 33,
+   "start": 78.037,
+   "end": 80.314,
+   "speaker": "B",
+   "text": "Giờ mấy bạn coi lại mấy cảnh xe chạy trong phim thử đi."
+  },
+  {
+   "i": 34,
+   "start": 80.936,
+   "end": 83.45,
+   "speaker": "B",
+   "text": "Có khi chiếc xe chạy nhanh tới mức camera theo không kịp..."
+  },
+  {
+   "i": 36,
+   "start": 84.009,
+   "end": 88.596,
+   "speaker": "B",
+   "text": "Còn người xem thì tưởng tài xế vừa phát minh ra kỹ thuật chạy tới bằng cách quay bánh xe lùi!"
+  },
+  {
+   "i": 37,
+   "start": 89.462,
+   "end": 91.582,
+   "speaker": "B",
+   "text": "Đúng là không phải lúc nào mắt thấy cũng là sự thật!"
+  }
+ ]
+}

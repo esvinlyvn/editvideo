@@ -1,0 +1,236 @@
+{
+ "source": "align.mjs (local)",
+ "chunks": [
+  {
+   "i": 0,
+   "start": 0.24,
+   "end": 2.964,
+   "speaker": "B",
+   "text": "Tui nói chuyện bình thường thì nghe giọng cũng trầm ấm, dễ thương."
+  },
+  {
+   "i": 1,
+   "start": 3.474,
+   "end": 4.996,
+   "speaker": "B",
+   "text": "Mà bấm nghe lại đoạn ghi âm..."
+  },
+  {
+   "i": 2,
+   "start": 5.64,
+   "end": 5.815,
+   "speaker": "B",
+   "text": "Ủa?"
+  },
+  {
+   "i": 3,
+   "start": 6.33,
+   "end": 8.057,
+   "speaker": "B",
+   "text": "Ông nội nào đang nói chuyện trong điện thoại tui vậy?"
+  },
+  {
+   "i": 4,
+   "start": 8.987,
+   "end": 11.628,
+   "speaker": "B",
+   "text": "Nếu bạn cũng thấy giọng mình trong ghi âm khác hẳn ngoài đời,"
+  },
+  {
+   "i": 5,
+   "start": 12.058,
+   "end": 13.76,
+   "speaker": "B",
+   "text": "thì có một lý do khoa học rất thú vị."
+  },
+  {
+   "i": 6,
+   "start": 14.682,
+   "end": 15.429,
+   "speaker": "B",
+   "text": "Khi bạn nói,"
+  },
+  {
+   "i": 7,
+   "start": 15.694,
+   "end": 17.343,
+   "speaker": "B",
+   "text": "tai mình nghe giọng qua hai con đường."
+  },
+  {
+   "i": 8,
+   "start": 18.013,
+   "end": 21.963,
+   "speaker": "B",
+   "text": "Đường thứ nhất là âm thanh truyền qua không khí, đi vô tai."
+  },
+  {
+   "i": 10,
+   "start": 22.256,
+   "end": 25.768,
+   "speaker": "B",
+   "text": "Đường thứ hai là rung động từ giọng nói truyền qua các mô và xương trong đầu tới tai trong."
+  },
+  {
+   "i": 11,
+   "start": 26.745,
+   "end": 30.57,
+   "speaker": "B",
+   "text": "Phần rung động truyền qua xương làm mình cảm nhận giọng nói có thêm những âm trầm."
+  },
+  {
+   "i": 13,
+   "start": 31.145,
+   "end": 31.533,
+   "speaker": "B",
+   "text": "Bởi vậy,"
+  },
+  {
+   "i": 14,
+   "start": 31.898,
+   "end": 35.115,
+   "speaker": "B",
+   "text": "giọng bạn tự nghe khi nói thường có cảm giác dày và trầm hơn."
+  },
+  {
+   "i": 15,
+   "start": 36.132,
+   "end": 40.751,
+   "speaker": "B",
+   "text": "Nhưng khi mở lại bản ghi âm, bạn chủ yếu nghe âm thanh được micro thu qua không khí."
+  },
+  {
+   "i": 16,
+   "start": 41.297,
+   "end": 44.455,
+   "speaker": "B",
+   "text": "Không còn phần rung động truyền trực tiếp qua xương như lúc mình đang nói nữa."
+  },
+  {
+   "i": 17,
+   "start": 45.142,
+   "end": 47.184,
+   "speaker": "B",
+   "text": "Thế là giọng tự nhiên nghe lạ hoắc!"
+  },
+  {
+   "i": 19,
+   "start": 48.136,
+   "end": 48.75,
+   "speaker": "B",
+   "text": "Mà chưa hết nha."
+  },
+  {
+   "i": 20,
+   "start": 49.255,
+   "end": 49.801,
+   "speaker": "B",
+   "text": "Micro,"
+  },
+  {
+   "i": 21,
+   "start": 50.054,
+   "end": 50.985,
+   "speaker": "B",
+   "text": "khoảng cách thu âm,"
+  },
+  {
+   "i": 22,
+   "start": 51.179,
+   "end": 54.134,
+   "speaker": "B",
+   "text": "căn phòng và loa phát lại cũng có thể làm giọng nghe khác đi."
+  },
+  {
+   "i": 24,
+   "start": 54.825,
+   "end": 58.222,
+   "speaker": "B",
+   "text": "Nên đừng vội kết luận giọng mình ngoài đời giống y chang một bản ghi âm bất kỳ."
+  },
+  {
+   "i": 25,
+   "start": 59.106,
+   "end": 60.331,
+   "speaker": "B",
+   "text": "Nhưng có một chuyện khá vui."
+  },
+  {
+   "i": 26,
+   "start": 61.159,
+   "end": 63.2,
+   "speaker": "B",
+   "text": "Giọng bạn bè nghe mỗi ngày,"
+  },
+  {
+   "i": 27,
+   "start": 63.822,
+   "end": 65.054,
+   "speaker": "B",
+   "text": "bạn thấy bình thường."
+  },
+  {
+   "i": 28,
+   "start": 65.453,
+   "end": 66.465,
+   "speaker": "B",
+   "text": "Còn giọng chính mình nghe lại,"
+  },
+  {
+   "i": 29,
+   "start": 67.346,
+   "end": 68.959,
+   "speaker": "B",
+   "text": "đôi khi lại thấy kỳ cục."
+  },
+  {
+   "i": 30,
+   "start": 69.327,
+   "end": 70.526,
+   "speaker": "B",
+   "text": "Không phải vì bạn vừa đổi giọng."
+  },
+  {
+   "i": 31,
+   "start": 70.798,
+   "end": 72.796,
+   "speaker": "B",
+   "text": "Mà vì lần đầu tiên bạn đang nghe nó gần giống cách người khác nghe,"
+  },
+  {
+   "i": 32,
+   "start": 73.167,
+   "end": 74.707,
+   "speaker": "B",
+   "text": "thay vì cách bạn nghe từ bên trong đầu."
+  },
+  {
+   "i": 33,
+   "start": 75.661,
+   "end": 77.767,
+   "speaker": "B",
+   "text": "Tui thấy chuyện này cũng an ủi được chút xíu."
+  },
+  {
+   "i": 34,
+   "start": 78.396,
+   "end": 80.173,
+   "speaker": "B",
+   "text": "Hóa ra không phải giọng tui bị lỗi."
+  },
+  {
+   "i": 35,
+   "start": 80.653,
+   "end": 83.454,
+   "speaker": "B",
+   "text": "Chỉ là bấy lâu nay tui được nghe phiên bản có thêm..."
+  },
+  {
+   "i": 37,
+   "start": 83.785,
+   "end": 85.149,
+   "speaker": "B",
+   "text": "hiệu ứng âm trầm miễn phí!"
+  }
+ ]
+}

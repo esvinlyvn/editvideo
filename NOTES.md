@@ -149,6 +149,11 @@ node projects/post-11/build.mjs
 | 37 | Saira | Mận đêm `#1b1020`, chữ kem | Vàng lưu huỳnh `#ffc23d` | Mô hình Hệ Mặt Trời |
 | 38 | Bai Jamjuree | Trời nhạt `#dcecf7` | Cam an toàn `#f77f00` | Khoang khách + mặt cắt cửa sổ |
 | 39 | Oswald | Biển bão `#16242c`, chữ trắng bọt | Đỏ laser `#ff4655` | Mặt cắt biển + giàn khoan |
+| 40 | Kanit | Vàng phim `#ffd23f` | Đỏ đèn quay `#d7263d` | Trường quay ngoài đường |
+| 41 | Alegreya (serif) | Phố đêm `#26324a`, chữ kem | Vàng đèn đường `#ffb703` | Đại lộ xuyên thời gian |
+| 42 | Quicksand | Xám mưa `#e3eef0` | San hô `#f25f5c` | Phòng giặt + ban công |
+| 43 | Signika | Oải hương `#f1e9ff` | Hồng đỏ `#e85d75` | Cái đầu soi X-quang |
+| 44 | Itim | Đào `#ffe8d6` | Đỏ ớt `#d00000` | Bàn lẩu cắt đôi |
 
 - Font phụ đề và chữ phụ luôn là **Be Vietnam Pro**.
 - Font đã cài sẵn: nunito, jetbrains-mono, lexend, montserrat, baloo-2, space-grotesk, playfair-display, bungee, pangolin, paytone-one, barlow-condensed, fraunces, bricolage-grotesque, lora, plus-jakarta-sans, be-vietnam-pro.
@@ -241,6 +246,11 @@ Repo **không có post 1–4 được đánh số**. Trước post 5 là giai đ
 | **37** (bài 33) | Đồng hồ Sao Kim | **Mô hình Hệ Mặt Trời nhìn từ trên**: vị trí hành tinh tính theo góc (proxy + onUpdate), cờ đánh dấu tự quay, vòng tiến độ 243 ngày; thẻ mặt đất Sao Kim (Mặt Trời mọc Tây lặn Đông, 117 ngày); mũi tên chiều quay; 465°C; vé nghỉ dưỡng → NGHỈ LUÔN | Ghi rõ không đúng tỉ lệ; vé nghỉ dưỡng tự bịa | 71,6s |
 | **38** (bài 34) | Lỗ nhỏ cửa sổ máy bay | **Khoang khách + mặt cắt**: cửa sổ nhìn thẳng, tách 3 lớp; mặt cắt với hạt khí dày/thưa, kim đồng hồ áp suất, mũi tên lực, khí lọt qua lỗ vào khe giữa, hơi ẩm tan, đường thông thẳng bị chặn; máy bay không logo; tiếp viên; vớ thủng "công nghệ hàng không?" | Không ghi số độ cao/áp suất; cảnh vớ thủng tự bịa | 78,5s |
 | **39** (bài 35) | Sóng dị thường Draupner | **Mặt cắt biển**: mặt nước là hàm thuần của thời gian (tổng sin + sóng dị thường nổi tại chỗ) nên tua tới đâu cũng đúng; giàn khoan có tia laser, biểu đồ laser cuộn theo thời gian có đỉnh 25,6 m và dải ≈ 12 m; tàu buồm xưa, tàu hàng; thẻ giao thoa 3 sóng; hải lưu, gió; đáy biển, cá | Câu "Sóng cao dữ thần luôn!", chai mắm/muối, sổ ghi chép tự bịa; tỉ lệ đứng 1 m ≈ 22 đơn vị | 121s |
+| **40** (bài 36) | Hiệu ứng bánh xe ngựa | **Trường quay ngoài đường**: xe chạy tại chỗ, cảnh nền trôi; bánh 6 nan vẽ theo "mắt camera" (quay lùi, đứng im) + vòng mờ cho biết ngoài đời quay nhanh; máy quay có đèn flash; dải phim; thước 30 hình/giây; thẻ hình 1 → hình 2 (đúng 1 khoảng nan = y chang; thiếu một chút = lùi); khung bỏ lỡ; quay chậm/đứng yên/đổi chiều; màn hình phim; bằng sáng chế đùa | Bằng sáng chế "chạy tới bằng bánh quay lùi" tự bịa | 95,1s |
+| **41** (bài 37) | Vì sao người Pháp xuống đường | **Đại lộ xuyên thời gian**: các đoạn phố 1791 (bảng đạo luật, ổ khóa) · 1864 (còng tay gỡ ra) · 1884 (trụ sở công đoàn mở cửa) · 5/1968 (đại học + nhà máy ngừng) · hôm nay (ga NGỪNG CHẠY, trường TẠM NGHỈ); thẻ bậc thang quyền lợi, đám đông, bàn thương lượng, đòn bẩy sức ép, 3 loại hành vi, ủng hộ/phản đối, 3 câu hỏi, điện thoại clip la hét | Không logo tổ chức, không cảnh bạo lực; nhãn tòa nhà, biển bảng tự viết | 148,6s |
+| **42** (bài 38) | Đồ phơi mùa mưa bị hôi | **Phòng giặt + ban công**: giàn phơi, trời ngày/đêm/âm u, mưa; vệt hôi; kính lúp vi khuẩn (minh họa); áo sát áo → giãn ra cho gió lùa; quạt, máy hút ẩm; nước xả bị gạch; giàn phơi hóa rừng nhiệt đới có ếch; áo cầm "đơn xin nghỉ phép" | Kính lúp, biểu đồ khuẩn là minh họa; đơn xin nghỉ phép tự bịa | 102,9s |
+| **43** (bài 39) | Giọng mình trong ghi âm | **Cái đầu soi X-quang**: nhân vật nhìn nghiêng cầm điện thoại, đường qua không khí (vòng ngoài có chấm chạy) và đường qua xương (thanh quản → ốc tai); thanh EQ thêm âm trầm; góc thu âm (micro, khoảng cách, phòng dội, loa); người bạn; thẻ "Hiệu ứng âm trầm · MIỄN PHÍ" | Không có câu chào nên không đưa linh vật Sáu; "ông nội" trên màn hình, công tắc âm trầm tự bịa | 88,7s |
+| **44** (bài 40) | Nồi lẩu im re | **Bàn lẩu cắt đôi**: nồi mặt cắt có bong bóng, hơi, nhiệt kế (chỉ ghi 100°C khi sôi); bếp ga lửa đều; tủ lạnh, thịt đóng sương; mũi tên nhiệt bếp → nước → thịt; thẻ 1 dĩa vs 3 dĩa (minh họa); loại thịt/độ dày/nhiệt độ bên trong; đổ một lượt; nồi có mặt, giấy TĂNG CA, gồng tay | Đổi font Coiny → Itim vì Coiny lỗi dấu "ư/ơ"; giấy tăng ca tự bịa | 100,3s |
 
 ### Bài học đã rút ra (đã đưa vào `CLAUDE.md` hoặc code)
 

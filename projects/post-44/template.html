@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Nồi lẩu im re</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+{{FONTS}}
+      /* ===== "Bàn lẩu cắt đôi": một bàn ăn có nồi lẩu cắt ngang (thấy nước, bong bóng, nhiệt kế), có camera =====
+         Trái: tủ lạnh (thịt lấy ra còn lạnh) · giữa: bếp ga mini + nồi lẩu mặt cắt · phải: dĩa thịt, cá viên, rau, nấm · quanh bàn: 4 người ăn.
+         Mũi tên nhiệt: bếp → nước, nước → thịt. Nhiệt kế chỉ ghi "100°C" khi sôi (theo lời voice), còn lại ghi chữ.
+         2 font: Itim (tiêu đề) · Be Vietnam Pro. Chữ nâu đất #3a1f1d + nhấn đỏ ớt #d00000. Nền đào #ffe8d6. */
+      :root { --disp: "Itim", sans-serif; --body: "Be Vietnam Pro", sans-serif; --ink: #3a1f1d; --acc: #d00000; --bg: #ffe8d6; }
+      body { margin: 0; background: var(--bg); font-family: var(--body); color: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+      #stage { position: absolute; inset: 0; }
+      #W { position: absolute; left: 0; top: 0; display: block; }
+      #shTop { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: linear-gradient(rgba(255,232,214,.96) 0, rgba(255,232,214,.75) 300px, rgba(255,232,214,0) 520px); }
+      #dim { position: absolute; inset: 0; background: rgba(255,232,214,.92); opacity: 0; }
+      .safe { position: absolute; left: 108px; right: 108px; }
+      .blk { display: block; }
+      .c { text-align: center; }
+      .a { color: var(--acc); }
+      .o0 { opacity: 0; }
+      .h { font-family: var(--disp); font-weight: 400; line-height: 1.1; }
+      .h .blk { white-space: nowrap; }
+      .tt { top: 196px; font-size: 70px; }
+      .lab { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; color: #8a5a44; white-space: nowrap; }
+      .card { background: #fff; border: 5px solid var(--ink); border-radius: 28px; }
+      .tag { position: absolute; translate: -50% -100%; padding: 10px 22px 12px; border-radius: 16px; background: #fff; border: 5px solid var(--ink); font-family: var(--disp); font-weight: 400; font-size: 36px; white-space: nowrap; opacity: 0; }
+      .strike { position: absolute; left: -10px; right: -10px; top: 52%; height: 9px; background: var(--acc); border-radius: 5px; transform-origin: 0 50%; }
+      .row { display: flex; align-items: center; gap: 22px; padding: 14px 26px; text-align: left; font-family: var(--disp); font-size: 44px; white-space: nowrap; }
+      .sau { position: absolute; left: 280px; top: 470px; width: 520px; height: 520px; }
+      .cap { position: absolute; left: 108px; right: 150px; top: 1500px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 800px; text-align: center; font-family: var(--body); font-weight: 600; font-size: 44px; line-height: 1.38;
+        color: #fff; padding: 10px 24px 12px; border-radius: 14px; background: rgba(36, 16, 14, 0.88); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="post44" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <div class="clip" id="stage" data-start="0" data-duration="{{DURATION}}" data-track-index="1">
+        <svg id="W" width="1080" height="1920" preserveAspectRatio="xMidYMid slice"></svg>
+        <div id="shTop"></div>
+        <div class="tag" id="tgQuiet" style="color:var(--acc)">Im re!</div>
+        <div class="tag" id="tgCold" style="color:#1d7fbf">Thịt lạnh từ tủ</div>
+        <div class="tag" id="tgSame">Lửa vẫn y vậy</div>
+        <div class="tag" id="tgHot" style="color:var(--acc)">Vẫn rất nóng</div>
+        <div class="tag" id="tgOT">Tăng ca nguyên bàn</div>
+        <div id="dim"></div>
+        <!-- HUD -->
+        <div class="safe h c tt o0" id="t0"><span class="blk">Nồi lẩu</span><span class="blk a">sôi ùng ục</span></div>
+        <div class="safe h c tt o0" id="t1"><span class="blk">Thả dĩa thịt vô</span><span class="blk a">mặt nước im re!</span></div>
+        <div class="safe c o0" id="power" style="top:300px"><div class="card" style="display:inline-block;padding:30px 44px 34px"><svg width="420" height="260" viewBox="0 0 420 260">{{MEAT_BTN}}</svg>
+          <div class="h" style="font-size:56px;margin-top:8px"><span class="blk">Thịt có nút</span><span class="blk a">tắt bếp hả?</span></div></div></div>
+        <div class="safe h c tt o0" id="t2"><span class="blk">Giải thích đơn giản</span><span class="blk a">mà có chi tiết hay</span></div>
+        <div class="safe h c tt o0" id="t3"><span class="blk">Nước sôi</span><span class="blk a">khoảng 100°C</span></div>
+        <div class="safe h c tt o0" id="t4"><span class="blk">Nhiệt từ bếp</span><span class="blk a">biến nước thành hơi</span></div>
+        <div class="safe h c tt o0" id="t5"><span class="blk">Thịt vừa lấy</span><span class="blk a">từ tủ lạnh ra</span></div>
+        <div class="safe h c tt o0" id="t6"><span class="blk">Nhiệt chạy</span><span class="blk a">từ nước qua thịt</span></div>
+        <div class="safe h c tt o0" id="t7"><span class="blk">Nước xuống dưới</span><span class="blk a">mức sôi: hết sủi</span></div>
+        <div class="safe h c tt o0" id="t8"><span class="blk">Không phải</span><span class="blk a">bếp yếu đi</span></div>
+        <div class="safe c o0" id="more" style="top:196px"><div class="h" style="font-size:62px"><span class="blk">Càng nhiều đồ lạnh</span><span class="blk a">càng lâu sôi lại</span></div>
+          <div class="card" style="margin-top:28px;padding:26px 30px 20px"><svg width="760" height="330" viewBox="0 0 760 330">{{MORE}}</svg></div></div>
+        <div class="safe h c tt o0" id="t9"><span class="blk">Nhưng có một</span><span class="blk a">hiểu lầm nè</span></div>
+        <div class="safe c o0" id="myth" style="top:300px"><div class="card" style="display:inline-block;padding:30px 44px 36px"><div class="lab">hiểu lầm</div>
+          <div class="h" style="font-size:56px;margin-top:12px;position:relative"><span class="blk">"Hết sủi bong bóng</span><span class="blk">là nước nguội rồi"</span><i class="strike" id="stMyth" style="transform:scaleX(0)"></i></div></div></div>
+        <div class="safe h c tt o0" id="t10"><span class="blk">Sôi lại rồi</span><span class="blk a">chưa chắc thịt đã chín</span></div>
+        <div class="safe c o0" id="dep" style="top:196px"><div class="h" style="font-size:62px"><span class="blk">Thịt chín an toàn</span><span class="blk a">còn tùy</span></div>
+          <div class="card" style="display:inline-block;margin-top:24px;padding:10px 30px 18px">
+            <div class="row dp">{{IC_TYPE}}<span>Loại thịt</span></div><div class="row dp">{{IC_THICK}}<span>Độ dày</span></div><div class="row dp">{{IC_PROBE}}<span>Nhiệt độ bên trong</span></div></div></div>
+        <div class="safe h c tt o0" id="t11"><span class="blk">Cho vô từng đợt</span><span class="blk a">chín kỹ rồi hãy ăn</span></div>
+        <div class="safe h c tt o0" id="t12"><span class="blk">Có người đổ</span><span class="blk a">nguyên dĩa một lượt…</span></div>
+        <div class="safe h c tt o0" id="t13"><span class="blk">Nồi lẩu im lặng</span><span class="blk a">như bị giao tăng ca!</span></div>
+        <div class="safe h c tt o0" id="t14"><span class="blk">Nó đang gồng mình</span><span class="blk a">phục vụ nguyên bàn!</span></div>
+        <div class="o0" id="sauBox"><div class="sau">{{SAU}}</div><div class="safe h c" style="top:1020px;font-size:84px"><span class="blk">Sáu Suy Nghĩ</span></div></div>
+      </div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const K = "#3a1f1d", ACC = "#d00000", COLD = "#1d7fbf", GY = 1400, WL = 980;
+      const CAM = (cx, cy, w, sy = 960) => { const s = 1080 / w, h = w / 0.5625; return [cx - w / 2, cy - sy / s, w, h]; };
+      const vbs = (v) => v.map((n) => Math.round(n * 10) / 10).join(" ");
+      const S = (v, wx, wy) => [((wx - v[0]) / v[2]) * 1080, ((wy - v[1]) / v[3]) * 1920];
+      const place = (id, v, wx, wy) => { const [x, y] = S(v, wx, wy); const el = document.getElementById(id); el.style.left = x + "px"; el.style.top = y + "px"; };
+      const slice = (x, y, r = 0) => `<path d="M${x - 60} ${y}c20-26 100-30 120-6 8 12-6 22-30 24-30 4-70 6-86-4z" fill="#e5989b" stroke="${K}" stroke-width="5" transform="rotate(${r} ${x} ${y})"/><path d="M${x - 40} ${y - 6}c20-8 50-8 70 0" stroke="#fff" stroke-width="6" fill="none" transform="rotate(${r} ${x} ${y})"/>`;
+      const diner = (x, c, flip) => `<g class="dn"><g transform="translate(${x} ${GY}) scale(${flip ? -1 : 1} 1)"><path d="M-70 0c0-140 40-200 80-200s80 60 80 200z" fill="${c}" stroke="${K}" stroke-width="6"/><circle cx="10" cy="-250" r="60" fill="#f3c9a5" stroke="${K}" stroke-width="6"/><path d="M-50 -260c0-50 30-70 60-70s60 20 56 60c-30-30-80-30-116 10z" fill="#3b2a20"/><circle cx="34" cy="-250" r="7" fill="${K}"/><path d="M60 -150l110-30" stroke="${K}" stroke-width="8"/></g></g>`;
+
+      // ---- phòng + bàn + 4 người
+      const room = `<rect x="-4000" y="-3000" width="8000" height="${3000 + GY}" fill="#ffe8d6"/><rect x="-4000" y="${GY}" width="8000" height="1500" fill="#c97c5d"/><path d="M-1100 ${GY}H1100" stroke="${K}" stroke-width="12"/><rect x="-1100" y="${GY}" width="2200" height="60" fill="#a0522d" stroke="${K}" stroke-width="6"/>
+        <g id="lamp"><path d="M0 -200V340" stroke="${K}" stroke-width="6"/><path d="M-160 420l60-80h200l60 80z" fill="#f4a261" stroke="${K}" stroke-width="6"/><ellipse cx="0" cy="430" rx="180" ry="26" fill="#ffd166" opacity=".5"/></g>`;
+      const diners = diner(-900, "#457b9d", false) + diner(-680, "#e9c46a", false) + diner(680, "#2a9d8f", true) + diner(900, "#f4a261", true);
+      // ---- tủ lạnh (trái)
+      const fridge = `<g id="fridge"><rect x="-1700" y="${GY - 900}" width="420" height="${900}" rx="24" fill="#e7f1f8" stroke="${K}" stroke-width="8"/><path d="M-1700 ${GY - 560}H-1280" stroke="${K}" stroke-width="6"/><path d="M-1320 ${GY - 800}v120M-1320 ${GY - 500}v120" stroke="${K}" stroke-width="12" stroke-linecap="round"/>
+        <g id="frost" opacity="0">${[...Array(8)].map((_, k) => `<path d="M${-1640 + k * 46} ${GY - 620}l10-16 10 16-10 16z" fill="#bde0fe"/>`).join("")}</g></g>`;
+      // ---- bếp ga mini + nồi lẩu mặt cắt
+      const flames = (s) => `<g class="fl">${[-120, -60, 0, 60, 120].map((x) => `<path d="M${x} ${GY - 120}c-24-30-10-60 0-80 10 20 24 50 0 80z" fill="#3a86ff" opacity=".9"/><path d="M${x} ${GY - 126}c-10-14-4-30 0-40 4 10 10 26 0 40z" fill="#9bf6ff"/>`).join("")}</g>`;
+      const stove = `<g id="stove"><rect x="-300" y="${GY - 110}" width="600" height="110" rx="20" fill="#adb5bd" stroke="${K}" stroke-width="7"/><circle cx="220" cy="${GY - 56}" r="24" fill="#495057"/><g id="flame">${flames()}</g></g>`;
+      let bub = ""; for (let i = 0; i < 26; i++) bub += `<circle class="bb" cx="${-280 + ((i * 97) % 560)}" cy="${WL + 40 + ((i * 131) % 230)}" r="${8 + (i % 4) * 5}" fill="#fff" stroke="#e76f51" stroke-width="3" opacity=".9"/>`;
+      const pot = `<g id="pot"><path d="M-370 ${WL - 120}H370V${GY - 140}c0 20-20 30-40 30H-330c-20 0-40-10-40-30z" fill="#ced4da" stroke="${K}" stroke-width="10"/><path d="M-420 ${WL - 90}h50M370 ${WL - 90}h50" stroke="${K}" stroke-width="18" stroke-linecap="round"/>
+        <path id="water" d="M-350 ${WL}H350V${GY - 150}c0 14-14 20-30 20H-320c-16 0-30-6-30-20z" fill="#e76f51" opacity=".85"/><path id="surface" d="M-350 ${WL}H350" stroke="#f4a261" stroke-width="10"/>
+        <g id="bubbles">${bub}</g>
+        <g id="steam">${[-200, -60, 80, 220].map((x) => `<path class="stm" d="M${x} ${WL - 140}c-30-40 30-80 0-120s30-80 0-120" stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" opacity=".8"/>`).join("")}</g>
+        <g id="inMeat" opacity="0">${[[-180, WL + 60, -10], [-30, WL + 120, 15], [130, WL + 70, -20], [-110, WL + 180, 10], [80, WL + 200, -5]].map(([x, y, r]) => `<g class="im">${slice(x, y, r)}</g>`).join("")}</g>
+        <g id="heatUp" opacity="0">${[-180, 0, 180].map((x) => `<path class="hu" d="M${x} ${GY - 120}V${GY - 230}" stroke="${ACC}" stroke-width="14" stroke-linecap="round"/><path class="hu" d="M${x - 22} ${GY - 210}l22-30 22 30" stroke="${ACC}" stroke-width="12" fill="none" stroke-linecap="round"/>`).join("")}</g>
+        <g id="heatMeat" opacity="0">${[[-270, WL + 40, -180, WL + 60], [250, WL + 40, 130, WL + 70], [10, WL + 270, -30, WL + 140]].map(([x1, y1, x2, y2]) => `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${ACC}" stroke-width="10" stroke-dasharray="16 10" stroke-linecap="round"/>`).join("")}</g>
+        <g id="therm"><path d="M300 ${WL - 360}V${WL + 160}" stroke="${K}" stroke-width="30" stroke-linecap="round"/><path d="M300 ${WL - 360}V${WL + 160}" stroke="#fff" stroke-width="18" stroke-linecap="round"/><path id="merc" d="M300 ${WL + 160}V${WL - 300}" stroke="${ACC}" stroke-width="12" stroke-linecap="round"/><circle cx="300" cy="${WL + 170}" r="24" fill="${ACC}" stroke="${K}" stroke-width="5"/>
+          <g transform="translate(110 ${WL - 380})"><rect x="0" y="-50" width="170" height="70" rx="14" fill="#fff" stroke="${K}" stroke-width="5"/><text id="thermT" x="85" y="0" text-anchor="middle" font-family="Itim" font-size="40" fill="${ACC}">100°C</text></g></g>
+        <g id="potFace" opacity="0"><circle cx="-120" cy="${WL + 110}" r="16" fill="${K}"/><circle cx="120" cy="${WL + 110}" r="16" fill="${K}"/><path id="potMouth" d="M-60 ${WL + 190}q60-30 120 0" stroke="${K}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M-160 ${WL + 70}l60 16M160 ${WL + 70}l-60 16" stroke="${K}" stroke-width="9" stroke-linecap="round"/></g>
+        <g id="potArms" opacity="0"><path d="M-420 ${WL + 60}c-120-20-160-140-100-200" stroke="#ced4da" stroke-width="40" fill="none" stroke-linecap="round"/><circle cx="-520" cy="${WL - 150}" r="40" fill="#ced4da" stroke="${K}" stroke-width="6"/><path d="M420 ${WL + 60}c120-20 160-140 100-200" stroke="#ced4da" stroke-width="40" fill="none" stroke-linecap="round"/><circle cx="520" cy="${WL - 150}" r="40" fill="#ced4da" stroke="${K}" stroke-width="6"/></g>
+        <g id="note" opacity="0"><g transform="translate(-280 ${WL - 230}) rotate(-8)"><rect x="-90" y="-60" width="180" height="120" fill="#ffd166" stroke="${K}" stroke-width="5"/><text y="-8" text-anchor="middle" font-family="Itim" font-size="34" fill="${K}">TĂNG CA</text><text y="38" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="800" font-size="24" fill="${K}">cả bàn</text></g></g></g>`;
+      // ---- dĩa thịt + món khác trên bàn (phải)
+      const plateMeat = `<g id="plateMeatW"><g id="plateMeat"><ellipse cx="600" cy="${GY - 20}" rx="180" ry="34" fill="#fff" stroke="${K}" stroke-width="6"/><g id="meatPile">${slice(560, GY - 50, -8)}${slice(640, GY - 46, 10)}${slice(600, GY - 70, 0)}</g><g id="frostM" opacity="0">${[530, 600, 670].map((x) => `<path d="M${x} ${GY - 110}l10-16 10 16-10 16z" fill="#bde0fe"/>`).join("")}</g></g></g>`;
+      const sides = `<g id="sides"><g id="fishW"><g id="fish"><ellipse cx="-620" cy="${GY - 24}" rx="130" ry="30" fill="#fff" stroke="${K}" stroke-width="6"/>${[-680, -620, -560, -650, -590].map((x, k) => `<circle cx="${x}" cy="${GY - 50 - (k > 2 ? 30 : 0)}" r="26" fill="#f1e3c8" stroke="${K}" stroke-width="5"/>`).join("")}</g></g>
+        <g id="vegW"><g id="veg"><ellipse cx="-380" cy="${GY - 20}" rx="110" ry="28" fill="#fff" stroke="${K}" stroke-width="6"/>${[-430, -380, -330].map((x) => `<path d="M${x} ${GY - 30}c-30-50 0-90 20-100 10 30 20 70-20 100z" fill="#70e000" stroke="${K}" stroke-width="5"/>`).join("")}</g></g>
+        <g id="mushW"><g id="mush"><ellipse cx="380" cy="${GY - 20}" rx="110" ry="28" fill="#fff" stroke="${K}" stroke-width="6"/>${[-40, 0, 40].map((d) => `<path d="M${380 + d} ${GY - 30}v-50" stroke="#f1e3c8" stroke-width="12"/><path d="M${350 + d} ${GY - 78}a30 22 0 0 1 60 0z" fill="#b08968" stroke="${K}" stroke-width="5"/>`).join("")}</g></g></g>`;
+      document.getElementById("W").innerHTML = `${room}${fridge}${diners}${stove}${pot}${sides}${plateMeat}`;
+
+      const P = { pot: CAM(0, 1100, 1250, 1060), potC: CAM(40, 1080, 1000, 1080), table: CAM(0, 1150, 1900, 1150), fridge: CAM(-1100, 1100, 1500, 1060), meat: CAM(250, 1150, 1200, 1060) };
+      let lastCam = P.potC; document.getElementById("W").setAttribute("viewBox", vbs(lastCam));
+      place("tgQuiet", P.potC, -100, WL - 160); place("tgCold", P.fridge, -1000, GY - 420); place("tgSame", P.pot, 0, GY - 260); place("tgHot", P.potC, -60, WL - 180); place("tgOT", P.table, 0, WL - 330);
+
+      // ================= Timeline =================
+      const tl = gsap.timeline({ paused: true });
+      const E = "power2.out", B = "back.out(1.7)";
+      const cam = (v, at, d = 1.0, ease = "power2.inOut") => { tl.fromTo("#W", { attr: { viewBox: vbs(lastCam) } }, { attr: { viewBox: vbs(v) }, duration: d, ease, immediateRender: false }, at); lastCam = v; };
+      const fadeUp = (sel, at, d = 0.45, y = 22) => tl.fromTo(sel, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: E, immediateRender: false }, at);
+      const out = (sel, at, d = 0.28) => tl.to(sel, { opacity: 0, duration: d, ease: "power1.in" }, at);
+      const T = (sel, a, b) => { fadeUp(sel, a, 0.45, 18); out(sel, b - 0.3, 0.28); };
+      const dimIn = (at) => tl.to("#dim", { opacity: 1, duration: 0.25 }, at), dimOut = (at) => tl.to("#dim", { opacity: 0, duration: 0.25 }, at);
+      const therm = (txt, lvl, at) => { tl.call(() => (document.getElementById("thermT").textContent = txt), null, at); tl.to("#merc", { scaleY: lvl, svgOrigin: `300 ${WL + 160}`, duration: 0.8, ease: E }, at); };
+      const boil = (on, at, d = 0.6) => { tl.to("#bubbles", { opacity: on, duration: d }, at); tl.to("#steam", { opacity: on ? 1 : 0.15, duration: d }, at); };
+      tl.fromTo(".bb", { y: 0 }, { y: -160, duration: 0.7, repeat: 140, stagger: { each: 0.04, repeat: 140 }, ease: "none", immediateRender: false }, 0);
+      tl.fromTo(".stm", { y: 0, opacity: 0.8 }, { y: -60, opacity: 0.2, duration: 1.2, repeat: 80, stagger: 0.3, ease: "sine.in", immediateRender: false }, 0);
+      tl.fromTo(".fl", { scaleY: 1, svgOrigin: `0 ${GY - 120}` }, { scaleY: 1.12, svgOrigin: `0 ${GY - 120}`, duration: 0.2, yoyo: true, repeat: 490, ease: "sine.inOut", immediateRender: false }, 0);
+
+      // ---- 0–1.5 · nồi lẩu sôi ùng ục
+      T("#t0", 0.15, 2.1);
+      // ---- 2.2–4.9 · thả dĩa thịt vô → im re
+      T("#t1", 2.17, 5.4);
+      tl.to("#meatPile", { x: -700, y: -380, rotation: -40, svgOrigin: `600 ${GY - 60}`, duration: 0.6, ease: "power2.in" }, 2.6);
+      tl.to("#meatPile", { opacity: 0, duration: 0.1 }, 3.2); tl.to("#inMeat", { opacity: 1, duration: 0.2 }, 3.2);
+      tl.fromTo(".im", { y: -120 }, { y: 0, duration: 0.5, stagger: 0.05, ease: "bounce.out", immediateRender: false }, 3.2);
+      boil(0, 3.6, 0.8); fadeUp("#tgQuiet", 4.0, 0.3); out("#tgQuiet", 5.6, 0.2);
+      // ---- 5.9–8.2 · bộ thịt có chức năng tắt bếp?
+      dimIn(5.6); fadeUp("#power", 5.86, 0.45);
+      tl.fromTo("#pwrBtn", { scale: 1, svgOrigin: "300 90" }, { scale: 0.85, svgOrigin: "300 90", duration: 0.15, yoyo: true, repeat: 3, immediateRender: false }, 6.8);
+      out("#power", 8.6, 0.28);
+      // ---- 9.2–15.0 · Sáu · giải thích đơn giản + chi tiết thú vị
+      tl.fromTo("#sauBox", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: B, immediateRender: false }, 9.0);
+      out("#sauBox", 10.4, 0.22); dimOut(10.5);
+      cam(P.table, 10.4, 1.2); T("#t2", 10.65, 15.6);
+      // reset: nồi sôi lại (để giải thích từ đầu)
+      tl.set("#inMeat", { opacity: 0 }, 15.6); tl.set("#meatPile", { opacity: 1, x: 0, y: 0, rotation: 0 }, 15.6); boil(1, 15.4, 0.6);
+      // ---- 16.2–20.2 · nước sôi ở áp suất khí quyển bình thường ≈ 100°C
+      cam(P.potC, 15.6, 1.0); T("#t3", 16.15, 20.7); therm("100°C", 1, 16.4);
+      tl.fromTo("#therm", { scale: 1, svgOrigin: `300 ${WL}` }, { scale: 1.06, svgOrigin: `300 ${WL}`, duration: 0.25, yoyo: true, repeat: 3, immediateRender: false }, 18.7);
+      // ---- 21.0–25.9 · nhiệt từ bếp truyền vào biến nước thành hơi
+      cam(P.pot, 20.6, 0.9); T("#t4", 21.0, 26.5); tl.to("#heatUp", { opacity: 1, duration: 0.3 }, 21.4);
+      tl.fromTo(".hu", { y: 20 }, { y: -20, duration: 0.6, repeat: 6, ease: "none", immediateRender: false }, 21.4);
+      tl.fromTo("#steam", { scale: 1, svgOrigin: `0 ${WL - 140}` }, { scale: 1.2, svgOrigin: `0 ${WL - 140}`, duration: 0.6, yoyo: true, repeat: 3, immediateRender: false }, 23.5);
+      out("#heatUp", 26.4, 0.3);
+      // ---- 27.1–31.5 · thịt vừa lấy từ tủ lạnh, lạnh hơn nước rất nhiều
+      cam(P.fridge, 26.6, 1.1); T("#t5", 27.14, 31.9);
+      tl.to("#frost", { opacity: 1, duration: 0.3 }, 28.2); fadeUp("#tgCold", 28.4, 0.3); out("#tgCold", 31.8, 0.2);
+      tl.fromTo("#plateMeatW", { x: 0 }, { x: -1500, duration: 0.01, immediateRender: false }, 27.5); tl.to("#frostM", { opacity: 1, duration: 0.3 }, 28.0);
+      tl.to("#plateMeatW", { x: 0, duration: 1.4, ease: "power2.inOut" }, 30.0);
+      // ---- 32.2–35.2 · nhiệt từ nước nóng qua thịt lạnh
+      cam(P.potC, 31.6, 1.0); T("#t6", 32.2, 35.7);
+      tl.to("#meatPile", { x: -700, y: -380, rotation: -40, svgOrigin: `600 ${GY - 60}`, duration: 0.5, ease: "power2.in" }, 31.9); tl.to("#meatPile", { opacity: 0, duration: 0.1 }, 32.4);
+      tl.to("#inMeat", { opacity: 1, duration: 0.2 }, 32.4); tl.to("#heatMeat", { opacity: 1, duration: 0.3 }, 32.8);
+      tl.fromTo("#heatMeat path", { strokeDashoffset: 0 }, { strokeDashoffset: -104, duration: 0.6, repeat: 4, ease: "none", immediateRender: false }, 32.8);
+      tl.fromTo(".im path:first-child", { fill: "#bde0fe" }, { fill: "#e5989b", duration: 2.4, immediateRender: false }, 32.8);
+      // ---- 36.4–40.8 · nước xuống dưới mức sôi → bong bóng ít đi, ngừng hẳn
+      T("#t7", 36.4, 41.2); therm("dưới sôi", 0.86, 37.0); boil(0.3, 38.3, 0.6); boil(0, 40.0, 0.5); out("#heatMeat", 40.8, 0.3);
+      // ---- 41.6–46.6 · không phải bếp yếu: nhiệt dùng để làm nóng nguyên liệu mới
+      cam(P.pot, 41.2, 0.9); T("#t8", 41.6, 47.1); fadeUp("#tgSame", 42.1, 0.3); out("#tgSame", 44.6, 0.2);
+      tl.to("#heatUp", { opacity: 1, duration: 0.3 }, 43.4); tl.to("#heatMeat", { opacity: 1, duration: 0.3 }, 44.4);
+      tl.fromTo("#heatMeat path", { strokeDashoffset: 0 }, { strokeDashoffset: -104, duration: 0.6, repeat: 3, ease: "none", immediateRender: false }, 44.4);
+      out(["#heatUp", "#heatMeat"], 47.0, 0.3);
+      // ---- 47.6–52.2 · càng nhiều đồ lạnh càng lâu sôi lại
+      dimIn(47.3); fadeUp("#more", 47.59, 0.45);
+      tl.fromTo(".mb1", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 0.8, ease: E, immediateRender: false }, 49.9);
+      tl.fromTo(".mb3", { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: 2.0, ease: E, immediateRender: false }, 50.2);
+      out("#more", 52.7, 0.28);
+      // ---- 53.4–59.5 · hiểu lầm: hết sủi là nguội
+      T("#t9", 53.39, 55.3); fadeUp("#myth", 55.63, 0.45); tl.fromTo("#stMyth", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: E, immediateRender: false }, 58.3);
+      out("#myth", 60.0, 0.28); dimOut(60.1);
+      // ---- 60.3–63.6 · nước vẫn có thể rất nóng dù chưa sôi
+      cam(P.potC, 59.9, 0.9); therm("rất nóng", 0.9, 60.4); fadeUp("#tgHot", 61.3, 0.3); out("#tgHot", 64.0, 0.2);
+      tl.to("#steam", { opacity: 0.7, duration: 0.5 }, 61.0);
+      // ---- 64.5–69.5 · sôi lại rồi cũng chưa kết luận được thịt chín an toàn
+      T("#t10", 64.45, 69.9); boil(1, 66.0, 0.8); therm("sôi lại", 1, 66.0);
+      tl.fromTo(".im", { rotation: 0 }, { rotation: 6, duration: 0.2, yoyo: true, repeat: 7, transformOrigin: "50% 50%", immediateRender: false }, 67.6);
+      // ---- 70.2–73.4 · tùy loại thịt, độ dày, nhiệt độ bên trong
+      dimIn(69.9); fadeUp("#dep", 70.19, 0.45);
+      tl.fromTo(".dp:nth-child(1)", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, 70.6);
+      tl.fromTo(".dp:nth-child(2)", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, 71.71);
+      tl.fromTo(".dp:nth-child(3)", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, 72.4);
+      out("#dep", 74.0, 0.28); dimOut(74.1);
+      // ---- 74.3–79.7 · cho từng đợt vừa phải, chín kỹ rồi hãy ăn
+      cam(P.table, 73.9, 1.0); T("#t11", 74.31, 80.1);
+      tl.set("#inMeat", { opacity: 0 }, 74.0); tl.set("#meatPile", { opacity: 1, x: 0, y: 0, rotation: 0 }, 74.0); tl.set("#frostM", { opacity: 0 }, 74.0);
+      tl.fromTo(".dn", { y: 0 }, { y: -10, duration: 0.3, yoyo: true, repeat: 3, stagger: 0.15, immediateRender: false }, 77.0);
+      // ---- 80.3–85.2 · có người đổ nguyên dĩa thịt, cá viên, rau, nấm một lượt
+      T("#t12", 80.26, 85.6);
+      [["#plateMeat", 81.1, -600, -420], ["#fish", 82.05, 620, -420], ["#veg", 83.32, 380, -440], ["#mush", 83.99, -380, -440]].forEach(([sel, at, dx, dy]) => tl.to(sel, { x: dx, y: dy, rotation: dx > 0 ? 30 : -30, svgOrigin: "0 0", duration: 0.45, ease: "power2.in" }, at));
+      tl.to(["#plateMeat", "#fish", "#veg", "#mush"], { opacity: 0, duration: 0.2, stagger: 0.3 }, 82.0);
+      tl.to("#inMeat", { opacity: 1, duration: 0.2 }, 81.6); boil(0, 82.4, 0.8);
+      tl.fromTo("#water", { scaleY: 1, svgOrigin: `0 ${GY - 130}` }, { scaleY: 1.06, svgOrigin: `0 ${GY - 130}`, duration: 0.6, ease: E, immediateRender: false }, 84.0);
+      // ---- 85.7–89.9 · nồi lẩu im lặng như bị giao tăng ca
+      cam(P.potC, 85.4, 1.0); T("#t13", 85.74, 90.2);
+      tl.to("#potFace", { opacity: 1, duration: 0.3 }, 86.2); tl.to("#note", { opacity: 1, duration: 0.3 }, 87.5);
+      fadeUp("#tgOT", 88.0, 0.3); out("#tgOT", 90.0, 0.2);
+      // ---- 90.3–end · không phải ngừng hoạt động: gồng mình phục vụ nguyên bàn
+      cam(P.table, 90.0, 1.2); T("#t14", 94.12, 100.0);
+      tl.to("#potArms", { opacity: 1, duration: 0.3 }, 94.3);
+      tl.fromTo("#potArms", { y: 0 }, { y: -20, duration: 0.25, yoyo: true, repeat: 7, immediateRender: false }, 94.6);
+      tl.to("#potMouth", { attr: { d: `M-60 ${WL + 180}q60 40 120 0` }, duration: 0.3 }, 94.5);
+      boil(1, 95.2, 1.0); tl.fromTo(".dn", { y: 0 }, { y: -12, duration: 0.3, yoyo: true, repeat: 5, stagger: 0.1, immediateRender: false }, 95.6);
+
+      document.querySelectorAll(".cap").forEach((el) => tl.fromTo(el.firstElementChild, { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, parseFloat(el.dataset.start)));
+      window.__timelines["post44"] = tl;
+    </script>
+  </body>
+</html>

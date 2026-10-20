@@ -1,0 +1,303 @@
+{
+ "gainDb": 6,
+ "minGap": 0.6,
+ "scenes": [
+  0,
+  2.6,
+  7.0,
+  11.9,
+  13.6,
+  20.0,
+  24.0,
+  27.6,
+  35.5,
+  40.8,
+  44.9,
+  54.6,
+  55.8,
+  60.4,
+  65.0,
+  70.0,
+  78.0,
+  86.0,
+  91.0,
+  96.0
+ ],
+ "cues": [
+  {
+   "at": 0.3,
+   "name": "shimmer",
+   "vol": 0.55
+  },
+  {
+   "at": 2.6,
+   "name": "thunder",
+   "vol": 0.5
+  },
+  {
+   "at": 4.1,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 4.7,
+   "name": "gag",
+   "vol": 0.5
+  },
+  {
+   "at": 5.6,
+   "name": "awkward",
+   "vol": 0.5
+  },
+  {
+   "at": 7.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 7.6,
+   "name": "question",
+   "vol": 0.55
+  },
+  {
+   "at": 8.3,
+   "name": "shock",
+   "vol": 0.5
+  },
+  {
+   "at": 12.0,
+   "name": "title",
+   "vol": 0.55
+  },
+  {
+   "at": 13.67,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 15.8,
+   "name": "scribble",
+   "vol": 0.55
+  },
+  {
+   "at": 17.19,
+   "name": "ding-idea",
+   "vol": 0.6
+  },
+  {
+   "at": 20.0,
+   "name": "page-turn",
+   "vol": 0.5
+  },
+  {
+   "at": 24.0,
+   "name": "zoom-in",
+   "vol": 0.5
+  },
+  {
+   "at": 25.2,
+   "name": "vanish",
+   "vol": 0.5
+  },
+  {
+   "at": 25.8,
+   "name": "magic",
+   "vol": 0.5
+  },
+  {
+   "at": 27.62,
+   "name": "page-turn",
+   "vol": 0.45
+  },
+  {
+   "at": 28.6,
+   "name": "riser",
+   "vol": 0.4
+  },
+  {
+   "at": 30.7,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 31.4,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 33.0,
+   "name": "gag",
+   "vol": 0.5
+  },
+  {
+   "at": 35.5,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 37.0,
+   "name": "shimmer",
+   "vol": 0.4
+  },
+  {
+   "at": 41.0,
+   "name": "sweat",
+   "vol": 0.5
+  },
+  {
+   "at": 43.3,
+   "name": "gag",
+   "vol": 0.5
+  },
+  {
+   "at": 44.9,
+   "name": "thunder",
+   "vol": 0.45
+  },
+  {
+   "at": 47.9,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 49.0,
+   "name": "bonk",
+   "vol": 0.5
+  },
+  {
+   "at": 51.6,
+   "name": "tick-tock",
+   "vol": 0.45
+  },
+  {
+   "at": 54.62,
+   "name": "question",
+   "vol": 0.55
+  },
+  {
+   "at": 55.8,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 56.48,
+   "name": "click",
+   "vol": 0.5
+  },
+  {
+   "at": 58.4,
+   "name": "swipe",
+   "vol": 0.5
+  },
+  {
+   "at": 60.4,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 61.9,
+   "name": "whoosh-fast",
+   "vol": 0.5
+  },
+  {
+   "at": 63.0,
+   "name": "whoosh-soft",
+   "vol": 0.5
+  },
+  {
+   "at": 65.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 66.3,
+   "name": "click",
+   "vol": 0.5
+  },
+  {
+   "at": 67.6,
+   "name": "pop",
+   "vol": 0.5
+  },
+  {
+   "at": 70.38,
+   "name": "page-turn",
+   "vol": 0.45
+  },
+  {
+   "at": 72.0,
+   "name": "check",
+   "vol": 0.5
+  },
+  {
+   "at": 75.4,
+   "name": "wrong-buzzer",
+   "vol": 0.5
+  },
+  {
+   "at": 78.17,
+   "name": "page-turn",
+   "vol": 0.45
+  },
+  {
+   "at": 79.0,
+   "name": "slip",
+   "vol": 0.5
+  },
+  {
+   "at": 80.5,
+   "name": "wrong-buzzer",
+   "vol": 0.55
+  },
+  {
+   "at": 82.2,
+   "name": "pop",
+   "vol": 0.45
+  },
+  {
+   "at": 86.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 86.6,
+   "name": "thunder",
+   "vol": 0.45
+  },
+  {
+   "at": 88.0,
+   "name": "deflate",
+   "vol": 0.5
+  },
+  {
+   "at": 91.2,
+   "name": "magic",
+   "vol": 0.55
+  },
+  {
+   "at": 92.5,
+   "name": "quack",
+   "vol": 0.45
+  },
+  {
+   "at": 93.8,
+   "name": "crickets",
+   "vol": 0.4
+  },
+  {
+   "at": 96.0,
+   "name": "whoosh-soft",
+   "vol": 0.4
+  },
+  {
+   "at": 97.2,
+   "name": "cry",
+   "vol": 0.55
+  },
+  {
+   "at": 97.9,
+   "name": "stamp",
+   "vol": 0.85
+  }
+ ]
+}
