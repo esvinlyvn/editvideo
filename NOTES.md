@@ -197,6 +197,7 @@ node projects/post-11/build.mjs
 | Dấu đóng (`stampIn`), gạch chữ (`strike`), gạch chân (`ul`), highlight (`mark`) | 6–10 | |
 | Thẻ lật mặt 3D (bài toán → quyết định) | 7 | |
 | Bảng clapper, cuộn phim, cây kéo | 10 | |
+| Hiệu ứng Motion Prompt (mask reveal, count-up, impact shake, whip pan, rack focus…) tự chọn theo kịch bản | 44 (thử nghiệm) | `scripts/motion/`, skill `motion-director`; bản dựng riêng `build/post-N.motion/` |
 
 ---
 

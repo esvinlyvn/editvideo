@@ -249,6 +249,17 @@ for t in 10.5 24.3; do ffmpeg -ss $t -t 0.6 -i output.mp4 -af volumedetect -f nu
 
 ---
 
+## 6b. Hiệu ứng Motion Prompt (tùy chọn)
+
+```bash
+node scripts/motion/build.mjs projects/<ten-video> --plan-only   # xem cảnh nào dùng hiệu ứng gì, cảnh nào giữ nguyên + lý do
+node scripts/motion/build.mjs projects/<ten-video> --no-render   # build/<ten-video>.motion/ + motion-log.json
+node scripts/motion/build.mjs projects/<ten-video>               # render build/<ten-video>.motion/output.mp4
+MOTION_PROMPT_BASE=vendor/motion-prompt/api/v1 node .claude/skills/motion-prompt/scripts/motion-prompt.mjs search <từ khóa tiếng Anh>
+```
+
+Chi tiết: `scripts/motion/README.md`.
+
 ## 7. Lỗi hay gặp
 
 | Triệu chứng | Cách xử lý |

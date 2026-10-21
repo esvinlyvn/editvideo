@@ -1,0 +1,27 @@
+{
+  "_doc": "Quy chuẩn chuyển động cho nhân vật. motion-fx.js đọc các giới hạn này khi áp hiệu ứng lên nhân vật; direct.mjs chặn hiệu ứng nằm trong 'deny'. Không đổi hình vẽ, màu, nét của nhân vật: hiệu ứng chỉ được dịch chuyển, nén/giãn nhẹ, xoay nhẹ.",
+  "characters": {
+    "sau": {
+      "name": "Sáu Suy Nghĩ",
+      "match": ["tao là sáu", "sáu suy nghĩ"],
+      "selector": ".sau",
+      "parts": { "head": ".head", "brow": ".brow-r", "hand": ".fist, .hand" },
+      "art": ["projects/post-9/art/sau.svg", "projects/post-10/art/sau-laugh.svg"],
+      "style": "Vẽ SVG theo avatar: tóc rối, kính tròn, ria, áo thun đen số 6, nền tròn cam #ff7a1a. Chỉ xuất hiện ở đoạn chào + nút Follow. Tính cách lim dim, nhếch mép: động tác gọn, không lố.",
+      "limits": { "maxSquash": 0.08, "maxRotateDeg": 6, "maxJumpPx": 40 },
+      "allow": ["121", "122", "123", "125", "010"],
+      "deny": ["129", "024", "046", "043", "001"]
+    },
+    "vis-giu-xe": {
+      "name": "Vis Giữ Xe",
+      "match": ["vis giữ xe", "tao là vis", "vis đây"],
+      "selector": ".vis",
+      "parts": { "head": ".head" },
+      "art": [],
+      "style": "CHƯA CÓ bản vẽ trong repo (chưa tìm thấy file SVG hay mô tả). Khi có art, đặt vào projects/<post>/art/vis.svg, bọc trong phần tử class \"vis\" và bổ sung mô tả phong cách tại đây. Trong lúc chờ: áp cùng giới hạn thận trọng như Sáu.",
+      "limits": { "maxSquash": 0.08, "maxRotateDeg": 6, "maxJumpPx": 40 },
+      "allow": ["121", "122", "123", "125", "010"],
+      "deny": ["129", "024", "046", "043", "001"]
+    }
+  }
+}

@@ -70,3 +70,10 @@ Xem **`NOTES.md`** để biết phong cách series, cấu trúc repo, cách rend
 3. `node build.mjs --no-render`, chạy `npx hyperframes snapshot --at …`, xem contact sheet và sửa lỗi bố cục, xuống dòng, tương phản.
 4. Render, đo âm lượng, rồi giao video kèm ghi chú những gì tự bịa thêm.
 - Không gọi Gemini hay API ngoài cho khâu biên tập. API key (nếu có) chỉ để trong biến môi trường, tuyệt đối không commit.
+
+## 7. Hiệu ứng Motion Prompt (tùy chọn, gọi khi cần)
+
+- Thư viện hiệu ứng có tên của Motion Prompt đã được tích hợp như một tài nguyên bổ sung: skill `.claude/skills/motion-director/` (cách dùng), `scripts/motion/` (bộ chọn + runtime), dữ liệu offline ở `vendor/motion-prompt/`. **Không bắt buộc** cho mọi post và không thay thế bất kỳ quy tắc nào ở trên.
+- Chỉ thêm hiệu ứng khi nó **truyền tải thông tin** (số liệu, câu chốt, đảo ý, liệt kê, chuyển chủ đề…). Mở đầu ưu tiên hình ảnh thực tế và nhịp kể, không mở bằng hiệu ứng trang trí. Đa số cảnh giữ chuyển động gốc.
+- Bản có hiệu ứng dựng riêng ở `build/post-N.motion/` bằng `node scripts/motion/build.mjs projects/post-N`; bản gốc không đổi. Xem lại snapshot ở các mốc trong `motion-log.json` trước khi giao, và báo người dùng hiệu ứng nào đã dùng ở cảnh nào.
+- Nhân vật (Sáu Suy Nghĩ, Vis Giữ Xe) chỉ nhận hiệu ứng trong `scripts/motion/characters.json`, không đổi hình vẽ.
