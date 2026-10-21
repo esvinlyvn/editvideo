@@ -49,7 +49,7 @@ function inject(items) {
   const reg = pristine.match(/window\.__timelines\[\s*["']([^"']+)["']\s*\]\s*=\s*(\w+)\s*;/);
   if (!reg) return null;
   const opts = { characters: Object.fromEntries(Object.entries(chars).map(([k, c]) => [k, { name: c.name, selector: c.selector, parts: c.parts, limits: c.limits }])) };
-  const call = `MP.apply(${reg[2]}, ${JSON.stringify({ duration: plan.duration, items })}, ${JSON.stringify(opts)});\n      `;
+  const call = `MP.apply(${reg[2]}, ${JSON.stringify({ duration: plan.duration, limits: plan.limits, items })}, ${JSON.stringify(opts)});\n      `;
   let h = pristine.replace(reg[0], call + reg[0]);
   h = h.replace(/(<script src="assets\/vendor\/gsap\.min\.js"><\/script>)/, `$1\n    <script src="assets/vendor/motion-fx.js"></script>`);
   return h.includes("motion-fx.js") ? h : null;

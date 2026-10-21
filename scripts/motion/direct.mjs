@@ -176,6 +176,7 @@ export function direct(projectDir, { html: htmlPath, quiet, exclude = new Set() 
   });
   const plan = {
     post, duration, tone, budget, source: REG.source,
+    limits: Object.fromEntries(REG.effects.map((e) => [e.fx, e.max])), // runtime chặn cả hiệu ứng dự phòng vượt trần
     items,
     scenes: scenes.map((sc) => {
       const it = items.find((i) => i.at === Math.round(sc.start * 1000) / 1000);

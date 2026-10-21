@@ -30,12 +30,30 @@
 
   // ---------- ghi thuộc tính theo khung ----------
   // slot = một phần tử dùng chung (stage, thẻ, nhân vật): nhiều hiệu ứng cộng dồn vào acc, cuối khung mới ghi ra style.
+  // GSAP 3.13 gộp các thuộc tính CSS translate/scale/rotate vào `transform` của nó khi lần đầu đọc transform của phần tử,
+  // nên phần tử nào timeline gốc có tween transform thì hiệu ứng KHÔNG ghi lên nó mà ghi lên một lớp bọc riêng (.mp-wrap).
+  const TRANSFORM = new Set(["x", "y", "z", "xPercent", "yPercent", "scale", "scaleX", "scaleY", "rotation", "rotate", "rotationX", "rotationY", "skewX", "skewY", "transform", "translate"]);
+  const gsapMoves = (el) => !!el._gsap || (tlRef && tlRef.getTweensOf(el).some((tw) => Object.keys(tw.vars).some((k) => TRANSFORM.has(k))));
+  function wrap(el) {
+    const cs = getComputedStyle(el);
+    const w = document.createElement("div");
+    w.className = "mp-wrap";
+    if (cs.position === "absolute" || cs.position === "fixed") Object.assign(w.style, { position: "absolute", inset: "0", pointerEvents: "none" });
+    else w.style.display = cs.display === "inline" ? "inline-block" : cs.display;
+    el.parentNode.insertBefore(w, el);
+    w.appendChild(el);
+    if (w.style.position === "absolute") w.style.transformOrigin = `${el.offsetLeft + el.offsetWidth / 2}px ${el.offsetTop + el.offsetHeight / 2}px`;
+    return w;
+  }
   function slot(el) {
     if (!slots.has(el)) {
-      const cs = getComputedStyle(el);
-      const bt = cs.translate && cs.translate !== "none" ? cs.translate.split(" ") : null;
+      const svgChild = el instanceof SVGElement && el.tagName.toLowerCase() !== "svg";
+      const moved = gsapMoves(el);
+      if (svgChild && moved) throw new Error("phần tử SVG đang được GSAP biến đổi");
+      if (moved && el.matches(".clip, [data-composition-id]")) throw new Error("không bọc clip của HyperFrames");
       const box = el.getBBox ? el.getBBox() : { width: el.offsetWidth, height: el.offsetHeight };
-      slots.set(el, { el, bt: bt && [bt[0], bt[1] || "0px"], w: box.width, h: box.height, acc: null, used: false });
+      // own = lớp mình toàn quyền (ghi `transform`); direct = phần tử GSAP không đụng (ghi translate/scale/rotate riêng lẻ)
+      slots.set(el, { node: moved ? wrap(el) : el, own: moved, w: box.width, h: box.height, acc: null });
     }
     return slots.get(el);
   }
@@ -55,11 +73,12 @@
   function flush() {
     for (const s of slots.values()) {
       const a = s.acc || fresh();
-      const st = s.el.style;
-      if (a.tx || a.ty) st.translate = s.bt ? `calc(${s.bt[0]} + ${a.tx.toFixed(2)}px) calc(${s.bt[1]} + ${a.ty.toFixed(2)}px)` : `${a.tx.toFixed(2)}px ${a.ty.toFixed(2)}px`;
-      else st.translate = "";
-      st.scale = a.sx !== 1 || a.sy !== 1 ? `${a.sx.toFixed(4)} ${a.sy.toFixed(4)}` : "";
-      st.rotate = a.rot ? `${a.rot.toFixed(3)}deg` : "";
+      const st = s.node.style;
+      const T = a.tx || a.ty ? `${a.tx.toFixed(2)}px ${a.ty.toFixed(2)}px` : "";
+      const S = a.sx !== 1 || a.sy !== 1 ? `${a.sx.toFixed(4)} ${a.sy.toFixed(4)}` : "";
+      const R = a.rot ? `${a.rot.toFixed(3)}deg` : "";
+      if (s.own) st.transform = (T ? `translate(${T.replace(" ", ", ")}) ` : "") + (R ? `rotate(${R}) ` : "") + (S ? `scale(${S.replace(" ", ", ")})` : "");
+      else (st.translate = T), (st.scale = S), (st.rotate = R);
       const f = [];
       if (a.blur > 0.05) f.push(`blur(${a.blur.toFixed(2)}px)`);
       if (a.blurX > 0.3) { blurX().setAttribute("stdDeviation", `${a.blurX.toFixed(1)} 0`); f.push("url(#mpBlurX)"); }
@@ -206,7 +225,7 @@
     const after = node.splitText(m.index);
     after.nodeValue = after.nodeValue.slice(raw.length);
     const span = document.createElement("span");
-    span.className = "mp-num"; span.style.display = "inline-block"; span.style.fontVariantNumeric = "tabular-nums";
+    span.className = "mp-num"; span.style.display = "inline-block";
     span.textContent = raw;
     after.parentNode.insertBefore(span, after);
     const slotLen = Math.max(1, tx - te);
@@ -217,6 +236,7 @@
       if (t < te) { span.textContent = raw; span.style.scale = ""; return; }
       const p = P(t, st, st + D);
       span.textContent = p >= 1 ? raw : fmt(N * (1 - Math.pow(1 - p, 4)));
+      span.style.fontVariantNumeric = p < 1 ? "tabular-nums" : ""; // số không nhảy ngang khi đang đếm; đếm xong trả dáng chữ gốc
       const tau = t - st - D;
       span.style.scale = tau > 0 && tau < 1 ? String((1 + 0.07 * Math.exp(-7 * tau) * Math.cos(15 * tau)).toFixed(4)) : "";
     });
@@ -227,7 +247,7 @@
   FX.impactShake = ({ el, tf }) => {
     const tI = tf;
     if (busy(stage, ["filter"], tI, tI + 1.1).length) throw new Error("stage đang có filter");
-    claim(stage, tI, tI + 1.1, "impactShake");
+    claim(stage, tI, tI + 1.1, "impactShake"); slot(stage); slot(el);
     jobs.push((t, acc) => {
       const tau = t - tI;
       if (tau <= 0 || tau >= 1.1) return;
@@ -240,7 +260,7 @@
 
   // #010 Overshoot · MIT License (c) 2026 Shohei Ohtaki · https://showheyohtaki.github.io/motion-prompt/#010
   FX.overshoot = ({ el, te }) => {
-    claim(el, te, te + 1.2, "overshoot");
+    claim(el, te, te + 1.2, "overshoot"); slot(el);
     jobs.push((t, acc) => {
       const tau = t - te;
       if (tau < 0 || tau > 1.2) return;
@@ -253,7 +273,7 @@
   // #001 Pop-in · MIT License (c) 2026 Shohei Ohtaki · https://showheyohtaki.github.io/motion-prompt/#001
   FX.popIn = ({ el, te }) => {
     if (el.getBoundingClientRect().width > 520) throw new Error("vật lớn hơn 520 px, không hợp pop-in");
-    claim(el, te, te + 1, "popIn");
+    claim(el, te, te + 1, "popIn"); slot(el);
     jobs.push((t, acc) => {
       const tau = t - te;
       if (tau < 0 || tau > 1) return;
@@ -269,7 +289,7 @@
     if (!host) throw new Error("không thấy danh sách ≥ 3 món");
     const items = [...host.children];
     if (items.some((c) => tlRef.getTweensOf(c).length)) throw new Error("các món đã có chuyển động riêng trong bản gốc");
-    claim(host, te, te + 1.5, "stagger");
+    claim(host, te, te + 1.5, "stagger"); items.forEach(slot);
     jobs.push((t, acc) => {
       const tau = t - te;
       if (tau < 0 || tau > 0.15 + 0.12 * items.length + 0.6) return;
@@ -342,7 +362,7 @@
   FX.whipPan = ({ at }) => {
     const a0 = at - 0.4;
     if (busy(stage, ["filter"], a0, at + 0.4).length) throw new Error("stage đang có filter");
-    claim(stage, a0, at + 0.4, "whipPan");
+    claim(stage, a0, at + 0.4, "whipPan"); slot(stage);
     jobs.push((t, acc) => {
       const u = t - a0;
       if (u <= 0 || u >= 0.8) return;
@@ -355,7 +375,7 @@
 
   // #046 Smash cut · MIT License (c) 2026 Shohei Ohtaki · https://showheyohtaki.github.io/motion-prompt/#046
   FX.smashCut = ({ at }) => {
-    claim(stage, at, at + 1.5, "smashCut");
+    claim(stage, at, at + 1.5, "smashCut"); slot(stage);
     jobs.push((t, acc) => {
       const u = t - at;
       if (u < 0 || u >= 1.5) return;
@@ -373,7 +393,7 @@
     const w = world();
     if (!w) throw new Error("post không có thế giới SVG (#W)");
     const D = Math.min(2.9, Math.max(1.2, end - at - 0.6));
-    claim(w, at, end, "dollyIn");
+    claim(w, at, end, "dollyIn"); slot(w);
     jobs.push((t, acc) => {
       if (t < at || t > end) return;
       const k = 1 + 0.1 * eIO(P(t, at, at + D)) * (1 - eIOs(P(t, end - 0.5, end))), a = acc(w);
@@ -389,7 +409,7 @@
     if (el.contains(w) || w.contains(el)) throw new Error("thẻ nằm chung lớp với thế giới");
     if (getComputedStyle(w).filter !== "none" || busy(w, ["filter"], te, tx).length) throw new Error("thế giới đang có filter");
     const D = Math.min(1.6, Math.max(0.5, (tx - te) * 0.35));
-    claim(w, te, tx + 0.5, "rackFocus");
+    claim(w, te, tx + 0.5, "rackFocus"); slot(w);
     jobs.push((t, acc) => {
       if (t < te || t > tx + 0.5) return;
       const b = 6 * eIO(P(t, te, te + D)) * (1 - eIO(P(t, tx, tx + 0.5))), a = acc(w);
@@ -409,7 +429,7 @@
     const ch = charOf(el);
     if (!ch) throw new Error("không thấy nhân vật trong cảnh");
     const { maxSquash, maxJumpPx } = ch.c.limits, f = maxSquash / 0.22, J = maxJumpPx, node = ch.node;
-    claim(node, te, te + 1.4, "anticipation");
+    claim(node, te, te + 1.4, "anticipation"); slot(node);
     jobs.push((t, acc) => {
       const tau = t - te;
       if (tau < 0 || tau > 1.4) return;
@@ -431,7 +451,7 @@
     if (tlRef.getTweensOf(head).length) throw new Error("lớp đầu đã có chuyển động riêng");
     head.style.transformBox = "fill-box"; head.style.transformOrigin = "50% 88%";
     const A = ch.c.limits.maxRotateDeg, t0 = te + 0.85;
-    claim(head, t0, t0 + 2, "followThrough");
+    claim(head, t0, t0 + 2, "followThrough"); slot(head);
     jobs.push((t, acc) => { const tau = t - t0; if (tau < 0 || tau > 2) return; acc(head).rot += A * Math.exp(-2.75 * tau) * Math.sin(11 * tau); });
     return { target: `${ch.c.name} (.head)` };
   };
@@ -443,7 +463,7 @@
     const segs = []; let t = Math.sqrt((2 * H) / g), v = g * t; segs.push({ a: 0, b: t, v0: 0, y0: H, fall: true, vImp: v });
     while (v * e > vmin) { v *= e; const d = (2 * v) / g; segs.push({ a: t, b: t + d, v0: v, vImp: v }); t += d; }
     const T = t, sqMax = lim ? lim.maxSquash : 0.4, node = ch ? ch.node : el;
-    claim(node, te, te + T + 0.1, "bounceDrop");
+    claim(node, te, te + T + 0.1, "bounceDrop"); slot(node);
     jobs.push((tt, acc) => {
       const tau = tt - te;
       if (tau < 0 || tau > T + 0.05) return;
@@ -464,7 +484,7 @@
     Object.assign(ring.style, { position: "absolute", inset: 0, border: `6px solid ${accent()}`, borderRadius: getComputedStyle(el).borderRadius || "999px", opacity: 0, pointerEvents: "none" });
     el.appendChild(ring);
     const t0 = te + 0.3, B = 1.175, N = 2;
-    claim(el, t0, t0 + B * N, "pulse");
+    claim(el, t0, t0 + B * N, "pulse"); slot(el);
     jobs.push((t, acc) => {
       const l0 = t - t0;
       if (l0 < 0 || l0 > B * N) { ring.style.opacity = 0; return; }
@@ -530,6 +550,7 @@
   // plan = { duration, items: [{ n, id, fx, role, at, end, selector?, fallback: [{id, fx, role}], reason }] }
   MP.apply = function (tl, plan, opts) {
     setup(tl, opts);
+    const used = {};
     for (const item of plan.items || []) {
       const chain = [{ id: item.id, fx: item.fx, role: item.role }, ...(item.fallback || [])];
       let done = false, why = [];
@@ -537,6 +558,7 @@
       for (const c of chain) {
         try {
           if (!FX[c.fx]) throw new Error(`chưa có bản port ${c.fx}`);
+          if (plan.limits && (used[c.fx] || 0) >= plan.limits[c.fx]) throw new Error(`đã dùng đủ ${plan.limits[c.fx]} lần`);
           let ctx;
           if (c.role === "stage" || c.role === "world") ctx = { el: stage, te: item.at, tf: item.at, tx: item.end };
           else {
@@ -547,6 +569,7 @@
           }
           const r = FX[c.fx](Object.assign({ at: item.at, end: item.end, item }, ctx)) || {};
           MP.log.push({ n: item.n, id: c.id, fx: c.fx, at: item.at, status: c === chain[0] ? "applied" : "fallback", target: r.target, te: ctx.te, note: [r.note, ...why].filter(Boolean).join("; ") });
+          used[c.fx] = (used[c.fx] || 0) + 1;
           done = true;
           break;
         } catch (e) {

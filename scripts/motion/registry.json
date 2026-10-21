@@ -8,7 +8,7 @@
       "spec": "Dòng 1 lên vào vị trí 0,35–1,0 s (quint out), dòng 2 trễ 0,2 s; vạch nhấn mọc từ giữa 0,1–0,5 s (cubic in-out), thu lại ở 2,05–2,3 s.",
       "adapt": "Cả hai dòng đều trồi từ dưới lên (dòng 2 trong bản gốc rơi từ trên xuống, sẽ cắt mất dấu thanh tiếng Việt); vạch nhấn đặt dưới tiêu đề." },
     { "id": "007", "fx": "countUp", "name": "Count-up", "vi": "Số chạy lên rồi khóa", "fidelity": "full",
-      "role": "number", "footprint": "element", "energy": 2, "intents": ["number"], "tones": ["playful", "calm", "tech", "solemn"],
+      "role": "number", "footprint": "element", "energy": 2, "intents": ["number"], "tones": ["playful", "calm", "tech"],
       "minSlot": 2.0, "max": 3, "fallback": null, "characterSafe": true,
       "spec": "Giá trị = round(N × (1 − (1 − p)^4)) trong 2,45 s; khi khóa, scale nảy 1 + 0,07·e^(−7t)·cos(15t).",
       "adapt": "Giữ dấu chấm ngăn nghìn/dấu phẩy thập phân kiểu Việt; cảnh ngắn thì rút thời gian đếm (ghi vào log)." },

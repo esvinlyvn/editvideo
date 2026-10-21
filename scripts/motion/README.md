@@ -31,3 +31,10 @@ Phần tử gốc là hàm vẽ Canvas 2D trên thẻ 539×208 với bảng màu
 - Dò phần tử dựa trên quy ước của repo (`#stage`, `.h .blk`, `.card`, `.tag`, `.sau`, `#W`). Template khác quy ước thì truyền `selector` trong `shots`.
 - Nhòe toàn khung (whip pan, rack focus) tốn thêm thời gian render ở vài khung đó.
 - `build.mjs` tạm đổi tên `build/post-N` trong lúc build bản motion rồi trả lại; đừng chạy song song hai lệnh build cùng một post.
+
+## Bài học khi tích hợp (đã xử lý trong code)
+
+- Runtime HyperFrames ẩn các `.clip` bằng `visibility: hidden` lúc khởi tạo, giá trị này kế thừa xuống con → bước dò chỉ xét `opacity`/`display`, không xét `visibility`. Bước kiểm tra headless trong `build.mjs` mô phỏng đúng điều này.
+- GSAP 3.13 gộp các thuộc tính CSS `translate/scale/rotate` vào `transform` của nó khi lần đầu đọc transform của phần tử. Nên phần tử nào timeline gốc có tween transform thì hiệu ứng ghi lên lớp bọc `.mp-wrap` tạo sẵn lúc gắn, không ghi lên phần tử gốc (nếu không, vị trí sẽ lệch vĩnh viễn, như nhãn `translate: -50% -100%` của post 44).
+- Không dùng `onUpdate` để chạy hiệu ứng: HyperFrames có lúc tua với `suppressEvents`. Hiệu ứng chạy qua plugin GSAP `mpDrive`, luôn được gọi khi timeline render.
+- `tabular-nums` chỉ bật trong lúc đếm số, đếm xong trả dáng chữ gốc.
